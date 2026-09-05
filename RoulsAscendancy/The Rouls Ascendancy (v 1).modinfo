@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Mod id="c119a406-5ff3-42ef-b5d8-5c867e494093" version="1">
+  <Properties>
+    <Name>The Rou'ls Ascendancy</Name>
+    <Teaser>The flesh is a coat. Wear it well, and pass it on.</Teaser>
+    <Description>Trent Rou'ls preserves fallen veterans through Anima, exchanges distant armies, and sails beside Buddy, Everlasting. Requires Brave New World and Community Patch.</Description>
+    <Authors>SolusGo</Authors>
+    <SpecialThanks>Community Patch Project; Firaxis Games</SpecialThanks>
+    <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
+    <AffectsSavedGames>1</AffectsSavedGames>
+    <MinCompatibleSaveVersion>1</MinCompatibleSaveVersion>
+    <SupportsSinglePlayer>1</SupportsSinglePlayer>
+    <SupportsMultiplayer>0</SupportsMultiplayer>
+    <SupportsHotSeat>0</SupportsHotSeat>
+    <SupportsMac>0</SupportsMac>
+    <ReloadAudioSystem>0</ReloadAudioSystem>
+    <ReloadLandmarkSystem>0</ReloadLandmarkSystem>
+    <ReloadStrategicViewSystem>0</ReloadStrategicViewSystem>
+    <ReloadUnitSystem>0</ReloadUnitSystem>
+    <HideSetupGame>0</HideSetupGame>
+  </Properties>
+  <Dependencies>
+    <Dlc id="6DA07636-4123-4018-B643-6575B4EC336B" minversion="0" maxversion="999" title="Expansion - Brave New World" />
+    <Mod id="d1b6328c-ff44-4b0d-aad7-c657f83610cd" minversion="151" maxversion="999" title="(1) Community Patch" />
+  </Dependencies>
+  <References />
+  <Blocks />
+  <Files>
+    <File md5="abbfa3d2949683fb3e501e0811b51930" import="0">SQL\00_Rouls_Core.sql</File>
+    <File md5="8a8c8f7a34724af8a2e2642c1882618f" import="0">SQL\01_Rouls_Inheritance.sql</File>
+    <File md5="adca2f2565234bf968abd2d11140568c" import="0">SQL\02_Rouls_UniqueEffects.sql</File>
+    <File md5="5dd8c94901d34326ab7c9aadb89d28a9" import="0">SQL\10_Rouls_Text.sql</File>
+    <File md5="03af2867513b298ab0a0838a8f36adb1" import="1">Lua\RoulsCore.lua</File>
+    <File md5="345c45b57e4212c990a445c2ac4e4304" import="1">Lua\RoulsActions.lua</File>
+    <File md5="b08ebeb962446a0df0ecd5951ebac3b7" import="0">UI\RoulsPanel.xml</File>
+    <File md5="27237401b859474fa048d9cb497a76af" import="1">UI\RoulsPanel.lua</File>
+    <File md5="8ee6cc64fa475ba5eb018fb1900f5f59" import="1">Art\RoulsLeader.dds</File>
+    <File md5="05459c58f5c944fd791b6382a6d7def6" import="1">Art\RoulsLeaderScene.xml</File>
+    <File md5="83ae99980159a496e78da333ef5a2103" import="1">Art\RoulsIcon256.dds</File>
+    <File md5="89fc048cd5d038d0760651e35b79c87d" import="1">Art\RoulsIcon128.dds</File>
+    <File md5="e1af5951dca5b9145cade427b5a30135" import="1">Art\RoulsIcon80.dds</File>
+    <File md5="1795d04700601955990d619c4c790972" import="1">Art\RoulsIcon64.dds</File>
+    <File md5="1b8a7bee44f0432bca4f994ba9f6a80f" import="1">Art\RoulsIcon45.dds</File>
+    <File md5="09637942e94a601b6d31a30fb9cb1496" import="1">Art\RoulsIcon32.dds</File>
+    <File md5="fcc5f596e424cb6927370d8e9db3cdb0" import="1">Art\RoulsAlpha256.dds</File>
+    <File md5="1f1953db3c06db52cd2fdbef7a53b86c" import="1">Art\RoulsAlpha128.dds</File>
+    <File md5="3061d5b8d80bde8004762853336fb22c" import="1">Art\RoulsAlpha80.dds</File>
+    <File md5="c4d834eb34eb7f579b7279cc8262016d" import="1">Art\RoulsAlpha64.dds</File>
+    <File md5="69bd1aa7137c2e1f7deb48cb4db77394" import="1">Art\RoulsAlpha45.dds</File>
+    <File md5="45a15b183fe802fde958c0310abe870c" import="1">Art\RoulsAlpha32.dds</File>
+  </Files>
+  <Actions>
+    <OnModActivated>
+      <UpdateDatabase>SQL\00_Rouls_Core.sql</UpdateDatabase>
+      <UpdateDatabase>SQL\01_Rouls_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>SQL\02_Rouls_UniqueEffects.sql</UpdateDatabase>
+      <UpdateDatabase>SQL\10_Rouls_Text.sql</UpdateDatabase>
+    </OnModActivated>
+  </Actions>
+  <EntryPoints>
+    <EntryPoint type="InGameUIAddin" file="UI\RoulsPanel.xml">
+      <Name>Rou'ls Anima and Abilities</Name>
+      <Description>Persistent Anima mechanics, AI and the Rou'ls ability panel.</Description>
+    </EntryPoint>
+  </EntryPoints>
+</Mod>

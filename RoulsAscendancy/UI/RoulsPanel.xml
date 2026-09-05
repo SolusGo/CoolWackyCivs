@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Context ID="RoulsPanel">
+  <Instance Name="RoulsUnitEntry">
+    <GridButton ID="UnitButton" Size="444,42" Style="BaseButton" String="Unit" />
+  </Instance>
+  <GridButton ID="AnimaButton" Anchor="C,T" Offset="0,30" Size="216,30" Style="BaseButton" String="Anima: 0 / 5" ToolTip="Open the Choir's consciousness reserves and abilities." Hidden="1" />
+  <Grid ID="MainPanel" Anchor="R,T" Offset="24,90" Size="500,570" Style="Grid9DetailFive140" ConsumeMouse="1" Hidden="1">
+    <Label Anchor="C,T" Offset="0,16" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="THE SECOND-SKIN CHOIR" />
+    <Label ID="ReserveLabel" Anchor="C,T" Offset="0,48" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" String="Anima: 0 / 5" />
+    <Grid Anchor="C,T" Offset="0,78" Size="452,82" Style="GridBlackIndent8">
+      <Label ID="StatusLabel" Anchor="L,T" Offset="12,9" Size="426,64" WrapWidth="426" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="" />
+    </Grid>
+    <GridButton ID="SwapTab" Anchor="L,T" Offset="24,172" Size="222,32" Style="BaseButton" String="TRANSMIGRATION" />
+    <GridButton ID="MigrationTab" Anchor="R,T" Offset="24,172" Size="222,32" Style="BaseButton" String="GREAT MIGRATION" />
+    <Label ID="InstructionLabel" Anchor="L,T" Offset="28,218" Size="440,54" WrapWidth="440" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="" />
+    <ScrollPanel ID="UnitScroll" Anchor="C,T" Offset="0,276" Size="454,190" Vertical="1">
+      <Stack ID="UnitStack" Anchor="L,T" StackGrowth="Bottom" Padding="4" Size="444,0" />
+    </ScrollPanel>
+    <Label ID="MessageLabel" Anchor="L,T" Offset="28,474" Size="444,42" WrapWidth="444" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="" />
+    <GridButton ID="ConfirmButton" Anchor="L,B" Offset="24,16" Size="240,34" Style="BaseButton" String="Exchange selected units" />
+    <GridButton ID="ClearButton" Anchor="L,B" Offset="274,16" Size="94,34" Style="BaseButton" String="Clear" />
+    <GridButton ID="CloseButton" Anchor="R,B" Offset="24,16" Size="98,34" Style="BaseButton" String="Close" />
+  </Grid>
+</Context>

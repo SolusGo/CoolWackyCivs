@@ -1,0 +1,11 @@
+.tools/
+.references/
+Build/
+Packages/
+dist/
+__pycache__/
+*.pyc
+*.civ5suo
+*.suo
+*.user
+*.log
