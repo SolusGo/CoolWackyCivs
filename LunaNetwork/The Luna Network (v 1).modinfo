@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Mod id="4fb3c6ef-59bb-47d0-b71c-0fa10c4b7d42" version="1">
+  <Properties>
+    <Name>The Luna Network</Name>
+    <Teaser>Finish. Move. Arrive first.</Teaser>
+    <Description>GPT-5.6 Luna converts completed construction into momentum, expands with Packet Settlers, and rapidly deploys new forces. Requires Brave New World and Community Patch.</Description>
+    <Authors>SolusGo</Authors>
+    <SpecialThanks>Community Patch Project; Firaxis Games</SpecialThanks>
+    <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
+    <AffectsSavedGames>1</AffectsSavedGames>
+    <MinCompatibleSaveVersion>1</MinCompatibleSaveVersion>
+    <SupportsSinglePlayer>1</SupportsSinglePlayer>
+    <SupportsMultiplayer>0</SupportsMultiplayer>
+    <SupportsHotSeat>0</SupportsHotSeat>
+    <SupportsMac>0</SupportsMac>
+    <ReloadAudioSystem>0</ReloadAudioSystem>
+    <ReloadLandmarkSystem>0</ReloadLandmarkSystem>
+    <ReloadStrategicViewSystem>0</ReloadStrategicViewSystem>
+    <ReloadUnitSystem>0</ReloadUnitSystem>
+    <HideSetupGame>0</HideSetupGame>
+  </Properties>
+  <Dependencies>
+    <Dlc id="6DA07636-4123-4018-B643-6575B4EC336B" minversion="0" maxversion="999" title="Expansion - Brave New World" />
+    <Mod id="d1b6328c-ff44-4b0d-aad7-c657f83610cd" minversion="151" maxversion="999" title="(1) Community Patch" />
+  </Dependencies>
+  <References />
+  <Blocks />
+  <Files>
+    <File md5="5a425e2c736a8768b095fc5a830ff3e4" import="0">SQL\00_Luna_Core.sql</File>
+    <File md5="67520bb8435dcb72ced4ae855ce625dd" import="0">SQL\01_Luna_Inheritance.sql</File>
+    <File md5="2e8cfbab90a29c87a09f4cbf90135c21" import="0">SQL\02_Luna_UniqueEffects.sql</File>
+    <File md5="aee486ccf002bc2c4dbb866449f67b2c" import="0">SQL\10_Luna_Text.sql</File>
+    <File md5="1eaffd6c0895608733466c0e592ebb20" import="1">Lua\LunaLowLatency.lua</File>
+    <File md5="a34b99cd086099df5da3029f1623b260" import="1">Art\LunaLeader.dds</File>
+    <File md5="10d9d1d4a5c122959421d5d882a0f87d" import="1">Art\LunaLeaderScene.xml</File>
+    <File md5="44a7b72fbc4237b64f7a2653941513a7" import="1">Art\LunaIcon256.dds</File>
+    <File md5="e2b91ebefd4ea37590317b31542ec1ad" import="1">Art\LunaIcon128.dds</File>
+    <File md5="275296f6c67b63be0af1fbf1a82d053f" import="1">Art\LunaIcon80.dds</File>
+    <File md5="63e687cb8d3f1f8266f66c81e842e128" import="1">Art\LunaIcon64.dds</File>
+    <File md5="31247f8a7c983288833692dcb46ddb1c" import="1">Art\LunaIcon45.dds</File>
+    <File md5="9db21ea6e712f86641ae0cd4bec1d7a8" import="1">Art\LunaIcon32.dds</File>
+    <File md5="bdad40d920a3b278d7ad04f520958a5e" import="1">Art\LunaAlpha256.dds</File>
+    <File md5="935b7cb3dda608d8fa200b6c7d143326" import="1">Art\LunaAlpha128.dds</File>
+    <File md5="2d530e0d7d30498dc16c6a4f5030735e" import="1">Art\LunaAlpha80.dds</File>
+    <File md5="e756b335dfa278c732a60d5a28bf1510" import="1">Art\LunaAlpha64.dds</File>
+    <File md5="51663867ad8d0d7d7629957a4761d8e7" import="1">Art\LunaAlpha45.dds</File>
+    <File md5="e13bbb2b00e4666bfa56f6980c43fbe2" import="1">Art\LunaAlpha32.dds</File>
+  </Files>
+  <Actions>
+    <OnModActivated>
+      <UpdateDatabase>SQL\00_Luna_Core.sql</UpdateDatabase>
+      <UpdateDatabase>SQL\01_Luna_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>SQL\02_Luna_UniqueEffects.sql</UpdateDatabase>
+      <UpdateDatabase>SQL\10_Luna_Text.sql</UpdateDatabase>
+    </OnModActivated>
+  </Actions>
+  <EntryPoints>
+    <EntryPoint type="InGameUIAddin" file="Lua\LunaLowLatency.lua">
+      <Name>Luna Low Latency Runtime</Name>
+      <Description>Production refunds, pending production, and Rapid Response duration.</Description>
+    </EntryPoint>
+  </EntryPoints>
+</Mod>
