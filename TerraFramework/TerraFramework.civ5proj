@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Deploy" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Default</Configuration>
+    <ProjectGuid>{36C0D5BD-8A72-4D2D-9C42-C36D2DE90F51}</ProjectGuid>
+    <Name>The Terra Framework</Name>
+    <SafeName>The Terra Framework</SafeName>
+    <Guid>0e9baf54-bde3-447a-8b9b-ef7b38e59bce</Guid>
+    <Teaser>One system. Many roles.</Teaser>
+    <Description>GPT-5.6 Terra adapts each city through temporary Operating Modes, supports outgoing trade with Multimodal Hubs, and fields terrain-configured Adaptive Operatives. Requires BNW and Community Patch.</Description>
+    <Authors>SolusGo</Authors>
+    <SpecialThanks>Community Patch Project; Firaxis Games</SpecialThanks>
+    <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
+    <AssemblyName>TerraFramework</AssemblyName>
+    <RootNamespace>TerraFramework</RootNamespace>
+    <Civ5Path Condition="'$(Civ5Path)' == ''">$(CIV5_PATH)</Civ5Path>
+    <Civ5UserPath Condition="'$(Civ5UserPath)' == ''">$(CIV5_USER_PATH)</Civ5UserPath>
+    <Civ5UserPath Condition="'$(Civ5UserPath)' == ''">$(USERPROFILE)\Documents\My Games\Sid Meier's Civilization 5</Civ5UserPath>
+    <AffectsSavedGames>true</AffectsSavedGames>
+    <MinCompatibleSaveVersion>1</MinCompatibleSaveVersion>
+    <SupportsSinglePlayer>true</SupportsSinglePlayer>
+    <SupportsMultiplayer>false</SupportsMultiplayer>
+    <SupportsHotSeat>false</SupportsHotSeat>
+    <SupportsMac>false</SupportsMac>
+    <ReloadAudioSystem>false</ReloadAudioSystem>
+    <ReloadLandmarkSystem>false</ReloadLandmarkSystem>
+    <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
+    <ReloadUnitSystem>false</ReloadUnitSystem>
+    <HideSetupGame>false</HideSetupGame>
+    <ModVersion>1</ModVersion>
+    <Stability>Alpha</Stability>
+    <ModActions>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>SQL/00_Terra_Core.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>SQL/01_Terra_Inheritance.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>SQL/02_Terra_UniqueEffects.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>SQL/10_Terra_Text.sql</FileName></Action>
+    </ModActions>
+    <ModContent>
+      <Content><Type>InGameUIAddin</Type><Name>Terra Adaptive Intelligence</Name><Description>Operating Modes, persistent expiry, outgoing trade Production, and turn-locked Operative configurations.</Description><FileName>Lua/TerraRuntime.lua</FileName></Content>
+    </ModContent>
+    <ModDependencies>
+      <Association><Type>Dlc</Type><Name>Expansion - Brave New World</Name><Id>6DA07636-4123-4018-B643-6575B4EC336B</Id><MinVersion>0</MinVersion><MaxVersion>999</MaxVersion></Association>
+      <Association><Type>Mod</Type><Name>(1) Community Patch</Name><Id>d1b6328c-ff44-4b0d-aad7-c657f83610cd</Id><MinVersion>151</MinVersion><MaxVersion>999</MaxVersion></Association>
+    </ModDependencies>
+    <ModReferences />
+    <ModBlockers />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Default' "><OutputPath>.</OutputPath></PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Deploy Only' "><OutputPath>.</OutputPath></PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Package Only' "><OutputPath>.</OutputPath></PropertyGroup>
+  <ItemGroup>
+    <Content Include="Art/TerraAlpha128.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraAlpha16.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraAlpha24.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraAlpha256.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraAlpha32.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraAlpha45.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraAlpha48.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraAlpha64.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraAlpha80.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraHub128.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraHub16.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraHub24.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraHub256.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraHub32.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraHub45.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraHub48.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraHub64.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraHub80.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraIcon128.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraIcon16.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraIcon24.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraIcon256.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraIcon32.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraIcon45.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraIcon48.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraIcon64.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraIcon80.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraLeader.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraLeader128.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraLeader16.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraLeader24.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraLeader256.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraLeader32.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraLeader45.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraLeader48.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraLeader64.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraLeader80.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraLeaderScene.xml"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraMap.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraOperative128.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraOperative16.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraOperative24.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraOperative256.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraOperative32.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraOperative45.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraOperative48.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraOperative64.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/TerraOperative80.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Lua/TerraRuntime.lua"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="SQL/00_Terra_Core.sql"><ImportIntoVFS>false</ImportIntoVFS></Content>
+    <Content Include="SQL/01_Terra_Inheritance.sql"><ImportIntoVFS>false</ImportIntoVFS></Content>
+    <Content Include="SQL/02_Terra_UniqueEffects.sql"><ImportIntoVFS>false</ImportIntoVFS></Content>
+    <Content Include="SQL/10_Terra_Text.sql"><ImportIntoVFS>false</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup><Folder Include="SQL\" /><Folder Include="Lua\" /><Folder Include="Art\" /></ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Firaxis\ModBuddy\Civ5Mod.targets" />
+</Project>
