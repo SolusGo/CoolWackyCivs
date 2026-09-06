@@ -52,7 +52,7 @@ UPDATE RoulsCloneCivilization SET ID = NULL, Type = 'CIVILIZATION_ROULS_ASCENDAN
  Description = 'TXT_KEY_CIV_ROULS_DESC', ShortDescription = 'TXT_KEY_CIV_ROULS_SHORT_DESC',
  Adjective = 'TXT_KEY_CIV_ROULS_ADJECTIVE', Civilopedia = 'TXT_KEY_CIV_ROULS_PEDIA',
  CivilopediaTag = 'TXT_KEY_CIV5_ROULS', Strategy = 'TXT_KEY_CIV_ROULS_STRATEGY',
- DefaultPlayerColor = 'PLAYERCOLOR_ROULS', Playable = 1, AIPlayable = 1,
+ DefaultPlayerColor = 'PLAYERCOLOR_ROULS', Playable = 1, AIPlayable = 0,
  PortraitIndex = 0, IconAtlas = 'ROULS_ICON_ATLAS', AlphaIconAtlas = 'ROULS_ALPHA_ATLAS',
  DawnOfManQuote = 'TXT_KEY_ROULS_DAWN_OF_MAN', DawnOfManImage = 'RoulsLeader.dds',
  DawnOfManAudio = '', PackageID = NULL;
