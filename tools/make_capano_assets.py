@@ -25,8 +25,12 @@ leader = Image.open(SOURCE / "CapanoLeader.png").convert("RGBA")
 
 
 def save_dds(image: Image.Image, path: Path) -> None:
-    """Write a legacy FourCC DXT5 texture, including non-multiple-of-four icons."""
-    image.convert("RGBA").save(path, pixel_format="DXT5")
+    """Match the encoding rule used by proven in-game Civ V atlases."""
+    rgba = image.convert("RGBA")
+    if rgba.width % 4 == 0 and rgba.height % 4 == 0:
+        rgba.save(path, pixel_format="DXT5")
+    else:
+        rgba.save(path)
 
 
 def crop_relative(image: Image.Image, box: tuple[int, int, int, int]) -> Image.Image:
@@ -64,19 +68,18 @@ save_dds(ImageOps.fit(leader, (1600, 900), method=Image.Resampling.LANCZOS),
 save_dds(ImageOps.fit(leader, (360, 412), method=Image.Resampling.LANCZOS,
                       centering=(0.36, 0.43)), OUTPUT / "CapanoMap.dds")
 
-# The concept poster's finished hold-and-fingertips mark.
+# The concept poster's finished hold-and-fingertips mark. The leader portrait
+# shares this atlas so Civ V has one fewer independently cached texture family.
 civ_mark = crop_relative(concept, (422, 20, 572, 147))
-for size in SIZES:
-    save_dds(circular_asset(civ_mark, size, (225, 215, 181, 255)),
-             OUTPUT / f"CapanoIcon{size}.dds")
-
-# Leader portrait atlas sizes use a tighter face-and-torso crop from the generated scene.
 w, h = leader.size
 leader_portrait = leader.crop((round(w * 0.23), round(h * 0.015),
                               round(w * 0.57), round(h * 0.80)))
 for size in SIZES:
-    save_dds(circular_asset(leader_portrait, size, (225, 215, 181, 255)),
-             OUTPUT / f"CapanoLeader{size}.dds")
+    atlas = Image.new("RGBA", (size * 2, size))
+    atlas.alpha_composite(circular_asset(civ_mark, size, (225, 215, 181, 255)), (0, 0))
+    atlas.alpha_composite(circular_asset(leader_portrait, size, (225, 215, 181, 255)),
+                          (size, 0))
+    save_dds(atlas, OUTPUT / f"CapanoIcon{size}.dds")
 
 # A clean monochrome version of the concept symbol for flags and strategic view.
 def alpha_mark(size: int) -> Image.Image:
@@ -160,4 +163,4 @@ for index, (source, ring) in enumerate(object_sources):
 preview.paste(object_preview, (152, 480), object_preview)
 preview.save(SOURCE / "CapanoArtPreview.png")
 
-print(f"Built Capano leader scene, map image, flag, and {len(SIZES) * 3 + len(OBJECT_SIZES) + 1} atlas textures")
+print(f"Built Capano leader scene, map image, flag, and {len(SIZES) * 2 + len(OBJECT_SIZES) + 1} active atlas textures")

@@ -27,7 +27,7 @@
     <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <HideSetupGame>false</HideSetupGame>
-    <ModVersion>1</ModVersion>
+    <ModVersion>2</ModVersion>
     <Stability>Alpha</Stability>
     <ModActions>
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>SQL/00_Capano_Core.sql</FileName></Action>
@@ -68,15 +68,6 @@
     <Content Include="Art/CapanoIcon64.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
     <Content Include="Art/CapanoIcon80.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
     <Content Include="Art/CapanoLeader.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
-    <Content Include="Art/CapanoLeader128.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
-    <Content Include="Art/CapanoLeader16.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
-    <Content Include="Art/CapanoLeader24.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
-    <Content Include="Art/CapanoLeader256.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
-    <Content Include="Art/CapanoLeader32.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
-    <Content Include="Art/CapanoLeader45.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
-    <Content Include="Art/CapanoLeader48.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
-    <Content Include="Art/CapanoLeader64.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
-    <Content Include="Art/CapanoLeader80.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
     <Content Include="Art/CapanoLeaderScene.xml"><ImportIntoVFS>true</ImportIntoVFS></Content>
     <Content Include="Art/CapanoMap.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
     <Content Include="Art/CapanoObjects128.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>

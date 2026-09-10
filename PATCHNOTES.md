@@ -1,5 +1,11 @@
 # Patch Notes
 
+## Capano Circuit version 2 — Consolidated icon atlas — 2026-09-11
+
+- Moved Enrico's portrait into the civilization's already-working color atlas and removed the separate leader atlas from the database, avoiding Civ V's stale per-filename VFS texture state.
+- Bumped the mod version so Civ V performs a clean file import instead of reusing version 1 cache metadata.
+- Matched the proven Civ V encoding rule used by installed working mods: DXT5 for block-aligned textures and uncompressed 32-bit DDS for 45px rows.
+
 ## Capano Circuit version 1 — Civ V texture-loader fix — 2026-09-11
 
 - Re-encoded every Capano DDS texture as legacy FourCC DXT5 so Civ V can load the civilization and icon atlases.

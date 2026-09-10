@@ -91,6 +91,10 @@ def database_checks(path: Path, cp_root: Path) -> None:
     assert one("SELECT IgnoreZOC FROM UnitPromotions WHERE Type='PROMOTION_CAPANO_COMPLETE_HILLS'") == 1
     assert one("SELECT COUNT(*) FROM DiploModifiers WHERE Type LIKE 'DIPLOMODIFIER_CAPANO_%'") == 3
     assert one("SELECT Flavor FROM Leader_Flavors WHERE LeaderType='LEADER_ENRICO_CAPANO' AND FlavorType='FLAVOR_TILE_IMPROVEMENT'") == 10
+    leader = database.execute("SELECT PortraitIndex,IconAtlas FROM Leaders WHERE Type='LEADER_ENRICO_CAPANO'").fetchone()
+    assert tuple(leader) == (1, "CAPANO_ICON_ATLAS")
+    assert int(one("SELECT IconsPerRow FROM IconTextureAtlases WHERE Atlas='CAPANO_ICON_ATLAS' AND IconSize=128")) == 2
+    assert one("SELECT COUNT(*) FROM IconTextureAtlases WHERE Atlas='CAPANO_LEADER_ATLAS'") == 0
     for option in ("EVENTS_BATTLES", "EVENTS_DIPLO_MODIFIERS", "EVENTS_PLOT", "EVENTS_PLAYER_TURN"):
         assert one(f"SELECT Value FROM CustomModOptions WHERE Name='{option}'") == 1
 
@@ -130,13 +134,17 @@ def packaging_checks() -> None:
     for path in (ROOT / "Art").glob("*.dds"):
         header = path.read_bytes()[:128]
         assert len(header) == 128 and header[:4] == b"DDS "
-        assert header[84:88] == b"DXT5", f"Civ V-incompatible DDS encoding: {path.name}"
         height, width = struct.unpack_from("<II", header, 12)
+        expected_fourcc = b"DXT5" if width % 4 == 0 and height % 4 == 0 else b"\0\0\0\0"
+        assert header[84:88] == expected_fourcc, f"Civ V-incompatible DDS encoding: {path.name}"
         if path.name == "CapanoLeader.dds": assert (width, height) == (1600, 900)
         elif path.name == "CapanoMap.dds": assert (width, height) == (360, 412)
         elif path.name.startswith("CapanoObjects"):
             size = int(re.search(r"(\d+)\.dds$", path.name).group(1))
             assert (width, height) == (size * 14, size)
+        elif path.name.startswith("CapanoIcon"):
+            size = int(re.search(r"(\d+)\.dds$", path.name).group(1))
+            assert (width, height) == (size * 2, size)
         else:
             size = int(re.search(r"(\d+)\.dds$", path.name).group(1))
             assert (width, height) == (size, size)
@@ -153,7 +161,7 @@ def packaging_checks() -> None:
     lua.execute((REPO / "tools/tests/capano_mock.lua").read_text(encoding="utf-8-sig"))
     lua.execute((ROOT / "Lua/CapanoRuntime.lua").read_text(encoding="utf-8-sig"))
     lua.execute((REPO / "tools/tests/capano_assertions.lua").read_text(encoding="utf-8-sig"))
-    print(f"PASS packaging: {len(files)} files, manifest/project/solution, DXT5 DDS decode, Lua 5.1 behavior")
+    print(f"PASS packaging: {len(files)} files, manifest/project/solution, Civ V DDS decode, Lua 5.1 behavior")
 
 
 if __name__ == "__main__":
