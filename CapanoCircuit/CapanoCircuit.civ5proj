@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Deploy" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Default</Configuration>
+    <ProjectGuid>{2EEFA3C6-D375-4A74-A15C-84580C5C190A}</ProjectGuid>
+    <Name>The Capano Circuit</Name>
+    <SafeName>The Capano Circuit</SafeName>
+    <Guid>b3e4537c-caf9-4adb-a255-257f68009f12</Guid>
+    <Teaser>Set. Attempt. Adapt. Send.</Teaser>
+    <Description>Enrico Capano turns difficult terrain and worthy opponents into Science, Culture, movement, and increasingly complete climbers. Requires Brave New World and Community Patch.</Description>
+    <Authors>SolusGo</Authors>
+    <SpecialThanks>Enrico Capano; Community Patch Project; Firaxis Games</SpecialThanks>
+    <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
+    <AssemblyName>CapanoCircuit</AssemblyName>
+    <RootNamespace>CapanoCircuit</RootNamespace>
+    <Civ5Path Condition="'$(Civ5Path)' == ''">$(CIV5_PATH)</Civ5Path>
+    <Civ5UserPath Condition="'$(Civ5UserPath)' == ''">$(CIV5_USER_PATH)</Civ5UserPath>
+    <Civ5UserPath Condition="'$(Civ5UserPath)' == ''">$(USERPROFILE)\Documents\My Games\Sid Meier's Civilization 5</Civ5UserPath>
+    <AffectsSavedGames>true</AffectsSavedGames>
+    <MinCompatibleSaveVersion>1</MinCompatibleSaveVersion>
+    <SupportsSinglePlayer>true</SupportsSinglePlayer>
+    <SupportsMultiplayer>false</SupportsMultiplayer>
+    <SupportsHotSeat>false</SupportsHotSeat>
+    <SupportsMac>false</SupportsMac>
+    <ReloadAudioSystem>false</ReloadAudioSystem>
+    <ReloadLandmarkSystem>false</ReloadLandmarkSystem>
+    <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
+    <ReloadUnitSystem>false</ReloadUnitSystem>
+    <HideSetupGame>false</HideSetupGame>
+    <ModVersion>1</ModVersion>
+    <Stability>Alpha</Stability>
+    <ModActions>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>SQL/00_Capano_Core.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>SQL/01_Capano_Inheritance.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>SQL/02_Capano_UniqueEffects.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>SQL/10_Capano_Text.sql</FileName></Action>
+    </ModActions>
+    <ModContent>
+      <Content><Type>InGameUIAddin</Type><Name>Capano Circuit Runtime</Name><Description>Target-specific Beta, SEND rewards, Boulder Sectors, training, movement, technique progression, and diplomatic respect.</Description><FileName>Lua/CapanoRuntime.lua</FileName></Content>
+    </ModContent>
+    <ModDependencies>
+      <Association><Type>Dlc</Type><Name>Expansion - Brave New World</Name><Id>6DA07636-4123-4018-B643-6575B4EC336B</Id><MinVersion>0</MinVersion><MaxVersion>999</MaxVersion></Association>
+      <Association><Type>Mod</Type><Name>(1) Community Patch</Name><Id>d1b6328c-ff44-4b0d-aad7-c657f83610cd</Id><MinVersion>151</MinVersion><MaxVersion>999</MaxVersion></Association>
+    </ModDependencies>
+    <ModReferences />
+    <ModBlockers />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Default' "><OutputPath>.</OutputPath></PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Deploy Only' "><OutputPath>.</OutputPath></PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Package Only' "><OutputPath>.</OutputPath></PropertyGroup>
+  <ItemGroup>
+    <Content Include="Art/CapanoAlpha128.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoAlpha16.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoAlpha24.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoAlpha256.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoAlpha32.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoAlpha45.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoAlpha48.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoAlpha64.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoAlpha80.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoIcon128.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoIcon16.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoIcon24.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoIcon256.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoIcon32.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoIcon45.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoIcon48.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoIcon64.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoIcon80.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoLeader.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoLeader128.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoLeader16.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoLeader24.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoLeader256.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoLeader32.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoLeader45.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoLeader48.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoLeader64.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoLeader80.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoLeaderScene.xml"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoMap.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoObjects128.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoObjects16.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoObjects256.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoObjects32.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoObjects45.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoObjects64.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoObjects80.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Art/CapanoUnitFlag32.dds"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="Lua/CapanoRuntime.lua"><ImportIntoVFS>true</ImportIntoVFS></Content>
+    <Content Include="SQL/00_Capano_Core.sql"><ImportIntoVFS>false</ImportIntoVFS></Content>
+    <Content Include="SQL/01_Capano_Inheritance.sql"><ImportIntoVFS>false</ImportIntoVFS></Content>
+    <Content Include="SQL/02_Capano_UniqueEffects.sql"><ImportIntoVFS>false</ImportIntoVFS></Content>
+    <Content Include="SQL/10_Capano_Text.sql"><ImportIntoVFS>false</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup><Folder Include="SQL\" /><Folder Include="Lua\" /><Folder Include="Art\" /></ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Firaxis\ModBuddy\Civ5Mod.targets" />
+</Project>

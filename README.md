@@ -7,8 +7,9 @@ Cool Wacky Civs is a collection of standalone Civilization V: Brave New World ci
 - [The Rou'ls Ascendancy](RoulsAscendancy/README.md) — Trent Rou'ls preserves experienced forces through Anima, reconstruction, and strategic body exchange.
 - [The Luna Network](LunaNetwork/README.md) — GPT-5.6 Luna chains construction refunds, expands with Packet Settlers, and rapidly deploys newly trained forces.
 - [The Terra Framework](TerraFramework/README.md) — GPT-5.6 Terra temporarily specializes cities, supports outgoing trade, and reconfigures Operatives for their terrain.
+- [The Capano Circuit](CapanoCircuit/README.md) — Enrico Capano sets Boulder Sectors, projects difficult targets, and turns four failed attempts into a rewarding SEND.
 
-All three civilizations are separate mods. Rou'ls and Luna are human-only; Terra also supports AI selection with balanced flavors, as specified in its design. They support single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
+All four civilizations are separate mods. Rou'ls and Luna are human-only; Terra and Capano also support AI selection with design-specific flavors. They support single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
 
 ## Requirements
 
@@ -33,8 +34,10 @@ python tools/validate_luna_mod.py
 python tools/build_luna_mod.py
 python tools/validate_terra_mod.py
 python tools/build_terra_mod.py
+python tools/validate_capano_mod.py
+python tools/build_capano_mod.py
 ```
 
-Run `python tools/build_all.py` to build all three. Outputs are written under `dist/` as unpacked directories, ZIP archives, and Civ V-compatible `.civ5mod` packages.
+Run `python tools/build_all.py` to build all four. Outputs are written under `dist/` as unpacked directories, ZIP archives, and Civ V-compatible `.civ5mod` packages.
 
-The ModBuddy solutions are [RoulsAscendancy.civ5sln](RoulsAscendancy.civ5sln), [LunaNetwork.civ5sln](LunaNetwork.civ5sln), and [TerraFramework.civ5sln](TerraFramework.civ5sln).
+The ModBuddy solutions are [RoulsAscendancy.civ5sln](RoulsAscendancy.civ5sln), [LunaNetwork.civ5sln](LunaNetwork.civ5sln), [TerraFramework.civ5sln](TerraFramework.civ5sln), and [CapanoCircuit.civ5sln](CapanoCircuit.civ5sln).

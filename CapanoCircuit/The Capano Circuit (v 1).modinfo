@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Mod id="b3e4537c-caf9-4adb-a255-257f68009f12" version="1">
+  <Properties>
+    <Name>The Capano Circuit</Name>
+    <Teaser>Set. Attempt. Adapt. Send.</Teaser>
+    <Description>Enrico Capano turns difficult terrain and worthy opponents into Science, Culture, movement, and increasingly complete climbers. Requires Brave New World and Community Patch.</Description>
+    <Authors>SolusGo</Authors>
+    <SpecialThanks>Enrico Capano; Community Patch Project; Firaxis Games</SpecialThanks>
+    <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
+    <AffectsSavedGames>1</AffectsSavedGames>
+    <MinCompatibleSaveVersion>1</MinCompatibleSaveVersion>
+    <SupportsSinglePlayer>1</SupportsSinglePlayer>
+    <SupportsMultiplayer>0</SupportsMultiplayer>
+    <SupportsHotSeat>0</SupportsHotSeat>
+    <SupportsMac>0</SupportsMac>
+    <ReloadAudioSystem>0</ReloadAudioSystem>
+    <ReloadLandmarkSystem>0</ReloadLandmarkSystem>
+    <ReloadStrategicViewSystem>0</ReloadStrategicViewSystem>
+    <ReloadUnitSystem>0</ReloadUnitSystem>
+    <HideSetupGame>0</HideSetupGame>
+  </Properties>
+  <Dependencies>
+    <Dlc id="6DA07636-4123-4018-B643-6575B4EC336B" minversion="0" maxversion="999" title="Expansion - Brave New World" />
+    <Mod id="d1b6328c-ff44-4b0d-aad7-c657f83610cd" minversion="151" maxversion="999" title="(1) Community Patch" />
+  </Dependencies>
+  <References />
+  <Blocks />
+  <Files>
+    <File md5="6f49d418f098017e85ba82153a382173" import="1">Art\CapanoAlpha128.dds</File>
+    <File md5="530b4e53c3f321c6b5dbc3800392290c" import="1">Art\CapanoAlpha16.dds</File>
+    <File md5="af76982fe7873108fb8e39736ea28572" import="1">Art\CapanoAlpha24.dds</File>
+    <File md5="36998a59330ac26cc3559f050823e62f" import="1">Art\CapanoAlpha256.dds</File>
+    <File md5="c442dec6f0b71eb7014a732224d1d96b" import="1">Art\CapanoAlpha32.dds</File>
+    <File md5="00a1d882acf8c406375f1480a2e98135" import="1">Art\CapanoAlpha45.dds</File>
+    <File md5="a5ccf095bfd3edea3cde67834e035f26" import="1">Art\CapanoAlpha48.dds</File>
+    <File md5="8e35605dc65470acfa2073e21adc3d89" import="1">Art\CapanoAlpha64.dds</File>
+    <File md5="6686bfc71826c1d459bbce9ea0011d33" import="1">Art\CapanoAlpha80.dds</File>
+    <File md5="f0db34e8958bec17074ec9e1eefdd3e1" import="1">Art\CapanoIcon128.dds</File>
+    <File md5="a0657a11b6f0f125bb5a0308feb92943" import="1">Art\CapanoIcon16.dds</File>
+    <File md5="45be5d5d6a7241ac88548c8982320ef1" import="1">Art\CapanoIcon24.dds</File>
+    <File md5="2f7e23a2131f496a8fcbda2ddd25cc17" import="1">Art\CapanoIcon256.dds</File>
+    <File md5="4b0e4a7cf0210cb63efb15aa52a6dca5" import="1">Art\CapanoIcon32.dds</File>
+    <File md5="39089a9442676adfb8a7e605ec042a24" import="1">Art\CapanoIcon45.dds</File>
+    <File md5="3f5b884a44d01b6df97486e523edf3c7" import="1">Art\CapanoIcon48.dds</File>
+    <File md5="04aa11ecee3e584fe33331cd993bdd04" import="1">Art\CapanoIcon64.dds</File>
+    <File md5="9add729d521f41cc161aeb8f7f6592b7" import="1">Art\CapanoIcon80.dds</File>
+    <File md5="4cda4fe0147eec6fc1a68b4e6c866ce5" import="1">Art\CapanoLeader.dds</File>
+    <File md5="45acfbf664dec2bb8282473507dda4c5" import="1">Art\CapanoLeader128.dds</File>
+    <File md5="133f6d3d6e4f4c0fb68ba29c2770f09e" import="1">Art\CapanoLeader16.dds</File>
+    <File md5="93199ab7ea4dfccd1af92f2f5fba2666" import="1">Art\CapanoLeader24.dds</File>
+    <File md5="90049c7120cd8efcab82f957666dedb9" import="1">Art\CapanoLeader256.dds</File>
+    <File md5="c4e7b19461cd5bf8bf5e22c3716c584c" import="1">Art\CapanoLeader32.dds</File>
+    <File md5="794f9dcb469a118dd200233517403009" import="1">Art\CapanoLeader45.dds</File>
+    <File md5="f2609bd6db840fcf89a32248ee39de0f" import="1">Art\CapanoLeader48.dds</File>
+    <File md5="6c2c60a1507d4add62226233bb565a9a" import="1">Art\CapanoLeader64.dds</File>
+    <File md5="b87076a72fd41531056d471fff29820b" import="1">Art\CapanoLeader80.dds</File>
+    <File md5="eaa456120abb04034e299c6fdad9c577" import="1">Art\CapanoLeaderScene.xml</File>
+    <File md5="6b10faaa3958e58e6bef03a5530c308b" import="1">Art\CapanoMap.dds</File>
+    <File md5="a0954726227eed41ddc6332b8c64340b" import="1">Art\CapanoObjects128.dds</File>
+    <File md5="ee970ef52d90e56493cab136ba361455" import="1">Art\CapanoObjects16.dds</File>
+    <File md5="3b953d9256986b426d76bb248cc76d7a" import="1">Art\CapanoObjects256.dds</File>
+    <File md5="f0cb0f988293ddfebca9c2cc85ce852d" import="1">Art\CapanoObjects32.dds</File>
+    <File md5="f0a72ec344d661a2bb147c7c223a08c3" import="1">Art\CapanoObjects45.dds</File>
+    <File md5="930e5c63b1afc4cf239f2c21914cd4c8" import="1">Art\CapanoObjects64.dds</File>
+    <File md5="6c2e9d688242afe3beaf22c876f31eb3" import="1">Art\CapanoObjects80.dds</File>
+    <File md5="c442dec6f0b71eb7014a732224d1d96b" import="1">Art\CapanoUnitFlag32.dds</File>
+    <File md5="80d72747c981a7a822e3399dd4e17f8e" import="1">Lua\CapanoRuntime.lua</File>
+    <File md5="269ad756ac6d7325e9e3ca9198ad0dd0" import="0">SQL\00_Capano_Core.sql</File>
+    <File md5="e44393b20933aaea54c9bf39562cbfe5" import="0">SQL\01_Capano_Inheritance.sql</File>
+    <File md5="e61a64a1028ab793ce212ebc40664546" import="0">SQL\02_Capano_UniqueEffects.sql</File>
+    <File md5="9834dc5a4975f0345fea98c7b479363b" import="0">SQL\10_Capano_Text.sql</File>
+  </Files>
+  <Actions>
+    <OnModActivated>
+      <UpdateDatabase>SQL\00_Capano_Core.sql</UpdateDatabase>
+      <UpdateDatabase>SQL\01_Capano_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>SQL\02_Capano_UniqueEffects.sql</UpdateDatabase>
+      <UpdateDatabase>SQL\10_Capano_Text.sql</UpdateDatabase>
+    </OnModActivated>
+  </Actions>
+  <EntryPoints>
+    <EntryPoint type="InGameUIAddin" file="Lua\CapanoRuntime.lua">
+      <Name>Capano Circuit Runtime</Name>
+      <Description>Target-specific Beta, SEND rewards, Boulder Sectors, training, movement, technique progression, and diplomatic respect.</Description>
+    </EntryPoint>
+  </EntryPoints>
+</Mod>

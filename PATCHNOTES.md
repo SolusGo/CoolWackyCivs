@@ -1,5 +1,16 @@
 # Patch Notes
 
+## Capano Circuit version 1 — Initial implementation — 2026-09-11
+
+- Added Enrico Capano and The Capano Circuit as a standalone, AI-playable Community Patch civilization.
+- Implemented target-specific Beta across four failed attacks, maximum-Beta SEND rewards, five-step technique progression, and the once-per-player Ammagamma challenge.
+- Added the 3-Movement Route Setter with Worker inheritance, Hill movement/work bonuses, and exclusive Boulder Sector construction.
+- Added the non-adjacent Boulder Sector, its Science/Culture/Production Circuit progression, asymmetric movement, hostile Awkward Sequence, once-per-era training, Yellow status, and BlocHaus cosmetic messages.
+- Added the Competition Coaching Centre with Armory inheritance, +2 Science, +2 Culture, and two-tile Competition Movement for normally trained land units.
+- Added save-backed identity/progression and Community Patch battle, construction, movement, upgrade/conversion, war, and diplomacy integrations.
+- Added generated Enrico-inspired leader art plus extracted civilization, unit, building, improvement, promotion, map, and flag textures from the supplied concept art.
+- Added full English localization, fictional leader dialogue, Civilopedia text, city and spy names, ModBuddy packaging, build tooling, and schema/behavior validation.
+
 ## Luna Network version 1 — Correct standalone implementation — 2026-09-06
 
 - Added GPT-5.6 Luna and The Luna Network as a separate Community Patch civilization mod.
