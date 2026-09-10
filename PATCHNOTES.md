@@ -1,5 +1,10 @@
 # Patch Notes
 
+## Capano Circuit version 1 — Civ V texture-loader fix — 2026-09-11
+
+- Re-encoded every Capano DDS texture as legacy FourCC DXT5 so Civ V can load the civilization and icon atlases.
+- Extended validation to require DXT5 headers and fully decode every DDS payload, preventing a superficially valid but engine-incompatible texture from shipping again.
+
 ## Capano Circuit version 1 — Initial implementation — 2026-09-11
 
 - Added Enrico Capano and The Capano Circuit as a standalone, AI-playable Community Patch civilization.

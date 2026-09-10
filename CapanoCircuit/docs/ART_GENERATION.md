@@ -7,7 +7,7 @@
 - `art-source/Capano/CapanoLeader.png`: final leader source generated with OpenAI's built-in ImageGen tool using both supplied images as references.
 - `art-source/Capano/CapanoArtPreview.png`: reproducible contact sheet of the generated leader scene and extracted atlas subjects.
 
-`python tools/make_capano_assets.py` crops and resizes these sources into the legacy uncompressed RGBA DDS textures under `CapanoCircuit/Art`. The script draws a clean alpha-only version of the supplied climbing-hold emblem for the map and unit flag, while the colored civilization icon is extracted from the original concept sheet.
+`python tools/make_capano_assets.py` crops and resizes these sources into legacy FourCC DXT5 DDS textures under `CapanoCircuit/Art`. This is the texture encoding accepted by Civ V's DirectX texture loader, including the 45px atlas size. The script draws a clean alpha-only version of the supplied climbing-hold emblem for the map and unit flag, while the colored civilization icon is extracted from the original concept sheet.
 
 ## Final ImageGen prompt
 

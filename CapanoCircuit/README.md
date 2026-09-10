@@ -49,7 +49,7 @@ Enrico is AI-playable with the design's restrained expansion/offense and high Sc
 
 Target identity, Beta, training era, Yellow status, SEND progression, Ammagamma, and diplomacy milestones persist through `Modding.OpenSaveData` or namespaced unit script data. Battle bonuses are temporary target-specific promotions applied only around the Community Patch battle callbacks. Unit-ID reuse is guarded with saved serials, and conversions clear foreign Projects while upgrades preserve same-owner progress.
 
-The improvement uses the stock Fort world model with custom Capano UI art. The Route Setter uses Worker animations. The generated static leader/loading scene is included; there is no animated 3D leader or custom music. Multiplayer and hotseat are disabled pending synchronization testing.
+The improvement uses the stock Fort world model with custom Capano UI art. The Route Setter uses Worker animations. UI and leader textures use Civ V-compatible legacy DXT5 DDS encoding. The generated static leader/loading scene is included; there is no animated 3D leader or custom music. Multiplayer and hotseat are disabled pending synchronization testing.
 
 ## Build and validation
 

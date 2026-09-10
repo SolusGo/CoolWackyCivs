@@ -110,6 +110,8 @@ def database_checks(path: Path, cp_root: Path) -> None:
 
 
 def packaging_checks() -> None:
+    from PIL import Image
+
     _, props, values, files = read_project()
     expected = {name for name, _ in files}
     actual = {path.relative_to(ROOT).as_posix() for folder in ("SQL", "Lua", "Art")
@@ -127,7 +129,8 @@ def packaging_checks() -> None:
 
     for path in (ROOT / "Art").glob("*.dds"):
         header = path.read_bytes()[:128]
-        assert len(header) == 128 and header[:4] == b"DDS " and header[84:88] != b"DX10"
+        assert len(header) == 128 and header[:4] == b"DDS "
+        assert header[84:88] == b"DXT5", f"Civ V-incompatible DDS encoding: {path.name}"
         height, width = struct.unpack_from("<II", header, 12)
         if path.name == "CapanoLeader.dds": assert (width, height) == (1600, 900)
         elif path.name == "CapanoMap.dds": assert (width, height) == (360, 412)
@@ -137,6 +140,9 @@ def packaging_checks() -> None:
         else:
             size = int(re.search(r"(\d+)\.dds$", path.name).group(1))
             assert (width, height) == (size, size)
+        with Image.open(path) as texture:
+            texture.load()
+            assert texture.size == (width, height), f"Unreadable DDS payload: {path.name}"
 
     from lupa.lua51 import LuaRuntime
     lua = LuaRuntime(unpack_returned_tuples=True)
@@ -147,7 +153,7 @@ def packaging_checks() -> None:
     lua.execute((REPO / "tools/tests/capano_mock.lua").read_text(encoding="utf-8-sig"))
     lua.execute((ROOT / "Lua/CapanoRuntime.lua").read_text(encoding="utf-8-sig"))
     lua.execute((REPO / "tools/tests/capano_assertions.lua").read_text(encoding="utf-8-sig"))
-    print(f"PASS packaging: {len(files)} files, manifest/project/solution, legacy DDS geometry, Lua 5.1 behavior")
+    print(f"PASS packaging: {len(files)} files, manifest/project/solution, DXT5 DDS decode, Lua 5.1 behavior")
 
 
 if __name__ == "__main__":

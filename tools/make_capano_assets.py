@@ -1,8 +1,8 @@
 """Compile the supplied Capano concept and generated leader scene into Civ V DDS art.
 
 The concept sheet supplies the civilization mark and the Route Setter, Coaching
-Centre, Boulder Sector, and progression imagery.  Pillow writes legacy
-uncompressed RGBA DDS files, which remain readable by Civ V's DX9/DX11 UI.
+Centre, Boulder Sector, and progression imagery. Pillow writes legacy DXT5 DDS
+files, the compression/header combination accepted by Civ V's texture loader.
 """
 from pathlib import Path
 import sys
@@ -22,6 +22,11 @@ OBJECT_COUNT = 14
 
 concept = Image.open(SOURCE / "CapanoConcept.png").convert("RGBA")
 leader = Image.open(SOURCE / "CapanoLeader.png").convert("RGBA")
+
+
+def save_dds(image: Image.Image, path: Path) -> None:
+    """Write a legacy FourCC DXT5 texture, including non-multiple-of-four icons."""
+    image.convert("RGBA").save(path, pixel_format="DXT5")
 
 
 def crop_relative(image: Image.Image, box: tuple[int, int, int, int]) -> Image.Image:
@@ -54,22 +59,24 @@ def circular_asset(source: Image.Image, size: int, ring=(153, 91, 193, 255)) -> 
 
 
 # Full diplomacy/Dawn of Man scene and the setup portrait crop.
-ImageOps.fit(leader, (1600, 900), method=Image.Resampling.LANCZOS).save(OUTPUT / "CapanoLeader.dds")
-ImageOps.fit(leader, (360, 412), method=Image.Resampling.LANCZOS,
-             centering=(0.36, 0.43)).save(OUTPUT / "CapanoMap.dds")
+save_dds(ImageOps.fit(leader, (1600, 900), method=Image.Resampling.LANCZOS),
+         OUTPUT / "CapanoLeader.dds")
+save_dds(ImageOps.fit(leader, (360, 412), method=Image.Resampling.LANCZOS,
+                      centering=(0.36, 0.43)), OUTPUT / "CapanoMap.dds")
 
 # The concept poster's finished hold-and-fingertips mark.
 civ_mark = crop_relative(concept, (422, 20, 572, 147))
 for size in SIZES:
-    circular_asset(civ_mark, size, (225, 215, 181, 255)).save(OUTPUT / f"CapanoIcon{size}.dds")
+    save_dds(circular_asset(civ_mark, size, (225, 215, 181, 255)),
+             OUTPUT / f"CapanoIcon{size}.dds")
 
 # Leader portrait atlas sizes use a tighter face-and-torso crop from the generated scene.
 w, h = leader.size
 leader_portrait = leader.crop((round(w * 0.23), round(h * 0.015),
                               round(w * 0.57), round(h * 0.80)))
 for size in SIZES:
-    circular_asset(leader_portrait, size, (225, 215, 181, 255)).save(
-        OUTPUT / f"CapanoLeader{size}.dds")
+    save_dds(circular_asset(leader_portrait, size, (225, 215, 181, 255)),
+             OUTPUT / f"CapanoLeader{size}.dds")
 
 # A clean monochrome version of the concept symbol for flags and strategic view.
 def alpha_mark(size: int) -> Image.Image:
@@ -92,9 +99,9 @@ def alpha_mark(size: int) -> Image.Image:
 
 
 for size in SIZES:
-    alpha_mark(size).save(OUTPUT / f"CapanoAlpha{size}.dds")
+    save_dds(alpha_mark(size), OUTPUT / f"CapanoAlpha{size}.dds")
 
-alpha_mark(32).save(OUTPUT / "CapanoUnitFlag32.dds")
+save_dds(alpha_mark(32), OUTPUT / "CapanoUnitFlag32.dds")
 
 # Fourteen object/promotion portraits, all derived from distinct regions of the supplied sheet.
 icon_specs = (
@@ -139,7 +146,7 @@ for size in OBJECT_SIZES:
     atlas = Image.new("RGBA", (size * OBJECT_COUNT, size))
     for index, (source, ring) in enumerate(object_sources):
         atlas.alpha_composite(circular_asset(source, size, ring), (index * size, 0))
-    atlas.save(OUTPUT / f"CapanoObjects{size}.dds")
+    save_dds(atlas, OUTPUT / f"CapanoObjects{size}.dds")
 
 # Human-reviewable source preview; this is not shipped in the mod package.
 preview = Image.new("RGB", (1200, 760), (18, 18, 22))
