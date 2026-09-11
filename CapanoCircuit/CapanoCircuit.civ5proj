@@ -27,7 +27,7 @@
     <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <HideSetupGame>false</HideSetupGame>
-    <ModVersion>2</ModVersion>
+    <ModVersion>3</ModVersion>
     <Stability>Alpha</Stability>
     <ModActions>
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>SQL/00_Capano_Core.sql</FileName></Action>

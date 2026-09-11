@@ -61,7 +61,13 @@ python tools/validate_capano_mod.py
 python tools/build_capano_mod.py
 ```
 
-The validator applies all SQL to an in-memory copy of the installed game database with current Community Patch schema extensions. It checks exact unit/building inheritance, yields, promotions, localization, project/manifest parity, DDS geometry, Lua 5.1 syntax, and behavior tests for Projects, SEND/Ammagamma, target switching, Sector placement/movement/training, Competition Movement, and diplomacy modifiers.
+The validator applies all SQL to an in-memory copy of the installed game database with current Community Patch schema extensions. It checks exact unit/building inheritance, yields, promotions, localization, project/manifest parity, DDS headers and atlas geometry, VFS import flags, Lua 5.1 syntax, and behavior tests for Projects, SEND/Ammagamma, target switching, Sector placement/movement/training, Competition Movement, and diplomacy modifiers. When Microsoft's DirectXTex `texdiag` is installed, it also independently parses and decodes every DDS payload.
+
+An installed copy can be audited for manifest hashes, VFS flags, and byte-for-byte source parity with:
+
+```powershell
+python tools/validate_capano_mod.py --installed-mod "$HOME/Documents/My Games/Sid Meier's Civilization 5/MODS/The Capano Circuit (v 3)"
+```
 
 The builder creates an unpacked mod, ZIP, and Civ V-compatible `.civ5mod` under `dist/`. Enable it before starting a new game. A final in-game smoke test is still required for setup/Civilopedia icons, combat-preview timing, city capture, save/reload, AI behavior, and world-model visuals.
 

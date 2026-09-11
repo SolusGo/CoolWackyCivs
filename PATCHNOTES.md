@@ -1,5 +1,12 @@
 # Patch Notes
 
+## Capano Circuit version 3 — VFS deployment fix — 2026-09-12
+
+- Corrected the installed package state that had disabled VFS importing for every Capano art and runtime file, which made valid DDS textures appear missing to Civ V.
+- Audited all 28 DDS files with Microsoft's DirectXTex parser and full pixel decoder in addition to the existing Pillow and legacy-header checks.
+- Added strict atlas-to-file geometry validation and an installed-copy audit for file hashes, source parity, and required VFS import flags.
+- Bumped the mod version so Civ V imports the corrected manifest as a clean package.
+
 ## Capano Circuit version 2 — Consolidated icon atlas — 2026-09-11
 
 - Moved Enrico's portrait into the civilization's already-working color atlas and removed the separate leader atlas from the database, avoiding Civ V's stale per-filename VFS texture state.

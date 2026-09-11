@@ -2,9 +2,13 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
+import os
 import re
+import shutil
 import sqlite3
 import struct
+import subprocess
 import sys
 from pathlib import Path
 from xml.etree import ElementTree as ET
@@ -113,6 +117,81 @@ def database_checks(path: Path, cp_root: Path) -> None:
     print("PASS SQL: CP schema, inheritance, exact yields/promotions, improvement, AI and localization")
 
 
+def dds_dimensions(path: Path) -> tuple[int, int]:
+    header = path.read_bytes()[:128]
+    assert len(header) == 128 and header[:4] == b"DDS ", f"Invalid DDS header: {path.name}"
+    height, width = struct.unpack_from("<II", header, 12)
+    expected_fourcc = b"DXT5" if width % 4 == 0 and height % 4 == 0 else b"\0\0\0\0"
+    assert header[84:88] == expected_fourcc, f"Civ V-incompatible DDS encoding: {path.name}"
+    return width, height
+
+
+def find_texdiag() -> Path | None:
+    found = shutil.which("texdiag") or shutil.which("texdiag.exe")
+    if found:
+        return Path(found)
+    local_app_data = os.environ.get("LOCALAPPDATA")
+    if local_app_data:
+        package_root = Path(local_app_data) / "Microsoft/WinGet/Packages"
+        candidates = sorted(package_root.glob("Microsoft.DirectXTex.Texdiag_*/texdiag.exe"))
+        if candidates:
+            return candidates[-1]
+    return None
+
+
+def directxtex_checks(paths: list[Path]) -> None:
+    texdiag = find_texdiag()
+    if not texdiag:
+        print("SKIP DirectXTex: texdiag is not installed")
+        return
+    for command in ("info", "analyze"):
+        result = subprocess.run(
+            [str(texdiag), command, *map(str, paths)],
+            cwd=REPO,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        assert result.returncode == 0, (
+            f"DirectXTex {command} failed:\n{result.stdout}\n{result.stderr}"
+        )
+    print(f"PASS DirectXTex: headers and decoded pixels for {len(paths)} DDS files")
+
+
+def manifest_files(path: Path) -> dict[str, tuple[bool, str]]:
+    root = ET.parse(path).getroot()
+    return {
+        node.text.replace("\\", "/"): (node.get("import") == "1", node.get("md5", "").lower())
+        for node in root.findall("./Files/File")
+    }
+
+
+def assert_vfs_flags(files: dict[str, tuple[bool, str]], context: str) -> None:
+    for name, (imported, _) in files.items():
+        should_import = name.startswith("Art/") or name.startswith("Lua/")
+        assert imported == should_import, (
+            f"{context}: {name} has import={int(imported)}, expected {int(should_import)}"
+        )
+
+
+def installed_checks(installed: Path) -> None:
+    assert installed.is_dir(), f"Installed mod directory not found: {installed}"
+    manifests = list(installed.glob("*.modinfo"))
+    assert len(manifests) == 1, f"Expected one active installed manifest in {installed}"
+    files = manifest_files(manifests[0])
+    _, _, _, project_files = read_project()
+    expected = {name for name, _ in project_files}
+    assert set(files) == expected, f"Installed manifest mismatch: {sorted(set(files) ^ expected)}"
+    assert_vfs_flags(files, "Installed manifest")
+    for name, (_, recorded_md5) in files.items():
+        installed_file = installed / name
+        assert installed_file.is_file(), f"Installed file missing: {name}"
+        actual_md5 = hashlib.md5(installed_file.read_bytes()).hexdigest()
+        assert actual_md5 == recorded_md5, f"Installed manifest hash mismatch: {name}"
+        assert installed_file.read_bytes() == (ROOT / name).read_bytes(), f"Installed file differs: {name}"
+    print(f"PASS installed copy: {len(files)} files, hashes, VFS flags, and source parity")
+
+
 def packaging_checks() -> None:
     from PIL import Image
 
@@ -122,7 +201,9 @@ def packaging_checks() -> None:
               for path in (ROOT / folder).rglob("*")
               if path.is_file() and path.suffix.lower() in {".sql", ".lua", ".xml", ".dds"}}
     assert actual == expected, f"Project/package mismatch: {sorted(actual ^ expected)}"
-    assert ET.tostring(ET.parse(ROOT / f"{package_name()}.modinfo").getroot()) == ET.tostring(create_manifest().getroot())
+    manifest_path = ROOT / f"{package_name()}.modinfo"
+    assert ET.tostring(ET.parse(manifest_path).getroot()) == ET.tostring(create_manifest().getroot())
+    assert_vfs_flags(manifest_files(manifest_path), "Source manifest")
     actions = [node.text.replace("\\", "/") for node in props.findall("m:ModActions/m:Action/m:FileName", NS)]
     assert actions == sorted(name for name in expected if name.endswith(".sql"))
     assert values["SupportsMultiplayer"] == "false"
@@ -131,12 +212,11 @@ def packaging_checks() -> None:
     solution = (REPO / "CapanoCircuit.civ5sln").read_text(encoding="utf-8-sig")
     assert values["ProjectGuid"] in solution and "F5FC21B5-7CC2-458A-ABBA-992F515BBA20" in solution
 
-    for path in (ROOT / "Art").glob("*.dds"):
-        header = path.read_bytes()[:128]
-        assert len(header) == 128 and header[:4] == b"DDS "
-        height, width = struct.unpack_from("<II", header, 12)
-        expected_fourcc = b"DXT5" if width % 4 == 0 and height % 4 == 0 else b"\0\0\0\0"
-        assert header[84:88] == expected_fourcc, f"Civ V-incompatible DDS encoding: {path.name}"
+    dds_paths = sorted((ROOT / "Art").glob("*.dds"))
+    dimensions = {}
+    for path in dds_paths:
+        width, height = dds_dimensions(path)
+        dimensions[path.name] = (width, height)
         if path.name == "CapanoLeader.dds": assert (width, height) == (1600, 900)
         elif path.name == "CapanoMap.dds": assert (width, height) == (360, 412)
         elif path.name.startswith("CapanoObjects"):
@@ -151,6 +231,20 @@ def packaging_checks() -> None:
         with Image.open(path) as texture:
             texture.load()
             assert texture.size == (width, height), f"Unreadable DDS payload: {path.name}"
+
+    atlas_sql = (ROOT / "SQL/00_Capano_Core.sql").read_text(encoding="utf-8-sig")
+    atlas_rows = re.findall(
+        r"\('CAPANO_[^']+',(\d+),'([^']+)',(\d+),(\d+)\)", atlas_sql
+    )
+    assert len(atlas_rows) == 26, f"Expected 26 Capano atlas declarations, found {len(atlas_rows)}"
+    for icon_size, filename, columns, rows in atlas_rows:
+        size, columns, rows = map(int, (icon_size, columns, rows))
+        assert filename in dimensions, f"Atlas texture is missing: {filename}"
+        assert dimensions[filename] == (size * columns, size * rows), (
+            f"Atlas geometry mismatch for {filename}: {dimensions[filename]}"
+        )
+
+    directxtex_checks(dds_paths)
 
     from lupa.lua51 import LuaRuntime
     lua = LuaRuntime(unpack_returned_tuples=True)
@@ -169,7 +263,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--database", type=Path, default=user / "cache_backup/Civ5DebugDatabase.db")
     parser.add_argument("--cp-root", type=Path, default=user / "MODS/(1) Community Patch")
+    parser.add_argument("--installed-mod", type=Path,
+                        help="Also verify an installed mod folder byte-for-byte and check its VFS flags")
     args = parser.parse_args()
     database_checks(args.database, args.cp_root)
     packaging_checks()
+    if args.installed_mod:
+        installed_checks(args.installed_mod)
     print("Capano validation passed. Final gameplay and visuals still require an in-game smoke test.")
