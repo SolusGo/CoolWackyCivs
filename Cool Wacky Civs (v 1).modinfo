@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="1">
+  <Properties>
+    <Name>Cool Wacky Civs</Name>
+    <Teaser>Four strange leaders. Four stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, and The Capano Circuit. Requires Brave New World and Community Patch.</Description>
+    <Authors>SolusGo</Authors>
+    <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
+    <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
+    <AffectsSavedGames>1</AffectsSavedGames>
+    <MinCompatibleSaveVersion>1</MinCompatibleSaveVersion>
+    <SupportsSinglePlayer>1</SupportsSinglePlayer>
+    <SupportsMultiplayer>0</SupportsMultiplayer>
+    <SupportsHotSeat>0</SupportsHotSeat>
+    <SupportsMac>0</SupportsMac>
+    <ReloadAudioSystem>0</ReloadAudioSystem>
+    <ReloadLandmarkSystem>0</ReloadLandmarkSystem>
+    <ReloadStrategicViewSystem>0</ReloadStrategicViewSystem>
+    <ReloadUnitSystem>0</ReloadUnitSystem>
+    <HideSetupGame>0</HideSetupGame>
+  </Properties>
+  <Dependencies>
+    <Dlc id="6DA07636-4123-4018-B643-6575B4EC336B" minversion="0" maxversion="999" title="Expansion - Brave New World" />
+    <Mod id="d1b6328c-ff44-4b0d-aad7-c657f83610cd" minversion="151" maxversion="999" title="(1) Community Patch" />
+  </Dependencies>
+  <References />
+  <Blocks />
+  <Files>
+    <File md5="079D691E6D668B05A6C35CE0D39AD04B" import="1">CapanoCircuit/Art/CapanoAlpha128.dds</File>
+    <File md5="345B9AE5E73CED911EE2FB737BDF8D68" import="1">CapanoCircuit/Art/CapanoAlpha16.dds</File>
+    <File md5="C4A334B203E42219AC860A3B9FE4F7CE" import="1">CapanoCircuit/Art/CapanoAlpha24.dds</File>
+    <File md5="F407EC02CE734AB6C1A01874036E96BB" import="1">CapanoCircuit/Art/CapanoAlpha256.dds</File>
+    <File md5="4538D1584814413F2D4C78B52C5BC9F8" import="1">CapanoCircuit/Art/CapanoAlpha32.dds</File>
+    <File md5="00A1D882ACF8C406375F1480A2E98135" import="1">CapanoCircuit/Art/CapanoAlpha45.dds</File>
+    <File md5="9ED90C9F8DF89EC565FCE7868DE20F34" import="1">CapanoCircuit/Art/CapanoAlpha48.dds</File>
+    <File md5="4561F894338EAB8F71230861C0BCFEC4" import="1">CapanoCircuit/Art/CapanoAlpha64.dds</File>
+    <File md5="95188580C46EC952F457A6CEA1E72D1A" import="1">CapanoCircuit/Art/CapanoAlpha80.dds</File>
+    <File md5="3B2FE33CA304832A827F7D719D8407D7" import="1">CapanoCircuit/Art/CapanoIcon128.dds</File>
+    <File md5="278871E8F65693D7EDDD5C8EB357767D" import="1">CapanoCircuit/Art/CapanoIcon16.dds</File>
+    <File md5="93FBD1B08330EAC35F710F915D7ACA0B" import="1">CapanoCircuit/Art/CapanoIcon24.dds</File>
+    <File md5="A8A2D776DAEB5F2CF8F0EEE0E363371E" import="1">CapanoCircuit/Art/CapanoIcon256.dds</File>
+    <File md5="3D51D8DDC68D6FB70E0ACEB2DD954956" import="1">CapanoCircuit/Art/CapanoIcon32.dds</File>
+    <File md5="3030E3F299995E8B45318F8FBCCE08F9" import="1">CapanoCircuit/Art/CapanoIcon45.dds</File>
+    <File md5="5D99F133791F1F1E8E6F30BC0E41C704" import="1">CapanoCircuit/Art/CapanoIcon48.dds</File>
+    <File md5="0AE6BD375C4DCE9DB436E811BA217234" import="1">CapanoCircuit/Art/CapanoIcon64.dds</File>
+    <File md5="6F1A7DA38F6E6228F1E4478E46C0EC17" import="1">CapanoCircuit/Art/CapanoIcon80.dds</File>
+    <File md5="92810519467AD5553F3A4A730339FF7B" import="1">CapanoCircuit/Art/CapanoLeader.dds</File>
+    <File md5="EAA456120ABB04034E299C6FDAD9C577" import="1">CapanoCircuit/Art/CapanoLeaderScene.xml</File>
+    <File md5="F42D31B98CE867E1BE6CCAF936A1422D" import="1">CapanoCircuit/Art/CapanoMap.dds</File>
+    <File md5="607A8148CEC63BBB09A59856CFCA2831" import="1">CapanoCircuit/Art/CapanoObjects128.dds</File>
+    <File md5="649152B4EF52AC194EB631035E00EE3E" import="1">CapanoCircuit/Art/CapanoObjects16.dds</File>
+    <File md5="E9A09A6E487B0ABBF71E2CE1CFE0A7A1" import="1">CapanoCircuit/Art/CapanoObjects256.dds</File>
+    <File md5="1836101066668B8716D6F5296E2C9885" import="1">CapanoCircuit/Art/CapanoObjects32.dds</File>
+    <File md5="F0A72EC344D661A2BB147C7C223A08C3" import="1">CapanoCircuit/Art/CapanoObjects45.dds</File>
+    <File md5="EF52ABC6491487D32506F5414D9E294F" import="1">CapanoCircuit/Art/CapanoObjects64.dds</File>
+    <File md5="28F32519264F133AF73374A4BFB86341" import="1">CapanoCircuit/Art/CapanoObjects80.dds</File>
+    <File md5="4538D1584814413F2D4C78B52C5BC9F8" import="1">CapanoCircuit/Art/CapanoUnitFlag32.dds</File>
+    <File md5="80D72747C981A7A822E3399DD4E17F8E" import="1">CapanoCircuit/Lua/CapanoRuntime.lua</File>
+    <File md5="8C4D5A7EE9CD84B39DC3239E00B68DF6" import="0">CapanoCircuit/SQL/00_Capano_Core.sql</File>
+    <File md5="E44393B20933AAEA54C9BF39562CBFE5" import="0">CapanoCircuit/SQL/01_Capano_Inheritance.sql</File>
+    <File md5="E61A64A1028AB793CE212EBC40664546" import="0">CapanoCircuit/SQL/02_Capano_UniqueEffects.sql</File>
+    <File md5="9834DC5A4975F0345FEA98C7B479363B" import="0">CapanoCircuit/SQL/10_Capano_Text.sql</File>
+    <File md5="935B7CB3DDA608D8FA200B6C7D143326" import="1">LunaNetwork/Art/LunaAlpha128.dds</File>
+    <File md5="BDAD40D920A3B278D7AD04F520958A5E" import="1">LunaNetwork/Art/LunaAlpha256.dds</File>
+    <File md5="E13BBB2B00E4666BFA56F6980C43FBE2" import="1">LunaNetwork/Art/LunaAlpha32.dds</File>
+    <File md5="51663867AD8D0D7D7629957A4761D8E7" import="1">LunaNetwork/Art/LunaAlpha45.dds</File>
+    <File md5="E756B335DFA278C732A60D5A28BF1510" import="1">LunaNetwork/Art/LunaAlpha64.dds</File>
+    <File md5="2D530E0D7D30498DC16C6A4F5030735E" import="1">LunaNetwork/Art/LunaAlpha80.dds</File>
+    <File md5="E2B91EBEFD4EA37590317B31542EC1AD" import="1">LunaNetwork/Art/LunaIcon128.dds</File>
+    <File md5="44A7B72FBC4237B64F7A2653941513A7" import="1">LunaNetwork/Art/LunaIcon256.dds</File>
+    <File md5="9DB21EA6E712F86641AE0CD4BEC1D7A8" import="1">LunaNetwork/Art/LunaIcon32.dds</File>
+    <File md5="31247F8A7C983288833692DCB46DDB1C" import="1">LunaNetwork/Art/LunaIcon45.dds</File>
+    <File md5="63E687CB8D3F1F8266F66C81E842E128" import="1">LunaNetwork/Art/LunaIcon64.dds</File>
+    <File md5="275296F6C67B63BE0AF1FBF1A82D053F" import="1">LunaNetwork/Art/LunaIcon80.dds</File>
+    <File md5="A34B99CD086099DF5DA3029F1623B260" import="1">LunaNetwork/Art/LunaLeader.dds</File>
+    <File md5="10D9D1D4A5C122959421D5D882A0F87D" import="1">LunaNetwork/Art/LunaLeaderScene.xml</File>
+    <File md5="1EAFFD6C0895608733466C0E592EBB20" import="1">LunaNetwork/Lua/LunaLowLatency.lua</File>
+    <File md5="5A425E2C736A8768B095FC5A830FF3E4" import="0">LunaNetwork/SQL/00_Luna_Core.sql</File>
+    <File md5="67520BB8435DCB72CED4AE855CE625DD" import="0">LunaNetwork/SQL/01_Luna_Inheritance.sql</File>
+    <File md5="2E8CFBAB90A29C87A09F4CBF90135C21" import="0">LunaNetwork/SQL/02_Luna_UniqueEffects.sql</File>
+    <File md5="AEE486CCF002BC2C4DBB866449F67B2C" import="0">LunaNetwork/SQL/10_Luna_Text.sql</File>
+    <File md5="1F1953DB3C06DB52CD2FDBEF7A53B86C" import="1">RoulsAscendancy/Art/RoulsAlpha128.dds</File>
+    <File md5="FCC5F596E424CB6927370D8E9DB3CDB0" import="1">RoulsAscendancy/Art/RoulsAlpha256.dds</File>
+    <File md5="45A15B183FE802FDE958C0310ABE870C" import="1">RoulsAscendancy/Art/RoulsAlpha32.dds</File>
+    <File md5="69BD1AA7137C2E1F7DEB48CB4DB77394" import="1">RoulsAscendancy/Art/RoulsAlpha45.dds</File>
+    <File md5="C4D834EB34EB7F579B7279CC8262016D" import="1">RoulsAscendancy/Art/RoulsAlpha64.dds</File>
+    <File md5="3061D5B8D80BDE8004762853336FB22C" import="1">RoulsAscendancy/Art/RoulsAlpha80.dds</File>
+    <File md5="89FC048CD5D038D0760651E35B79C87D" import="1">RoulsAscendancy/Art/RoulsIcon128.dds</File>
+    <File md5="83AE99980159A496E78DA333EF5A2103" import="1">RoulsAscendancy/Art/RoulsIcon256.dds</File>
+    <File md5="09637942E94A601B6D31A30FB9CB1496" import="1">RoulsAscendancy/Art/RoulsIcon32.dds</File>
+    <File md5="1B8A7BEE44F0432BCA4F994BA9F6A80F" import="1">RoulsAscendancy/Art/RoulsIcon45.dds</File>
+    <File md5="1795D04700601955990D619C4C790972" import="1">RoulsAscendancy/Art/RoulsIcon64.dds</File>
+    <File md5="E1AF5951DCA5B9145CADE427B5A30135" import="1">RoulsAscendancy/Art/RoulsIcon80.dds</File>
+    <File md5="8EE6CC64FA475BA5EB018FB1900F5F59" import="1">RoulsAscendancy/Art/RoulsLeader.dds</File>
+    <File md5="05459C58F5C944FD791B6382A6D7DEF6" import="1">RoulsAscendancy/Art/RoulsLeaderScene.xml</File>
+    <File md5="345C45B57E4212C990A445C2AC4E4304" import="1">RoulsAscendancy/Lua/RoulsActions.lua</File>
+    <File md5="03AF2867513B298AB0A0838A8F36ADB1" import="1">RoulsAscendancy/Lua/RoulsCore.lua</File>
+    <File md5="737229959730C3F81FEA894E51E4702F" import="0">RoulsAscendancy/SQL/00_Rouls_Core.sql</File>
+    <File md5="8A8C8F7A34724AF8A2E2642C1882618F" import="0">RoulsAscendancy/SQL/01_Rouls_Inheritance.sql</File>
+    <File md5="ADCA2F2565234BF968ABD2D11140568C" import="0">RoulsAscendancy/SQL/02_Rouls_UniqueEffects.sql</File>
+    <File md5="5DD8C94901D34326AB7C9AADB89D28A9" import="0">RoulsAscendancy/SQL/10_Rouls_Text.sql</File>
+    <File md5="27237401B859474FA048D9CB497A76AF" import="1">RoulsAscendancy/UI/RoulsPanel.lua</File>
+    <File md5="B08EBEB962446A0DF0ECD5951EBAC3B7" import="0">RoulsAscendancy/UI/RoulsPanel.xml</File>
+    <File md5="D3EFAD622BCCB79F8EEEB8854D56D71B" import="1">TerraFramework/Art/TerraAlpha128.dds</File>
+    <File md5="B6F3247C08F30AC72CBEA7B67E3682AC" import="1">TerraFramework/Art/TerraAlpha16.dds</File>
+    <File md5="4226D9985A19E8982F7DF71F30E450C2" import="1">TerraFramework/Art/TerraAlpha24.dds</File>
+    <File md5="76B19BA69AAE1A7D0ED8F6D58C21EFA7" import="1">TerraFramework/Art/TerraAlpha256.dds</File>
+    <File md5="140AE23EF31EA056BBCCAE101E660B28" import="1">TerraFramework/Art/TerraAlpha32.dds</File>
+    <File md5="AA40A9CC4345F26083D693E737A7F256" import="1">TerraFramework/Art/TerraAlpha45.dds</File>
+    <File md5="4440BCA677405B4FB89E49D53E7D0A23" import="1">TerraFramework/Art/TerraAlpha48.dds</File>
+    <File md5="7EC48BCFE8A0527FDF7BAF74D05F31D6" import="1">TerraFramework/Art/TerraAlpha64.dds</File>
+    <File md5="F534920CD28DA396104BAE50F4B7AD81" import="1">TerraFramework/Art/TerraAlpha80.dds</File>
+    <File md5="66252034F461CABD666DC71D35F7DC97" import="1">TerraFramework/Art/TerraHub128.dds</File>
+    <File md5="F1BCA50E57077BF894BC53007102A42A" import="1">TerraFramework/Art/TerraHub16.dds</File>
+    <File md5="E36E53CD989C413E1477A79430F7285C" import="1">TerraFramework/Art/TerraHub24.dds</File>
+    <File md5="526B620EF0313C7B7D6C71037C92DDB5" import="1">TerraFramework/Art/TerraHub256.dds</File>
+    <File md5="E10A2F5FBFB6D2D0AA0D40A579604BD4" import="1">TerraFramework/Art/TerraHub32.dds</File>
+    <File md5="C15CF4EBFC7811C519605D6F59FEECB1" import="1">TerraFramework/Art/TerraHub45.dds</File>
+    <File md5="A8F744F81C662118447C4604015B5265" import="1">TerraFramework/Art/TerraHub48.dds</File>
+    <File md5="2D0E96E1B212516166543FC09F95ACBA" import="1">TerraFramework/Art/TerraHub64.dds</File>
+    <File md5="63733FC3CE855E002A82CDB0C3FC18EF" import="1">TerraFramework/Art/TerraHub80.dds</File>
+    <File md5="92E1F973B3BEA6A88F83E2755D75D36E" import="1">TerraFramework/Art/TerraIcon128.dds</File>
+    <File md5="8989848ED6C520AE1AA3F2FE9560456C" import="1">TerraFramework/Art/TerraIcon16.dds</File>
+    <File md5="FD5272C7898ED88531A013DC0B425434" import="1">TerraFramework/Art/TerraIcon24.dds</File>
+    <File md5="9AE2819A1012D292407B5B517CF9853B" import="1">TerraFramework/Art/TerraIcon256.dds</File>
+    <File md5="85811D055E2CA1969F6A4883A096893B" import="1">TerraFramework/Art/TerraIcon32.dds</File>
+    <File md5="0195E60E641956978E6AA1A38F6DDF87" import="1">TerraFramework/Art/TerraIcon45.dds</File>
+    <File md5="5E64BDE7292DAAB01BC14478D4E4380D" import="1">TerraFramework/Art/TerraIcon48.dds</File>
+    <File md5="81E0FE616ED0DF8D99A1ABA276734211" import="1">TerraFramework/Art/TerraIcon64.dds</File>
+    <File md5="2469F251B7D40AF4373C898FC454A187" import="1">TerraFramework/Art/TerraIcon80.dds</File>
+    <File md5="921D2D225FC974592988997E5B267A73" import="1">TerraFramework/Art/TerraLeader.dds</File>
+    <File md5="9864F11ABC42E4637E07EA290A19BE6E" import="1">TerraFramework/Art/TerraLeader128.dds</File>
+    <File md5="4DEDC364C40E7CA78C4400FF70FC0F47" import="1">TerraFramework/Art/TerraLeader16.dds</File>
+    <File md5="974C49F6F12E25C976CBF14CDC6E10E2" import="1">TerraFramework/Art/TerraLeader24.dds</File>
+    <File md5="C67B6E5E4BEF6D555FF00CA66BA71972" import="1">TerraFramework/Art/TerraLeader256.dds</File>
+    <File md5="F8C7351771FEF8DC914CAB59DB872373" import="1">TerraFramework/Art/TerraLeader32.dds</File>
+    <File md5="EA9F39BFD554B5BE85B22B7F4A4D4631" import="1">TerraFramework/Art/TerraLeader45.dds</File>
+    <File md5="70E0644689EC35B172B7D0438C94781E" import="1">TerraFramework/Art/TerraLeader48.dds</File>
+    <File md5="475DFDCCC3F8DAF7E4BDF8E20E513433" import="1">TerraFramework/Art/TerraLeader64.dds</File>
+    <File md5="92DECB93FEE55393765DCBDA6E09FE68" import="1">TerraFramework/Art/TerraLeader80.dds</File>
+    <File md5="65FC89890F99966A0E59A087429C4555" import="1">TerraFramework/Art/TerraLeaderScene.xml</File>
+    <File md5="477DDAB737C8993AB8EA33ED930DCC2D" import="1">TerraFramework/Art/TerraMap.dds</File>
+    <File md5="8F11D2D6942663F4AC38D840D305FA07" import="1">TerraFramework/Art/TerraOperative128.dds</File>
+    <File md5="3F27F5D6334AC23DEB2BA1AEB2E77C06" import="1">TerraFramework/Art/TerraOperative16.dds</File>
+    <File md5="0421E79437613242F04335CEC738D8AC" import="1">TerraFramework/Art/TerraOperative24.dds</File>
+    <File md5="E7CD46ECA3DDA2669E1E3CE78B1F2412" import="1">TerraFramework/Art/TerraOperative256.dds</File>
+    <File md5="1DF4E00D90E84C02AFF0CC5356BE758F" import="1">TerraFramework/Art/TerraOperative32.dds</File>
+    <File md5="A52F3E6559C6030528E0930DE2F2A7BA" import="1">TerraFramework/Art/TerraOperative45.dds</File>
+    <File md5="9B8FC53B44D4902B1B071C3BD05AD46B" import="1">TerraFramework/Art/TerraOperative48.dds</File>
+    <File md5="83866598E17E6898AD0339098FF6DC50" import="1">TerraFramework/Art/TerraOperative64.dds</File>
+    <File md5="EC4E7239749DD369186B20EA5BEFDC76" import="1">TerraFramework/Art/TerraOperative80.dds</File>
+    <File md5="7E56C5C70A23AE1EBAEB45EC9BEB0D5E" import="1">TerraFramework/Lua/TerraRuntime.lua</File>
+    <File md5="54E038DDF8DD7B18CEA6541BB46DA4B4" import="0">TerraFramework/SQL/00_Terra_Core.sql</File>
+    <File md5="F20187D3F0A09D2EB1ECADECF9DE75D4" import="0">TerraFramework/SQL/01_Terra_Inheritance.sql</File>
+    <File md5="30CA1464EB44596BC8F65BAE2461349D" import="0">TerraFramework/SQL/02_Terra_UniqueEffects.sql</File>
+    <File md5="58B9EDE4E9B208B32D3907AC77DE63AA" import="0">TerraFramework/SQL/10_Terra_Text.sql</File>
+  </Files>
+  <Actions>
+    <OnModActivated>
+      <UpdateDatabase>RoulsAscendancy/SQL/00_Rouls_Core.sql</UpdateDatabase>
+      <UpdateDatabase>RoulsAscendancy/SQL/01_Rouls_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>RoulsAscendancy/SQL/02_Rouls_UniqueEffects.sql</UpdateDatabase>
+      <UpdateDatabase>RoulsAscendancy/SQL/10_Rouls_Text.sql</UpdateDatabase>
+      <UpdateDatabase>LunaNetwork/SQL/00_Luna_Core.sql</UpdateDatabase>
+      <UpdateDatabase>LunaNetwork/SQL/01_Luna_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>LunaNetwork/SQL/02_Luna_UniqueEffects.sql</UpdateDatabase>
+      <UpdateDatabase>LunaNetwork/SQL/10_Luna_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TerraFramework/SQL/00_Terra_Core.sql</UpdateDatabase>
+      <UpdateDatabase>TerraFramework/SQL/01_Terra_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>TerraFramework/SQL/02_Terra_UniqueEffects.sql</UpdateDatabase>
+      <UpdateDatabase>TerraFramework/SQL/10_Terra_Text.sql</UpdateDatabase>
+      <UpdateDatabase>CapanoCircuit/SQL/00_Capano_Core.sql</UpdateDatabase>
+      <UpdateDatabase>CapanoCircuit/SQL/01_Capano_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>CapanoCircuit/SQL/02_Capano_UniqueEffects.sql</UpdateDatabase>
+      <UpdateDatabase>CapanoCircuit/SQL/10_Capano_Text.sql</UpdateDatabase>
+    </OnModActivated>
+  </Actions>
+  <EntryPoints>
+    <EntryPoint type="InGameUIAddin" file="RoulsAscendancy/UI/RoulsPanel.xml">
+      <Name>Rou'ls Anima and Abilities</Name>
+      <Description>Top-panel Anima counter, Transmigration, and Great Migration controls.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="LunaNetwork/Lua/LunaLowLatency.lua">
+      <Name>Luna Low Latency Runtime</Name>
+      <Description>Production refunds and Rapid Response lifecycle.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="TerraFramework/Lua/TerraRuntime.lua">
+      <Name>Terra Adaptive Intelligence</Name>
+      <Description>Operating Modes, terrain configurations, and trade-route support.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="CapanoCircuit/Lua/CapanoRuntime.lua">
+      <Name>Capano Circuit Runtime</Name>
+      <Description>Projects, SEND rewards, Boulder Sectors, training, movement, techniques, and diplomacy.</Description>
+    </EntryPoint>
+  </EntryPoints>
+</Mod>

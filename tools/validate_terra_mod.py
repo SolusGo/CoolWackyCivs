@@ -5,8 +5,10 @@ Reads a gameplay cache into memory; never changes the game's cache or saves.
 from pathlib import Path
 import argparse, sqlite3, sys, re, struct
 from xml.etree import ElementTree as ET
-from build_terra_mod import ROOT, REPO, NS, read_project, create_manifest, package_name
+from build_mod import REPO, NS, read_project, create_manifest, package_name
 from validate_mod import apply_current_cp_schema
+ROOT=REPO/'TerraFramework'
+PREFIX='TerraFramework/'
 sys.path.insert(0,str(REPO/'.tools/python'))
 
 def database_checks(path,cp):
@@ -61,10 +63,11 @@ def database_checks(path,cp):
     print('PASS SQL: BNW + installed CP schema, scalar inheritance, resources/upgrades, mode map, exact bonuses, localization')
 
 def packaging():
-    _,props,_,files=read_project()
+    _,props,_,project_files=read_project()
+    files=[(name.removeprefix(PREFIX),imp) for name,imp in project_files if name.startswith(PREFIX)]
     actual={p.relative_to(ROOT).as_posix() for p in ROOT.rglob('*') if p.suffix in ['.sql','.lua','.xml','.dds']}
     assert actual=={n for n,_ in files}
-    assert ET.tostring(ET.parse(ROOT/f'{package_name()}.modinfo').getroot())==ET.tostring(create_manifest().getroot())
+    assert ET.tostring(ET.parse(REPO/f'{package_name()}.modinfo').getroot())==ET.tostring(create_manifest().getroot())
     for name,imp in files:
         assert imp==(not name.endswith('.sql'))
         if name.endswith('.dds'):

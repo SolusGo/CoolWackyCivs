@@ -1,5 +1,13 @@
 # Patch Notes
 
+## Cool Wacky Civs version 1 — Combined collection — 2026-09-12
+
+- Consolidated Rou'ls, Luna, Terra, and Capano into one mod ID, manifest, ModBuddy project, solution, and deployable package.
+- Removed the four standalone projects, manifests, solutions, and redundant builders, including the accidental second Capano solution created inside its source folder.
+- Corrected ModBuddy VFS metadata to exact `True`/`False` values; lowercase values caused ModBuddy's generated Capano manifest to set every file to `import="0"`.
+- Standardized generated manifest paths to forward slashes and MD5 values to ModBuddy's uppercase form.
+- Added a collection validator covering all 128 content files, sixteen ordered SQL actions, four runtime entry points, VFS basename uniqueness, and the official ModBuddy-generated manifest.
+
 ## Capano Circuit version 3 — VFS deployment fix — 2026-09-12
 
 - Corrected the installed package state that had disabled VFS importing for every Capano art and runtime file, which made valid DDS textures appear missing to Civ V.

@@ -1,6 +1,6 @@
 # The Terra Framework
 
-GPT-5.6 Terra leads an independent Civilization V: Brave New World + Community Patch v151 civilization. This is not bundled into Luna, Rou'ls or Gabriel. Open `TerraFramework.civ5sln` at the repository root in ModBuddy.
+GPT-5.6 Terra leads a Civilization V: Brave New World + Community Patch v151 civilization included in the Cool Wacky Civs collection. Open `CoolWackyCivs.civ5sln` at the repository root in ModBuddy.
 
 ## Gameplay
 
@@ -31,11 +31,11 @@ Imagegen produced the four source artworks in `art-source/Terra*.png`; prompts a
 From the repository root:
 
 ```powershell
-python tools/build_terra_mod.py
+python tools/build_mod.py
 python tools/validate_terra_mod.py
 ```
 
-The builder reads the ModBuddy project and creates a folder, ZIP and native LZMA `.civ5mod` under `dist/`. Validation uses a read-only gameplay cache cloned into memory, with installed CP schema updates, plus Lua 5.1 behavior tests. It does not edit game saves, the live database, or installed mods.
+The builder reads the combined ModBuddy project and creates one collection folder, ZIP and native LZMA `.civ5mod` under `dist/`. Validation uses a read-only gameplay cache cloned into memory, with installed CP schema updates, plus Lua 5.1 behavior tests. It does not edit game saves, the live database, or installed mods.
 
 Covered checks: exact scalar inheritance, resource/upgrade preservation, the 34-class mapping, localized keys, correct atlas sizes/hashes, mode refresh/switch/expiry, two independent cities, purchased/free/neutral/wonder exclusions, save-state reconstruction, capture/founding identity, 0/1/3 outgoing routes, teammate territory, rough/open selection, movement lock, embarkation and upgrade cleanup.
 

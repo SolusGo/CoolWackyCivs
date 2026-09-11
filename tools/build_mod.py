@@ -1,4 +1,4 @@
-"""Build the ModBuddy project's exact content without requiring Visual Studio.
+"""Build the combined Cool Wacky Civs project without requiring ModBuddy.
 
 The .civ5proj is the single source of truth for files, VFS flags, database
 actions, dependencies and entry points. Output is confined to this repo's dist/.
@@ -14,8 +14,8 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 
 REPO = Path(__file__).resolve().parents[1]
-ROOT = REPO / "RoulsAscendancy"
-PROJECT = ROOT / "RoulsAscendancy.civ5proj"
+ROOT = REPO
+PROJECT = ROOT / "CoolWackyCivs.civ5proj"
 NS = {"m": "http://schemas.microsoft.com/developer/msbuild/2003"}
 sys.path.insert(0, str(REPO / ".tools" / "python"))
 
@@ -30,7 +30,12 @@ def read_project():
         path = (ROOT / relative).resolve()
         if not path.is_relative_to(ROOT.resolve()):
             raise ValueError(f"Project content escapes the mod directory: {relative}")
-        imported = element.findtext("m:ImportIntoVFS", "False", NS).lower() == "true"
+        raw_import = element.findtext("m:ImportIntoVFS", "False", NS)
+        if raw_import not in {"True", "False"}:
+            raise ValueError(
+                f"{relative}: ImportIntoVFS must use ModBuddy's exact True/False spelling"
+            )
+        imported = raw_import == "True"
         files.append((relative, imported))
     return tree, props, values, files
 
@@ -61,19 +66,19 @@ def create_manifest() -> ET.ElementTree:
         source = ROOT / relative
         if not source.is_file():
             raise FileNotFoundError(f"Missing project content: {source}")
-        attrs = {"md5": hashlib.md5(source.read_bytes()).hexdigest(), "import": str(int(imported))}
-        ET.SubElement(file_group, "File", attrs).text = relative.replace("/", "\\")
+        attrs = {"md5": hashlib.md5(source.read_bytes()).hexdigest().upper(), "import": str(int(imported))}
+        ET.SubElement(file_group, "File", attrs).text = relative
     actions = ET.SubElement(root, "Actions")
     action_sets = {}
     for action in props.findall("m:ModActions/m:Action", NS):
         fields = {e.tag.split("}")[-1]: e.text for e in action}
         if fields["Set"] not in action_sets:
             action_sets[fields["Set"]] = ET.SubElement(actions, fields["Set"])
-        ET.SubElement(action_sets[fields["Set"]], fields["Type"]).text = fields["FileName"].replace("/", "\\")
+        ET.SubElement(action_sets[fields["Set"]], fields["Type"]).text = fields["FileName"].replace("\\", "/")
     entry_points = ET.SubElement(root, "EntryPoints")
     for content in props.findall("m:ModContent/m:Content", NS):
         fields = {e.tag.split("}")[-1]: e.text for e in content}
-        entry = ET.SubElement(entry_points, "EntryPoint", type=fields["Type"], file=fields["FileName"].replace("/", "\\"))
+        entry = ET.SubElement(entry_points, "EntryPoint", type=fields["Type"], file=fields["FileName"].replace("\\", "/"))
         ET.SubElement(entry, "Name").text = fields["Name"]
         ET.SubElement(entry, "Description").text = fields["Description"]
     ET.indent(root, "  ")

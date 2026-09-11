@@ -15,15 +15,15 @@ The mod depends on the Community Patch for `UnitPrekill`, battle attribution, un
 
 ## Install the finished package
 
-From the repository root, run `python tools/build_mod.py`. The command creates three equivalent outputs under `dist/`:
+Rou'ls ships inside the combined Cool Wacky Civs package. From the repository root, run `python tools/build_mod.py`. The command creates three equivalent collection outputs under `dist/`:
 
-- `The Rouls Ascendancy (v 1)` — an unpacked mod directory for quick iteration;
-- `The Rouls Ascendancy (v 1).zip` — a portable archive; and
-- `The Rouls Ascendancy (v 1).civ5mod` — a Civ V-compatible LZMA package.
+- `Cool Wacky Civs (v 1)` — an unpacked mod directory for quick iteration;
+- `Cool Wacky Civs (v 1).zip` — a portable archive; and
+- `Cool Wacky Civs (v 1).civ5mod` — a Civ V-compatible LZMA package.
 
-Copy the `.civ5mod` file into Civilization V's `MODS` directory, or copy the unpacked directory there. Enable `(1) Community Patch` first, then `The Rou'ls Ascendancy`, and start a new single-player game.
+Copy the `.civ5mod` file into Civilization V's `MODS` directory, or copy the unpacked directory there. Enable `(1) Community Patch` first, then `Cool Wacky Civs`, and start a new single-player game.
 
-The package can be inspected before installation. The checked-in manifest is [The Rouls Ascendancy (v 1).modinfo](The%20Rouls%20Ascendancy%20(v%201).modinfo), and the ModBuddy solution is [RoulsAscendancy.civ5sln](../RoulsAscendancy.civ5sln).
+The package can be inspected before installation. Its checked-in manifest is [Cool Wacky Civs (v 1).modinfo](../Cool%20Wacky%20Civs%20(v%201).modinfo), and its sole ModBuddy solution is [CoolWackyCivs.civ5sln](../CoolWackyCivs.civ5sln).
 
 ## How to play the Rou'ls
 
@@ -111,12 +111,12 @@ ModBuddy's native package target can be run directly with the SDK's MSBuild:
 
 ```powershell
 & 'C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe' `
-  'RoulsAscendancy\RoulsAscendancy.civ5proj' /t:Package `
+  'CoolWackyCivs.civ5proj' /t:Package `
   '/p:Civ5Path=C:\Program Files (x86)\Steam\steamapps\common\Sid Meier''s Civilization V SDK' `
   '/p:Civ5UserPath=C:\Users\YourName\Documents\My Games\Sid Meier''s Civilization 5'
 ```
 
-The project is explicit: SQL is loaded through four ordered `OnModActivated` actions, Lua is imported into VFS for `include()`, the UI XML is the sole `InGameUIAddin` entry point, and the Community Patch dependency is version-gated at 151.
+The combined project is explicit: Rou'ls SQL occupies four of sixteen ordered `OnModActivated` actions, its Lua is imported into VFS for `include()`, its UI XML is one of four `InGameUIAddin` entry points, and the Community Patch dependency is version-gated at 151.
 
 ## Project layout
 

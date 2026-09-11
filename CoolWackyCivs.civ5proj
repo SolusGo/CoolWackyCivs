@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Deploy" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Default</Configuration>
+    <ProjectGuid>{29CABB63-0B67-4511-9499-05FC99674AC5}</ProjectGuid>
+    <Name>Cool Wacky Civs</Name>
+    <SafeName>Cool Wacky Civs</SafeName>
+    <Guid>4c02158d-ad52-4b73-bf2a-555ce58a1e60</Guid>
+    <Teaser>Four strange leaders. Four stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, and The Capano Circuit. Requires Brave New World and Community Patch.</Description>
+    <Authors>SolusGo</Authors>
+    <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
+    <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
+    <AssemblyName>CoolWackyCivs</AssemblyName>
+    <RootNamespace>CoolWackyCivs</RootNamespace>
+    <Civ5Path Condition="'$(Civ5Path)' == ''">$(CIV5_PATH)</Civ5Path>
+    <Civ5UserPath Condition="'$(Civ5UserPath)' == ''">$(CIV5_USER_PATH)</Civ5UserPath>
+    <Civ5UserPath Condition="'$(Civ5UserPath)' == ''">$(USERPROFILE)\Documents\My Games\Sid Meier's Civilization 5</Civ5UserPath>
+    <AffectsSavedGames>true</AffectsSavedGames>
+    <MinCompatibleSaveVersion>1</MinCompatibleSaveVersion>
+    <SupportsSinglePlayer>true</SupportsSinglePlayer>
+    <SupportsMultiplayer>false</SupportsMultiplayer>
+    <SupportsHotSeat>false</SupportsHotSeat>
+    <SupportsMac>false</SupportsMac>
+    <ReloadAudioSystem>false</ReloadAudioSystem>
+    <ReloadLandmarkSystem>false</ReloadLandmarkSystem>
+    <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
+    <ReloadUnitSystem>false</ReloadUnitSystem>
+    <HideSetupGame>false</HideSetupGame>
+    <ModVersion>1</ModVersion>
+    <Stability>Alpha</Stability>
+    <ModActions>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>RoulsAscendancy/SQL/00_Rouls_Core.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>RoulsAscendancy/SQL/01_Rouls_Inheritance.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>RoulsAscendancy/SQL/02_Rouls_UniqueEffects.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>RoulsAscendancy/SQL/10_Rouls_Text.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>LunaNetwork/SQL/00_Luna_Core.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>LunaNetwork/SQL/01_Luna_Inheritance.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>LunaNetwork/SQL/02_Luna_UniqueEffects.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>LunaNetwork/SQL/10_Luna_Text.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TerraFramework/SQL/00_Terra_Core.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TerraFramework/SQL/01_Terra_Inheritance.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TerraFramework/SQL/02_Terra_UniqueEffects.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TerraFramework/SQL/10_Terra_Text.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>CapanoCircuit/SQL/00_Capano_Core.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>CapanoCircuit/SQL/01_Capano_Inheritance.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>CapanoCircuit/SQL/02_Capano_UniqueEffects.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>CapanoCircuit/SQL/10_Capano_Text.sql</FileName></Action>
+    </ModActions>
+    <ModContent>
+      <Content><Type>InGameUIAddin</Type><Name>Rou'ls Anima and Abilities</Name><Description>Top-panel Anima counter, Transmigration, and Great Migration controls.</Description><FileName>RoulsAscendancy/UI/RoulsPanel.xml</FileName></Content>
+      <Content><Type>InGameUIAddin</Type><Name>Luna Low Latency Runtime</Name><Description>Production refunds and Rapid Response lifecycle.</Description><FileName>LunaNetwork/Lua/LunaLowLatency.lua</FileName></Content>
+      <Content><Type>InGameUIAddin</Type><Name>Terra Adaptive Intelligence</Name><Description>Operating Modes, terrain configurations, and trade-route support.</Description><FileName>TerraFramework/Lua/TerraRuntime.lua</FileName></Content>
+      <Content><Type>InGameUIAddin</Type><Name>Capano Circuit Runtime</Name><Description>Projects, SEND rewards, Boulder Sectors, training, movement, techniques, and diplomacy.</Description><FileName>CapanoCircuit/Lua/CapanoRuntime.lua</FileName></Content>
+    </ModContent>
+    <ModDependencies>
+      <Association><Type>Dlc</Type><Name>Expansion - Brave New World</Name><Id>6DA07636-4123-4018-B643-6575B4EC336B</Id><MinVersion>0</MinVersion><MaxVersion>999</MaxVersion></Association>
+      <Association><Type>Mod</Type><Name>(1) Community Patch</Name><Id>d1b6328c-ff44-4b0d-aad7-c657f83610cd</Id><MinVersion>151</MinVersion><MaxVersion>999</MaxVersion></Association>
+    </ModDependencies>
+    <ModReferences />
+    <ModBlockers />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Default' "><OutputPath>.</OutputPath></PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Deploy Only' "><OutputPath>.</OutputPath></PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Package Only' "><OutputPath>.</OutputPath></PropertyGroup>
+  <ItemGroup>
+    <Content Include="CapanoCircuit/Art/CapanoAlpha128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoAlpha16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoAlpha24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoAlpha256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoAlpha32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoAlpha45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoAlpha48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoAlpha64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoAlpha80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoIcon128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoIcon16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoIcon24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoIcon256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoIcon32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoIcon45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoIcon48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoIcon64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoIcon80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoLeader.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoLeaderScene.xml"><SubType>XML</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoMap.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoObjects128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoObjects16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoObjects256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoObjects32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoObjects45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoObjects64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoObjects80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Art/CapanoUnitFlag32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/Lua/CapanoRuntime.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/SQL/00_Capano_Core.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/SQL/01_Capano_Inheritance.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/SQL/02_Capano_UniqueEffects.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="CapanoCircuit/SQL/10_Capano_Text.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/Art/LunaAlpha128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/Art/LunaAlpha256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/Art/LunaAlpha32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/Art/LunaAlpha45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/Art/LunaAlpha64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/Art/LunaAlpha80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/Art/LunaIcon128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/Art/LunaIcon256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/Art/LunaIcon32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/Art/LunaIcon45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/Art/LunaIcon64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/Art/LunaIcon80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/Art/LunaLeader.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/Art/LunaLeaderScene.xml"><SubType>XML</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/Lua/LunaLowLatency.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/SQL/00_Luna_Core.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/SQL/01_Luna_Inheritance.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/SQL/02_Luna_UniqueEffects.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/SQL/10_Luna_Text.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/RoulsAlpha128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/RoulsAlpha256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/RoulsAlpha32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/RoulsAlpha45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/RoulsAlpha64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/RoulsAlpha80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/RoulsIcon128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/RoulsIcon256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/RoulsIcon32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/RoulsIcon45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/RoulsIcon64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/RoulsIcon80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/RoulsLeader.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/RoulsLeaderScene.xml"><SubType>XML</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Lua/RoulsActions.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Lua/RoulsCore.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/SQL/00_Rouls_Core.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/SQL/01_Rouls_Inheritance.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/SQL/02_Rouls_UniqueEffects.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/SQL/10_Rouls_Text.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/UI/RoulsPanel.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/UI/RoulsPanel.xml"><SubType>XML</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraAlpha128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraAlpha16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraAlpha24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraAlpha256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraAlpha32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraAlpha45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraAlpha48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraAlpha64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraAlpha80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraHub128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraHub16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraHub24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraHub256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraHub32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraHub45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraHub48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraHub64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraHub80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraIcon128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraIcon16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraIcon24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraIcon256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraIcon32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraIcon45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraIcon48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraIcon64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraIcon80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraLeader.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraLeader128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraLeader16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraLeader24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraLeader256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraLeader32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraLeader45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraLeader48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraLeader64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraLeader80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraLeaderScene.xml"><SubType>XML</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraMap.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraOperative128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraOperative16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraOperative24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraOperative256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraOperative32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraOperative45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraOperative48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraOperative64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Art/TerraOperative80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/Lua/TerraRuntime.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/SQL/00_Terra_Core.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/SQL/01_Terra_Inheritance.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/SQL/02_Terra_UniqueEffects.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/SQL/10_Terra_Text.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="RoulsAscendancy\" />
+    <Folder Include="LunaNetwork\" />
+    <Folder Include="TerraFramework\" />
+    <Folder Include="CapanoCircuit\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Firaxis\ModBuddy\Civ5Mod.targets" />
+  <PropertyGroup>
+    <BuildDir>$(MSBuildProjectDirectory)\Build\$(SafeName)\</BuildDir>
+    <PackageDir>$(MSBuildProjectDirectory)\Packages\</PackageDir>
+  </PropertyGroup>
+</Project>

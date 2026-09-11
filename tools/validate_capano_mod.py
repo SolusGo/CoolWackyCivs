@@ -13,8 +13,11 @@ import sys
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-from build_capano_mod import ROOT, REPO, NS, create_manifest, package_name, read_project
+from build_mod import REPO, NS, create_manifest, package_name, read_project
 from validate_mod import apply_current_cp_schema
+
+ROOT = REPO / "CapanoCircuit"
+PREFIX = "CapanoCircuit/"
 
 sys.path.insert(0, str(REPO / ".tools" / "python"))
 
@@ -168,7 +171,7 @@ def manifest_files(path: Path) -> dict[str, tuple[bool, str]]:
 
 def assert_vfs_flags(files: dict[str, tuple[bool, str]], context: str) -> None:
     for name, (imported, _) in files.items():
-        should_import = name.startswith("Art/") or name.startswith("Lua/")
+        should_import = not name.endswith(".sql") and name != "RoulsAscendancy/UI/RoulsPanel.xml"
         assert imported == should_import, (
             f"{context}: {name} has import={int(imported)}, expected {int(should_import)}"
         )
@@ -188,28 +191,32 @@ def installed_checks(installed: Path) -> None:
         assert installed_file.is_file(), f"Installed file missing: {name}"
         actual_md5 = hashlib.md5(installed_file.read_bytes()).hexdigest()
         assert actual_md5 == recorded_md5, f"Installed manifest hash mismatch: {name}"
-        assert installed_file.read_bytes() == (ROOT / name).read_bytes(), f"Installed file differs: {name}"
+        assert installed_file.read_bytes() == (REPO / name).read_bytes(), f"Installed file differs: {name}"
     print(f"PASS installed copy: {len(files)} files, hashes, VFS flags, and source parity")
 
 
 def packaging_checks() -> None:
     from PIL import Image
 
-    _, props, values, files = read_project()
+    _, props, values, project_files = read_project()
+    files = [(name.removeprefix(PREFIX), imported)
+             for name, imported in project_files if name.startswith(PREFIX)]
     expected = {name for name, _ in files}
     actual = {path.relative_to(ROOT).as_posix() for folder in ("SQL", "Lua", "Art")
               for path in (ROOT / folder).rglob("*")
               if path.is_file() and path.suffix.lower() in {".sql", ".lua", ".xml", ".dds"}}
     assert actual == expected, f"Project/package mismatch: {sorted(actual ^ expected)}"
-    manifest_path = ROOT / f"{package_name()}.modinfo"
+    manifest_path = REPO / f"{package_name()}.modinfo"
     assert ET.tostring(ET.parse(manifest_path).getroot()) == ET.tostring(create_manifest().getroot())
     assert_vfs_flags(manifest_files(manifest_path), "Source manifest")
-    actions = [node.text.replace("\\", "/") for node in props.findall("m:ModActions/m:Action/m:FileName", NS)]
+    actions = [node.text.removeprefix(PREFIX).replace("\\", "/")
+               for node in props.findall("m:ModActions/m:Action/m:FileName", NS)
+               if node.text.startswith(PREFIX)]
     assert actions == sorted(name for name in expected if name.endswith(".sql"))
     assert values["SupportsMultiplayer"] == "false"
     assert "d1b6328c-ff44-4b0d-aad7-c657f83610cd" in {
         node.text for node in props.findall("m:ModDependencies/m:Association/m:Id", NS)}
-    solution = (REPO / "CapanoCircuit.civ5sln").read_text(encoding="utf-8-sig")
+    solution = (REPO / "CoolWackyCivs.civ5sln").read_text(encoding="utf-8-sig")
     assert values["ProjectGuid"] in solution and "F5FC21B5-7CC2-458A-ABBA-992F515BBA20" in solution
 
     dds_paths = sorted((ROOT / "Art").glob("*.dds"))

@@ -10,14 +10,19 @@ import sys
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-from build_luna_mod import ROOT, REPO, NS, create_manifest, package_name, read_project
+from build_mod import REPO, NS, create_manifest, package_name, read_project
 from validate_mod import apply_current_cp_schema
+
+ROOT = REPO / "LunaNetwork"
+PREFIX = "LunaNetwork/"
 
 sys.path.insert(0, str(REPO / ".tools" / "python"))
 
 
 def check_packaging() -> None:
-    _, props, values, files = read_project()
+    _, props, values, project_files = read_project()
+    files = [(name.removeprefix(PREFIX), imported)
+             for name, imported in project_files if name.startswith(PREFIX)]
     names = {name for name, _ in files}
     actual = {
         path.relative_to(ROOT).as_posix()
@@ -33,20 +38,24 @@ def check_packaging() -> None:
             assert not imported, f"Database SQL imported into VFS: {name}"
         elif name.endswith(".lua") or name.startswith("Art/"):
             assert imported, f"Runtime/art missing VFS import: {name}"
-    actions = [e.text.replace("\\", "/") for e in props.findall("m:ModActions/m:Action/m:FileName", NS)]
+    actions = [e.text.removeprefix(PREFIX).replace("\\", "/")
+               for e in props.findall("m:ModActions/m:Action/m:FileName", NS)
+               if e.text.startswith(PREFIX)]
     assert actions == sorted(name for name in names if name.endswith(".sql")), "SQL actions missing or unordered"
-    entries = [e.text for e in props.findall("m:ModContent/m:Content/m:FileName", NS)]
+    entries = [e.text.removeprefix(PREFIX)
+               for e in props.findall("m:ModContent/m:Content/m:FileName", NS)
+               if e.text.startswith(PREFIX)]
     assert entries == ["Lua/LunaLowLatency.lua"], "Luna runtime must have one direct InGameUIAddin entry"
     dependencies = {e.text for e in props.findall("m:ModDependencies/m:Association/m:Id", NS)}
     assert "d1b6328c-ff44-4b0d-aad7-c657f83610cd" in dependencies, "Missing CP dependency"
     assert values["SupportsMultiplayer"] == "false" and values["SupportsHotSeat"] == "false"
 
-    manifest = ET.parse(ROOT / f"{package_name()}.modinfo").getroot()
+    manifest = ET.parse(REPO / f"{package_name()}.modinfo").getroot()
     expected = create_manifest().getroot()
     assert ET.tostring(manifest) == ET.tostring(expected), "Stale Luna manifest"
     for item in manifest.findall("Files/File"):
-        source = ROOT / item.text.replace("\\", "/")
-        assert item.attrib["md5"] == hashlib.md5(source.read_bytes()).hexdigest(), f"Stale hash: {source}"
+        source = REPO / item.text.replace("\\", "/")
+        assert item.attrib["md5"].lower() == hashlib.md5(source.read_bytes()).hexdigest(), f"Stale hash: {source}"
     print(f"PASS Luna project + manifest: {len(files)} files, runtime entry wired")
 
 
@@ -96,10 +105,8 @@ def check_database(path: Path, cp_root: Path) -> None:
     apply_current_cp_schema(database, cp_root)
     remove_luna_rows(database)
     database.execute("CREATE TABLE IF NOT EXISTS Language_en_US (Tag TEXT PRIMARY KEY, Text TEXT)")
-    _, props, _, _ = read_project()
-    for action in props.findall("m:ModActions/m:Action", NS):
-        filename = action.findtext("m:FileName", namespaces=NS)
-        database.executescript((ROOT / filename).read_text(encoding="utf-8-sig"))
+    for sql_path in sorted((ROOT / "SQL").glob("*.sql")):
+        database.executescript(sql_path.read_text(encoding="utf-8-sig"))
 
     def row(table: str, item_type: str):
         result = database.execute(f"SELECT * FROM {quote(table)} WHERE Type=?", (item_type,)).fetchone()

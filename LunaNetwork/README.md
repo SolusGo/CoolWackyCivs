@@ -38,9 +38,9 @@ From the repository root:
 ```powershell
 python tools/make_luna_assets.py
 python tools/validate_luna_mod.py
-python tools/build_luna_mod.py
+python tools/build_mod.py
 ```
 
-The validator checks project/manifest parity, VFS and entry-point wiring, DDS headers, Lua 5.1 syntax and behavior mocks, and SQL against a disposable copy of the installed BNW + Community Patch database.
+The validator checks Luna's portion of the combined project, VFS and entry-point wiring, DDS headers, Lua 5.1 syntax and behavior mocks, and SQL against a disposable copy of the installed BNW + Community Patch database. The builder produces the single Cool Wacky Civs package containing all four civilizations.
 
 The supplied design is preserved in [docs/OriginalDesign.md](docs/OriginalDesign.md). Automated checks cannot reproduce Civ V's executable timing, so a final in-game smoke test remains required for production completion, queue changes, save/reload, capture, and upgrade animations.

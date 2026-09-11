@@ -58,7 +58,7 @@ From the repository root:
 ```powershell
 python tools/make_capano_assets.py
 python tools/validate_capano_mod.py
-python tools/build_capano_mod.py
+python tools/build_mod.py
 ```
 
 The validator applies all SQL to an in-memory copy of the installed game database with current Community Patch schema extensions. It checks exact unit/building inheritance, yields, promotions, localization, project/manifest parity, DDS headers and atlas geometry, VFS import flags, Lua 5.1 syntax, and behavior tests for Projects, SEND/Ammagamma, target switching, Sector placement/movement/training, Competition Movement, and diplomacy modifiers. When Microsoft's DirectXTex `texdiag` is installed, it also independently parses and decodes every DDS payload.
@@ -66,9 +66,9 @@ The validator applies all SQL to an in-memory copy of the installed game databas
 An installed copy can be audited for manifest hashes, VFS flags, and byte-for-byte source parity with:
 
 ```powershell
-python tools/validate_capano_mod.py --installed-mod "$HOME/Documents/My Games/Sid Meier's Civilization 5/MODS/The Capano Circuit (v 3)"
+python tools/validate_capano_mod.py --installed-mod "$HOME/Documents/My Games/Sid Meier's Civilization 5/MODS/Cool Wacky Civs (v 1)"
 ```
 
-The builder creates an unpacked mod, ZIP, and Civ V-compatible `.civ5mod` under `dist/`. Enable it before starting a new game. A final in-game smoke test is still required for setup/Civilopedia icons, combat-preview timing, city capture, save/reload, AI behavior, and world-model visuals.
+The builder creates the one combined Cool Wacky Civs folder, ZIP, and Civ V-compatible `.civ5mod` under `dist/`. Enable it before starting a new game. A final in-game smoke test is still required for setup/Civilopedia icons, combat-preview timing, city capture, save/reload, AI behavior, and world-model visuals.
 
 The supplied design is preserved in [docs/OriginalDesign.md](docs/OriginalDesign.md). Art sources, extraction details, and the generation prompt are recorded in [docs/ART_GENERATION.md](docs/ART_GENERATION.md).
