@@ -1,6 +1,6 @@
 # Art assets
 
-The bitmap assets were created with the built-in image-generation tool. Generated PNG sources are retained under `art-source/`; the DDS files consumed by Civ V are under `RoulsAscendancy/Art/`.
+The bitmap assets were created with the built-in image-generation tool. Generated PNG sources are retained under `art-source/`; the DDS files consumed by Civ V are under each civilization's `Art/` directory.
 
 Leader prompt:
 
@@ -10,4 +10,16 @@ Emblem prompt:
 
 > Use case: logo-brand. Asset type: Civilization V civilization emblem and unit flag symbol. Primary request: a single iconic symbol for the Rou'ls Ascendancy, expressing consciousness passing between biological vessels. Subject: three nested abstract humanoid silhouettes forming one continuous circular loop around a small luminous core, like consciousness moving from body to body. Style: bold clean heraldic game emblem, vector-friendly flat silhouette, elegant science-fantasy, readable at 32 pixels. Composition: perfectly centered, symmetrical, fills a square safely with generous margin. Color: solid white emblem only. Background: genuinely transparent alpha. Constraints: no text, no letters, no border frame, no gradients, no shadows, no glow outside the white silhouette, no watermark; one connected simple emblem.
 
-`tools/make_leader_asset.py` creates the required 1600×900 static leader DDS. `tools/make_icon_assets.py` creates color and alpha 1×1 icon atlases at 256, 128, 80, 64, 45, and 32 pixels.
+Refined Rou'ls emblem prompt:
+
+> Use case: stylized-concept. Asset type: Civilization V civilization emblem source, designed to remain readable at 32px. Refine the attached Rou'ls emblem into one simpler, stronger symbol for a civilization about consciousness moving between bodies: one central faceless vessel bust with a bright soul-core at the forehead, encircled by one broad flowing consciousness spiral that subtly divides toward two empty vessel profiles. Polished painted game UI emblem, clean graphic silhouette, restrained elegant sci-fantasy; centered square, symmetrical overall mass, generous padding, bold large shapes, minimal internal linework; ivory and pale gold with subtle teal highlights. Preserve the themes of three vessels and transferred consciousness; no outer circular frame; genuinely transparent background; no text or watermark. Avoid thin filigree, speckled texture, tiny anatomy, crowded figures, black background, and checkerboard pattern.
+
+Refined Luna emblem prompt:
+
+> Use case: stylized-concept. Asset type: Civilization V civilization emblem source, designed to remain readable at 32px. Refine the attached Luna Network crescent emblem without changing its identity: one clean silver crescent containing a sparse cyan network of exactly eight large round nodes connected by thick luminous paths. Polished painted game UI emblem with a clean graphic silhouette; centered square, crescent fills about 78 percent of the canvas, generous transparent padding, bold outer edge and large internal details; silver, ice blue, luminous cyan. Genuinely transparent background; no outer circular frame, text, or watermark. Avoid a dark background, tiny nodes, thin lines, excessive glow, starfield, clutter, and checkerboard pattern.
+
+Refined Terra emblem prompt:
+
+> Use case: stylized-concept. Asset type: Civilization V civilization emblem source, designed to remain readable at 32px. Refine the attached Terra Framework emblem into a simpler modular globe symbol: one silver globe framework divided into four broad interlocking segments around one bright central core, with four large cardinal connection nodes. Polished painted game UI emblem, clean geometric silhouette, restrained sci-fantasy; perfectly centered square, symmetrical circular mark filling about 78 percent of the canvas, generous transparent padding, bold strokes and large shapes; brushed silver with muted teal-green insets and subtle pale-gold accents. Preserve adaptability, stability, modular intelligence, globe, and central-core identity; genuinely transparent background; no decorative frame, text, or watermark. Avoid a detailed world map, thin grid lines, tiny nodes, excessive glow, background scene, and checkerboard pattern.
+
+`tools/make_icon_assets.py`, `tools/make_luna_assets.py`, and `tools/make_terra_assets.py` compile the retained PNG sources into exact Civ V atlas families. Civilization color atlases use 256/128/80/64/45/32; alpha atlases use 128/64/48/32/24/16; leader atlases use 256/128/64. Terra's unit atlas uses 256/128/80/64/45 and its building atlas uses 256/128/64/45. All block-aligned textures use legacy DXT5; 45px textures use legacy uncompressed RGBA.

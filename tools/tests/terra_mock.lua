@@ -1,7 +1,11 @@
 MapModData={}; persisted={}
 Modding={OpenSaveData=function() return {GetValue=function(k) return persisted[k] end,SetValue=function(k,v) persisted[k]=v end} end}
 Game={turn=5,GetGameTurn=function() return Game.turn end};GameDefines={MAX_CIV_PLAYERS=3}
-GameEvents=setmetatable({},{__index=function(t,k) local v={handlers={},Add=function(f) end};rawset(t,k,v);return v end})
+GameEvents=setmetatable({},{__index=function(t,k)
+    local v={handlers={}}
+    v.Add=function(f) v.handlers[#v.handlers+1]=f end
+    rawset(t,k,v);return v
+end})
 NotificationTypes={NOTIFICATION_GENERIC=1};Locale={ConvertTextKey=function(s,...) return s end}
 GameInfoTypes={CIVILIZATION_GPT_TERRA=1,UNIT_TERRA_ADAPTIVE_OPERATIVE=2,BUILDING_TERRA_MULTIMODAL_HUB=3,BUILDING_TERRA_TRADE_PRODUCTION=4,PROMOTION_TERRA_RECONFIGURATION=5,
 BUILDING_TERRA_MODE_RESEARCH=10,BUILDING_TERRA_MODE_COMMERCE=11,BUILDING_TERRA_MODE_CREATIVE=12,BUILDING_TERRA_MODE_EXECUTION=13,

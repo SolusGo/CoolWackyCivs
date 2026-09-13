@@ -190,7 +190,10 @@ function R.DoMigration(id,targetOwner,targetID)
             end)
             if not moved then
                 if alive(made) then made:Kill(false,-1); made=nil end
-                R.Restore(targetOwner,victim,plot,100*(victim.maxHP-victim.damage)/victim.maxHP)
+                local maximum = math.max(1, tonumber(victim.maxHP) or 100)
+                local remaining = math.max(1, maximum - (tonumber(victim.damage) or 0))
+                assert(R.Restore(targetOwner,victim,plot,100*remaining/maximum),
+                    "The defeated target could not be restored after migration rollback.")
                 error(moveError)
             end
         end)

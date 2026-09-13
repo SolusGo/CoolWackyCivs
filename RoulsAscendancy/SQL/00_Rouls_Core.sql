@@ -22,12 +22,15 @@ INSERT INTO IconTextureAtlases (Atlas, IconSize, Filename, IconsPerRow, IconsPer
 ('ROULS_ICON_ATLAS', 64, 'RoulsIcon64.dds', 1, 1),
 ('ROULS_ICON_ATLAS', 45, 'RoulsIcon45.dds', 1, 1),
 ('ROULS_ICON_ATLAS', 32, 'RoulsIcon32.dds', 1, 1),
-('ROULS_ALPHA_ATLAS', 256, 'RoulsAlpha256.dds', 1, 1),
 ('ROULS_ALPHA_ATLAS', 128, 'RoulsAlpha128.dds', 1, 1),
-('ROULS_ALPHA_ATLAS', 80, 'RoulsAlpha80.dds', 1, 1),
 ('ROULS_ALPHA_ATLAS', 64, 'RoulsAlpha64.dds', 1, 1),
-('ROULS_ALPHA_ATLAS', 45, 'RoulsAlpha45.dds', 1, 1),
-('ROULS_ALPHA_ATLAS', 32, 'RoulsAlpha32.dds', 1, 1);
+('ROULS_ALPHA_ATLAS', 48, 'RoulsAlpha48.dds', 1, 1),
+('ROULS_ALPHA_ATLAS', 32, 'RoulsAlpha32.dds', 1, 1),
+('ROULS_ALPHA_ATLAS', 24, 'RoulsAlpha24.dds', 1, 1),
+('ROULS_ALPHA_ATLAS', 16, 'RoulsAlpha16.dds', 1, 1),
+('ROULS_LEADER_ATLAS', 256, 'RoulsLeader256.dds', 1, 1),
+('ROULS_LEADER_ATLAS', 128, 'RoulsLeader128.dds', 1, 1),
+('ROULS_LEADER_ATLAS', 64, 'RoulsLeader64.dds', 1, 1);
 
 INSERT INTO Traits (Type, Description, ShortDescription) VALUES
 ('TRAIT_ROULS_FLESH_IS_A_COAT', 'TXT_KEY_TRAIT_ROULS_HELP', 'TXT_KEY_TRAIT_ROULS_SHORT');
@@ -36,7 +39,7 @@ CREATE TEMP TABLE RoulsCloneLeader AS SELECT * FROM Leaders WHERE Type = 'LEADER
 UPDATE RoulsCloneLeader SET ID = NULL, Type = 'LEADER_TRENT_ROULS',
  Description = 'TXT_KEY_LEADER_TRENT_ROULS', Civilopedia = 'TXT_KEY_LEADER_TRENT_ROULS_PEDIA',
  CivilopediaTag = 'TXT_KEY_CIVILOPEDIA_LEADERS_TRENT_ROULS', ArtDefineTag = 'RoulsLeaderScene.xml',
- PortraitIndex = 0, IconAtlas = 'ROULS_ICON_ATLAS',
+ PortraitIndex = 0, IconAtlas = 'ROULS_LEADER_ATLAS',
  VictoryCompetitiveness = 8, WonderCompetitiveness = 2, MinorCivCompetitiveness = 5,
  Boldness = 7, DiploBalance = 5, WarmongerHate = 3, DoFWillingness = 5,
  DenounceWillingness = 5, WorkWithWillingness = 5, WorkAgainstWillingness = 7,

@@ -17,13 +17,13 @@ The mod depends on the Community Patch for `UnitPrekill`, battle attribution, un
 
 Rou'ls ships inside the combined Cool Wacky Civs package. From the repository root, run `python tools/build_mod.py`. The command creates three equivalent collection outputs under `dist/`:
 
-- `Cool Wacky Civs (v 3)` — an unpacked mod directory for quick iteration;
-- `Cool Wacky Civs (v 3).zip` — a portable archive; and
-- `Cool Wacky Civs (v 3).civ5mod` — a Civ V-compatible LZMA package.
+- `Cool Wacky Civs (v 4)` — an unpacked mod directory for quick iteration;
+- `Cool Wacky Civs (v 4).zip` — a portable archive; and
+- `Cool Wacky Civs (v 4).civ5mod` — a Civ V-compatible LZMA package.
 
 Copy the `.civ5mod` file into Civilization V's `MODS` directory, or copy the unpacked directory there. Enable `(1) Community Patch` first, then `Cool Wacky Civs`, and start a new single-player game.
 
-The package can be inspected before installation. Its checked-in manifest is [Cool Wacky Civs (v 3).modinfo](../Cool%20Wacky%20Civs%20(v%203).modinfo), and its sole ModBuddy solution is [CoolWackyCivs.civ5sln](../CoolWackyCivs.civ5sln).
+The package can be inspected before installation. Its checked-in manifest is [Cool Wacky Civs (v 4).modinfo](../Cool%20Wacky%20Civs%20(v%204).modinfo), and its sole ModBuddy solution is [CoolWackyCivs.civ5sln](../CoolWackyCivs.civ5sln).
 
 ## How to play the Rou'ls
 

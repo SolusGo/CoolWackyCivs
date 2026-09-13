@@ -7,9 +7,12 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import os
 import re
+import shutil
 import sqlite3
 import struct
+import subprocess
 import sys
 from pathlib import Path
 from xml.etree import ElementTree as ET
@@ -17,6 +20,36 @@ from xml.etree import ElementTree as ET
 from build_mod import ROOT, REPO, NS, read_project, create_manifest, package_name
 
 sys.path.insert(0, str(REPO / ".tools" / "python"))
+
+
+def find_texdiag() -> Path | None:
+    found = shutil.which("texdiag") or shutil.which("texdiag.exe")
+    if found:
+        return Path(found)
+    local_app_data = os.environ.get("LOCALAPPDATA")
+    if local_app_data:
+        candidates = sorted((Path(local_app_data) / "Microsoft/WinGet/Packages").glob(
+            "Microsoft.DirectXTex.Texdiag_*/texdiag.exe"
+        ))
+        if candidates:
+            return candidates[-1]
+    return None
+
+
+def directxtex_checks(paths: list[Path]) -> None:
+    texdiag = find_texdiag()
+    if not texdiag:
+        print("SKIP DirectXTex: texdiag is not installed")
+        return
+    for command in ("info", "analyze"):
+        result = subprocess.run(
+            [str(texdiag), command, *map(str, paths)], cwd=REPO,
+            text=True, capture_output=True, check=False,
+        )
+        assert result.returncode == 0, (
+            f"DirectXTex {command} failed:\n{result.stdout}\n{result.stderr}"
+        )
+    print(f"PASS DirectXTex: headers and decoded pixels for all {len(paths)} DDS files")
 
 
 def check_packaging():
@@ -91,6 +124,34 @@ def check_ui_and_lua():
     for path in lua_files:
         passed, message = compile_lua(path.read_text(encoding="utf-8-sig"), str(path))
         assert passed, message
+    runtime_hooks = {
+        "RoulsAscendancy/Lua/RoulsCore.lua": (
+            "PlayerDoTurn", "UnitPrekill", "BattleStarted", "BattleJoined", "BattleFinished",
+            "CityTrained", "PlayerCanTrain", "UnitUpgraded", "UnitConverted",
+            "PlayerCityFounded", "CityCaptureComplete",
+        ),
+        "RoulsAscendancy/Lua/RoulsActions.lua": (
+            "UnitSetXY", "UnitPrekill", "UnitCreated", "PlayerDoTurn",
+        ),
+        "LunaNetwork/Lua/LunaLowLatency.lua": (
+            "PlayerDoTurn", "CityTrained", "CityConstructed", "CityCaptureComplete",
+            "UnitCreated", "UnitConverted",
+        ),
+        "TerraFramework/Lua/TerraRuntime.lua": (
+            "CityConstructed", "PlayerDoTurn", "PlayerDoneTurn", "CityCaptureComplete",
+            "PlayerCityFounded", "UnitSetXY", "UnitUpgraded", "UnitConverted", "UnitPrekill",
+            "PlayerTradeRouteCompleted", "PlayerPlunderedTradeRoute",
+        ),
+    }
+    for relative, hooks in runtime_hooks.items():
+        source = (ROOT / relative).read_text(encoding="utf-8-sig")
+        for hook in hooks:
+            assert re.search(rf"GameEvents\.{hook}.*?\.Add", source), f"Missing runtime hook: {relative} -> {hook}"
+    rouls_core = (ROOT / "RoulsAscendancy/Lua/RoulsCore.lua").read_text(encoding="utf-8-sig")
+    snapshot = re.search(r"function R\.Snapshot\(unit\)(.*?)\nend", rouls_core, re.S)
+    assert snapshot and "maxHP" in snapshot.group(1) and "damage" in snapshot.group(1), (
+        "Rou'ls rollback snapshot must retain target HP"
+    )
     for path in (path for path in project_files if path.suffix.lower() == ".xml"):
         xml = ET.parse(path)
         controls = [e.attrib["ID"] for e in xml.iter() if "ID" in e.attrib]
@@ -102,14 +163,22 @@ def check_ui_and_lua():
         for element in xml.iter():
             if "Font" in element.attrib:
                 assert element.attrib["Font"] in {"TwCenMT14", "TwCenMT16", "TwCenMT18", "TwCenMT20", "TwCenMT24"}, f"Unknown Civ5 font: {element.attrib['Font']}"
-    for path in (path for path in project_files if path.suffix.lower() == ".dds"):
+    from PIL import Image
+    dds_paths = [path for path in project_files if path.suffix.lower() == ".dds"]
+    for path in dds_paths:
         header = path.read_bytes()[:128]
         assert len(header) == 128 and header[:4] == b"DDS ", f"Bad DDS: {path}"
         height, width = struct.unpack_from("<II", header, 12)
         assert width > 0 and height > 0, f"Empty DDS: {path}"
+        expected_fourcc = b"DXT5" if width % 4 == 0 and height % 4 == 0 else b"\0\0\0\0"
+        assert header[84:88] == expected_fourcc, f"Civ V-incompatible DDS encoding: {path}"
+        with Image.open(path) as texture:
+            texture.load()
+            assert texture.size == (width, height), f"Unreadable DDS payload: {path}"
         if path.name == "RoulsLeader.dds":
             assert (width, height) == (1600, 900), "Static leader scene must be 1600x900"
-    print(f"PASS XML/control wiring, DDS headers and Lua 5.1 syntax ({len(lua_files)} scripts)")
+    directxtex_checks(dds_paths)
+    print(f"PASS XML/control wiring, runtime hooks, DDS decode and Lua 5.1 syntax ({len(lua_files)} scripts)")
 
 
 def quote(value):
@@ -206,6 +275,32 @@ def check_database(path: Path, cp_root: Path):
         assert database.execute(
             "SELECT COUNT(*) FROM Civilizations WHERE Type=?", (civilization,)
         ).fetchone()[0] == 1, f"Combined activation is missing {civilization}"
+
+    atlas_specs = {
+        "ROULS_ICON_ATLAS": ("RoulsIcon", (256, 128, 80, 64, 45, 32)),
+        "ROULS_ALPHA_ATLAS": ("RoulsAlpha", (128, 64, 48, 32, 24, 16)),
+        "ROULS_LEADER_ATLAS": ("RoulsLeader", (256, 128, 64)),
+        "LUNA_ICON_ATLAS": ("LunaIcon", (256, 128, 80, 64, 45, 32)),
+        "LUNA_ALPHA_ATLAS": ("LunaAlpha", (128, 64, 48, 32, 24, 16)),
+        "LUNA_LEADER_ATLAS": ("LunaLeader", (256, 128, 64)),
+        "TERRA_ICON_ATLAS": ("TerraIcon", (256, 128, 80, 64, 45, 32)),
+        "TERRA_ALPHA_ATLAS": ("TerraAlpha", (128, 64, 48, 32, 24, 16)),
+        "TERRA_LEADER_ATLAS": ("TerraLeader", (256, 128, 64)),
+        "TERRA_OPERATIVE_ATLAS": ("TerraOperative", (256, 128, 80, 64, 45)),
+        "TERRA_HUB_ATLAS": ("TerraHub", (256, 128, 64, 45)),
+    }
+    for atlas, (stem, sizes) in atlas_specs.items():
+        actual = {row[0]: row[1] for row in database.execute(
+            "SELECT IconSize,Filename FROM IconTextureAtlases WHERE Atlas=?", (atlas,)
+        )}
+        expected = {size: f"{stem}{size}.dds" for size in sizes}
+        assert actual == expected, f"Wrong atlas slots for {atlas}: {actual}"
+    assert tuple(database.execute(
+        "SELECT IconAtlas,PortraitIndex FROM Leaders WHERE Type='LEADER_TRENT_ROULS'"
+    ).fetchone()) == ("ROULS_LEADER_ATLAS", 0)
+    assert tuple(database.execute(
+        "SELECT IconAtlas,PortraitIndex FROM Leaders WHERE Type='LEADER_GPT_LUNA'"
+    ).fetchone()) == ("LUNA_LEADER_ATLAS", 0)
 
     def row(table, unit_type):
         result = database.execute(f"SELECT * FROM {quote(table)} WHERE Type=?", (unit_type,)).fetchone()

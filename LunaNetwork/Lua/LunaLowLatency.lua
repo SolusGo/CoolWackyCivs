@@ -281,3 +281,4 @@ GameEvents.CityConstructed.Add(onCityConstructed)
 GameEvents.CityCaptureComplete.Add(onCityCaptureComplete)
 if GameEvents.UnitCreated then GameEvents.UnitCreated.Add(onUnitCreated) end
 if GameEvents.UnitConverted then GameEvents.UnitConverted.Add(onUnitConverted) end
+print("Luna Network: runtime loaded")

@@ -1,5 +1,15 @@
 # Patch Notes
 
+## Cool Wacky Civs version 4 — icon and runtime hardening — 2026-09-13
+
+- Refined the Rou'ls, Luna, and Terra civilization emblems from new transparent high-resolution sources, with supersampled rendering and thumbnail sharpening.
+- Corrected every non-Capano atlas family to Civ V's native slot sets: color 256/128/80/64/45/32, alpha 128/64/48/32/24/16, leader 256/128/64, unit 256/128/80/64/45, and building 256/128/64/45.
+- Added dedicated Rou'ls and Luna leader portrait atlases instead of incorrectly reusing their civilization emblems.
+- Re-encoded every rebuilt texture as legacy DXT5 where block dimensions permit and uncompressed legacy RGBA for 45px slots.
+- Fixed Great Migration rollback so a failed replacement move restores the defeated target at its original health without spending Anima.
+- Added post-conversion Terra promotion cleanup so configuration bonuses cannot leak through upgrades or ownership conversion.
+- Added exact atlas, full DDS decode, required-event registration, migration rollback, and Terra post-conversion regression checks.
+
 ## Cool Wacky Civs version 3 — Capano runtime repair — 2026-09-13
 
 - Corrected every Capano `OpenSaveData` call to use the Community Patch's function-style API, fixing the live initialization crash recorded in `Lua.log`.

@@ -145,6 +145,19 @@ local function upgraded(playerID, oldID, newID)
     local unit = p and p:GetUnitByID(newID)
     if unit and unit:GetUnitType() ~= OPERATIVE then clearConfigs(unit); unit:SetHasPromotion(MARKER, false) end
 end
+-- CP fires UnitUpgraded before CvUnit::convert finishes copying promotions.
+-- UnitConverted fires after the copy and is therefore the authoritative cleanup.
+local function converted(oldPlayerID, newPlayerID, oldID, newID, isUpgrade)
+    local p = Players[newPlayerID]
+    local unit = p and p:GetUnitByID(newID)
+    if not unit then return end
+    clearConfigs(unit)
+    if isTerra(p) and unit:GetUnitType() == OPERATIVE then
+        unit:SetHasPromotion(MARKER, true)
+    else
+        unit:SetHasPromotion(MARKER, false)
+    end
+end
 local function initialize()
     for playerID = 0, GameDefines.MAX_CIV_PLAYERS - 1 do
         local p = Players[playerID]
@@ -158,7 +171,7 @@ local function initialize()
 end
 T.GetMode = readMode
 T.Constructed, T.Turn, T.Capture, T.Founded = constructed, turn, capture, founded
-T.RefreshTrade, T.Moved, T.Upgraded, T.Initialize = refreshTrade, moved, upgraded, initialize
+T.RefreshTrade, T.Moved, T.Upgraded, T.Converted, T.Initialize = refreshTrade, moved, upgraded, converted, initialize
 GameEvents.CityConstructed.Add(constructed)
 GameEvents.PlayerDoTurn.Add(turn)
 GameEvents.PlayerDoneTurn.Add(refreshAllTrade)
@@ -166,7 +179,9 @@ GameEvents.CityCaptureComplete.Add(capture)
 GameEvents.PlayerCityFounded.Add(founded)
 GameEvents.UnitSetXY.Add(moved)
 GameEvents.UnitUpgraded.Add(upgraded)
+if GameEvents.UnitConverted then GameEvents.UnitConverted.Add(converted) end
 GameEvents.UnitPrekill.Add(refreshAllTrade)
 GameEvents.PlayerTradeRouteCompleted.Add(refreshAllTrade)
 GameEvents.PlayerPlunderedTradeRoute.Add(refreshAllTrade)
 initialize()
+print("Terra Framework: runtime loaded")

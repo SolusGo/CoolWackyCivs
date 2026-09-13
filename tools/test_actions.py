@@ -64,7 +64,10 @@ function unit(owner,id,typeID,p)
  function u:IsInvisible() return self.hidden or false end
  function u:IsHasPromotion(id) return self.promos[id] or false end; function u:SetHasPromotion(id,v) self.promos[id]=v end
  function u:CanMoveOrAttackInto() return not self.cannotEnter end
- function u:SetXY(x,y) local q=plots[x..','..y]; assert(q); remove(self.p,self); self.p=q; q.units[#q.units+1]=self end
+ function u:SetXY(x,y)
+  if self.failMove then error('simulated destination hook failure') end
+  local q=plots[x..','..y]; assert(q); remove(self.p,self); self.p=q; q.units[#q.units+1]=self
+ end
  function u:Kill() self.dead=true; remove(self.p,self) end
  function u:GetName() return 'Mock Unit '..self.id end
  return u
@@ -81,7 +84,11 @@ for id,p in pairs({[0]=P0,[1]=P1}) do
  function p:GetTeam() return id end; function p:GetCurrentEra() return 5 end
  function p:Units() return iterator(self.units) end; function p:Cities() return iterator(self.cities) end
  function p:GetUnitByID(uid) for _,u in ipairs(self.units) do if u.id==uid then return u end end end
- function p:InitUnit(t,x,y) self.next=(self.next or 30)+1; local u=unit(id,self.next,t,plots[x..','..y]); self.units[#self.units+1]=u; return u end
+ function p:InitUnit(t,x,y)
+  self.next=(self.next or 30)+1; local u=unit(id,self.next,t,plots[x..','..y])
+  if self.failNextMove then u.failMove=true;self.failNextMove=false end
+  self.units[#self.units+1]=u;return u
+ end
 end
 Players={[0]=P0,[1]=P1}
 MapModData={Rouls={}}
@@ -92,7 +99,12 @@ function R.GetState() return P0.state end; function R.Save() end; function R.Get
 function R.ChangeAnima(_,d) P0.anima=P0.anima+d end; function R.LockUnit(u) u.locked=true end
 function R.EquivalentType() return 2 end; function R.WithSuppressedDeaths(fn) return fn() end
 function R.Snapshot(u) return {unitType=u.typeID,classID=10,xp100=u.xp*100,level=1,name='victim',promotions={},script='',maxHP=100,damage=u.damage} end
-function R.Restore() error('rollback unexpectedly needed') end
+restoreCount=0;restoreHealth=nil
+function R.Restore(owner,snapshot,where,hpPercent)
+ restoreCount=restoreCount+1;restoreHealth=hpPercent
+ local restored=Players[owner]:InitUnit(snapshot.unitType,where:GetX(),where:GetY())
+ restored.damage=math.max(0,100-math.floor(hpPercent+0.5));return restored
+end
 ''')
 lua.execute((ROOT / "RoulsAscendancy/Lua/RoulsActions.lua").read_text(encoding="utf-8-sig"))
 lua.execute(r'''
@@ -116,8 +128,15 @@ assert(target.dead and P0.anima==0 and P0.state.migrationUsed)
 local created=P0.units[#P0.units]
 assert(created.typeID==2 and created:GetPlot()==pTarget and created.xp==50 and created.damage==25 and created.locked)
 -- Limited classes and cargo are rejected before any state changes.
+created:Kill()
 local t2=unit(1,10,1,pTarget); P1.units[#P1.units+1]=t2
 P0.anima=7; P0.state.migrationUsed=false; t2.cargo=1
 before=P0.anima; ok=R.CanMigrate(0,t2); assert(not ok and P0.anima==before and not t2.dead)
-print('PASS Lua transaction scenarios: swap, cooldown, discount, stale activation, migration, XP/HP, cargo rejection')
+t2.cargo=0;t2.damage=37;P0.failNextMove=true
+ok,why=R.DoMigration(0,1,10)
+assert(not ok and P0.anima==7 and not P0.state.migrationUsed,'rollback spent state')
+assert(t2.dead and restoreCount==1 and math.abs(restoreHealth-63)<0.001,'victim health was not snapshotted')
+local restored=P1.units[#P1.units]
+assert(restored and not restored.dead and restored:GetPlot()==pTarget and restored.damage==37,'victim was not restored')
+print('PASS Lua transaction scenarios: swap, cooldown, discount, migration, XP/HP, cargo rejection, failed-move rollback')
 ''')

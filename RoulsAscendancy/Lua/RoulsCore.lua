@@ -197,7 +197,8 @@ function R.Snapshot(unit)
         level = unit:GetLevel(), name = unit:GetNameNoDesc(), promotions = promotions,
         script = unit:GetScriptData() or "", unitState = data, x = unit:GetX(), y = unit:GetY(),
         owner = unit:GetOwner(), oldID = unit:GetID(), deathTurn = turn(),
-        cost = tonumber(info.Cost) or 0, combatClass = info.CombatClass}
+        cost = tonumber(info.Cost) or 0, combatClass = info.CombatClass,
+        maxHP = unit:GetMaxHitPoints(), damage = unit:GetDamage()}
 end
 local function ignored(ignore, unit)
     return ignore and ignore[key(unit:GetOwner(), unit:GetID())] == true

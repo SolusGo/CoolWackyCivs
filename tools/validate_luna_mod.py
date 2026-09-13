@@ -205,6 +205,9 @@ Players={[0]=player}
     lua.execute((ROOT / "Lua/LunaLowLatency.lua").read_text(encoding="utf-8-sig"))
     lua.execute(r'''
 local L=MapModData.LunaNetwork
+for _,name in ipairs({'PlayerDoTurn','CityTrained','CityConstructed','CityCaptureComplete','UnitCreated','UnitConverted'}) do
+ assert(#GameEvents[name].handlers==1,name..' handler was not registered exactly once')
+end
 city.building=20
 player.units[1]=NewUnit(1,30,DomainTypes.DOMAIN_LAND,true)
 L.OnCityTrained(0,1,1,false,false)

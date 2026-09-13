@@ -1,4 +1,9 @@
 local T=MapModData.TerraFramework
+for _,name in ipairs({'CityConstructed','PlayerDoTurn','PlayerDoneTurn','CityCaptureComplete',
+    'PlayerCityFounded','UnitSetXY','UnitUpgraded','UnitConverted','UnitPrekill',
+    'PlayerTradeRouteCompleted','PlayerPlunderedTradeRoute'}) do
+    assert(#GameEvents[name].handlers==1,name..' handler was not registered exactly once')
+end
 local function mode(expected)
     local count=0;for i=10,13 do count=count+(city.b[i] or 0) end
     assert(count==(expected and 1 or 0),'mode stacked or absent')
@@ -40,5 +45,9 @@ unit.embarked=true;T.Moved(0,1);config(nil)
 unit.embarked=false;T.Moved(0,1);config(nil)
 T.Turn(0);config(21)
 unit.kind=999;T.Upgraded(0,2,1);config(nil);assert(not unit.p[5])
+-- Model CP's post-UnitUpgraded promotion copy: UnitConverted must remove the leak.
+unit.p[5]=true;unit.p[21]=true;T.Converted(0,0,2,1,true);config(nil);assert(not unit.p[5])
+-- A converted operative keeps its identity marker but waits for the next turn to configure.
+unit.kind=2;unit.p[20]=true;T.Converted(2,0,9,1,false);config(nil);assert(unit.p[5])
 city.b[3]=0;T.RefreshTrade(0);assert(city.b[4]==0)
 T.Constructed(0,1,30,false,false);Players[0].civ=99;T.Turn(0);mode(nil)

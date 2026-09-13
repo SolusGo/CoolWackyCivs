@@ -27,7 +27,7 @@
     <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <HideSetupGame>false</HideSetupGame>
-    <ModVersion>3</ModVersion>
+    <ModVersion>4</ModVersion>
     <Stability>Alpha</Stability>
     <ModActions>
       <Action>
@@ -277,19 +277,19 @@
     <Content Include="LunaNetwork/Art/LunaAlpha128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
-    <Content Include="LunaNetwork/Art/LunaAlpha256.dds">
+    <Content Include="LunaNetwork/Art/LunaAlpha16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="LunaNetwork/Art/LunaAlpha24.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="LunaNetwork/Art/LunaAlpha32.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
-    <Content Include="LunaNetwork/Art/LunaAlpha45.dds">
+    <Content Include="LunaNetwork/Art/LunaAlpha48.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="LunaNetwork/Art/LunaAlpha64.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
-    <Content Include="LunaNetwork/Art/LunaAlpha80.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="LunaNetwork/Art/LunaIcon128.dds">
@@ -311,6 +311,15 @@
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="LunaNetwork/Art/LunaLeader.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="LunaNetwork/Art/LunaLeader128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="LunaNetwork/Art/LunaLeader256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="LunaNetwork/Art/LunaLeader64.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="LunaNetwork/Art/LunaLeaderScene.xml">
@@ -340,19 +349,19 @@
     <Content Include="RoulsAscendancy/Art/RoulsAlpha128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
-    <Content Include="RoulsAscendancy/Art/RoulsAlpha256.dds">
+    <Content Include="RoulsAscendancy/Art/RoulsAlpha16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RoulsAscendancy/Art/RoulsAlpha24.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="RoulsAscendancy/Art/RoulsAlpha32.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
-    <Content Include="RoulsAscendancy/Art/RoulsAlpha45.dds">
+    <Content Include="RoulsAscendancy/Art/RoulsAlpha48.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="RoulsAscendancy/Art/RoulsAlpha64.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
-    <Content Include="RoulsAscendancy/Art/RoulsAlpha80.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="RoulsAscendancy/Art/RoulsIcon128.dds">
@@ -374,6 +383,15 @@
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="RoulsAscendancy/Art/RoulsLeader.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RoulsAscendancy/Art/RoulsLeader128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RoulsAscendancy/Art/RoulsLeader256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RoulsAscendancy/Art/RoulsLeader64.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="RoulsAscendancy/Art/RoulsLeaderScene.xml">
@@ -421,13 +439,7 @@
     <Content Include="TerraFramework/Art/TerraAlpha24.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
-    <Content Include="TerraFramework/Art/TerraAlpha256.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
     <Content Include="TerraFramework/Art/TerraAlpha32.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
-    <Content Include="TerraFramework/Art/TerraAlpha45.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="TerraFramework/Art/TerraAlpha48.dds">
@@ -436,43 +448,19 @@
     <Content Include="TerraFramework/Art/TerraAlpha64.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
-    <Content Include="TerraFramework/Art/TerraAlpha80.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
     <Content Include="TerraFramework/Art/TerraHub128.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
-    <Content Include="TerraFramework/Art/TerraHub16.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
-    <Content Include="TerraFramework/Art/TerraHub24.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="TerraFramework/Art/TerraHub256.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
-    <Content Include="TerraFramework/Art/TerraHub32.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
     <Content Include="TerraFramework/Art/TerraHub45.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
-    <Content Include="TerraFramework/Art/TerraHub48.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="TerraFramework/Art/TerraHub64.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
-    <Content Include="TerraFramework/Art/TerraHub80.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
     <Content Include="TerraFramework/Art/TerraIcon128.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
-    <Content Include="TerraFramework/Art/TerraIcon16.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
-    <Content Include="TerraFramework/Art/TerraIcon24.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="TerraFramework/Art/TerraIcon256.dds">
@@ -482,9 +470,6 @@
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="TerraFramework/Art/TerraIcon45.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
-    <Content Include="TerraFramework/Art/TerraIcon48.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="TerraFramework/Art/TerraIcon64.dds">
@@ -499,28 +484,10 @@
     <Content Include="TerraFramework/Art/TerraLeader128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
-    <Content Include="TerraFramework/Art/TerraLeader16.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
-    <Content Include="TerraFramework/Art/TerraLeader24.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
     <Content Include="TerraFramework/Art/TerraLeader256.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
-    <Content Include="TerraFramework/Art/TerraLeader32.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
-    <Content Include="TerraFramework/Art/TerraLeader45.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
-    <Content Include="TerraFramework/Art/TerraLeader48.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
     <Content Include="TerraFramework/Art/TerraLeader64.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
-    <Content Include="TerraFramework/Art/TerraLeader80.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="TerraFramework/Art/TerraLeaderScene.xml">
@@ -533,22 +500,10 @@
     <Content Include="TerraFramework/Art/TerraOperative128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
-    <Content Include="TerraFramework/Art/TerraOperative16.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
-    <Content Include="TerraFramework/Art/TerraOperative24.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
     <Content Include="TerraFramework/Art/TerraOperative256.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
-    <Content Include="TerraFramework/Art/TerraOperative32.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
     <Content Include="TerraFramework/Art/TerraOperative45.dds">
-      <ImportIntoVFS>True</ImportIntoVFS>
-    </Content>
-    <Content Include="TerraFramework/Art/TerraOperative48.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
     <Content Include="TerraFramework/Art/TerraOperative64.dds">

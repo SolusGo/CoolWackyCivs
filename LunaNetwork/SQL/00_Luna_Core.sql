@@ -17,12 +17,15 @@ INSERT INTO IconTextureAtlases (Atlas, IconSize, Filename, IconsPerRow, IconsPer
 ('LUNA_ICON_ATLAS', 64, 'LunaIcon64.dds', 1, 1),
 ('LUNA_ICON_ATLAS', 45, 'LunaIcon45.dds', 1, 1),
 ('LUNA_ICON_ATLAS', 32, 'LunaIcon32.dds', 1, 1),
-('LUNA_ALPHA_ATLAS', 256, 'LunaAlpha256.dds', 1, 1),
 ('LUNA_ALPHA_ATLAS', 128, 'LunaAlpha128.dds', 1, 1),
-('LUNA_ALPHA_ATLAS', 80, 'LunaAlpha80.dds', 1, 1),
 ('LUNA_ALPHA_ATLAS', 64, 'LunaAlpha64.dds', 1, 1),
-('LUNA_ALPHA_ATLAS', 45, 'LunaAlpha45.dds', 1, 1),
-('LUNA_ALPHA_ATLAS', 32, 'LunaAlpha32.dds', 1, 1);
+('LUNA_ALPHA_ATLAS', 48, 'LunaAlpha48.dds', 1, 1),
+('LUNA_ALPHA_ATLAS', 32, 'LunaAlpha32.dds', 1, 1),
+('LUNA_ALPHA_ATLAS', 24, 'LunaAlpha24.dds', 1, 1),
+('LUNA_ALPHA_ATLAS', 16, 'LunaAlpha16.dds', 1, 1),
+('LUNA_LEADER_ATLAS', 256, 'LunaLeader256.dds', 1, 1),
+('LUNA_LEADER_ATLAS', 128, 'LunaLeader128.dds', 1, 1),
+('LUNA_LEADER_ATLAS', 64, 'LunaLeader64.dds', 1, 1);
 
 INSERT INTO Traits (Type, Description, ShortDescription) VALUES
 ('TRAIT_LUNA_LOW_LATENCY', 'TXT_KEY_TRAIT_LUNA_HELP', 'TXT_KEY_TRAIT_LUNA_SHORT');
@@ -31,7 +34,7 @@ CREATE TEMP TABLE LunaCloneLeader AS SELECT * FROM Leaders WHERE Type = 'LEADER_
 UPDATE LunaCloneLeader SET ID = NULL, Type = 'LEADER_GPT_LUNA',
  Description = 'TXT_KEY_LEADER_GPT_LUNA', Civilopedia = 'TXT_KEY_LEADER_GPT_LUNA_PEDIA',
  CivilopediaTag = 'TXT_KEY_CIVILOPEDIA_LEADERS_GPT_LUNA', ArtDefineTag = 'LunaLeaderScene.xml',
- PortraitIndex = 0, IconAtlas = 'LUNA_ICON_ATLAS',
+ PortraitIndex = 0, IconAtlas = 'LUNA_LEADER_ATLAS',
  VictoryCompetitiveness = 8, WonderCompetitiveness = 2, MinorCivCompetitiveness = 7,
  Boldness = 7, DiploBalance = 6, WarmongerHate = 4, DoFWillingness = 6,
  DenounceWillingness = 5, WorkWithWillingness = 7, WorkAgainstWillingness = 6,
