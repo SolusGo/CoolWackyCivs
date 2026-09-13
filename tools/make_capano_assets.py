@@ -1,8 +1,8 @@
-"""Compile the supplied Capano concept and generated leader scene into Civ V DDS art.
+"""Compile the Capano source illustrations into Civ V DDS art.
 
-The concept sheet supplies the civilization mark and the Route Setter, Coaching
-Centre, Boulder Sector, and progression imagery. Pillow writes legacy DXT5 DDS
-files, the compression/header combination accepted by Civ V's texture loader.
+The concept sheet supplies the civilization mark while dedicated high-resolution
+illustrations supply every gameplay portrait. Pillow writes legacy DXT5 DDS files,
+the compression/header combination accepted by Civ V's texture loader.
 """
 from pathlib import Path
 import sys
@@ -45,6 +45,11 @@ def circular_asset(source: Image.Image, size: int, ring=(153, 91, 193, 255)) -> 
     large = size * scale
     inner = round(large * 0.86)
     picture = ImageOps.fit(source, (inner, inner), method=Image.Resampling.LANCZOS)
+    # Preserve strong silhouettes and material detail after Civ V downsizes and
+    # DXT-compresses the atlas. This also improves the civilization/leader row.
+    picture = ImageEnhance.Contrast(picture).enhance(1.08)
+    picture = ImageEnhance.Color(picture).enhance(1.05)
+    picture = ImageEnhance.Sharpness(picture).enhance(1.30)
     mask = Image.new("L", (inner, inner), 0)
     ImageDraw.Draw(mask).ellipse((2, 2, inner - 3, inner - 3), fill=255)
     picture.putalpha(mask)
@@ -106,43 +111,28 @@ for size in SIZES:
 
 save_dds(alpha_mark(32), OUTPUT / "CapanoUnitFlag32.dds")
 
-# Fourteen object/promotion portraits, all derived from distinct regions of the supplied sheet.
+# Fourteen purpose-built object/promotion portraits. Keeping the full-resolution
+# sources separate avoids the unreadable poster crops used by the original atlas.
 icon_specs = (
-    ((445, 375, 560, 630), (143, 87, 177, 255)),   # Route Setter
-    ((726, 370, 998, 490), (143, 87, 177, 255)),   # Competition Coaching Centre
-    ((1004, 370, 1267, 490), (143, 87, 177, 255)), # Boulder Sector
-    ((466, 164, 560, 277), (88, 139, 195, 255)),   # Beta
-    ((1004, 370, 1267, 490), (185, 67, 68, 255)),  # Awkward Sequence
-    ((520, 690, 850, 835), (88, 139, 195, 255)),   # Read the Sequence
-    ((890, 690, 1235, 835), (143, 87, 177, 255)),  # Competition Movement
-    ((326, 292, 424, 587), (88, 139, 195, 255)),   # Footwork
-    ((228, 94, 411, 442), (185, 67, 68, 255)),     # Body Position
-    ((890, 690, 1235, 835), (143, 87, 177, 255)),  # Coordination
-    ((1258, 480, 1438, 887), (29, 29, 31, 255)),   # Commit
-    ((198, 40, 420, 445), (231, 207, 93, 255)),    # Complete Climber
-    ((1004, 370, 1267, 490), (231, 207, 93, 255)), # Yellow Circuit
-    ((1040, 22, 1288, 158), (225, 215, 181, 255)), # Ammagamma / Grampians
+    ("RouteSetter.png", (143, 87, 177, 255)),       # Route Setter
+    ("CompetitionCentre.png", (143, 87, 177, 255)), # Competition Coaching Centre
+    ("BoulderSector.png", (143, 87, 177, 255)),     # Boulder Sector
+    ("Beta.png", (88, 139, 195, 255)),              # Beta
+    ("AwkwardSequence.png", (185, 67, 68, 255)),    # Awkward Sequence
+    ("ReadSequence.png", (88, 139, 195, 255)),      # Read the Sequence
+    ("CompetitionMovement.png", (143, 87, 177, 255)), # Competition Movement
+    ("Footwork.png", (88, 139, 195, 255)),          # Footwork
+    ("BodyPosition.png", (185, 67, 68, 255)),       # Body Position
+    ("Coordination.png", (88, 139, 195, 255)),      # Coordination
+    ("Commit.png", (185, 67, 68, 255)),             # Commit
+    ("CompleteClimber.png", (231, 207, 93, 255)),   # Complete Climber
+    ("YellowCircuit.png", (231, 207, 93, 255)),     # Yellow Circuit
+    ("Grampians.png", (225, 215, 181, 255)),        # Ammagamma / Grampians
 )
 
 object_sources = []
-for index, (box, ring) in enumerate(icon_specs):
-    source = (leader.crop((round(leader.width * 0.55), round(leader.height * 0.12),
-                           round(leader.width * 0.98), round(leader.height * 0.70)))
-              if index == 13 else crop_relative(concept, box))
-    if index == 0:
-        # Keep the Setter's full silhouette; a direct square fit would crop the
-        # tall character down to a pair of trousers at small atlas sizes.
-        framed = Image.new("RGBA", (source.height, source.height), (22, 25, 29, 255))
-        contained = ImageOps.contain(source, (source.height - 12, source.height - 12),
-                                     method=Image.Resampling.LANCZOS)
-        framed.alpha_composite(contained,
-                               ((framed.width - contained.width) // 2,
-                                (framed.height - contained.height) // 2))
-        source = framed
-    if index == 12:
-        source = ImageEnhance.Color(source).enhance(0.65)
-        overlay = Image.new("RGBA", source.size, (230, 190, 45, 58))
-        source = Image.alpha_composite(source, overlay)
+for filename, ring in icon_specs:
+    source = Image.open(SOURCE / "Icons" / filename).convert("RGBA")
     object_sources.append((source, ring))
 
 for size in OBJECT_SIZES:
@@ -152,7 +142,7 @@ for size in OBJECT_SIZES:
     save_dds(atlas, OUTPUT / f"CapanoObjects{size}.dds")
 
 # Human-reviewable source preview; this is not shipped in the mod package.
-preview = Image.new("RGB", (1200, 760), (18, 18, 22))
+preview = Image.new("RGB", (1200, 840), (18, 18, 22))
 preview.paste(ImageOps.fit(leader, (800, 450), method=Image.Resampling.LANCZOS), (0, 0))
 preview.paste(circular_asset(civ_mark, 256, (225, 215, 181, 255)), (872, 64),
               circular_asset(civ_mark, 256, (225, 215, 181, 255)))
@@ -161,6 +151,14 @@ for index, (source, ring) in enumerate(object_sources):
     object_preview.alpha_composite(circular_asset(source, 128, ring),
                                    ((index % 7) * 128, (index // 7) * 128))
 preview.paste(object_preview, (152, 480), object_preview)
+
+# Show the real 32px artwork at 2x nearest-neighbour scale for legibility QA.
+# This reveals lost silhouettes and muddy crops that a 128px preview can hide.
+tiny_preview = Image.new("RGBA", (OBJECT_COUNT * 32, 32))
+for index, (source, ring) in enumerate(object_sources):
+    tiny_preview.alpha_composite(circular_asset(source, 32, ring), (index * 32, 0))
+tiny_preview = tiny_preview.resize((OBJECT_COUNT * 64, 64), Image.Resampling.NEAREST)
+preview.paste(tiny_preview, (152, 768), tiny_preview)
 preview.save(SOURCE / "CapanoArtPreview.png")
 
 print(f"Built Capano leader scene, map image, flag, and {len(SIZES) * 2 + len(OBJECT_SIZES) + 1} active atlas textures")

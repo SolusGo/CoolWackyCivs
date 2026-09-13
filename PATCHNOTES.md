@@ -1,5 +1,13 @@
 # Patch Notes
 
+## Cool Wacky Civs version 2 — Capano icon overhaul — 2026-09-13
+
+- Replaced all fourteen Capano gameplay-icon sources with dedicated high-resolution illustrations instead of small crops from the civilization concept sheet.
+- Added a new Route Setter portrait centered on the setter, drill, hold, chalk, and tool pack for a much clearer unit panel image.
+- Rebuilt the Competition Coaching Centre, Boulder Sector, Beta, Awkward Sequence, technique, Circuit, and Grampians icon slots in one coherent charcoal, purple, and sandstone visual language.
+- Added contrast, color, and sharpening treatment before atlas downsampling so the artwork survives Civ V's 16–45px UI sizes and DXT5 compression.
+- Kept the Boulder Sector's Construction prerequisite unchanged and bumped the combined package version to force a clean texture refresh.
+
 ## Cool Wacky Civs version 1 — Combined collection — 2026-09-12
 
 - Consolidated Rou'ls, Luna, Terra, and Capano into one mod ID, manifest, ModBuddy project, solution, and deployable package.

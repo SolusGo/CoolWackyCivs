@@ -219,6 +219,21 @@ def packaging_checks() -> None:
     solution = (REPO / "CoolWackyCivs.civ5sln").read_text(encoding="utf-8-sig")
     assert values["ProjectGuid"] in solution and "F5FC21B5-7CC2-458A-ABBA-992F515BBA20" in solution
 
+    source_dir = REPO / "art-source/Capano/Icons"
+    source_names = {
+        "RouteSetter.png", "CompetitionCentre.png", "BoulderSector.png", "Beta.png",
+        "AwkwardSequence.png", "ReadSequence.png", "CompetitionMovement.png",
+        "Footwork.png", "BodyPosition.png", "Coordination.png", "Commit.png",
+        "CompleteClimber.png", "YellowCircuit.png", "Grampians.png",
+    }
+    assert {path.name for path in source_dir.glob("*.png")} == source_names
+    for path in source_dir.glob("*.png"):
+        with Image.open(path) as source:
+            source.load()
+            assert source.width == source.height and source.width >= 1024, (
+                f"Gameplay icon source must be square and at least 1024px: {path.name}"
+            )
+
     dds_paths = sorted((ROOT / "Art").glob("*.dds"))
     dimensions = {}
     for path in dds_paths:
@@ -262,7 +277,7 @@ def packaging_checks() -> None:
     lua.execute((REPO / "tools/tests/capano_mock.lua").read_text(encoding="utf-8-sig"))
     lua.execute((ROOT / "Lua/CapanoRuntime.lua").read_text(encoding="utf-8-sig"))
     lua.execute((REPO / "tools/tests/capano_assertions.lua").read_text(encoding="utf-8-sig"))
-    print(f"PASS packaging: {len(files)} files, manifest/project/solution, Civ V DDS decode, Lua 5.1 behavior")
+    print(f"PASS packaging: {len(files)} files, 14 icon sources, manifest/project/solution, Civ V DDS decode, Lua 5.1 behavior")
 
 
 if __name__ == "__main__":

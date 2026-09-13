@@ -2,12 +2,36 @@
 
 ## Sources and tool
 
-- `art-source/Capano/CapanoConcept.png`: user-supplied civilization concept sheet. It supplies the geometric hold emblem and crops for the Route Setter, Competition Coaching Centre, Boulder Sector, Beta, Circuit, and technique icons.
+- `art-source/Capano/CapanoConcept.png`: user-supplied civilization concept sheet. It supplies the geometric hold emblem and the visual reference for the gameplay-icon family.
 - `art-source/Capano/CapanoLeaderReference.png`: user-supplied appearance reference for Enrico.
 - `art-source/Capano/CapanoLeader.png`: final leader source generated with OpenAI's built-in ImageGen tool using both supplied images as references.
+- `art-source/Capano/Icons/*.png`: fourteen dedicated 1254px gameplay-icon sources generated with OpenAI's built-in ImageGen tool using the concept sheet as a visual reference.
 - `art-source/Capano/CapanoArtPreview.png`: reproducible contact sheet of the generated leader scene and extracted atlas subjects.
 
-`python tools/make_capano_assets.py` crops and resizes these sources into Civ V-compatible legacy DDS textures under `CapanoCircuit/Art`: FourCC DXT5 for block-aligned dimensions and 32-bit DDS for non-multiple-of-four 45px rows. The civilization mark and leader portrait share the same color atlas so Civ V does not need a separately cached leader-icon texture family. The script draws a clean alpha-only version of the supplied climbing-hold emblem for the map and unit flag, while the colored civilization icon is extracted from the original concept sheet.
+`python tools/make_capano_assets.py` sharpens, frames, and resizes these sources into Civ V-compatible legacy DDS textures under `CapanoCircuit/Art`: FourCC DXT5 for block-aligned dimensions and 32-bit DDS for non-multiple-of-four 45px rows. The civilization mark and leader portrait share the same color atlas so Civ V does not need a separately cached leader-icon texture family. The script draws a clean alpha-only version of the supplied climbing-hold emblem for the map and unit flag, while the colored civilization icon is extracted from the original concept sheet.
+
+## Gameplay icon ImageGen prompt set
+
+Every gameplay source used this shared production specification:
+
+> Use case: stylized-concept. Asset type: square source for a Civilization V unit, building, improvement, or promotion icon. Style: premium realistic-painterly Civilization V icon art, high contrast, bold silhouette, rich material detail, coherent charcoal, chalk-white, muted-purple, sandstone-gold climbing aesthetic. Composition: one dominant visual idea centered and filling the square, generous safe margin, readable at 32 pixels. Lighting: dramatic warm rim light with cool fill and subtle chalk particles. Constraints: no circular frame, text, letters, numbers, logos, watermark, UI, montage, or tiny labels; anatomically correct people and hands.
+
+The subject-specific requests, in atlas order, were:
+
+1. Route Setter — a professional setter installing a purple hold with a cordless drill, tool pack, bolts, brush, and chalk clearly visible.
+2. Competition Coaching Centre — an illuminated angular concrete training centre integrated with faceted purple bouldering volumes beneath Australian sandstone mountains.
+3. Boulder Sector — an elevated view of engineered outdoor climbing terrain combining paths, natural boulders, and geometric purple volumes.
+4. Beta — a chalked hand drawing a decisive route between four holds.
+5. Awkward Sequence — an off-balance climber following a broken red route.
+6. Read the Sequence — a focused climber tracing a luminous blue path through four holds.
+7. Competition Movement — an elite climber performing an explosive lateral dyno between arena volumes.
+8. Footwork — a modern climbing shoe precisely edging on a tiny blue foothold.
+9. Body Position — a climber holding a controlled X-shaped body-tension pose between red and purple holds.
+10. Coordination — a climber transferring smoothly between volumes with paired purple and blue motion arcs.
+11. Commit — a climber launching decisively toward one distant red finishing hold.
+12. Complete Climber — an accomplished climber at sunrise with all five circuit colors represented nearby.
+13. Yellow Circuit — a rising sequence of five vivid yellow holds ending in a chalked finishing hand.
+14. Grampians — Australian sandstone ridges, eucalyptus forest, and a solitary climber at sunset.
 
 ## Final ImageGen prompt
 

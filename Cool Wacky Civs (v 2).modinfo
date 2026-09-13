@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="1">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="2">
   <Properties>
     <Name>Cool Wacky Civs</Name>
     <Teaser>Four strange leaders. Four stranger ways to rule.</Teaser>
@@ -35,25 +35,25 @@
     <File md5="9ED90C9F8DF89EC565FCE7868DE20F34" import="1">CapanoCircuit/Art/CapanoAlpha48.dds</File>
     <File md5="4561F894338EAB8F71230861C0BCFEC4" import="1">CapanoCircuit/Art/CapanoAlpha64.dds</File>
     <File md5="95188580C46EC952F457A6CEA1E72D1A" import="1">CapanoCircuit/Art/CapanoAlpha80.dds</File>
-    <File md5="3B2FE33CA304832A827F7D719D8407D7" import="1">CapanoCircuit/Art/CapanoIcon128.dds</File>
-    <File md5="278871E8F65693D7EDDD5C8EB357767D" import="1">CapanoCircuit/Art/CapanoIcon16.dds</File>
-    <File md5="93FBD1B08330EAC35F710F915D7ACA0B" import="1">CapanoCircuit/Art/CapanoIcon24.dds</File>
-    <File md5="A8A2D776DAEB5F2CF8F0EEE0E363371E" import="1">CapanoCircuit/Art/CapanoIcon256.dds</File>
-    <File md5="3D51D8DDC68D6FB70E0ACEB2DD954956" import="1">CapanoCircuit/Art/CapanoIcon32.dds</File>
-    <File md5="3030E3F299995E8B45318F8FBCCE08F9" import="1">CapanoCircuit/Art/CapanoIcon45.dds</File>
-    <File md5="5D99F133791F1F1E8E6F30BC0E41C704" import="1">CapanoCircuit/Art/CapanoIcon48.dds</File>
-    <File md5="0AE6BD375C4DCE9DB436E811BA217234" import="1">CapanoCircuit/Art/CapanoIcon64.dds</File>
-    <File md5="6F1A7DA38F6E6228F1E4478E46C0EC17" import="1">CapanoCircuit/Art/CapanoIcon80.dds</File>
+    <File md5="53D797BE3FB526CC957936CF197B408A" import="1">CapanoCircuit/Art/CapanoIcon128.dds</File>
+    <File md5="E74CA3B55EF83A46B6341E799DBBF52A" import="1">CapanoCircuit/Art/CapanoIcon16.dds</File>
+    <File md5="B09F9AFD35F89A45EF39B5150D370A2F" import="1">CapanoCircuit/Art/CapanoIcon24.dds</File>
+    <File md5="F699C46AE0F257A2EC97BF17F23B9122" import="1">CapanoCircuit/Art/CapanoIcon256.dds</File>
+    <File md5="FB3353E11F52103AB094BD8C84142459" import="1">CapanoCircuit/Art/CapanoIcon32.dds</File>
+    <File md5="AE645A6BB0F068C26F02040FE390F0BE" import="1">CapanoCircuit/Art/CapanoIcon45.dds</File>
+    <File md5="1D2F15C11160CA07608C63CD72B64229" import="1">CapanoCircuit/Art/CapanoIcon48.dds</File>
+    <File md5="D5CE703D9179452997B6AEF4AA2816D7" import="1">CapanoCircuit/Art/CapanoIcon64.dds</File>
+    <File md5="F1E53E717EBB6CD633EAF16E2B1A9334" import="1">CapanoCircuit/Art/CapanoIcon80.dds</File>
     <File md5="92810519467AD5553F3A4A730339FF7B" import="1">CapanoCircuit/Art/CapanoLeader.dds</File>
     <File md5="EAA456120ABB04034E299C6FDAD9C577" import="1">CapanoCircuit/Art/CapanoLeaderScene.xml</File>
     <File md5="F42D31B98CE867E1BE6CCAF936A1422D" import="1">CapanoCircuit/Art/CapanoMap.dds</File>
-    <File md5="607A8148CEC63BBB09A59856CFCA2831" import="1">CapanoCircuit/Art/CapanoObjects128.dds</File>
-    <File md5="649152B4EF52AC194EB631035E00EE3E" import="1">CapanoCircuit/Art/CapanoObjects16.dds</File>
-    <File md5="E9A09A6E487B0ABBF71E2CE1CFE0A7A1" import="1">CapanoCircuit/Art/CapanoObjects256.dds</File>
-    <File md5="1836101066668B8716D6F5296E2C9885" import="1">CapanoCircuit/Art/CapanoObjects32.dds</File>
-    <File md5="F0A72EC344D661A2BB147C7C223A08C3" import="1">CapanoCircuit/Art/CapanoObjects45.dds</File>
-    <File md5="EF52ABC6491487D32506F5414D9E294F" import="1">CapanoCircuit/Art/CapanoObjects64.dds</File>
-    <File md5="28F32519264F133AF73374A4BFB86341" import="1">CapanoCircuit/Art/CapanoObjects80.dds</File>
+    <File md5="CEBB5ED37EFD2658F7000F60AA719567" import="1">CapanoCircuit/Art/CapanoObjects128.dds</File>
+    <File md5="0417C9BE62075F4913946A55E26EA86C" import="1">CapanoCircuit/Art/CapanoObjects16.dds</File>
+    <File md5="E166128642DCBD413019F46968FD52C2" import="1">CapanoCircuit/Art/CapanoObjects256.dds</File>
+    <File md5="D554671D56E16DAC7967A1011113A35B" import="1">CapanoCircuit/Art/CapanoObjects32.dds</File>
+    <File md5="446E5A1B2B0E3FABA9C7CBD65DB91618" import="1">CapanoCircuit/Art/CapanoObjects45.dds</File>
+    <File md5="38DD78110769A4CA508F453601B7A6E4" import="1">CapanoCircuit/Art/CapanoObjects64.dds</File>
+    <File md5="D22A68FCA5E1609DAE664025556FF73B" import="1">CapanoCircuit/Art/CapanoObjects80.dds</File>
     <File md5="4538D1584814413F2D4C78B52C5BC9F8" import="1">CapanoCircuit/Art/CapanoUnitFlag32.dds</File>
     <File md5="80D72747C981A7A822E3399DD4E17F8E" import="1">CapanoCircuit/Lua/CapanoRuntime.lua</File>
     <File md5="8C4D5A7EE9CD84B39DC3239E00B68DF6" import="0">CapanoCircuit/SQL/00_Capano_Core.sql</File>
