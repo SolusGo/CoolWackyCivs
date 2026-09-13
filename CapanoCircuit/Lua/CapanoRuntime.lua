@@ -118,8 +118,8 @@ end
 local function identify(unit)
     local data = getUnitState(unit)
     if data.serial == 0 then
-        local nextValue = (tonumber(save:GetValue("CAPANO_V1_NEXT_SERIAL")) or 0) + 1
-        save:SetValue("CAPANO_V1_NEXT_SERIAL", nextValue)
+        local nextValue = (tonumber(save.GetValue("CAPANO_V1_NEXT_SERIAL")) or 0) + 1
+        save.SetValue("CAPANO_V1_NEXT_SERIAL", nextValue)
         data.serial = nextValue
         setUnitState(unit, data)
     end
@@ -195,10 +195,10 @@ local function notify(playerID, key, ...)
 end
 
 local function playerStat(name, playerID)
-    return tonumber(save:GetValue("CAPANO_V1_" .. name .. "_" .. tostring(playerID))) or 0
+    return tonumber(save.GetValue("CAPANO_V1_" .. name .. "_" .. tostring(playerID))) or 0
 end
 local function setPlayerStat(name, playerID, value)
-    save:SetValue("CAPANO_V1_" .. name .. "_" .. tostring(playerID), value)
+    save.SetValue("CAPANO_V1_" .. name .. "_" .. tostring(playerID), value)
 end
 local function changePlayerStat(name, playerID, delta, maximum)
     local value = playerStat(name, playerID) + delta
@@ -539,8 +539,8 @@ local function showSectorMessage(unit, plot)
     local data = identify(unit)
     local index = plot:GetPlotIndex()
     local key = "CAPANO_V1_SECTOR_SEEN_" .. tostring(data.serial) .. "_" .. tostring(index)
-    if save:GetValue(key) ~= nil then return end
-    save:SetValue(key, 1)
+    if save.GetValue(key) ~= nil then return end
+    save.SetValue(key, 1)
     local active = Game.GetActivePlayer and Game.GetActivePlayer() or -1
     local activePlayer = Players[active]
     if activePlayer == nil or not plot:IsVisible(activePlayer:GetTeam(), false) then return end
@@ -756,6 +756,7 @@ GameEvents.CityCaptureComplete.Add(onCityCaptureComplete)
 if GameEvents.UnitPrekill then GameEvents.UnitPrekill.Add(onUnitPrekill) end
 if GameEvents.UnitCaptured then GameEvents.UnitCaptured.Add(onUnitCaptured) end
 if GameEvents.UnitCreated then GameEvents.UnitCreated.Add(onUnitCreated) end
+if GameEvents.UnitSetXY then GameEvents.UnitSetXY.Add(onUnitSetXY) end
 if GameEvents.UnitUpgraded then
     GameEvents.UnitUpgraded.Add(function(playerID, oldUnitID, newUnitID)
         return onUnitConverted(playerID, playerID, oldUnitID, newUnitID, true)

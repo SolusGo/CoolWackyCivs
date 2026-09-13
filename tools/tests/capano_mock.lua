@@ -1,8 +1,16 @@
 MapModData = {}
 persisted = {}
 Modding = {OpenSaveData=function()
-    return {GetValue=function(_, key) return persisted[key] end,
-        SetValue=function(_, key, value) persisted[key] = value end}
+    return {
+        GetValue=function(key)
+            assert(type(key) == "string", "OpenSaveData.GetValue expects a string key")
+            return persisted[key]
+        end,
+        SetValue=function(key, value)
+            assert(type(key) == "string", "OpenSaveData.SetValue expects a string key")
+            persisted[key] = value
+        end
+    }
 end}
 
 Game = {turn=20, active=0, GetGameTurn=function() return Game.turn end,

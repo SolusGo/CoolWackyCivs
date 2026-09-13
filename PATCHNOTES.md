@@ -1,5 +1,12 @@
 # Patch Notes
 
+## Cool Wacky Civs version 3 — Capano runtime repair — 2026-09-13
+
+- Corrected every Capano `OpenSaveData` call to use the Community Patch's function-style API, fixing the live initialization crash recorded in `Lua.log`.
+- Registered the existing `UnitSetXY` handler so Boulder Sector movement effects and Competition Movement activation now run in game.
+- Made the Capano save-data mock enforce the real API signature and added assertions for every required event registration, preventing either regression from passing the test suite again.
+- Rebuilt the combined collection as version 3 so Civ V imports a clean runtime package without reintroducing standalone Capano mods.
+
 ## Cool Wacky Civs version 2 — Capano icon overhaul — 2026-09-13
 
 - Replaced all fourteen Capano gameplay-icon sources with dedicated high-resolution illustrations instead of small crops from the civilization concept sheet.

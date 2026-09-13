@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="2">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="3">
   <Properties>
     <Name>Cool Wacky Civs</Name>
     <Teaser>Four strange leaders. Four stranger ways to rule.</Teaser>
@@ -55,7 +55,7 @@
     <File md5="38DD78110769A4CA508F453601B7A6E4" import="1">CapanoCircuit/Art/CapanoObjects64.dds</File>
     <File md5="D22A68FCA5E1609DAE664025556FF73B" import="1">CapanoCircuit/Art/CapanoObjects80.dds</File>
     <File md5="4538D1584814413F2D4C78B52C5BC9F8" import="1">CapanoCircuit/Art/CapanoUnitFlag32.dds</File>
-    <File md5="80D72747C981A7A822E3399DD4E17F8E" import="1">CapanoCircuit/Lua/CapanoRuntime.lua</File>
+    <File md5="6EDF330F89E136971FECDCD7FA3CAADD" import="1">CapanoCircuit/Lua/CapanoRuntime.lua</File>
     <File md5="8C4D5A7EE9CD84B39DC3239E00B68DF6" import="0">CapanoCircuit/SQL/00_Capano_Core.sql</File>
     <File md5="E44393B20933AAEA54C9BF39562CBFE5" import="0">CapanoCircuit/SQL/01_Capano_Inheritance.sql</File>
     <File md5="E61A64A1028AB793CE212EBC40664546" import="0">CapanoCircuit/SQL/02_Capano_UniqueEffects.sql</File>

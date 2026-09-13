@@ -1,6 +1,21 @@
 local C = MapModData.Capano
 local I = C.IDs
 
+-- Every mechanic must be reachable through the real Community Patch event bus.
+-- The mock creates an empty event on first access, so this also catches a handler
+-- that exists in source but was never registered (as happened with UnitSetXY).
+local requiredEvents = {
+    "BattleStarted", "BattleJoined", "BattleFinished", "PlayerCanBuild",
+    "PlayerBuilding", "PlayerBuilt", "PlayerDoTurn", "PlayerDoneTurn",
+    "CityTrained", "CityCaptureComplete", "UnitPrekill", "UnitCaptured",
+    "UnitCreated", "UnitSetXY", "UnitUpgraded", "UnitConverted",
+    "DeclareWar", "MakePeace", "GetDiploModifier"
+}
+for _, eventName in ipairs(requiredEvents) do
+    local event = GameEvents[eventName]
+    assert(#event.handlers > 0, "Capano event is not wired: " .. eventName)
+end
+
 -- A Route Setter needs a hill or adjacent mountain, and Sectors cannot touch.
 local buildPlot = Map.GetPlot(4, 1)
 assert(C.CanBuildSector(0, 3, 4, 1, I.BoulderBuild) == false)
