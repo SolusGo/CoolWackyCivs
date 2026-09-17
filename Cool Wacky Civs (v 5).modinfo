@@ -82,13 +82,13 @@
     <File md5="57759718A54B7041F2F9B0B91372277A" import="1">FilthyRealm/Art/FilthyLeader.dds</File>
     <File md5="20B4E48917F4C1F143571B6D8CC8912A" import="1">FilthyRealm/Art/FilthyLeaderScene.xml</File>
     <File md5="9F8C759D3357593235C5C66CC8D9C574" import="1">FilthyRealm/Art/FilthyMap.dds</File>
-    <File md5="4667B41567DBEACE701560BA627A9BC8" import="1">FilthyRealm/Art/FilthyObjects128.dds</File>
-    <File md5="8DED14B0D1CABC4CEC10544ADA4E646A" import="1">FilthyRealm/Art/FilthyObjects16.dds</File>
-    <File md5="E62C4E447CCB8879E49D00369AE33DB8" import="1">FilthyRealm/Art/FilthyObjects256.dds</File>
-    <File md5="E69A583306BA4968DB916E9EAB0DCECB" import="1">FilthyRealm/Art/FilthyObjects32.dds</File>
-    <File md5="E6F165B95BFE6EE8C4ED3D8CD8E1AD94" import="1">FilthyRealm/Art/FilthyObjects45.dds</File>
-    <File md5="C902F96A7971E53D7D64DD56E9C2C1A8" import="1">FilthyRealm/Art/FilthyObjects64.dds</File>
-    <File md5="E6396CB3C317BFA4B25D2A47D67A261B" import="1">FilthyRealm/Art/FilthyObjects80.dds</File>
+    <File md5="B4D98AD987C34B195B18A040560EE765" import="1">FilthyRealm/Art/FilthyObjects128.dds</File>
+    <File md5="11B4FD9D6614418F917D2C6F0763A74C" import="1">FilthyRealm/Art/FilthyObjects16.dds</File>
+    <File md5="4C7C0564D6FD36800272068BB670DD77" import="1">FilthyRealm/Art/FilthyObjects256.dds</File>
+    <File md5="5208648A002DFCB27674ED1284C3080C" import="1">FilthyRealm/Art/FilthyObjects32.dds</File>
+    <File md5="6CC52E901518D09D9E1BD44DD4BAFCF3" import="1">FilthyRealm/Art/FilthyObjects45.dds</File>
+    <File md5="15E516E0676FC827DF38D2E459FEFCFB" import="1">FilthyRealm/Art/FilthyObjects64.dds</File>
+    <File md5="899837750DF75D2439DE82C04E985E88" import="1">FilthyRealm/Art/FilthyObjects80.dds</File>
     <File md5="3B8641E929895C36120D21AAE32133E3" import="1">FilthyRealm/Art/FilthyUnitFlag32.dds</File>
     <File md5="47A2141E7165E3CF1FC54C6531B976A9" import="1">FilthyRealm/Lua/FilthyRuntime.lua</File>
     <File md5="A8BCC48E5587F535E5AB4BFF54FB2367" import="0">FilthyRealm/SQL/00_Filthy_Core.sql</File>
