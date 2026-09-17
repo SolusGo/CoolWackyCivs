@@ -6,8 +6,8 @@
     <Name>Cool Wacky Civs</Name>
     <SafeName>Cool Wacky Civs</SafeName>
     <Guid>4c02158d-ad52-4b73-bf2a-555ce58a1e60</Guid>
-    <Teaser>Four strange leaders. Four stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, and The Capano Circuit. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Five strange leaders. Five stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, and The Filthy Realm. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -27,7 +27,7 @@
     <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <HideSetupGame>false</HideSetupGame>
-    <ModVersion>4</ModVersion>
+    <ModVersion>5</ModVersion>
     <Stability>Alpha</Stability>
     <ModActions>
       <Action>
@@ -110,6 +110,26 @@
         <Type>UpdateDatabase</Type>
         <FileName>CapanoCircuit/SQL/10_Capano_Text.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>FilthyRealm/SQL/00_Filthy_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>FilthyRealm/SQL/01_Filthy_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>FilthyRealm/SQL/02_Filthy_UniqueEffects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>FilthyRealm/SQL/10_Filthy_Text.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -135,6 +155,12 @@
         <Name>Capano Circuit Runtime</Name>
         <Description>Projects, SEND rewards, Boulder Sectors, training, movement, techniques, and diplomacy.</Description>
         <FileName>CapanoCircuit/Lua/CapanoRuntime.lua</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>The Filthy Realm</Name>
+        <Description>Filthy Point counter, active ability panel, Filth runtime, and Peace Lord intervention.</Description>
+        <FileName>FilthyRealm/UI/FilthyPanel.xml</FileName>
       </Content>
     </ModContent>
     <ModDependencies>
@@ -274,6 +300,43 @@
       <SubType>SQL</SubType>
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="FilthyRealm/Art/FilthyAlpha128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyAlpha16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyAlpha24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyAlpha256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyAlpha32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyAlpha45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyAlpha48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyAlpha64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyAlpha80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyDawn.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyIcon128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyIcon16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyIcon24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyIcon256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyIcon32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyIcon45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyIcon48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyIcon64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyIcon80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyLeader.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyLeaderScene.xml"><SubType>XML</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyMap.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyObjects128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyObjects16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyObjects256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyObjects32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyObjects45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyObjects64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyObjects80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyUnitFlag32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Lua/FilthyRuntime.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/SQL/00_Filthy_Core.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/SQL/01_Filthy_Inheritance.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/SQL/02_Filthy_UniqueEffects.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/SQL/10_Filthy_Text.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/UI/FilthyPanel.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/UI/FilthyPanel.xml"><SubType>XML</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
     <Content Include="LunaNetwork/Art/LunaAlpha128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -537,6 +600,10 @@
     <Folder Include="CapanoCircuit\Art\" />
     <Folder Include="CapanoCircuit\Lua\" />
     <Folder Include="CapanoCircuit\SQL\" />
+    <Folder Include="FilthyRealm\Art\" />
+    <Folder Include="FilthyRealm\Lua\" />
+    <Folder Include="FilthyRealm\SQL\" />
+    <Folder Include="FilthyRealm\UI\" />
     <Folder Include="LunaNetwork\Art\" />
     <Folder Include="LunaNetwork\Lua\" />
     <Folder Include="LunaNetwork\SQL\" />

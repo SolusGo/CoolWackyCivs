@@ -1,5 +1,16 @@
 # Patch Notes
 
+## Cool Wacky Civs version 5 — The Filthy Realm — 2026-09-18
+
+- Added Filthy Frank and The Filthy Realm as the collection's fifth civilization, with Culture/Domination AI flavors and a Rice Fields capital list.
+- Implemented five-level foreign-city Filth through mutually exclusive dummy buildings, exact yield penalties, non-stacking nearby combat bonuses, trade/tourism/warfare spread, and connectivity-based decay.
+- Added persistent Filthy Points from kills, pillaging, Filth, routes, Great Works, captures, denunciations, declarations of war, and targeted World Congress embargoes.
+- Added the in-game Filthy Realm panel with Salamander Man, Realm Distortion, deterministic Ravioli yield theft, It's Time to Stop, cooldowns, target selection, and AI ability use.
+- Added the 52-Strength Peace Lord, Know Your Place kill rewards, temporary adjacent humiliation, and once-per-unit Filthy Intervention retreat action.
+- Added the Filthy Kitchen with Broadcast Tower inheritance, +2 Tourism, Great Work food/point rewards, capped passive points, and faster trade-route contamination.
+- Remade the leader, Dawn of Man, map, and Salamander art from the supplied concept direction; extracted and reframed the face, leader, Peace Lord, and Kitchen; compiled exact Civ V DXT5 atlas sizes.
+- Extended combined SQL/DDS/UI validation and added a deterministic Filthy runtime mock covering Filth, spending, cooldowns, summons, Stop, Intervention, and pillaging.
+
 ## Cool Wacky Civs version 4 — icon and runtime hardening — 2026-09-13
 
 - Refined the Rou'ls, Luna, and Terra civilization emblems from new transparent high-resolution sources, with supersampled rendering and thumbnail sharpening.

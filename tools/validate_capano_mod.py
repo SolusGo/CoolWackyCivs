@@ -171,7 +171,9 @@ def manifest_files(path: Path) -> dict[str, tuple[bool, str]]:
 
 def assert_vfs_flags(files: dict[str, tuple[bool, str]], context: str) -> None:
     for name, (imported, _) in files.items():
-        should_import = not name.endswith(".sql") and name != "RoulsAscendancy/UI/RoulsPanel.xml"
+        should_import = not name.endswith(".sql") and name not in {
+            "RoulsAscendancy/UI/RoulsPanel.xml", "FilthyRealm/UI/FilthyPanel.xml"
+        }
         assert imported == should_import, (
             f"{context}: {name} has import={int(imported)}, expected {int(should_import)}"
         )

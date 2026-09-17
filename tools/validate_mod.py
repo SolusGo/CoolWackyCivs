@@ -57,7 +57,7 @@ def check_packaging():
     names = {name for name, _ in files}
     assert len(names) == len(files), "Duplicate project content"
     assert all((ROOT / name).is_file() for name in names), "Project contains missing files"
-    civ_roots = ("RoulsAscendancy", "LunaNetwork", "TerraFramework", "CapanoCircuit")
+    civ_roots = ("RoulsAscendancy", "LunaNetwork", "TerraFramework", "CapanoCircuit", "FilthyRealm")
     actual = {
         p.relative_to(ROOT).as_posix()
         for folder in civ_roots
@@ -66,7 +66,9 @@ def check_packaging():
     }
     assert actual == names, f"Project/package file mismatch: {actual ^ names}"
     for name, imported in files:
-        if name.endswith(".sql") or name == "RoulsAscendancy/UI/RoulsPanel.xml":
+        if name.endswith(".sql") or name in {
+            "RoulsAscendancy/UI/RoulsPanel.xml", "FilthyRealm/UI/FilthyPanel.xml"
+        }:
             assert not imported, f"Database SQL must not import into VFS: {name}"
         else:
             assert imported, f"Included runtime/art missing VFS import: {name}"
@@ -84,6 +86,7 @@ def check_packaging():
         "LunaNetwork/Lua/LunaLowLatency.lua",
         "TerraFramework/Lua/TerraRuntime.lua",
         "CapanoCircuit/Lua/CapanoRuntime.lua",
+        "FilthyRealm/UI/FilthyPanel.xml",
     ], "Combined runtime entry points are incomplete or out of order"
     assert values["SupportsMultiplayer"] == "false", "Unvalidated multiplayer must remain disabled"
     dependencies = props.findall("m:ModDependencies/m:Association/m:Id", NS)
@@ -142,6 +145,11 @@ def check_ui_and_lua():
             "PlayerCityFounded", "UnitSetXY", "UnitUpgraded", "UnitConverted", "UnitPrekill",
             "PlayerTradeRouteCompleted", "PlayerPlunderedTradeRoute",
         ),
+        "FilthyRealm/Lua/FilthyRuntime.lua": (
+            "PlayerDoTurn", "UnitPrekill", "CityCaptureComplete", "CityTrained",
+            "BattleStarted", "BattleJoined", "BattleFinished", "UnitSetXY",
+            "PlayerCanGiftUnit", "UnitPillageGold", "ResolutionResult",
+        ),
     }
     for relative, hooks in runtime_hooks.items():
         source = (ROOT / relative).read_text(encoding="utf-8-sig")
@@ -175,7 +183,7 @@ def check_ui_and_lua():
         with Image.open(path) as texture:
             texture.load()
             assert texture.size == (width, height), f"Unreadable DDS payload: {path}"
-        if path.name == "RoulsLeader.dds":
+        if path.name in {"RoulsLeader.dds", "FilthyLeader.dds", "FilthyDawn.dds"}:
             assert (width, height) == (1600, 900), "Static leader scene must be 1600x900"
     directxtex_checks(dds_paths)
     print(f"PASS XML/control wiring, runtime hooks, DDS decode and Lua 5.1 syntax ({len(lua_files)} scripts)")
@@ -254,7 +262,7 @@ def check_database(path: Path, cp_root: Path):
         predicate = " OR ".join(
             f"CAST({quote(c)} AS TEXT) LIKE '%{prefix}%'"
             for c in columns
-            for prefix in ("ROULS", "LUNA", "TERRA", "CAPANO")
+            for prefix in ("ROULS", "LUNA", "TERRA", "CAPANO", "FILTHY")
         )
         if predicate:
             try:
@@ -271,6 +279,7 @@ def check_database(path: Path, cp_root: Path):
         "CIVILIZATION_GPT_LUNA",
         "CIVILIZATION_GPT_TERRA",
         "CIVILIZATION_CAPANO_CIRCUIT",
+        "CIVILIZATION_FILTHY_REALM",
     ):
         assert database.execute(
             "SELECT COUNT(*) FROM Civilizations WHERE Type=?", (civilization,)
@@ -288,6 +297,9 @@ def check_database(path: Path, cp_root: Path):
         "TERRA_LEADER_ATLAS": ("TerraLeader", (256, 128, 64)),
         "TERRA_OPERATIVE_ATLAS": ("TerraOperative", (256, 128, 80, 64, 45)),
         "TERRA_HUB_ATLAS": ("TerraHub", (256, 128, 64, 45)),
+        "FILTHY_ICON_ATLAS": ("FilthyIcon", (256, 128, 80, 64, 48, 45, 32, 24, 16)),
+        "FILTHY_ALPHA_ATLAS": ("FilthyAlpha", (256, 128, 80, 64, 48, 45, 32, 24, 16)),
+        "FILTHY_OBJECT_ATLAS": ("FilthyObjects", (256, 128, 80, 64, 45, 32, 16)),
     }
     for atlas, (stem, sizes) in atlas_specs.items():
         actual = {row[0]: row[1] for row in database.execute(
@@ -333,16 +345,34 @@ def check_database(path: Path, cp_root: Path):
     assert row("UnitPromotions", "PROMOTION_ROULS_SECOND_SKIN")["LostWithUpgrade"] == 0
     lock = row("UnitPromotions", "PROMOTION_ROULS_ACTION_LOCK")
     assert lock["OnlyDefensive"] == 1 and lock["RangeChange"] <= -99, "Action lock must suppress melee and ranged attacks"
+    great_war = row("Units", "UNIT_GREAT_WAR_INFANTRY")
+    peace_lord = row("Units", "UNIT_FILTHY_PEACE_LORD")
+    assert peace_lord["Combat"] == 52 and peace_lord["Class"] == great_war["Class"]
+    for field in ("PrereqTech", "Moves", "Domain", "UnitCombatType"):
+        if field in peace_lord.keys():
+            assert peace_lord[field] == great_war[field], f"Peace Lord lost inherited {field}"
+    broadcast = row("Buildings", "BUILDING_BROADCAST_TOWER")
+    kitchen = row("Buildings", "BUILDING_FILTHY_KITCHEN")
+    for field in ("BuildingClass", "PrereqTech", "Cost", "GoldMaintenance"):
+        assert kitchen[field] == broadcast[field], f"Filthy Kitchen lost inherited {field}"
+    assert yield_value("BUILDING_FILTHY_KITCHEN", "YIELD_TOURISM") == yield_value("BUILDING_BROADCAST_TOWER", "YIELD_TOURISM") + 2
+    assert all(row("Buildings", f"BUILDING_FILTHY_LEVEL_{level}")["ShowInPedia"] == 0 for level in range(1, 6))
+    assert all(row("Buildings", f"BUILDING_FILTHY_DISTORTED_{level}")["ShowInPedia"] == 0 for level in range(1, 6))
+    stopped = row("UnitPromotions", "PROMOTION_FILTHY_STOPPED")
+    assert stopped["OnlyDefensive"] == 1 and stopped["RangeChange"] <= -99
     start_techs = lambda civ: {r[0] for r in database.execute("SELECT TechType FROM Civilization_FreeTechs WHERE CivilizationType=?", (civ,))}
     assert start_techs("CIVILIZATION_ROULS_ASCENDANCY") == start_techs("CIVILIZATION_AMERICA"), "Bonus starting technology added"
+    assert start_techs("CIVILIZATION_FILTHY_REALM") == start_techs("CIVILIZATION_AMERICA"), "Filthy Realm gained a bonus starting technology"
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_UNIT_PREKILL'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_BATTLES'").fetchone()[0] == 1
+    assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_UNIT_ACTIONS'").fetchone()[0] == 1
+    assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_RESOLUTIONS'").fetchone()[0] == 1
     unresolved = set()
     translated = {r[0] for r in database.execute("SELECT Tag FROM Language_en_US")}
     for table in ("Civilizations", "Leaders", "Units", "Buildings", "UnitPromotions", "Traits"):
-        for item in database.execute(f"SELECT * FROM {quote(table)} WHERE Type LIKE '%ROULS%'"):
+        for item in database.execute(f"SELECT * FROM {quote(table)} WHERE Type LIKE '%ROULS%' OR Type LIKE '%FILTHY%'"):
             for field in ("Description", "ShortDescription", "Adjective", "Civilopedia", "Strategy", "Help", "Quote", "DawnOfManQuote"):
-                if field in item.keys() and isinstance(item[field], str) and "ROULS" in item[field] and item[field].startswith("TXT_KEY_") and item[field] not in translated:
+                if field in item.keys() and isinstance(item[field], str) and item[field].startswith("TXT_KEY_") and item[field] not in translated:
                     unresolved.add(item[field])
     assert not unresolved, f"Missing localized text: {sorted(unresolved)}"
     assert database.execute("PRAGMA integrity_check").fetchone()[0] == "ok"

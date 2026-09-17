@@ -1,6 +1,6 @@
 # Cool Wacky Civs
 
-Cool Wacky Civs is one Civilization V: Brave New World mod containing four civilizations built for the Community Patch. The repository has one ModBuddy solution, one project, one manifest, and one deployable package; each civilization keeps its own gameplay and implementation README.
+Cool Wacky Civs is one Civilization V: Brave New World mod containing five civilizations built for the Community Patch. The repository has one ModBuddy solution, one project, one manifest, and one deployable package; each civilization keeps its own gameplay and implementation README.
 
 ## Civilizations
 
@@ -8,8 +8,9 @@ Cool Wacky Civs is one Civilization V: Brave New World mod containing four civil
 - [The Luna Network](LunaNetwork/README.md) — GPT-5.6 Luna chains construction refunds, expands with Packet Settlers, and rapidly deploys newly trained forces.
 - [The Terra Framework](TerraFramework/README.md) — GPT-5.6 Terra temporarily specializes cities, supports outgoing trade, and reconfigures Operatives for their terrain.
 - [The Capano Circuit](CapanoCircuit/README.md) — Enrico Capano sets Boulder Sectors, projects difficult targets, and turns four failed attempts into a rewarding SEND.
+- [The Filthy Realm](FilthyRealm/README.md) — Filthy Frank contaminates foreign cities, converts disruption into Filthy Points, and spends them on four active abilities.
 
-All four civilizations are installed and enabled together. Rou'ls and Luna are human-only; Terra and Capano also support AI selection with design-specific flavors. The collection supports single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
+All five civilizations are installed and enabled together. Rou'ls and Luna are human-only; Terra, Capano, and Filthy Frank also support AI selection with design-specific flavors and automated ability use. The collection supports single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
 
 ## Requirements
 
@@ -25,7 +26,7 @@ Install the repository-local development dependencies:
 python -m pip install --target .tools/python -r requirements-dev.txt
 ```
 
-Validate all four civilizations and build the single collection package:
+Validate all five civilizations and build the single collection package:
 
 ```powershell
 python tools/validate_all.py

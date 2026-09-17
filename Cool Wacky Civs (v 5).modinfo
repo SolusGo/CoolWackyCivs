@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="4">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="5">
   <Properties>
     <Name>Cool Wacky Civs</Name>
-    <Teaser>Four strange leaders. Four stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, and The Capano Circuit. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Five strange leaders. Five stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, and The Filthy Realm. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -60,6 +60,43 @@
     <File md5="E44393B20933AAEA54C9BF39562CBFE5" import="0">CapanoCircuit/SQL/01_Capano_Inheritance.sql</File>
     <File md5="E61A64A1028AB793CE212EBC40664546" import="0">CapanoCircuit/SQL/02_Capano_UniqueEffects.sql</File>
     <File md5="9834DC5A4975F0345FEA98C7B479363B" import="0">CapanoCircuit/SQL/10_Capano_Text.sql</File>
+    <File md5="DFF0C64B7A12E331A51F9F7FD7CA3DF5" import="1">FilthyRealm/Art/FilthyAlpha128.dds</File>
+    <File md5="99EF4144BDAB053E0EB26274495DF408" import="1">FilthyRealm/Art/FilthyAlpha16.dds</File>
+    <File md5="0BB4331715EC9645FBB1A4C11C00C283" import="1">FilthyRealm/Art/FilthyAlpha24.dds</File>
+    <File md5="E83C8805CD37E06501F2A6F6A6918397" import="1">FilthyRealm/Art/FilthyAlpha256.dds</File>
+    <File md5="3B8641E929895C36120D21AAE32133E3" import="1">FilthyRealm/Art/FilthyAlpha32.dds</File>
+    <File md5="1BE96C52B1B1F61D4877F6C08951714E" import="1">FilthyRealm/Art/FilthyAlpha45.dds</File>
+    <File md5="97899DDBD16F186C002B8F341392E254" import="1">FilthyRealm/Art/FilthyAlpha48.dds</File>
+    <File md5="3E0CBAEAB8B518B965FF9DC34907B669" import="1">FilthyRealm/Art/FilthyAlpha64.dds</File>
+    <File md5="FB18CF11BCEAF9E39B2E8768FDAF94F9" import="1">FilthyRealm/Art/FilthyAlpha80.dds</File>
+    <File md5="2158EC2B6609FE3CCD741A6BC0CFD73E" import="1">FilthyRealm/Art/FilthyDawn.dds</File>
+    <File md5="A409D36321F2B6A8696E2FF0A9D48396" import="1">FilthyRealm/Art/FilthyIcon128.dds</File>
+    <File md5="0F3A5A3C6B0C4FAC9B12E181CEB8ABE3" import="1">FilthyRealm/Art/FilthyIcon16.dds</File>
+    <File md5="CAD2063128331A0B123FA9302D6C946C" import="1">FilthyRealm/Art/FilthyIcon24.dds</File>
+    <File md5="8F61B3221B899C0B2A0627D7C2BE8A02" import="1">FilthyRealm/Art/FilthyIcon256.dds</File>
+    <File md5="B96D0B4547105C1A7095A2403020722F" import="1">FilthyRealm/Art/FilthyIcon32.dds</File>
+    <File md5="BB344224BC07445E3E7F6F232953E4A4" import="1">FilthyRealm/Art/FilthyIcon45.dds</File>
+    <File md5="EE2675ACB1F4397DDAC8DEAE5531A31E" import="1">FilthyRealm/Art/FilthyIcon48.dds</File>
+    <File md5="38B512CC58EFE370021C8CC60705D6A3" import="1">FilthyRealm/Art/FilthyIcon64.dds</File>
+    <File md5="B9D1063995D11E63784EA654BAA858A0" import="1">FilthyRealm/Art/FilthyIcon80.dds</File>
+    <File md5="57759718A54B7041F2F9B0B91372277A" import="1">FilthyRealm/Art/FilthyLeader.dds</File>
+    <File md5="20B4E48917F4C1F143571B6D8CC8912A" import="1">FilthyRealm/Art/FilthyLeaderScene.xml</File>
+    <File md5="9F8C759D3357593235C5C66CC8D9C574" import="1">FilthyRealm/Art/FilthyMap.dds</File>
+    <File md5="4667B41567DBEACE701560BA627A9BC8" import="1">FilthyRealm/Art/FilthyObjects128.dds</File>
+    <File md5="8DED14B0D1CABC4CEC10544ADA4E646A" import="1">FilthyRealm/Art/FilthyObjects16.dds</File>
+    <File md5="E62C4E447CCB8879E49D00369AE33DB8" import="1">FilthyRealm/Art/FilthyObjects256.dds</File>
+    <File md5="E69A583306BA4968DB916E9EAB0DCECB" import="1">FilthyRealm/Art/FilthyObjects32.dds</File>
+    <File md5="E6F165B95BFE6EE8C4ED3D8CD8E1AD94" import="1">FilthyRealm/Art/FilthyObjects45.dds</File>
+    <File md5="C902F96A7971E53D7D64DD56E9C2C1A8" import="1">FilthyRealm/Art/FilthyObjects64.dds</File>
+    <File md5="E6396CB3C317BFA4B25D2A47D67A261B" import="1">FilthyRealm/Art/FilthyObjects80.dds</File>
+    <File md5="3B8641E929895C36120D21AAE32133E3" import="1">FilthyRealm/Art/FilthyUnitFlag32.dds</File>
+    <File md5="47A2141E7165E3CF1FC54C6531B976A9" import="1">FilthyRealm/Lua/FilthyRuntime.lua</File>
+    <File md5="A8BCC48E5587F535E5AB4BFF54FB2367" import="0">FilthyRealm/SQL/00_Filthy_Core.sql</File>
+    <File md5="3835228BE4BF6D3A7C5F0FF3F40D376E" import="0">FilthyRealm/SQL/01_Filthy_Inheritance.sql</File>
+    <File md5="5E282CC532747AAF858BDF4BDADE7039" import="0">FilthyRealm/SQL/02_Filthy_UniqueEffects.sql</File>
+    <File md5="39BD5E5F96F64763BBE755B3D006B6BB" import="0">FilthyRealm/SQL/10_Filthy_Text.sql</File>
+    <File md5="F8F9842A734F0743236C00FF441158F1" import="1">FilthyRealm/UI/FilthyPanel.lua</File>
+    <File md5="39450A7AB27F45B4A0BEB9FFA95D9389" import="0">FilthyRealm/UI/FilthyPanel.xml</File>
     <File md5="480BA76100E9D1D4E6A563A17549AEAC" import="1">LunaNetwork/Art/LunaAlpha128.dds</File>
     <File md5="8CEFF6B28CE0730B90A563670DF8C47E" import="1">LunaNetwork/Art/LunaAlpha16.dds</File>
     <File md5="3AEA987EC09EE925756C3C4D5FBCB8D0" import="1">LunaNetwork/Art/LunaAlpha24.dds</File>
@@ -158,6 +195,10 @@
       <UpdateDatabase>CapanoCircuit/SQL/01_Capano_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>CapanoCircuit/SQL/02_Capano_UniqueEffects.sql</UpdateDatabase>
       <UpdateDatabase>CapanoCircuit/SQL/10_Capano_Text.sql</UpdateDatabase>
+      <UpdateDatabase>FilthyRealm/SQL/00_Filthy_Core.sql</UpdateDatabase>
+      <UpdateDatabase>FilthyRealm/SQL/01_Filthy_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>FilthyRealm/SQL/02_Filthy_UniqueEffects.sql</UpdateDatabase>
+      <UpdateDatabase>FilthyRealm/SQL/10_Filthy_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -176,6 +217,10 @@
     <EntryPoint type="InGameUIAddin" file="CapanoCircuit/Lua/CapanoRuntime.lua">
       <Name>Capano Circuit Runtime</Name>
       <Description>Projects, SEND rewards, Boulder Sectors, training, movement, techniques, and diplomacy.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="FilthyRealm/UI/FilthyPanel.xml">
+      <Name>The Filthy Realm</Name>
+      <Description>Filthy Point counter, active ability panel, Filth runtime, and Peace Lord intervention.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>
