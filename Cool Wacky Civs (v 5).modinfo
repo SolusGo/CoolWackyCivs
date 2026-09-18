@@ -95,8 +95,8 @@
     <File md5="3835228BE4BF6D3A7C5F0FF3F40D376E" import="0">FilthyRealm/SQL/01_Filthy_Inheritance.sql</File>
     <File md5="5E282CC532747AAF858BDF4BDADE7039" import="0">FilthyRealm/SQL/02_Filthy_UniqueEffects.sql</File>
     <File md5="39BD5E5F96F64763BBE755B3D006B6BB" import="0">FilthyRealm/SQL/10_Filthy_Text.sql</File>
-    <File md5="B74AF7295885F716027422E03E992A33" import="1">FilthyRealm/UI/FilthyPanel.lua</File>
-    <File md5="39450A7AB27F45B4A0BEB9FFA95D9389" import="0">FilthyRealm/UI/FilthyPanel.xml</File>
+    <File md5="888645391AB8A0744A3535D989492507" import="1">FilthyRealm/UI/FilthyPanel.lua</File>
+    <File md5="9B2C8039C8E1AF2B0CDB779A88FCB799" import="0">FilthyRealm/UI/FilthyPanel.xml</File>
     <File md5="480BA76100E9D1D4E6A563A17549AEAC" import="1">LunaNetwork/Art/LunaAlpha128.dds</File>
     <File md5="8CEFF6B28CE0730B90A563670DF8C47E" import="1">LunaNetwork/Art/LunaAlpha16.dds</File>
     <File md5="3AEA987EC09EE925756C3C4D5FBCB8D0" import="1">LunaNetwork/Art/LunaAlpha24.dds</File>

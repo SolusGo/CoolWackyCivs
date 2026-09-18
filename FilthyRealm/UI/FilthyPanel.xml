@@ -1,34 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Context ID="FilthyPanel">
   <Instance Name="FilthyTargetEntry">
-    <GridButton ID="TargetButton" Size="534,38" Style="BaseButton" String="Target" />
+    <GridButton ID="TargetButton" Size="566,40" Style="BaseButton" String="Target" />
   </Instance>
-  <Image ID="PointsIcon" Anchor="C,T" Offset="98,31" Size="28,28" Hidden="1" />
-  <GridButton ID="PointsButton" Anchor="C,T" Offset="224,30" Size="270,30" Style="BaseButton" String="ENTER THE FILTHY REALM — 0 FP" ToolTip="Enter the Filthy Realm." Hidden="1" />
-  <Grid ID="MainPanel" Anchor="R,T" Offset="24,80" Size="590,650" Style="Grid9DetailFive140" ConsumeMouse="1" Hidden="1">
-    <Label Anchor="C,T" Offset="0,15" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="THE FILTHY REALM" />
-    <Label ID="PointsLabel" Anchor="C,T" Offset="0,48" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" String="Filthy Points: 0" />
-    <Grid Anchor="C,T" Offset="0,76" Size="550,66" Style="GridBlackIndent8">
-      <Label ID="StatusLabel" Anchor="L,T" Offset="12,8" Size="526,50" WrapWidth="526" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="" />
+
+  <!-- Compact top-screen launcher with the custom Filth resource mark. -->
+  <Grid ID="LauncherFrame" Anchor="C,T" Offset="0,24" Size="350,42" Style="GridBlackIndent8" Hidden="1">
+    <GridButton ID="PointsButton" Anchor="C,C" Offset="0,0" Size="338,34" Style="BaseButton"
+      String="ENTER THE FILTHY REALM - 0 FP" ToolTip="Enter the Filthy Realm." />
+    <Box Anchor="L,C" Offset="2,0" Size="4,34" Color="232,55,117,255" />
+    <Image ID="PointsIcon" Anchor="L,C" Offset="10,0" Size="32,32" ConsumeMouse="0" />
+  </Grid>
+
+  <Grid ID="MainPanel" Anchor="R,T" Offset="20,74" Size="640,680" Style="Grid9DetailFive140" ConsumeMouse="1" Hidden="1">
+    <!-- Magenta rails and dark inset cards turn the stock frame into the Realm's console. -->
+    <Box Anchor="L,T" Offset="7,7" Size="5,666" Color="232,55,117,230" />
+    <Box Anchor="R,T" Offset="7,7" Size="2,666" Color="232,55,117,110" />
+    <Box Anchor="C,T" Offset="0,77" Size="604,2" Color="232,55,117,210" />
+    <Box Anchor="C,B" Offset="0,58" Size="604,2" Color="232,55,117,150" />
+
+    <Image ID="CivIcon" Anchor="L,T" Offset="24,10" Size="64,64" />
+    <Label Anchor="L,T" Offset="100,12" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="THE FILTHY REALM" />
+    <Label Anchor="L,T" Offset="102,43" Font="TwCenMT14" ColorSet="Beige_Black_Alpha"
+      String="A HIGHER FORM OF CIVILIZATION" />
+    <Grid ID="PointsCard" Anchor="R,T" Offset="68,14" Size="174,48" Style="GridBlackIndent8">
+      <Image ID="PanelPointsIcon" Anchor="L,C" Offset="10,0" Size="32,32" />
+      <Label ID="PointsLabel" Anchor="L,T" Offset="52,3" Size="106,24" Font="TwCenMT18"
+        ColorSet="Beige_Black_Alpha" String="0 FP" />
+      <Label Anchor="L,T" Offset="54,27" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="FILTHY POINTS" />
     </Grid>
-    <GridButton ID="SalamanderButton" Anchor="L,T" Offset="20,154" Size="265,42" Style="BaseButton" String="SALAMANDER MAN — 25 FP" />
-    <GridButton ID="DistortionButton" Anchor="R,T" Offset="20,154" Size="265,42" Style="BaseButton" String="REALM DISTORTION — 40 FP" />
-    <GridButton ID="RavioliButton" Anchor="L,T" Offset="20,204" Size="265,42" Style="BaseButton" String="RAVIOLI — 60 FP" />
-    <GridButton ID="StopButton" Anchor="R,T" Offset="20,204" Size="265,42" Style="BaseButton" String="IT'S TIME TO STOP — 80 FP" />
-    <GridButton ID="InterventionButton" Anchor="C,T" Offset="0,254" Size="550,36" Style="BaseButton" String="PEACE LORD: FILTHY INTERVENTION" />
-    <Label ID="InstructionLabel" Anchor="L,T" Offset="24,301" Size="542,40" WrapWidth="542" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="Choose an ability." />
-    <ScrollPanel ID="TargetScroll" Anchor="C,T" Offset="0,344" Size="550,150" Vertical="1">
-      <Stack ID="TargetStack" Anchor="L,T" StackGrowth="Bottom" Padding="4" Size="534,0" />
-    </ScrollPanel>
-    <Grid ID="CategoryGrid" Anchor="C,T" Offset="0,504" Size="550,42" Hidden="1">
-      <GridButton ID="GoldButton" Anchor="L,T" Offset="0,0" Size="104,36" Style="BaseButton" String="Gold" />
-      <GridButton ID="ScienceButton" Anchor="L,T" Offset="111,0" Size="104,36" Style="BaseButton" String="Science" />
-      <GridButton ID="CultureButton" Anchor="L,T" Offset="222,0" Size="104,36" Style="BaseButton" String="Culture" />
-      <GridButton ID="FoodButton" Anchor="L,T" Offset="333,0" Size="104,36" Style="BaseButton" String="Food" />
-      <GridButton ID="ProductionButton" Anchor="R,T" Offset="0,0" Size="104,36" Style="BaseButton" String="Production" />
+    <GridButton ID="CloseButton" Anchor="R,T" Offset="18,18" Size="38,30" Style="BaseButton" String="X" ToolTip="Close the Filthy Realm." />
+
+    <Label Anchor="L,T" Offset="24,88" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" String="REALM STATUS" />
+    <Grid Anchor="C,T" Offset="0,110" Size="592,62" Style="GridBlackIndent8">
+      <Box Anchor="L,C" Offset="3,0" Size="3,48" Color="232,55,117,170" />
+      <Label ID="StatusLabel" Anchor="L,T" Offset="14,7" Size="562,48" WrapWidth="562"
+        Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="" />
     </Grid>
-    <Label ID="MessageLabel" Anchor="L,T" Offset="24,552" Size="542,42" WrapWidth="542" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="" />
-    <GridButton ID="ConfirmButton" Anchor="L,B" Offset="20,16" Size="300,36" Style="BaseButton" String="Confirm" />
-    <GridButton ID="CloseButton" Anchor="R,B" Offset="20,16" Size="104,36" Style="BaseButton" String="Close" />
+
+    <Label Anchor="L,T" Offset="24,184" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" String="REALM COMMANDS" />
+    <GridButton ID="SalamanderButton" Anchor="L,T" Offset="24,208" Size="286,50" Style="BaseButton"
+      String="SALAMANDER MAN - 25 FP" />
+    <Image ID="SalamanderIcon" Anchor="L,T" Offset="30,210" Size="45,45" ConsumeMouse="0" />
+    <GridButton ID="DistortionButton" Anchor="R,T" Offset="24,208" Size="286,50" Style="BaseButton"
+      String="REALM DISTORTION - 40 FP" />
+    <Image ID="DistortionIcon" Anchor="R,T" Offset="259,210" Size="45,45" ConsumeMouse="0" />
+    <GridButton ID="RavioliButton" Anchor="L,T" Offset="24,266" Size="286,50" Style="BaseButton"
+      String="RAVIOLI - 60 FP" />
+    <Image ID="RavioliIcon" Anchor="L,T" Offset="30,268" Size="45,45" ConsumeMouse="0" />
+    <GridButton ID="StopButton" Anchor="R,T" Offset="24,266" Size="286,50" Style="BaseButton"
+      String="IT'S TIME TO STOP - 80 FP" />
+    <Image ID="StopIcon" Anchor="R,T" Offset="259,268" Size="45,45" ConsumeMouse="0" />
+    <GridButton ID="InterventionButton" Anchor="C,T" Offset="0,324" Size="592,44" Style="BaseButton"
+      String="PEACE LORD: FILTHY INTERVENTION" />
+    <Image ID="InterventionIcon" Anchor="L,T" Offset="30,324" Size="45,45" ConsumeMouse="0" />
+
+    <Label ID="TargetHeader" Anchor="L,T" Offset="24,378" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" String="TARGETING CONSOLE" />
+    <Grid Anchor="C,T" Offset="0,400" Size="592,48" Style="GridBlackIndent8">
+      <Label ID="InstructionLabel" Anchor="L,T" Offset="12,5" Size="568,38" WrapWidth="568"
+        Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="Choose an ability." />
+    </Grid>
+    <Grid Anchor="C,T" Offset="0,456" Size="592,126" Style="GridBlackIndent8">
+      <ScrollPanel ID="TargetScroll" Anchor="C,T" Offset="0,5" Size="582,116" Vertical="1">
+        <Stack ID="TargetStack" Anchor="L,T" StackGrowth="Bottom" Padding="4" Size="566,0" />
+      </ScrollPanel>
+    </Grid>
+
+    <Grid ID="CategoryGrid" Anchor="C,T" Offset="0,584" Size="592,40" Hidden="1">
+      <GridButton ID="GoldButton" Anchor="L,T" Offset="0,0" Size="112,36" Style="BaseButton" String="Gold" />
+      <GridButton ID="ScienceButton" Anchor="L,T" Offset="120,0" Size="112,36" Style="BaseButton" String="Science" />
+      <GridButton ID="CultureButton" Anchor="L,T" Offset="240,0" Size="112,36" Style="BaseButton" String="Culture" />
+      <GridButton ID="FoodButton" Anchor="L,T" Offset="360,0" Size="104,36" Style="BaseButton" String="Food" />
+      <GridButton ID="ProductionButton" Anchor="R,T" Offset="0,0" Size="120,36" Style="BaseButton" String="Production" />
+    </Grid>
+    <Label ID="MessageLabel" Anchor="L,B" Offset="24,14" Size="340,38" WrapWidth="340"
+      Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="" />
+    <GridButton ID="ConfirmButton" Anchor="R,B" Offset="24,14" Size="246,38" Style="BaseButton" String="Confirm" />
   </Grid>
 </Context>
