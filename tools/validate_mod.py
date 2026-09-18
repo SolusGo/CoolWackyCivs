@@ -157,7 +157,8 @@ def check_ui_and_lua():
         "DualOrder/Lua/DualOrderRuntime.lua": (
             "PlayerDoTurn", "PlayerDoneTurn", "CityTrained", "CityConstructed", "CityCaptureComplete",
             "BattleStarted", "BattleJoined", "BattleFinished", "UnitSetXY",
-            "UnitCreated", "UnitConverted", "DeclareWar", "MakePeace", "PlayerGoldenAge",
+            "UnitCreated", "UnitPrekill", "UnitConverted", "UnitUpgraded",
+            "DeclareWar", "MakePeace", "PlayerGoldenAge",
         ),
     }
     for relative, hooks in runtime_hooks.items():
@@ -391,6 +392,26 @@ def check_database(path: Path, cp_root: Path):
     assert hall_xp == {domain: experience + 5 for domain, experience in armory_xp.items()}
     assert row("Buildings", "BUILDING_DUAL_ORDER_GOLDEN_ARMAMENT")["MilitaryProductionModifier"] == 25
     assert row("Buildings", "BUILDING_DUAL_ORDER_HALL_HAPPINESS")["Happiness"] == 1
+    for building_type in (
+        "BUILDING_DUAL_ORDER_MANDATE_YIELDS", "BUILDING_DUAL_ORDER_BALANCE_1",
+        "BUILDING_DUAL_ORDER_BALANCE_2", "BUILDING_DUAL_ORDER_BALANCE_3",
+        "BUILDING_DUAL_ORDER_BALANCE_4", "BUILDING_DUAL_ORDER_BALANCE_5",
+        "BUILDING_DUAL_ORDER_GOLDEN_ARMAMENT", "BUILDING_DUAL_ORDER_HALL_HAPPINESS",
+    ):
+        dummy = row("Buildings", building_type)
+        assert (dummy["Cost"], dummy["FaithCost"], dummy["NeverCapture"], dummy["NukeImmune"],
+                dummy["IsDummy"], dummy["ShowInPedia"]) == (-1, -1, 1, 1, 1, 0), (
+            f"Unsafe or visible Dual Order dummy building: {building_type}"
+        )
+    hall_flavors = list(database.execute(
+        "SELECT FlavorType,Flavor FROM Building_Flavors "
+        "WHERE BuildingType='BUILDING_DUAL_ORDER_HALL_CONCORDANCE'"
+    ))
+    assert len(hall_flavors) == len({flavor[0] for flavor in hall_flavors}), "Hall has duplicate AI flavors"
+    assert dict(hall_flavors) == {
+        "FLAVOR_RELIGION": 35, "FLAVOR_MILITARY_TRAINING": 40,
+        "FLAVOR_PRODUCTION": 20, "FLAVOR_HAPPINESS": 15, "FLAVOR_GREAT_PEOPLE": 12,
+    }
     assert row("UnitPromotions", "PROMOTION_DUAL_ORDER_ZEAL")["LostWithUpgrade"] == 0
     assert row("UnitPromotions", "PROMOTION_DUAL_ORDER_SCHISM_WOUNDED")["AttackMod"] == 20
 
@@ -423,7 +444,7 @@ def check_database(path: Path, cp_root: Path):
     assert_companion_rows("BuildingType", "BUILDING_BROADCAST_TOWER", "BUILDING_FILTHY_KITCHEN", "Buildings")
     assert_companion_rows("UnitType", "UNIT_GREAT_WAR_INFANTRY", "UNIT_FILTHY_PEACE_LORD", "Units")
     assert_companion_rows("BuildingType", "BUILDING_ARMORY", "BUILDING_DUAL_ORDER_HALL_CONCORDANCE", "Buildings",
-                          {"Building_DomainFreeExperiences"})
+                          {"Building_DomainFreeExperiences", "Building_Flavors"})
     assert_companion_rows("UnitType", "UNIT_LONGSWORDSMAN", "UNIT_DUAL_ORDER_DIVIDED_TEMPLAR", "Units")
     assert all(row("Buildings", f"BUILDING_FILTHY_LEVEL_{level}")["ShowInPedia"] == 0 for level in range(1, 6))
     assert all(row("Buildings", f"BUILDING_FILTHY_DISTORTED_{level}")["ShowInPedia"] == 0 for level in range(1, 6))
@@ -437,6 +458,7 @@ def check_database(path: Path, cp_root: Path):
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_BATTLES'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_UNIT_ACTIONS'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_UNIT_CONVERTS'").fetchone()[0] == 1
+    assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_UNIT_UPGRADES'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_RESOLUTIONS'").fetchone()[0] == 1
     unresolved = set()
     translated = {r[0] for r in database.execute("SELECT Tag FROM Language_en_US")}

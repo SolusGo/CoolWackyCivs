@@ -2,6 +2,7 @@
 
 MapModData.DualOrder = MapModData.DualOrder or {}
 local D = MapModData.DualOrder
+if D.RuntimeLoaded then return end
 
 local I = {
     Civilization = GameInfoTypes.CIVILIZATION_DUAL_ORDER,
@@ -21,8 +22,8 @@ for level = 1, 5 do
     I.BalancePromotions[level] = GameInfoTypes["PROMOTION_DUAL_ORDER_BALANCE_" .. level]
 end
 
-local battles, states = {}, {}
-local classRoles, buildingRoles, religiousUnits = {}, {}, {}
+local battles, states, excludedSupport = {}, {}, {}
+local classRoles, buildingRoles, buildingClasses, religiousUnits = {}, {}, {}, {}
 
 local function truth(value) return value == true or value == 1 end
 local function isDual(value)
@@ -49,7 +50,11 @@ local function setBuilding(city, building, count)
         city:SetNumRealBuilding(building, count)
     end
 end
-local function plotAt(x, y) return Map.GetPlot(x, y) end
+local function hasBuilding(city, building)
+    if city == nil or building == nil then return false end
+    if city.IsHasBuilding then return city:IsHasBuilding(building) end
+    return city:GetNumRealBuilding(building) > 0
+end
 local function adjacentPlot(plot, direction)
     if plot == nil then return nil end
     return Map.PlotDirection(plot:GetX(), plot:GetY(), direction)
@@ -67,7 +72,10 @@ local function buildLookups()
     end
     for row in GameInfo.Buildings() do
         local role = classRoles[row.BuildingClass]
-        if role then buildingRoles[row.ID] = role end
+        if role then
+            buildingRoles[row.ID] = role
+            buildingClasses[row.ID] = row.BuildingClass
+        end
     end
     local supportClasses = {
         UNITCLASS_PROPHET=true, UNITCLASS_MISSIONARY=true, UNITCLASS_INQUISITOR=true,
@@ -80,9 +88,14 @@ buildLookups()
 
 local function cityInfrastructure(city)
     local mandates, military, religious = 0, false, false
+    local countedMandateClasses = {}
     for buildingID, role in pairs(buildingRoles) do
-        if city:GetNumRealBuilding(buildingID) > 0 then
-            if role.mandate then mandates = mandates + 1 end
+        if hasBuilding(city, buildingID) then
+            local buildingClass = buildingClasses[buildingID]
+            if role.mandate and not countedMandateClasses[buildingClass] then
+                mandates = mandates + 1
+                countedMandateClasses[buildingClass] = true
+            end
             military = military or role.military
             religious = religious or role.religious
         end
@@ -90,9 +103,12 @@ local function cityInfrastructure(city)
     return mandates, military, religious
 end
 
-local function faithPerTurn(player)
-    if player.GetTotalFaithPerTurn then return player:GetTotalFaithPerTurn() end
-    if player.GetFaithPerTurn then return player:GetFaithPerTurn() end
+local function faithPerTurnTimes100(player)
+    if player.GetTotalFaithPerTurnTimes100 then
+        return player:GetTotalFaithPerTurnTimes100() or 0
+    end
+    if player.GetTotalFaithPerTurn then return (player:GetTotalFaithPerTurn() or 0) * 100 end
+    if player.GetFaithPerTurn then return (player:GetFaithPerTurn() or 0) * 100 end
     return 0
 end
 local function activeWars(player)
@@ -115,10 +131,10 @@ local function isGoldenAge(player)
     return player.GetGoldenAgeTurns and player:GetGoldenAgeTurns() > 0 or false
 end
 local function balanceState(player)
-    local wars, faith = activeWars(player), faithPerTurn(player)
-    return {wars=wars, faith=faith, active=wars > 0 and faith > 0,
-        combat=(wars > 0 and faith > 0) and wars * 2 or 0,
-        production=(wars > 0 and faith > 0) and wars or 0}
+    local wars, faithTimes100 = activeWars(player), faithPerTurnTimes100(player)
+    local active = wars > 0 and faithTimes100 > 0
+    return {wars=wars, faith=faithTimes100 / 100, faithTimes100=faithTimes100, active=active,
+        combat=active and wars * 2 or 0, production=active and wars or 0}
 end
 local function foundedReligion(player)
     if not player.GetReligionCreatedByPlayer then return -1 end
@@ -143,6 +159,7 @@ local function friendlyTerritory(unit)
     end
     return false
 end
+local function unitKey(playerID, unitID) return playerID .. ":" .. unitID end
 local function hasHolySupport(unit)
     if unit == nil or not unit:IsHasPromotion(I.Schism) then return false end
     local plot = unit:GetPlot()
@@ -152,7 +169,8 @@ local function hasHolySupport(unit)
             for index = 0, adjacent:GetNumUnits() - 1 do
                 local support = adjacent:GetUnit(index)
                 if support and support:GetOwner() == unit:GetOwner()
-                    and religiousUnits[support:GetUnitType()] then return true end
+                    and religiousUnits[support:GetUnitType()]
+                    and not excludedSupport[unitKey(support:GetOwner(), support:GetID())] then return true end
             end
         end
     end
@@ -160,16 +178,14 @@ local function hasHolySupport(unit)
 end
 local function refreshUnit(unit, state)
     if unit == nil then return end
-    if isDual(unit:GetOwner()) and isMilitary(unit) then
-        setPromotion(unit, I.ZealActive, unit:IsHasPromotion(I.Zeal) and friendlyTerritory(unit))
-        setPromotion(unit, I.HolySupport, hasHolySupport(unit))
-        for level = 1, 5 do
-            setPromotion(unit, I.BalancePromotions[level], state.active and state.wars == level)
-        end
-    else
-        setPromotion(unit, I.ZealActive, false)
-        setPromotion(unit, I.HolySupport, false)
-        for level = 1, 5 do setPromotion(unit, I.BalancePromotions[level], false) end
+    local military, dual = isMilitary(unit), isDual(unit:GetOwner())
+    -- Earned unique promotions remain meaningful if a unit is upgraded or changes owners.
+    setPromotion(unit, I.ZealActive,
+        military and unit:IsHasPromotion(I.Zeal) and friendlyTerritory(unit))
+    setPromotion(unit, I.HolySupport, military and hasHolySupport(unit))
+    for level = 1, 5 do
+        setPromotion(unit, I.BalancePromotions[level],
+            dual and state ~= nil and state.active and state.wars == level)
     end
 end
 local function refreshCity(player, city, state, golden, religion)
@@ -182,10 +198,11 @@ local function refreshCity(player, city, state, golden, religion)
     local follows = religion >= 0 and city.GetReligiousMajority
         and city:GetReligiousMajority() == religion
     setBuilding(city, I.HallHappiness,
-        city:GetNumRealBuilding(I.Hall) > 0 and follows and 1 or 0)
+        hasBuilding(city, I.Hall) and follows and 1 or 0)
 end
 local function changed(previous, current)
-    return previous == nil or previous.wars ~= current.wars or previous.faith ~= current.faith
+    return previous == nil or previous.wars ~= current.wars
+        or previous.faithTimes100 ~= current.faithTimes100
         or previous.active ~= current.active or previous.golden ~= current.golden
 end
 local function refreshPlayer(playerID)
@@ -209,11 +226,29 @@ end
 local function refreshAllUnits()
     for playerID = 0, GameDefines.MAX_CIV_PLAYERS - 1 do
         local player = Players[playerID]
-        if isDual(player) then
-            local state = balanceState(player)
-            state.golden = isGoldenAge(player)
-            states[playerID] = state
-            for unit in player:Units() do refreshUnit(unit, state) end
+        if player and player:IsAlive() then
+            local dual, state = isDual(player), nil
+            if dual then state = balanceState(player) end
+            if dual then
+                state.golden = isGoldenAge(player)
+                states[playerID] = state
+            end
+            for unit in player:Units() do
+                if dual or unit:IsHasPromotion(I.Zeal) or unit:IsHasPromotion(I.Schism) then
+                    refreshUnit(unit, state)
+                end
+            end
+        end
+    end
+end
+local function refreshSchismUnits()
+    for playerID = 0, GameDefines.MAX_CIV_PLAYERS - 1 do
+        local player = Players[playerID]
+        if player and player:IsAlive() then
+            local state = isDual(player) and balanceState(player) or nil
+            for unit in player:Units() do
+                if unit:IsHasPromotion(I.Schism) then refreshUnit(unit, state) end
+            end
         end
     end
 end
@@ -221,9 +256,18 @@ end
 local function onPlayerDoTurn(playerID)
     local player = Players[playerID]
     local state = refreshPlayer(playerID)
-    if state == nil then return end
+    if state == nil then
+        if player and player:IsAlive() then
+            for unit in player:Units() do
+                if unit:IsHasPromotion(I.Zeal) or unit:IsHasPromotion(I.Schism) then
+                    refreshUnit(unit, nil)
+                end
+            end
+        end
+        return
+    end
     local halls = 0
-    for city in player:Cities() do halls = halls + city:GetNumRealBuilding(I.Hall) end
+    for city in player:Cities() do if hasBuilding(city, I.Hall) then halls = halls + 1 end end
     if halls > 0 and player.ChangeCombatExperience then player:ChangeCombatExperience(halls) end
 end
 local function onCityTrained(playerID, cityID, unitID, boughtWithGold, boughtWithFaith)
@@ -234,14 +278,54 @@ local function onCityTrained(playerID, cityID, unitID, boughtWithGold, boughtWit
     local _, military, religious = cityInfrastructure(city)
     if military and religious then setPromotion(unit, I.Zeal, true) end
     if isGoldenAge(player) then unit:ChangeExperience(5) end
-    refreshUnit(unit, states[playerID] or balanceState(player))
+    refreshUnit(unit, balanceState(player))
 end
 local function onCityChanged(playerID)
     refreshPlayer(playerID)
 end
 local function onUnitCreated(playerID, unitID)
     local player, unit = Players[playerID], getUnit(playerID, unitID)
-    if isDual(player) and unit then refreshUnit(unit, states[playerID] or balanceState(player)) end
+    excludedSupport[unitKey(playerID, unitID)] = nil
+    if unit then
+        local state = isDual(player) and balanceState(player) or nil
+        refreshUnit(unit, state)
+        if religiousUnits[unit:GetUnitType()] then refreshSchismUnits() end
+    end
+end
+local function onUnitPrekill(playerID, unitID, unitType, _, _, _, killerPlayerID)
+    local unit = getUnit(playerID, unitID)
+    local actualType = unitType or (unit and unit:GetUnitType())
+    if religiousUnits[actualType] then
+        -- UnitPrekill fires while the unit can still occupy its plot, so explicitly ignore it.
+        excludedSupport[unitKey(playerID, unitID)] = true
+        refreshSchismUnits()
+    end
+    -- UnitPrekill gives reliable kill attribution while the victim still exists.
+    local battle = battles[#battles]
+    if battle and killerPlayerID ~= nil and killerPlayerID >= 0 and killerPlayerID ~= playerID then
+        local victimRole = nil
+        for role, member in pairs(battle.members or {}) do
+            if member.playerID == playerID and member.id == unitID and not member.isCity then
+                victimRole = role
+                break
+            end
+        end
+        if victimRole ~= nil then
+            -- Role 0 is the attacker, role 1 the target, and role 2 an interceptor.
+            local killerRoles = victimRole == 0 and {2, 1} or {0}
+            for _, role in ipairs(killerRoles) do
+                local member = battle.members[role]
+                if member and member.playerID == killerPlayerID and not member.isCity
+                    and not (member.playerID == playerID and member.id == unitID) then
+                    local killer = getUnit(member.playerID, member.id)
+                    if killer and killer:IsHasPromotion(I.Zeal) then
+                        battle.zealKiller = member
+                        break
+                    end
+                end
+            end
+        end
+    end
 end
 local function onUnitConverted(_, newPlayerID, _, newUnitID)
     onUnitCreated(newPlayerID, newUnitID)
@@ -265,23 +349,24 @@ local function prepareBattle()
     battle.attackerUnit, battle.defenderUnit = attacker, defender
     if attacker then
         local owner = Players[attacker:GetOwner()]
-        if isDual(owner) then refreshUnit(attacker, balanceState(owner)) end
+        refreshUnit(attacker, isDual(owner) and balanceState(owner) or nil)
         local wounded = defender ~= nil and defender:GetCurrHitPoints() * 2 < maxHitPoints(defender)
             and attacker:IsHasPromotion(I.Schism)
         setPromotion(attacker, I.SchismWounded, wounded)
     end
     if defender then
         local owner = Players[defender:GetOwner()]
-        if isDual(owner) then refreshUnit(defender, balanceState(owner)) end
+        refreshUnit(defender, isDual(owner) and balanceState(owner) or nil)
     end
 end
 local function onBattleStarted(battleType, x, y)
-    battles[#battles + 1] = {battleType=battleType, x=x, y=y, prepared=false}
+    battles[#battles + 1] = {battleType=battleType, x=x, y=y, prepared=false, members={}}
 end
 local function onBattleJoined(playerID, objectID, role, isCity)
     local battle = battles[#battles]
     if battle == nil then return end
     local participant = {playerID=playerID, id=objectID, isCity=truth(isCity)}
+    battle.members[role] = participant
     if role == 0 then battle.attacker = participant
     elseif role == 1 then battle.defender = participant end
     prepareBattle()
@@ -299,17 +384,26 @@ local function onBattleFinished()
     local defender = battle.defender and not battle.defender.isCity
         and getUnit(battle.defender.playerID, battle.defender.id) or nil
     if attacker then setPromotion(attacker, I.SchismWounded, false) end
-    if attacker and battle.defenderUnit and defender == nil then healFromZeal(attacker)
+    local credited = battle.zealKiller
+        and getUnit(battle.zealKiller.playerID, battle.zealKiller.id) or nil
+    if credited then healFromZeal(credited)
+    elseif attacker and battle.defenderUnit and defender == nil then healFromZeal(attacker)
     elseif defender and battle.attackerUnit and attacker == nil then healFromZeal(defender) end
     refreshAllUnits()
 end
 
-local function onUnitSetXY()
-    refreshAllUnits()
+local function onUnitSetXY(playerID, unitID)
+    local player, unit = Players[playerID], getUnit(playerID, unitID)
+    if unit == nil then return end
+    local state = isDual(player) and balanceState(player) or nil
+    refreshUnit(unit, state)
+    if religiousUnits[unit:GetUnitType()] then refreshSchismUnits() end
 end
 local function getState(playerID)
     local player = Players[playerID]
-    if not isDual(player) then return {wars=0,faith=0,active=false,combat=0,production=0,golden=false} end
+    if not isDual(player) then
+        return {wars=0,faith=0,faithTimes100=0,active=false,combat=0,production=0,golden=false}
+    end
     local state = balanceState(player)
     state.golden = isGoldenAge(player)
     return state
@@ -323,6 +417,9 @@ D.RefreshPlayer = refreshPlayer
 D.RefreshAll = refreshAll
 D.OnPlayerDoTurn = onPlayerDoTurn
 D.OnCityTrained = onCityTrained
+D.OnUnitCreated = onUnitCreated
+D.OnUnitPrekill = onUnitPrekill
+D.OnUnitSetXY = onUnitSetXY
 D.OnBattleStarted = onBattleStarted
 D.OnBattleJoined = onBattleJoined
 D.OnBattleFinished = onBattleFinished
@@ -334,6 +431,7 @@ GameEvents.CityTrained.Add(onCityTrained)
 if GameEvents.CityConstructed then GameEvents.CityConstructed.Add(onCityChanged) end
 if GameEvents.CityCaptureComplete then GameEvents.CityCaptureComplete.Add(function(_, _, _, _, newOwner) refreshPlayer(newOwner) end) end
 if GameEvents.UnitCreated then GameEvents.UnitCreated.Add(onUnitCreated) end
+if GameEvents.UnitPrekill then GameEvents.UnitPrekill.Add(onUnitPrekill) end
 if GameEvents.UnitSetXY then GameEvents.UnitSetXY.Add(onUnitSetXY) end
 if GameEvents.UnitConverted then GameEvents.UnitConverted.Add(onUnitConverted) end
 if GameEvents.UnitUpgraded then
@@ -348,4 +446,5 @@ GameEvents.BattleJoined.Add(onBattleJoined)
 GameEvents.BattleFinished.Add(onBattleFinished)
 
 refreshAll()
+D.RuntimeLoaded = true
 print("The Dual Order: runtime loaded")

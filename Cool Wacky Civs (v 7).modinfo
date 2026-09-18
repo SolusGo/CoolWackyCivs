@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="6">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="7">
   <Properties>
     <Name>Cool Wacky Civs</Name>
     <Teaser>Six strange leaders. Six stranger ways to rule.</Teaser>
@@ -130,10 +130,10 @@
     <File md5="79316044D8EF577367A0496506C81332" import="1">DualOrder/Art/DualOrderObjects64.dds</File>
     <File md5="006C2EF67EAE6D4938388E35738EA936" import="1">DualOrder/Art/DualOrderObjects80.dds</File>
     <File md5="B98A88DAAE7602E3E1607658B0075084" import="1">DualOrder/Art/DualOrderUnitFlag32.dds</File>
-    <File md5="073B2FA476736A905200BF06405A3D3E" import="1">DualOrder/Lua/DualOrderRuntime.lua</File>
-    <File md5="8A938994C24DC05337DF259ACC2CDE6F" import="0">DualOrder/SQL/00_DualOrder_Core.sql</File>
+    <File md5="11B56E156C1DA79F2454E8987774515E" import="1">DualOrder/Lua/DualOrderRuntime.lua</File>
+    <File md5="1859E9FF8A49D59E36EB03CF377DADCF" import="0">DualOrder/SQL/00_DualOrder_Core.sql</File>
     <File md5="F1973CC36E23A8F82195AC13B4C4E4F7" import="0">DualOrder/SQL/01_DualOrder_Inheritance.sql</File>
-    <File md5="B703162C95A32D5B0BB921654FCE22E4" import="0">DualOrder/SQL/02_DualOrder_UniqueEffects.sql</File>
+    <File md5="4C8416BC7C111E18BE7BB3F3AA6713FE" import="0">DualOrder/SQL/02_DualOrder_UniqueEffects.sql</File>
     <File md5="ED89627C0DE8AA124DD257F52487C9C8" import="0">DualOrder/SQL/10_DualOrder_Text.sql</File>
     <File md5="968CD6DC1896F776FB850B3148AF9F6C" import="1">DualOrder/UI/DualOrderPanel.lua</File>
     <File md5="DB137AA9768C29E48300080675E33BED" import="0">DualOrder/UI/DualOrderPanel.xml</File>
