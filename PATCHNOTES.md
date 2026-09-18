@@ -1,5 +1,16 @@
 # Patch Notes
 
+## Cool Wacky Civs version 6 — The Dual Order — 2026-09-18
+
+- Added Grandmaster Severin and The Dual Order as the collection's sixth civilization, with a Hills start bias and religion/military/production-focused AI.
+- Implemented Twin Mandates yields for Barracks, Armories, Temples, and their replacements; Zeal training from combined military and religious infrastructure; friendly-territory strength; kill healing; and upgrade persistence.
+- Implemented faith-gated Balance Pressure at +2% Combat Strength and +1% Production per active major-civilization war, capped at five, with an in-game status indicator.
+- Added Golden Age military Production and trained-unit XP, including purchase exclusion and immediate state refreshes.
+- Added the 23-Strength Divided Templar with +10% cost, Cover I, below-half-health Schism Strike, and religious-unit adjacency strength.
+- Added the Hall of Concordance with complete Armory inheritance, +3 Faith, +2 Production, five additional XP, founded-religion Happiness, and the specified +1 Great General Point per-turn fallback.
+- Preserved the supplied heraldry directly from the concept sheet and generated separate leader, unit, building, Dawn of Man, and map source art before compiling complete Civ V DXT5 atlas families.
+- Extended combined validation and added a deterministic Dual Order runtime mock covering mandates, faith gating, war tiers, Golden Ages, Hall effects, Zeal, and Schism Strike.
+
 ## Cool Wacky Civs version 5 — The Filthy Realm — 2026-09-18
 
 - Added Filthy Frank and The Filthy Realm as the collection's fifth civilization, with Culture/Domination AI flavors and a Rice Fields capital list.

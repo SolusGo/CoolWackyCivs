@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="5">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="6">
   <Properties>
     <Name>Cool Wacky Civs</Name>
-    <Teaser>Five strange leaders. Five stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, and The Filthy Realm. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Six strange leaders. Six stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, and The Dual Order. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -97,6 +97,46 @@
     <File md5="39BD5E5F96F64763BBE755B3D006B6BB" import="0">FilthyRealm/SQL/10_Filthy_Text.sql</File>
     <File md5="888645391AB8A0744A3535D989492507" import="1">FilthyRealm/UI/FilthyPanel.lua</File>
     <File md5="9B2C8039C8E1AF2B0CDB779A88FCB799" import="0">FilthyRealm/UI/FilthyPanel.xml</File>
+    <File md5="906400740B765A22F6ED115D60C61D6B" import="1">DualOrder/Art/DualOrderAlpha128.dds</File>
+    <File md5="C977E8A1A5B5817B994BAF7E10830F73" import="1">DualOrder/Art/DualOrderAlpha16.dds</File>
+    <File md5="50B12FD9413610E0E09135E9485C0DE0" import="1">DualOrder/Art/DualOrderAlpha24.dds</File>
+    <File md5="982D38657248D1152FF3BB28D99DCD77" import="1">DualOrder/Art/DualOrderAlpha256.dds</File>
+    <File md5="B98A88DAAE7602E3E1607658B0075084" import="1">DualOrder/Art/DualOrderAlpha32.dds</File>
+    <File md5="641850972478D5ED352A1A9C73306D86" import="1">DualOrder/Art/DualOrderAlpha45.dds</File>
+    <File md5="5E8EF1E16D4CEC457CA0E6112C292E63" import="1">DualOrder/Art/DualOrderAlpha48.dds</File>
+    <File md5="DCDC2FA054AF3D0FE3FFB67F0F971D3E" import="1">DualOrder/Art/DualOrderAlpha64.dds</File>
+    <File md5="78B3CD20EE2CB72E2E29AFC002E08590" import="1">DualOrder/Art/DualOrderAlpha80.dds</File>
+    <File md5="559F15484232DA9C7E959BA0D637E054" import="1">DualOrder/Art/DualOrderDawn.dds</File>
+    <File md5="0F3063B164744774B7CD137E338C6B0F" import="1">DualOrder/Art/DualOrderIcon128.dds</File>
+    <File md5="7F7CA65E62DA32393D5FF971549C2648" import="1">DualOrder/Art/DualOrderIcon16.dds</File>
+    <File md5="219D656D9CB8F16196156D8DC99B5713" import="1">DualOrder/Art/DualOrderIcon24.dds</File>
+    <File md5="6E122088458D933C57204DE88EFE9F6C" import="1">DualOrder/Art/DualOrderIcon256.dds</File>
+    <File md5="8E55E458EB501EA06A694A113D0A428B" import="1">DualOrder/Art/DualOrderIcon32.dds</File>
+    <File md5="F710E03295259258D28D6460B1D32060" import="1">DualOrder/Art/DualOrderIcon45.dds</File>
+    <File md5="CA170220595BD061A177873DA6C9F287" import="1">DualOrder/Art/DualOrderIcon48.dds</File>
+    <File md5="1C3858A73A66F446558F7263C47A5933" import="1">DualOrder/Art/DualOrderIcon64.dds</File>
+    <File md5="311FF655F9AFB8BF392AB453BD4C4FCA" import="1">DualOrder/Art/DualOrderIcon80.dds</File>
+    <File md5="B665FF475F317B6895AC9AEF61272579" import="1">DualOrder/Art/DualOrderLeader.dds</File>
+    <File md5="EF09ECAA9F3FFEBADA3D182DF2D26FC1" import="1">DualOrder/Art/DualOrderLeader128.dds</File>
+    <File md5="D71B885A80ACFC0AA242C6FC093B4812" import="1">DualOrder/Art/DualOrderLeader256.dds</File>
+    <File md5="8DE4A730FBA419BBC9564EAA132002B8" import="1">DualOrder/Art/DualOrderLeader64.dds</File>
+    <File md5="AD49919E2130D2E9753C72B745847E04" import="1">DualOrder/Art/DualOrderLeaderScene.xml</File>
+    <File md5="B8CA69BB2C1BDA54ACC9E881E482F786" import="1">DualOrder/Art/DualOrderMap.dds</File>
+    <File md5="0E9B4D4651BD9DB681869CE34A8D47FE" import="1">DualOrder/Art/DualOrderObjects128.dds</File>
+    <File md5="BEDA3AA2C0CCF95FC8733900DFA5D516" import="1">DualOrder/Art/DualOrderObjects16.dds</File>
+    <File md5="E682A844C0D98C713D9953EBB8DDA30D" import="1">DualOrder/Art/DualOrderObjects256.dds</File>
+    <File md5="4FCC336263B451ECD5AAC752B1C10C59" import="1">DualOrder/Art/DualOrderObjects32.dds</File>
+    <File md5="68ACA9FE7E2788123D288A68B4E6EAA4" import="1">DualOrder/Art/DualOrderObjects45.dds</File>
+    <File md5="79316044D8EF577367A0496506C81332" import="1">DualOrder/Art/DualOrderObjects64.dds</File>
+    <File md5="006C2EF67EAE6D4938388E35738EA936" import="1">DualOrder/Art/DualOrderObjects80.dds</File>
+    <File md5="B98A88DAAE7602E3E1607658B0075084" import="1">DualOrder/Art/DualOrderUnitFlag32.dds</File>
+    <File md5="073B2FA476736A905200BF06405A3D3E" import="1">DualOrder/Lua/DualOrderRuntime.lua</File>
+    <File md5="8A938994C24DC05337DF259ACC2CDE6F" import="0">DualOrder/SQL/00_DualOrder_Core.sql</File>
+    <File md5="F1973CC36E23A8F82195AC13B4C4E4F7" import="0">DualOrder/SQL/01_DualOrder_Inheritance.sql</File>
+    <File md5="B703162C95A32D5B0BB921654FCE22E4" import="0">DualOrder/SQL/02_DualOrder_UniqueEffects.sql</File>
+    <File md5="ED89627C0DE8AA124DD257F52487C9C8" import="0">DualOrder/SQL/10_DualOrder_Text.sql</File>
+    <File md5="968CD6DC1896F776FB850B3148AF9F6C" import="1">DualOrder/UI/DualOrderPanel.lua</File>
+    <File md5="DB137AA9768C29E48300080675E33BED" import="0">DualOrder/UI/DualOrderPanel.xml</File>
     <File md5="480BA76100E9D1D4E6A563A17549AEAC" import="1">LunaNetwork/Art/LunaAlpha128.dds</File>
     <File md5="8CEFF6B28CE0730B90A563670DF8C47E" import="1">LunaNetwork/Art/LunaAlpha16.dds</File>
     <File md5="3AEA987EC09EE925756C3C4D5FBCB8D0" import="1">LunaNetwork/Art/LunaAlpha24.dds</File>
@@ -199,6 +239,10 @@
       <UpdateDatabase>FilthyRealm/SQL/01_Filthy_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>FilthyRealm/SQL/02_Filthy_UniqueEffects.sql</UpdateDatabase>
       <UpdateDatabase>FilthyRealm/SQL/10_Filthy_Text.sql</UpdateDatabase>
+      <UpdateDatabase>DualOrder/SQL/00_DualOrder_Core.sql</UpdateDatabase>
+      <UpdateDatabase>DualOrder/SQL/01_DualOrder_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>DualOrder/SQL/02_DualOrder_UniqueEffects.sql</UpdateDatabase>
+      <UpdateDatabase>DualOrder/SQL/10_DualOrder_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -221,6 +265,10 @@
     <EntryPoint type="InGameUIAddin" file="FilthyRealm/UI/FilthyPanel.xml">
       <Name>The Filthy Realm</Name>
       <Description>Filthy Point counter, active ability panel, Filth runtime, and Peace Lord intervention.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="DualOrder/UI/DualOrderPanel.xml">
+      <Name>The Dual Order</Name>
+      <Description>Balance Pressure indicator, Twin Mandates, Zeal, and Divided Templar runtime.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

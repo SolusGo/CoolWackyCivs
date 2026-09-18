@@ -6,8 +6,8 @@
     <Name>Cool Wacky Civs</Name>
     <SafeName>Cool Wacky Civs</SafeName>
     <Guid>4c02158d-ad52-4b73-bf2a-555ce58a1e60</Guid>
-    <Teaser>Five strange leaders. Five stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, and The Filthy Realm. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Six strange leaders. Six stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, and The Dual Order. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -27,7 +27,7 @@
     <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <HideSetupGame>false</HideSetupGame>
-    <ModVersion>5</ModVersion>
+    <ModVersion>6</ModVersion>
     <Stability>Alpha</Stability>
     <ModActions>
       <Action>
@@ -130,6 +130,26 @@
         <Type>UpdateDatabase</Type>
         <FileName>FilthyRealm/SQL/10_Filthy_Text.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>DualOrder/SQL/00_DualOrder_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>DualOrder/SQL/01_DualOrder_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>DualOrder/SQL/02_DualOrder_UniqueEffects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>DualOrder/SQL/10_DualOrder_Text.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -161,6 +181,12 @@
         <Name>The Filthy Realm</Name>
         <Description>Filthy Point counter, active ability panel, Filth runtime, and Peace Lord intervention.</Description>
         <FileName>FilthyRealm/UI/FilthyPanel.xml</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>The Dual Order</Name>
+        <Description>Balance Pressure indicator, Twin Mandates, Zeal, and Divided Templar runtime.</Description>
+        <FileName>DualOrder/UI/DualOrderPanel.xml</FileName>
       </Content>
     </ModContent>
     <ModDependencies>
@@ -300,43 +326,253 @@
       <SubType>SQL</SubType>
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
-    <Content Include="FilthyRealm/Art/FilthyAlpha128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyAlpha16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyAlpha24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyAlpha256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyAlpha32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyAlpha45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyAlpha48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyAlpha64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyAlpha80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyDawn.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyIcon128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyIcon16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyIcon24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyIcon256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyIcon32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyIcon45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyIcon48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyIcon64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyIcon80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyLeader.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyLeaderScene.xml"><SubType>XML</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyMap.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyObjects128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyObjects16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyObjects256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyObjects32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyObjects45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyObjects64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyObjects80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Art/FilthyUnitFlag32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/Lua/FilthyRuntime.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/SQL/00_Filthy_Core.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/SQL/01_Filthy_Inheritance.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/SQL/02_Filthy_UniqueEffects.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/SQL/10_Filthy_Text.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/UI/FilthyPanel.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
-    <Content Include="FilthyRealm/UI/FilthyPanel.xml"><SubType>XML</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/FilthyAlpha128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyAlpha16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyAlpha24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyAlpha256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyAlpha32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyAlpha45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyAlpha48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyAlpha64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyAlpha80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyDawn.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyIcon128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyIcon16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyIcon24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyIcon256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyIcon32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyIcon45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyIcon48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyIcon64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyIcon80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyLeader.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyLeaderScene.xml">
+      <SubType>XML</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyMap.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyObjects128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyObjects16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyObjects256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyObjects32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyObjects45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyObjects64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyObjects80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Art/FilthyUnitFlag32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/Lua/FilthyRuntime.lua">
+      <SubType>Lua</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/SQL/00_Filthy_Core.sql">
+      <SubType>SQL</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/SQL/01_Filthy_Inheritance.sql">
+      <SubType>SQL</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/SQL/02_Filthy_UniqueEffects.sql">
+      <SubType>SQL</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/SQL/10_Filthy_Text.sql">
+      <SubType>SQL</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/UI/FilthyPanel.lua">
+      <SubType>Lua</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="FilthyRealm/UI/FilthyPanel.xml">
+      <SubType>XML</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderAlpha128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderAlpha16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderAlpha24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderAlpha256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderAlpha32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderAlpha45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderAlpha48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderAlpha64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderAlpha80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderDawn.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderIcon128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderIcon16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderIcon24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderIcon256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderIcon32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderIcon45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderIcon48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderIcon64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderIcon80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderLeader.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderLeader128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderLeader256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderLeader64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderLeaderScene.xml">
+      <SubType>XML</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderMap.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderObjects128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderObjects16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderObjects256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderObjects32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderObjects45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderObjects64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderObjects80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Art/DualOrderUnitFlag32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/Lua/DualOrderRuntime.lua">
+      <SubType>Lua</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/SQL/00_DualOrder_Core.sql">
+      <SubType>SQL</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/SQL/01_DualOrder_Inheritance.sql">
+      <SubType>SQL</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/SQL/02_DualOrder_UniqueEffects.sql">
+      <SubType>SQL</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/SQL/10_DualOrder_Text.sql">
+      <SubType>SQL</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/UI/DualOrderPanel.lua">
+      <SubType>Lua</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="DualOrder/UI/DualOrderPanel.xml">
+      <SubType>XML</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
     <Content Include="LunaNetwork/Art/LunaAlpha128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>
@@ -600,6 +836,12 @@
     <Folder Include="CapanoCircuit\Art\" />
     <Folder Include="CapanoCircuit\Lua\" />
     <Folder Include="CapanoCircuit\SQL\" />
+    <Folder Include="DualOrder\" />
+    <Folder Include="DualOrder\Art\" />
+    <Folder Include="DualOrder\Lua\" />
+    <Folder Include="DualOrder\SQL\" />
+    <Folder Include="DualOrder\UI\" />
+    <Folder Include="FilthyRealm\" />
     <Folder Include="FilthyRealm\Art\" />
     <Folder Include="FilthyRealm\Lua\" />
     <Folder Include="FilthyRealm\SQL\" />
