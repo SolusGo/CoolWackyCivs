@@ -90,12 +90,12 @@
     <File md5="15E516E0676FC827DF38D2E459FEFCFB" import="1">FilthyRealm/Art/FilthyObjects64.dds</File>
     <File md5="899837750DF75D2439DE82C04E985E88" import="1">FilthyRealm/Art/FilthyObjects80.dds</File>
     <File md5="3B8641E929895C36120D21AAE32133E3" import="1">FilthyRealm/Art/FilthyUnitFlag32.dds</File>
-    <File md5="47A2141E7165E3CF1FC54C6531B976A9" import="1">FilthyRealm/Lua/FilthyRuntime.lua</File>
-    <File md5="A8BCC48E5587F535E5AB4BFF54FB2367" import="0">FilthyRealm/SQL/00_Filthy_Core.sql</File>
+    <File md5="5678AE44894534B372052E0B7B22946C" import="1">FilthyRealm/Lua/FilthyRuntime.lua</File>
+    <File md5="3505BCF1DD8146260593CC3AB3D23EB0" import="0">FilthyRealm/SQL/00_Filthy_Core.sql</File>
     <File md5="3835228BE4BF6D3A7C5F0FF3F40D376E" import="0">FilthyRealm/SQL/01_Filthy_Inheritance.sql</File>
     <File md5="5E282CC532747AAF858BDF4BDADE7039" import="0">FilthyRealm/SQL/02_Filthy_UniqueEffects.sql</File>
     <File md5="39BD5E5F96F64763BBE755B3D006B6BB" import="0">FilthyRealm/SQL/10_Filthy_Text.sql</File>
-    <File md5="F8F9842A734F0743236C00FF441158F1" import="1">FilthyRealm/UI/FilthyPanel.lua</File>
+    <File md5="B74AF7295885F716027422E03E992A33" import="1">FilthyRealm/UI/FilthyPanel.lua</File>
     <File md5="39450A7AB27F45B4A0BEB9FFA95D9389" import="0">FilthyRealm/UI/FilthyPanel.xml</File>
     <File md5="480BA76100E9D1D4E6A563A17549AEAC" import="1">LunaNetwork/Art/LunaAlpha128.dds</File>
     <File md5="8CEFF6B28CE0730B90A563670DF8C47E" import="1">LunaNetwork/Art/LunaAlpha16.dds</File>

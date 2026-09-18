@@ -7,6 +7,11 @@ local entries = InstanceManager:new("FilthyTargetEntry", "TargetButton", Control
 local open, dirty, refreshing = false, true, false
 local mode, selected, category, message = nil, nil, "GOLD", ""
 
+local function targetKey(target)
+    if target.peace then return table.concat({"I", target.peace, target.owner, target.target}, ":") end
+    return table.concat({"C", target.owner, target.id}, ":")
+end
+
 local function active()
     local playerID = Game.GetActivePlayer()
     return playerID, Players[playerID]
@@ -63,8 +68,8 @@ local function refresh()
     else
         Controls.InstructionLabel:SetText("Choose an ability. Salamander Man and It's Time to Stop activate immediately; the others require a target below.")
     end
-    for index, target in ipairs(targets) do
-        local item, entryIndex = target, index
+    for _, target in ipairs(targets) do
+        local item, key = target, targetKey(target)
         local entry = entries:GetInstance()
         local label
         if mode == "intervention" then label = item.text
@@ -72,9 +77,9 @@ local function refresh()
             label = item.name .. " — Filth " .. item.level
             if item.cooldown and item.cooldown > 0 then label = label .. " — Ravioli cooldown " .. item.cooldown end
         end
-        entry.TargetButton:SetText((selected == entryIndex and "[ICON_CHECKBOX] " or "") .. label)
+        entry.TargetButton:SetText((selected == key and "[ICON_CHECKBOX] " or "") .. label)
         entry.TargetButton:RegisterCallback(Mouse.eLClick, function()
-            selected = entryIndex
+            selected = key
             message = "Selected " .. label .. "."
             dirty = true
         end)
@@ -121,7 +126,12 @@ Controls.ConfirmButton:RegisterCallback(Mouse.eLClick, function()
     local playerID = active()
     local targets = mode == "intervention" and F.GetInterventionTargets(playerID)
         or F.GetForeignCities(playerID, mode == "distortion")
-    local target = selected and targets[selected] or nil
+    local target = nil
+    if selected then
+        for _, candidate in ipairs(targets) do
+            if targetKey(candidate) == selected then target = candidate; break end
+        end
+    end
     local ok, result = false, "Choose a target."
     if target and mode == "distortion" then ok, result = F.UseDistortion(playerID, target.owner, target.id)
     elseif target and mode == "ravioli" then ok, result = F.UseRavioli(playerID, target.owner, target.id, category)

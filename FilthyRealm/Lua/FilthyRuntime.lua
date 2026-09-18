@@ -32,11 +32,17 @@ local MAX_CIV = GameDefines.MAX_CIV_PLAYERS or 64
 local MOVE = GameDefines.MOVE_DENOMINATOR or 60
 local save = Modding.OpenSaveData()
 local routeCache, battles = {}, {}
+local snapshotGreatWorks
 
 local function truth(value) return value == true or value == 1 end
 local function turn() return Game.GetGameTurn() end
 local function playerKey(playerID, suffix) return "FILTHY_V1_P" .. playerID .. "_" .. suffix end
-local function cityKey(city) return city:GetOwner() .. "_" .. city:GetX() .. "_" .. city:GetY() end
+local function cityKey(city)
+    local founded = city.GetGameTurnFounded and city:GetGameTurnFounded() or -1
+    -- Coordinates plus founding turn identify the physical city across captures,
+    -- so Ravioli cooldowns cannot be reset by transferring ownership.
+    return table.concat({city:GetX(), city:GetY(), founded}, "_")
+end
 local function getNumber(key, fallback)
     local value = tonumber(save.GetValue(key))
     return value == nil and (fallback or 0) or value
@@ -106,9 +112,16 @@ end
 F.GetUnitState, F.SetUnitState = unitState, setUnitState
 
 local function isDistortedBy(playerID, city)
-    return getNumber(playerKey(playerID, "DISTORT_EXPIRES"), -1) > turn()
-        and getNumber(playerKey(playerID, "DISTORT_OWNER"), -1) == city:GetOwner()
-        and getNumber(playerKey(playerID, "DISTORT_CITY"), -1) == city:GetID()
+    if getNumber(playerKey(playerID, "DISTORT_EXPIRES"), -1) <= turn()
+        or getNumber(playerKey(playerID, "DISTORT_OWNER"), -1) ~= city:GetOwner()
+        or getNumber(playerKey(playerID, "DISTORT_CITY"), -1) ~= city:GetID() then return false end
+    local savedX = getNumber(playerKey(playerID, "DISTORT_X"), -999)
+    local savedY = getNumber(playerKey(playerID, "DISTORT_Y"), -999)
+    local savedFounded = getNumber(playerKey(playerID, "DISTORT_FOUNDED"), -999)
+    return (savedX == -999 or savedX == city:GetX())
+        and (savedY == -999 or savedY == city:GetY())
+        and (savedFounded == -999 or not city.GetGameTurnFounded
+            or savedFounded == city:GetGameTurnFounded())
 end
 local function isDistorted(city)
     for playerID = 0, MAX_MAJOR - 1 do
@@ -139,6 +152,7 @@ local function setFilth(city, level, sourcePlayerID)
     local old = getFilth(city)
     level = math.max(0, math.min(5, math.floor(level or 0)))
     writeFilth(city, level)
+    if level ~= old and F.RefreshCombat then F.RefreshCombat() end
     if level > old and sourcePlayerID and isFilthy(sourcePlayerID) then
         F.ChangePoints(sourcePlayerID, 2 * (level - old))
         notify(sourcePlayerID, Locale.ConvertTextKey("TXT_KEY_FILTHY_FILTH_GAINED", city:GetName(), level), city:GetX(), city:GetY())
@@ -156,13 +170,16 @@ local function routeKey(route)
     return table.concat({from:GetOwner(), from:GetX(), from:GetY(), to:GetOwner(), to:GetX(), to:GetY()}, ":")
 end
 local function currentRoutes(playerID)
-    local player, routes = Players[playerID], {}
-    if not player or not player.GetTradeRoutes then return routes end
+    local player, routes, counts = Players[playerID], {}, {}
+    if not player or not player.GetTradeRoutes then return routes, counts end
     for _, route in ipairs(player:GetTradeRoutes()) do
         local key = routeKey(route)
-        if key then routes[key] = route end
+        if key then
+            routes[#routes + 1] = route
+            counts[key] = (counts[key] or 0) + 1
+        end
     end
-    return routes
+    return routes, counts
 end
 local function routeConnected(city)
     for playerID = 0, MAX_MAJOR - 1 do
@@ -207,14 +224,15 @@ end
 local function processTrade(playerID)
     local player = Players[playerID]
     if not isFilthy(player) then return end
-    local routes = currentRoutes(playerID)
+    local routes, counts = currentRoutes(playerID)
     if routeCache[playerID] then
-        for key in pairs(routes) do
-            if not routeCache[playerID][key] then F.ChangePoints(playerID, 5) end
+        for key, count in pairs(counts) do
+            local added = count - (routeCache[playerID][key] or 0)
+            if added > 0 then F.ChangePoints(playerID, added * 5) end
         end
     end
-    routeCache[playerID] = routes
-    for _, route in pairs(routes) do
+    routeCache[playerID] = counts
+    for _, route in ipairs(routes) do
         local from, to = route.FromCity, route.ToCity
         if from and to and from:GetOwner() == playerID and to:GetOwner() ~= playerID then
             local interval = from:GetNumRealBuilding(I.Kitchen) > 0 and 4 or 6
@@ -226,7 +244,7 @@ end
 local function processTourism(playerID)
     local player = Players[playerID]
     if not isFilthy(player) or turn() % 10 ~= 0 then return end
-    for otherID = 0, MAX_MAJOR - 1 do
+    for otherID = 0, MAX_CIV - 1 do
         local other = Players[otherID]
         if other and other:IsAlive() and otherID ~= playerID and not other:IsMinorCiv() then
             local capital = other:GetCapitalCity()
@@ -247,39 +265,116 @@ local function processDecay(playerID)
     end
 end
 
-local function greatWorkKey(city) return "FILTHY_V1_GW_" .. cityKey(city) .. "_" .. city:GetGameTurnFounded() end
 local function processGreatWorks(playerID)
     local player = Players[playerID]
     if not isFilthy(player) then return end
-    local periodic = 0
+    local periodic, total = 0, 0
     for city in player:Cities() do
         local count = city.GetNumGreatWorks and city:GetNumGreatWorks() or 0
-        local key = greatWorkKey(city)
-        local previous = tonumber(save.GetValue(key))
-        if previous == nil then previous = count end
-        if count > previous then
-            local created = count - previous
-            F.ChangePoints(playerID, created * 10)
-            if city:GetNumRealBuilding(I.Kitchen) > 0 then city:ChangeFood(created * 25) end
-        end
-        save.SetValue(key, count)
+        total = total + count
         if turn() % 5 == 0 and city:GetNumRealBuilding(I.Kitchen) > 0 then
             periodic = periodic + math.min(3, count)
         end
     end
+    -- Current Community Patch exposes GreatWorkCreated, which is authoritative and
+    -- cannot be exploited by moving works between cities. The high-water fallback
+    -- only supports older DLLs where that event is absent.
+    if not GameEvents.GreatWorkCreated then
+        local key = playerKey(playerID, "GREAT_WORK_HIGH_WATER")
+        local previous = getNumber(key, total)
+        if total > previous then F.ChangePoints(playerID, (total - previous) * 10) end
+        setNumber(key, math.max(previous, total))
+    end
     if periodic > 0 then F.ChangePoints(playerID, periodic) end
+    -- Keep the slot snapshot current after normal Great Work moves. Creation is
+    -- handled synchronously by GreatWorkCreated before the next player turn.
+    if snapshotGreatWorks then snapshotGreatWorks(playerID) end
 end
 
+local greatWorkSlots = {}
+if GameInfo and GameInfo.Buildings then
+    for building in GameInfo.Buildings() do
+        local count = tonumber(building.GreatWorkCount) or 0
+        local classID = count > 0 and ID(building.BuildingClass) or nil
+        if classID then greatWorkSlots[classID] = math.max(greatWorkSlots[classID] or 0, count) end
+    end
+end
+local knownGreatWorks, knownGreatWorkCounts = {}, {}
+local function scanGreatWorks(playerID, previousWorks, previousCounts, greatWorkType)
+    local player = Players[playerID]
+    if not player then return nil, {}, {} end
+    local found, fallback, works, counts = nil, nil, {}, {}
+    for city in player:Cities() do
+        local key = cityKey(city)
+        local count = city.GetNumGreatWorks and city:GetNumGreatWorks() or 0
+        counts[key] = count
+        if count > (previousCounts[key] or 0) then fallback = fallback or city end
+        if city.GetBuildingGreatWork then
+            for classID, slots in pairs(greatWorkSlots) do
+                for slot = 0, slots - 1 do
+                    local workID = city:GetBuildingGreatWork(classID, slot)
+                    if workID and workID >= 0 then
+                        works[workID] = true
+                        if not previousWorks[workID] then
+                            fallback = fallback or city
+                            local matches = true
+                            if greatWorkType ~= nil and Game.GetGreatWorkType then
+                                local ok, workType = pcall(Game.GetGreatWorkType, workID)
+                                matches = ok and workType == greatWorkType
+                            end
+                            if matches then found = found or city end
+                        end
+                    end
+                end
+            end
+        end
+    end
+    return found or fallback, works, counts
+end
+snapshotGreatWorks = function(playerID)
+    local _, works, counts = scanGreatWorks(playerID, {}, {}, nil)
+    knownGreatWorks[playerID], knownGreatWorkCounts[playerID] = works, counts
+end
+local function greatWorkCity(playerID, greatWorkType)
+    local city, works, counts = scanGreatWorks(playerID,
+        knownGreatWorks[playerID] or {}, knownGreatWorkCounts[playerID] or {}, greatWorkType)
+    knownGreatWorks[playerID], knownGreatWorkCounts[playerID] = works, counts
+    return city
+end
+local function onGreatWorkCreated(playerID, unitID, greatWorkType)
+    local player = Players[playerID]
+    if not isFilthy(player) then return end
+    F.ChangePoints(playerID, 10)
+    -- The Community Patch fires this after killing the creator and supplies a
+    -- GreatWorkType, not the new instance ID. Compare occupied slots with the
+    -- previous snapshot to find the city that actually received the new work.
+    local city = greatWorkCity(playerID, greatWorkType)
+    if city and city:GetNumRealBuilding(I.Kitchen) > 0 then city:ChangeFood(25) end
+end
+F.OnGreatWorkCreated = onGreatWorkCreated
+
+local function storedDistortionCity(playerID)
+    local city = cityByID(getNumber(playerKey(playerID, "DISTORT_OWNER"), -1),
+        getNumber(playerKey(playerID, "DISTORT_CITY"), -1))
+    if not city then return nil end
+    local savedX = getNumber(playerKey(playerID, "DISTORT_X"), -999)
+    local savedY = getNumber(playerKey(playerID, "DISTORT_Y"), -999)
+    local savedFounded = getNumber(playerKey(playerID, "DISTORT_FOUNDED"), -999)
+    if (savedX ~= -999 and city:GetX() ~= savedX)
+        or (savedY ~= -999 and city:GetY() ~= savedY)
+        or (savedFounded ~= -999 and city.GetGameTurnFounded
+            and city:GetGameTurnFounded() ~= savedFounded) then return nil end
+    return city
+end
 local function distortionCity(playerID)
     if getNumber(playerKey(playerID, "DISTORT_EXPIRES"), -1) <= turn() then return nil end
-    return cityByID(getNumber(playerKey(playerID, "DISTORT_OWNER"), -1),
-        getNumber(playerKey(playerID, "DISTORT_CITY"), -1))
+    return storedDistortionCity(playerID)
 end
 local function refreshCombat(unit)
     if not unit then return end
     local ownerID, best = unit:GetOwner(), 0
     if isFilthy(ownerID) and isMilitary(unit) then
-        for otherID = 0, MAX_MAJOR - 1 do
+        for otherID = 0, MAX_CIV - 1 do
             local other = Players[otherID]
             if other and other:IsAlive() and otherID ~= ownerID then
                 for city in other:Cities() do
@@ -304,32 +399,41 @@ local function refreshAllCombat()
     end
 end
 
-local function refreshAuras()
+local function activeSalamanders(excludedOwner, excludedID)
     local salamanders = {}
     for playerID = 0, MAX_MAJOR - 1 do
         local player = Players[playerID]
-        if player and player:IsAlive() then
+        if isFilthy(player) then
             for unit in player:Units() do
-                setPromo(unit, I.SalamanderEnemy, false)
-                setPromo(unit, I.SalamanderFriend, false)
-                if isFilthy(player) and unit:GetUnitType() == I.Salamander and unitState(unit).salUntil > turn() then
+                if unit:GetUnitType() == I.Salamander and unitState(unit).salUntil > turn()
+                    and not (unit:GetOwner() == excludedOwner and unit:GetID() == excludedID) then
                     salamanders[#salamanders + 1] = unit
                 end
             end
         end
     end
+    return salamanders
+end
+local function refreshAuraUnit(unit, salamanders)
+    if not unit then return end
+    setPromo(unit, I.SalamanderEnemy, false)
+    setPromo(unit, I.SalamanderFriend, false)
+    if not isMilitary(unit) then return end
     for _, salamander in ipairs(salamanders) do
         local owner = Players[salamander:GetOwner()]
-        for playerID = 0, MAX_MAJOR - 1 do
-            local player = Players[playerID]
-            if player and player:IsAlive() then
-                for unit in player:Units() do
-                    if isMilitary(unit) and Map.PlotDistance(unit:GetX(), unit:GetY(), salamander:GetX(), salamander:GetY()) <= 1 then
-                        if playerID == salamander:GetOwner() then setPromo(unit, I.SalamanderFriend, true)
-                        elseif atWar(owner, player) then setPromo(unit, I.SalamanderEnemy, true) end
-                    end
-                end
-            end
+        local player = Players[unit:GetOwner()]
+        if Map.PlotDistance(unit:GetX(), unit:GetY(), salamander:GetX(), salamander:GetY()) <= 1 then
+            if unit:GetOwner() == salamander:GetOwner() then setPromo(unit, I.SalamanderFriend, true)
+            elseif atWar(owner, player) then setPromo(unit, I.SalamanderEnemy, true) end
+        end
+    end
+end
+local function refreshAuras(excludedOwner, excludedID)
+    local salamanders = activeSalamanders(excludedOwner, excludedID)
+    for playerID = 0, MAX_CIV - 1 do
+        local player = Players[playerID]
+        if player and player:IsAlive() then
+            for unit in player:Units() do refreshAuraUnit(unit, salamanders) end
         end
     end
 end
@@ -354,9 +458,9 @@ end
 function F.GetForeignCities(playerID, requireFilth)
     local result, player = {}, Players[playerID]
     if not isFilthy(player) then return result end
-    for ownerID = 0, MAX_MAJOR - 1 do
+    for ownerID = 0, MAX_CIV - 1 do
         local owner = Players[ownerID]
-        if owner and owner:IsAlive() and ownerID ~= playerID and not owner:IsMinorCiv() then
+        if owner and owner:IsAlive() and ownerID ~= playerID then
             for city in owner:Cities() do
                 local level = getFilth(city)
                 if not requireFilth or level > 0 then
@@ -367,7 +471,11 @@ function F.GetForeignCities(playerID, requireFilth)
             end
         end
     end
-    table.sort(result, function(a,b) return a.name < b.name end)
+    table.sort(result, function(a,b)
+        if a.name ~= b.name then return a.name < b.name end
+        if a.owner ~= b.owner then return a.owner < b.owner end
+        return a.id < b.id
+    end)
     return result
 end
 
@@ -411,6 +519,10 @@ function F.UseDistortion(playerID, ownerID, cityID)
     local old = distortionCity(playerID)
     setNumber(playerKey(playerID, "DISTORT_OWNER"), ownerID)
     setNumber(playerKey(playerID, "DISTORT_CITY"), cityID)
+    setNumber(playerKey(playerID, "DISTORT_X"), city:GetX())
+    setNumber(playerKey(playerID, "DISTORT_Y"), city:GetY())
+    setNumber(playerKey(playerID, "DISTORT_FOUNDED"),
+        city.GetGameTurnFounded and city:GetGameTurnFounded() or -1)
     setNumber(playerKey(playerID, "DISTORT_EXPIRES"), turn() + 5)
     setNumber(playerKey(playerID, "DISTORT_READY"), turn() + 10)
     if old then writeFilth(old, getFilth(old)) end
@@ -470,7 +582,7 @@ function F.UseStop(playerID)
     if ready > turn() then return false, "It's Time to Stop is on cooldown for " .. (ready - turn()) .. " turns." end
     if F.GetPoints(playerID) < 80 then return false, "Not enough Filthy Points." end
     local affected = {}
-    for otherID = 0, MAX_MAJOR - 1 do
+    for otherID = 0, MAX_CIV - 1 do
         local other = Players[otherID]
         if other and other:IsAlive() and atWar(player, other) then
             for unit in other:Units() do if isMilitary(unit) and inStopArea(player, unit) then affected[#affected + 1] = unit end end
@@ -497,13 +609,26 @@ local function interventionTarget(peaceLord, target)
     if not target or not isMilitary(target) or not atWar(Players[peaceLord:GetOwner()], Players[target:GetOwner()]) then return false end
     return target:GetCurrHitPoints() < 30 and Map.PlotDistance(peaceLord:GetX(), peaceLord:GetY(), target:GetX(), target:GetY()) == 1
 end
+local function canRetreatInto(target, plot)
+    if not plot or plot:IsImpassable() or plot:IsCity() or plot:GetNumUnits() > 0 then return false end
+    -- VP's Lua binding calls CvUnit::canMoveInto through CanMoveThrough.
+    if target.CanMoveThrough then
+        local ok, allowed = pcall(target.CanMoveThrough, target, plot)
+        if ok then return truth(allowed) end
+    end
+    local domain = target:GetDomainType()
+    if domain == DomainTypes.DOMAIN_SEA then return plot:IsWater() end
+    if domain == DomainTypes.DOMAIN_LAND then
+        return (target.IsEmbarked and target:IsEmbarked() and plot:IsWater())
+            or (not plot:IsWater() and not plot:IsMountain())
+    end
+    return false
+end
 local function retreatPlot(peaceLord, target)
     local candidates, current = {}, Map.PlotDistance(peaceLord:GetX(), peaceLord:GetY(), target:GetX(), target:GetY())
     for direction = 0, DirectionTypes.NUM_DIRECTION_TYPES - 1 do
         local plot = Map.PlotDirection(target:GetX(), target:GetY(), direction)
-        local domainOK = plot and ((target:GetDomainType() == DomainTypes.DOMAIN_SEA and plot:IsWater())
-            or (target:GetDomainType() == DomainTypes.DOMAIN_LAND and not plot:IsWater() and not plot:IsMountain()))
-        if domainOK and not plot:IsImpassable() and not plot:IsCity() and plot:GetNumUnits() == 0
+        if canRetreatInto(target, plot)
             and Map.PlotDistance(peaceLord:GetX(), peaceLord:GetY(), plot:GetX(), plot:GetY()) > current then
             candidates[#candidates + 1] = plot
         end
@@ -520,7 +645,7 @@ function F.GetInterventionTargets(playerID)
     if not isFilthy(player) then return result end
     for peaceLord in player:Units() do
         if peaceLord:GetUnitType() == I.PeaceLord and unitState(peaceLord).intervention == 0 then
-            for otherID = 0, MAX_MAJOR - 1 do
+            for otherID = 0, MAX_CIV - 1 do
                 local other = Players[otherID]
                 if other and other:IsAlive() and atWar(player, other) then
                     for target in other:Units() do
@@ -584,6 +709,7 @@ end
 local function onPrekill(ownerID, unitID, unitType, x, y, delay, killerPlayerID)
     local owner, killer = Players[ownerID], killerPlayerID and Players[killerPlayerID]
     local victim = owner and owner:GetUnitByID(unitID) or nil
+    if victim and victim:GetUnitType() == I.Salamander then refreshAuras(ownerID, unitID) end
     if not victim or not isMilitary(victim) or not isFilthy(killer) or not atWar(owner, killer) then return end
     local plot = Map.GetPlot(x, y)
     F.ChangePoints(killerPlayerID, plot and plot:GetOwner() == ownerID and 3 or 2)
@@ -592,7 +718,7 @@ local function onPrekill(ownerID, unitID, unitType, x, y, delay, killerPlayerID)
     local unit = battleKiller(ownerID, unitID, killerPlayerID)
     if unit and unit:GetUnitType() == I.PeaceLord then
         F.ChangePoints(killerPlayerID, 5)
-        for otherID = 0, MAX_MAJOR - 1 do
+        for otherID = 0, MAX_CIV - 1 do
             local other = Players[otherID]
             if other and other:IsAlive() and atWar(killer, other) then
                 for enemy in other:Units() do
@@ -643,11 +769,35 @@ local function onDeclareWar(playerID, againstTeam, aggressor)
             if getNumber(key, 0) == 0 then setNumber(key, 1); F.ChangePoints(targetID, 20) end
         end
     end
+    refreshAuras()
 end
 local function onMakePeace(playerID, againstTeam)
+    local actor = Players[playerID]
     for targetID = 0, MAX_MAJOR - 1 do
         local target = Players[targetID]
-        if isFilthy(target) and target:GetTeam() == againstTeam then setNumber(playerKey(targetID, "WAR_" .. tostring(playerID)), 0) end
+        if isFilthy(target) then
+            if target:GetTeam() == againstTeam then
+                setNumber(playerKey(targetID, "WAR_" .. tostring(playerID)), 0)
+            elseif actor and actor:GetTeam() == target:GetTeam() then
+                for otherID = 0, MAX_CIV - 1 do
+                    local other = Players[otherID]
+                    if other and other:GetTeam() == againstTeam then
+                        setNumber(playerKey(targetID, "WAR_" .. tostring(otherID)), 0)
+                    end
+                end
+            end
+        end
+    end
+    refreshAuras()
+end
+local function processWarStates(playerID)
+    local player = Players[playerID]
+    if not isFilthy(player) then return end
+    for otherID = 0, MAX_CIV - 1 do
+        local other = Players[otherID]
+        if other and otherID ~= playerID and not atWar(player, other) then
+            setNumber(playerKey(playerID, "WAR_" .. tostring(otherID)), 0)
+        end
     end
 end
 local function onDenounced(denouncerID, targetID)
@@ -709,8 +859,7 @@ local function onPlayerTurn(playerID)
     if isFilthy(player) then
         local expiry = getNumber(playerKey(playerID, "DISTORT_EXPIRES"), -1)
         if expiry >= 0 and expiry <= turn() then
-            local city = cityByID(getNumber(playerKey(playerID, "DISTORT_OWNER"), -1),
-                getNumber(playerKey(playerID, "DISTORT_CITY"), -1))
+            local city = storedDistortionCity(playerID)
             if city then writeFilth(city, getFilth(city)) end
             setNumber(playerKey(playerID, "DISTORT_EXPIRES"), -1)
         end
@@ -718,6 +867,7 @@ local function onPlayerTurn(playerID)
         processTourism(playerID)
         processGreatWorks(playerID)
         processDenunciations(playerID)
+        processWarStates(playerID)
         useAI(playerID)
     else processDecay(playerID) end
     refreshAuras()
@@ -725,12 +875,14 @@ local function onPlayerTurn(playerID)
     changed(playerID)
 end
 local function onMoved(playerID, unitID)
-    local player, unit = Players[playerID], Players[playerID] and Players[playerID]:GetUnitByID(unitID)
-    if unit then refreshCombat(unit) end
-    if player and (isFilthy(player) or unit and unit:GetUnitType() == I.Salamander) then refreshAuras() end
+    local unit = Players[playerID] and Players[playerID]:GetUnitByID(unitID)
+    if not unit then return end
+    refreshCombat(unit)
+    if unit:GetUnitType() == I.Salamander then refreshAuras()
+    elseif isMilitary(unit) then refreshAuraUnit(unit, activeSalamanders()) end
 end
 
-F.OnPlayerTurn, F.OnPillage, F.OnPrekill = onPlayerTurn, onPillage, onPrekill
+F.OnPlayerTurn, F.OnPillage, F.OnPrekill, F.OnMoved = onPlayerTurn, onPillage, onPrekill, onMoved
 F.RefreshCombat, F.RefreshAuras = refreshAllCombat, refreshAuras
 
 GameEvents.PlayerDoTurn.Add(onPlayerTurn)
@@ -741,7 +893,10 @@ GameEvents.BattleStarted.Add(function() battles[#battles + 1] = {} end)
 GameEvents.BattleJoined.Add(function(playerID, unitID, role, isCity)
     local battle = battles[#battles]; if battle then battle[role] = {playerID=playerID,unitID=unitID,isCity=truth(isCity)} end
 end)
-GameEvents.BattleFinished.Add(function() if #battles > 0 then table.remove(battles) end end)
+GameEvents.BattleFinished.Add(function()
+    if #battles > 0 then table.remove(battles) end
+    refreshAuras()
+end)
 if GameEvents.UnitSetXY then GameEvents.UnitSetXY.Add(onMoved) end
 if GameEvents.PlayerCanGiftUnit then
     GameEvents.PlayerCanGiftUnit.Add(function(playerID, minorID, unitID)
@@ -762,10 +917,16 @@ if GameEvents.PlayerDenouncedPlayer then GameEvents.PlayerDenouncedPlayer.Add(on
 elseif GameEvents.DenouncedPlayer then GameEvents.DenouncedPlayer.Add(onDenounced) end
 if GameEvents.ResolutionResult then GameEvents.ResolutionResult.Add(onResolution) end
 if GameEvents.PlayerTargetedByResolution then GameEvents.PlayerTargetedByResolution.Add(F.OnTargetedResolution) end
+if GameEvents.GreatWorkCreated then GameEvents.GreatWorkCreated.Add(onGreatWorkCreated) end
+if GameEvents.UnitConverted then GameEvents.UnitConverted.Add(function() refreshAuras(); refreshAllCombat() end) end
 
 for playerID = 0, MAX_MAJOR - 1 do
     local player = Players[playerID]
-    if isFilthy(player) then routeCache[playerID] = currentRoutes(playerID) end
+    if isFilthy(player) then
+        local _, counts = currentRoutes(playerID)
+        routeCache[playerID] = counts
+        snapshotGreatWorks(playerID)
+    end
 end
 refreshAuras()
 refreshAllCombat()

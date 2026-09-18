@@ -6,6 +6,7 @@ edited. Use --database to supply another BNW + Community Patch debug cache.
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import hashlib
 import os
 import re
@@ -149,6 +150,7 @@ def check_ui_and_lua():
             "PlayerDoTurn", "UnitPrekill", "CityCaptureComplete", "CityTrained",
             "BattleStarted", "BattleJoined", "BattleFinished", "UnitSetXY",
             "PlayerCanGiftUnit", "UnitPillageGold", "ResolutionResult",
+            "GreatWorkCreated", "UnitConverted",
         ),
     }
     for relative, hooks in runtime_hooks.items():
@@ -356,6 +358,35 @@ def check_database(path: Path, cp_root: Path):
     for field in ("BuildingClass", "PrereqTech", "Cost", "GoldMaintenance"):
         assert kitchen[field] == broadcast[field], f"Filthy Kitchen lost inherited {field}"
     assert yield_value("BUILDING_FILTHY_KITCHEN", "YIELD_TOURISM") == yield_value("BUILDING_BROADCAST_TOWER", "YIELD_TOURISM") + 2
+
+    def assert_companion_rows(key, base_type, unique_type, scalar_table):
+        """Every CP/BNW relation attached to the base object must survive cloning."""
+        for table in tables:
+            if table == scalar_table:
+                continue
+            columns = [r[1] for r in database.execute(f"PRAGMA table_info({quote(table)})")]
+            if key not in columns:
+                continue
+            try:
+                base_rows = database.execute(
+                    f"SELECT * FROM {quote(table)} WHERE {quote(key)}=?", (base_type,)
+                ).fetchall()
+                if not base_rows:
+                    continue
+                unique_rows = database.execute(
+                    f"SELECT * FROM {quote(table)} WHERE {quote(key)}=?", (unique_type,)
+                ).fetchall()
+            except sqlite3.OperationalError:
+                continue
+            compared = [column for column in columns if column.lower() != "id"]
+            expected = Counter(tuple(unique_type if column == key else item[column] for column in compared)
+                               for item in base_rows)
+            actual = Counter(tuple(item[column] for column in compared) for item in unique_rows)
+            missing = expected - actual
+            assert not missing, f"{unique_type} lost inherited rows from {table}: {list(missing.elements())[:3]}"
+
+    assert_companion_rows("BuildingType", "BUILDING_BROADCAST_TOWER", "BUILDING_FILTHY_KITCHEN", "Buildings")
+    assert_companion_rows("UnitType", "UNIT_GREAT_WAR_INFANTRY", "UNIT_FILTHY_PEACE_LORD", "Units")
     assert all(row("Buildings", f"BUILDING_FILTHY_LEVEL_{level}")["ShowInPedia"] == 0 for level in range(1, 6))
     assert all(row("Buildings", f"BUILDING_FILTHY_DISTORTED_{level}")["ShowInPedia"] == 0 for level in range(1, 6))
     stopped = row("UnitPromotions", "PROMOTION_FILTHY_STOPPED")
@@ -366,6 +397,7 @@ def check_database(path: Path, cp_root: Path):
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_UNIT_PREKILL'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_BATTLES'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_UNIT_ACTIONS'").fetchone()[0] == 1
+    assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_UNIT_CONVERTS'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_RESOLUTIONS'").fetchone()[0] == 1
     unresolved = set()
     translated = {r[0] for r in database.execute("SELECT Tag FROM Language_en_US")}
