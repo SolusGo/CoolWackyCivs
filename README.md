@@ -1,6 +1,6 @@
 # Cool Wacky Civs
 
-Cool Wacky Civs is one Civilization V: Brave New World mod containing six civilizations built for the Community Patch. The repository has one ModBuddy solution, one project, one manifest, and one deployable package; each civilization keeps its own gameplay and implementation README.
+Cool Wacky Civs is one Civilization V: Brave New World mod containing seven civilizations built for the Community Patch. The repository has one ModBuddy solution, one project, one manifest, and one deployable package; each civilization keeps its own gameplay and implementation README.
 
 ## Civilizations
 
@@ -10,8 +10,9 @@ Cool Wacky Civs is one Civilization V: Brave New World mod containing six civili
 - [The Capano Circuit](CapanoCircuit/README.md) — Enrico Capano sets Boulder Sectors, projects difficult targets, and turns four failed attempts into a rewarding SEND.
 - [The Filthy Realm](FilthyRealm/README.md) — Filthy Frank contaminates foreign cities, converts disruption into Filthy Points, and spends them on four active abilities.
 - [The Dual Order](DualOrder/README.md) — Grandmaster Severin balances Faith and military infrastructure, converts active wars into capped Balance Pressure, and fields Divided Templars.
+- [The RomanGladius Network](RomanGladiusNetwork/README.md) — Lachlan grows Cities as multiplayer Servers, appoints staff, protects Reputation, resolves community incidents, and turns Players into Gold, Science, and Culture.
 
-All six civilizations are installed and enabled together. Rou'ls and Luna are human-only; Terra, Capano, Filthy Frank, and Grandmaster Severin also support AI selection with design-specific flavors and automated mechanics. The collection supports single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
+All seven civilizations are installed and enabled together. Rou'ls and Luna are human-only; Terra, Capano, Filthy Frank, Grandmaster Severin, and Lachlan also support AI selection with design-specific flavors and automated mechanics. The collection supports single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
 
 ## Requirements
 
@@ -27,7 +28,7 @@ Install the repository-local development dependencies:
 python -m pip install --target .tools/python -r requirements-dev.txt
 ```
 
-Validate all six civilizations and build the single collection package:
+Validate all seven civilizations and build the single collection package:
 
 ```powershell
 python tools/validate_all.py

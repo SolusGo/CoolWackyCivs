@@ -1,5 +1,17 @@
 # Patch Notes
 
+## Cool Wacky Civs version 8 — The RomanGladius Network — 2026-09-18
+
+- Added Lachlan “RomanGladius” and The RomanGladius Network as the collection's seventh civilization, with tall Growth, Gold, Science, Culture, and Diplomacy priorities.
+- Implemented per-Server population yields, persistent 0–100 Reputation bands, activity, under/overmoderation, Moderator Culture, Administrator upkeep, and the Capital's Owner Online bonuses.
+- Added the Network Dashboard with every Server's roster, staff, status, chat, logs, timed bonuses, and active event choices.
+- Added eight interactive incidents plus automatic Viral Server, Veteran Returns, and Player Record events, with AI staff management and resolution support.
+- Added four persistent total-Player milestones at 10, 25, 50, and 100 Population.
+- Added the Server Owner with +60% Production cost, two-Population training cost, escalating launch fees, free Server Console, 60 starting Reputation, and ten-turn Grand Opening.
+- Added the Server Console Monument replacement with exact +2 Culture and +1 Gold yields and full Community Patch inheritance.
+- Preserved the supplied leader, map, Dawn of Man, and heraldry art; generated a standalone Server Console closely matching the concept sheet; compiled complete Civ V DXT5 atlas families.
+- Extended combined validation and added a deterministic RomanGladius runtime mock covering yield thresholds, staff transactions, Reputation, events, founding, milestones, and save identity.
+
 ## Cool Wacky Civs version 6 — The Dual Order — 2026-09-18
 
 - Added Grandmaster Severin and The Dual Order as the collection's sixth civilization, with a Hills start bias and religion/military/production-focused AI.

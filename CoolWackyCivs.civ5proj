@@ -6,8 +6,8 @@
     <Name>Cool Wacky Civs</Name>
     <SafeName>Cool Wacky Civs</SafeName>
     <Guid>4c02158d-ad52-4b73-bf2a-555ce58a1e60</Guid>
-    <Teaser>Six strange leaders. Six stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, and The Dual Order. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Seven strange leaders. Seven stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, and The RomanGladius Network. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -27,7 +27,7 @@
     <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <HideSetupGame>false</HideSetupGame>
-    <ModVersion>7</ModVersion>
+    <ModVersion>8</ModVersion>
     <Stability>Alpha</Stability>
     <ModActions>
       <Action>
@@ -150,6 +150,26 @@
         <Type>UpdateDatabase</Type>
         <FileName>DualOrder/SQL/10_DualOrder_Text.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>RomanGladiusNetwork/SQL/00_RomanGladius_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>RomanGladiusNetwork/SQL/01_RomanGladius_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>RomanGladiusNetwork/SQL/02_RomanGladius_UniqueEffects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>RomanGladiusNetwork/SQL/10_RomanGladius_Text.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -187,6 +207,12 @@
         <Name>The Dual Order</Name>
         <Description>Balance Pressure indicator, Twin Mandates, Zeal, and Divided Templar runtime.</Description>
         <FileName>DualOrder/UI/DualOrderPanel.xml</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>The RomanGladius Network</Name>
+        <Description>Network Dashboard, Server staff, Reputation, chat, events, milestones, and population yields.</Description>
+        <FileName>RomanGladiusNetwork/UI/RomanGladiusPanel.xml</FileName>
       </Content>
     </ModContent>
     <ModDependencies>
@@ -831,6 +857,134 @@
       <SubType>SQL</SubType>
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusAlpha128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusAlpha16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusAlpha24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusAlpha256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusAlpha32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusAlpha45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusAlpha48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusAlpha64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusAlpha80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusDawn.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusIcon128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusIcon16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusIcon24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusIcon256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusIcon32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusIcon45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusIcon48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusIcon64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusIcon80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusLeader.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusLeader128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusLeader256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusLeader64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusMap.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusObjects128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusObjects16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusObjects256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusObjects32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusObjects45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusObjects64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusObjects80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusUnitFlag32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Art/RomanGladiusLeaderScene.xml">
+      <SubType>XML</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/Lua/RomanGladiusRuntime.lua">
+      <SubType>Lua</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/SQL/00_RomanGladius_Core.sql">
+      <SubType>SQL</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/SQL/01_RomanGladius_Inheritance.sql">
+      <SubType>SQL</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/SQL/02_RomanGladius_UniqueEffects.sql">
+      <SubType>SQL</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/SQL/10_RomanGladius_Text.sql">
+      <SubType>SQL</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/UI/RomanGladiusPanel.lua">
+      <SubType>Lua</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RomanGladiusNetwork/UI/RomanGladiusPanel.xml">
+      <SubType>XML</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CapanoCircuit\Art\" />
@@ -849,6 +1003,11 @@
     <Folder Include="LunaNetwork\Art\" />
     <Folder Include="LunaNetwork\Lua\" />
     <Folder Include="LunaNetwork\SQL\" />
+    <Folder Include="RomanGladiusNetwork\" />
+    <Folder Include="RomanGladiusNetwork\Art\" />
+    <Folder Include="RomanGladiusNetwork\Lua\" />
+    <Folder Include="RomanGladiusNetwork\SQL\" />
+    <Folder Include="RomanGladiusNetwork\UI\" />
     <Folder Include="RoulsAscendancy\" />
     <Folder Include="LunaNetwork\" />
     <Folder Include="RoulsAscendancy\Art\" />

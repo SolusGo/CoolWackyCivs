@@ -58,7 +58,7 @@ def check_packaging():
     names = {name for name, _ in files}
     assert len(names) == len(files), "Duplicate project content"
     assert all((ROOT / name).is_file() for name in names), "Project contains missing files"
-    civ_roots = ("RoulsAscendancy", "LunaNetwork", "TerraFramework", "CapanoCircuit", "FilthyRealm", "DualOrder")
+    civ_roots = ("RoulsAscendancy", "LunaNetwork", "TerraFramework", "CapanoCircuit", "FilthyRealm", "DualOrder", "RomanGladiusNetwork")
     actual = {
         p.relative_to(ROOT).as_posix()
         for folder in civ_roots
@@ -69,7 +69,7 @@ def check_packaging():
     for name, imported in files:
         if name.endswith(".sql") or name in {
             "RoulsAscendancy/UI/RoulsPanel.xml", "FilthyRealm/UI/FilthyPanel.xml",
-            "DualOrder/UI/DualOrderPanel.xml",
+            "DualOrder/UI/DualOrderPanel.xml", "RomanGladiusNetwork/UI/RomanGladiusPanel.xml",
         }:
             assert not imported, f"Database SQL must not import into VFS: {name}"
         else:
@@ -90,6 +90,7 @@ def check_packaging():
         "CapanoCircuit/Lua/CapanoRuntime.lua",
         "FilthyRealm/UI/FilthyPanel.xml",
         "DualOrder/UI/DualOrderPanel.xml",
+        "RomanGladiusNetwork/UI/RomanGladiusPanel.xml",
     ], "Combined runtime entry points are incomplete or out of order"
     assert values["SupportsMultiplayer"] == "false", "Unvalidated multiplayer must remain disabled"
     dependencies = props.findall("m:ModDependencies/m:Association/m:Id", NS)
@@ -160,6 +161,10 @@ def check_ui_and_lua():
             "UnitCreated", "UnitPrekill", "UnitConverted", "UnitUpgraded",
             "DeclareWar", "MakePeace", "PlayerGoldenAge",
         ),
+        "RomanGladiusNetwork/Lua/RomanGladiusRuntime.lua": (
+            "PlayerDoTurn", "PlayerCityFounded", "CityTrained", "PlayerCanTrain",
+            "CityCaptureComplete",
+        ),
     }
     for relative, hooks in runtime_hooks.items():
         source = (ROOT / relative).read_text(encoding="utf-8-sig")
@@ -194,7 +199,8 @@ def check_ui_and_lua():
             texture.load()
             assert texture.size == (width, height), f"Unreadable DDS payload: {path}"
         if path.name in {"RoulsLeader.dds", "FilthyLeader.dds", "FilthyDawn.dds",
-                         "DualOrderLeader.dds", "DualOrderDawn.dds"}:
+                         "DualOrderLeader.dds", "DualOrderDawn.dds",
+                         "RomanGladiusLeader.dds", "RomanGladiusDawn.dds"}:
             assert (width, height) == (1600, 900), "Static leader scene must be 1600x900"
     directxtex_checks(dds_paths)
     print(f"PASS XML/control wiring, runtime hooks, DDS decode and Lua 5.1 syntax ({len(lua_files)} scripts)")
@@ -273,7 +279,7 @@ def check_database(path: Path, cp_root: Path):
         predicate = " OR ".join(
             f"CAST({quote(c)} AS TEXT) LIKE '%{prefix}%'"
             for c in columns
-            for prefix in ("ROULS", "LUNA", "TERRA", "CAPANO", "FILTHY", "DUAL_ORDER", "SEVERIN")
+            for prefix in ("ROULS", "LUNA", "TERRA", "CAPANO", "FILTHY", "DUAL_ORDER", "SEVERIN", "ROMAN_GLADIUS")
         )
         if predicate:
             try:
@@ -292,6 +298,7 @@ def check_database(path: Path, cp_root: Path):
         "CIVILIZATION_CAPANO_CIRCUIT",
         "CIVILIZATION_FILTHY_REALM",
         "CIVILIZATION_DUAL_ORDER",
+        "CIVILIZATION_ROMAN_GLADIUS_NETWORK",
     ):
         assert database.execute(
             "SELECT COUNT(*) FROM Civilizations WHERE Type=?", (civilization,)
@@ -316,6 +323,10 @@ def check_database(path: Path, cp_root: Path):
         "DUAL_ORDER_ALPHA_ATLAS": ("DualOrderAlpha", (256, 128, 80, 64, 48, 45, 32, 24, 16)),
         "DUAL_ORDER_LEADER_ATLAS": ("DualOrderLeader", (256, 128, 64)),
         "DUAL_ORDER_OBJECT_ATLAS": ("DualOrderObjects", (256, 128, 80, 64, 45, 32, 16)),
+        "ROMAN_GLADIUS_ICON_ATLAS": ("RomanGladiusIcon", (256, 128, 80, 64, 48, 45, 32, 24, 16)),
+        "ROMAN_GLADIUS_ALPHA_ATLAS": ("RomanGladiusAlpha", (256, 128, 80, 64, 48, 45, 32, 24, 16)),
+        "ROMAN_GLADIUS_LEADER_ATLAS": ("RomanGladiusLeader", (256, 128, 64)),
+        "ROMAN_GLADIUS_OBJECT_ATLAS": ("RomanGladiusObjects", (256, 128, 80, 64, 45, 32, 16)),
     }
     for atlas, (stem, sizes) in atlas_specs.items():
         actual = {row[0]: row[1] for row in database.execute(
@@ -415,6 +426,37 @@ def check_database(path: Path, cp_root: Path):
     assert row("UnitPromotions", "PROMOTION_DUAL_ORDER_ZEAL")["LostWithUpgrade"] == 0
     assert row("UnitPromotions", "PROMOTION_DUAL_ORDER_SCHISM_WOUNDED")["AttackMod"] == 20
 
+    settler = row("Units", "UNIT_SETTLER")
+    server_owner = row("Units", "UNIT_ROMAN_GLADIUS_SERVER_OWNER")
+    assert server_owner["Cost"] == (settler["Cost"] * 160 + 99) // 100
+    for field in ("Moves", "Domain", "UnitCombatType", "Found"):
+        if field in server_owner.keys():
+            assert server_owner[field] == settler[field], f"Server Owner lost inherited {field}"
+    monument = row("Buildings", "BUILDING_MONUMENT")
+    console = row("Buildings", "BUILDING_ROMAN_GLADIUS_SERVER_CONSOLE")
+    for field in ("BuildingClass", "PrereqTech", "Cost", "GoldMaintenance"):
+        assert console[field] == monument[field], f"Server Console lost inherited {field}"
+    assert yield_value("BUILDING_ROMAN_GLADIUS_SERVER_CONSOLE", "YIELD_CULTURE") == 2
+    assert yield_value("BUILDING_ROMAN_GLADIUS_SERVER_CONSOLE", "YIELD_GOLD") == 1
+    assert yield_value("BUILDING_ROMAN_GLADIUS_PLAYER_GOLD", "YIELD_GOLD") == 1
+    assert yield_value("BUILDING_ROMAN_GLADIUS_PLAYER_SCIENCE", "YIELD_SCIENCE") == 1
+    assert yield_value("BUILDING_ROMAN_GLADIUS_PLAYER_CULTURE", "YIELD_CULTURE") == 1
+    assert row("Buildings", "BUILDING_ROMAN_GLADIUS_MILESTONE_HAPPINESS")["Happiness"] == 1
+    for building_type in (
+        "BUILDING_ROMAN_GLADIUS_PLAYER_GOLD", "BUILDING_ROMAN_GLADIUS_PLAYER_SCIENCE",
+        "BUILDING_ROMAN_GLADIUS_PLAYER_CULTURE", "BUILDING_ROMAN_GLADIUS_MODERATOR",
+        "BUILDING_ROMAN_GLADIUS_LEGENDARY", "BUILDING_ROMAN_GLADIUS_THRIVING",
+        "BUILDING_ROMAN_GLADIUS_TROUBLED", "BUILDING_ROMAN_GLADIUS_TOXIC",
+        "BUILDING_ROMAN_GLADIUS_DEAD", "BUILDING_ROMAN_GLADIUS_OWNER_ONLINE",
+        "BUILDING_ROMAN_GLADIUS_GRAND_OPENING", "BUILDING_ROMAN_GLADIUS_PEAK_HOURS",
+        "BUILDING_ROMAN_GLADIUS_MILESTONE_HAPPINESS", "BUILDING_ROMAN_GLADIUS_SUCCESSFUL_NETWORK",
+    ):
+        dummy = row("Buildings", building_type)
+        assert (dummy["Cost"], dummy["FaithCost"], dummy["NeverCapture"], dummy["NukeImmune"],
+                dummy["IsDummy"], dummy["ShowInPedia"]) == (-1, -1, 1, 1, 1, 0), (
+            f"Unsafe or visible RomanGladius dummy building: {building_type}"
+        )
+
     def assert_companion_rows(key, base_type, unique_type, scalar_table, skip_tables=()):
         """Every CP/BNW relation attached to the base object must survive cloning."""
         for table in tables:
@@ -446,6 +488,9 @@ def check_database(path: Path, cp_root: Path):
     assert_companion_rows("BuildingType", "BUILDING_ARMORY", "BUILDING_DUAL_ORDER_HALL_CONCORDANCE", "Buildings",
                           {"Building_DomainFreeExperiences", "Building_Flavors"})
     assert_companion_rows("UnitType", "UNIT_LONGSWORDSMAN", "UNIT_DUAL_ORDER_DIVIDED_TEMPLAR", "Units")
+    assert_companion_rows("BuildingType", "BUILDING_MONUMENT", "BUILDING_ROMAN_GLADIUS_SERVER_CONSOLE", "Buildings",
+                          {"Building_Flavors", "Building_YieldChanges"})
+    assert_companion_rows("UnitType", "UNIT_SETTLER", "UNIT_ROMAN_GLADIUS_SERVER_OWNER", "Units")
     assert all(row("Buildings", f"BUILDING_FILTHY_LEVEL_{level}")["ShowInPedia"] == 0 for level in range(1, 6))
     assert all(row("Buildings", f"BUILDING_FILTHY_DISTORTED_{level}")["ShowInPedia"] == 0 for level in range(1, 6))
     stopped = row("UnitPromotions", "PROMOTION_FILTHY_STOPPED")
@@ -454,6 +499,7 @@ def check_database(path: Path, cp_root: Path):
     assert start_techs("CIVILIZATION_ROULS_ASCENDANCY") == start_techs("CIVILIZATION_AMERICA"), "Bonus starting technology added"
     assert start_techs("CIVILIZATION_FILTHY_REALM") == start_techs("CIVILIZATION_AMERICA"), "Filthy Realm gained a bonus starting technology"
     assert start_techs("CIVILIZATION_DUAL_ORDER") == start_techs("CIVILIZATION_AMERICA"), "Dual Order gained a bonus starting technology"
+    assert start_techs("CIVILIZATION_ROMAN_GLADIUS_NETWORK") == start_techs("CIVILIZATION_AMERICA"), "RomanGladius gained a bonus starting technology"
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_UNIT_PREKILL'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_BATTLES'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_UNIT_ACTIONS'").fetchone()[0] == 1
@@ -463,7 +509,7 @@ def check_database(path: Path, cp_root: Path):
     unresolved = set()
     translated = {r[0] for r in database.execute("SELECT Tag FROM Language_en_US")}
     for table in ("Civilizations", "Leaders", "Units", "Buildings", "UnitPromotions", "Traits"):
-        for item in database.execute(f"SELECT * FROM {quote(table)} WHERE Type LIKE '%ROULS%' OR Type LIKE '%FILTHY%' OR Type LIKE '%DUAL_ORDER%' OR Type LIKE '%SEVERIN%'"):
+        for item in database.execute(f"SELECT * FROM {quote(table)} WHERE Type LIKE '%ROULS%' OR Type LIKE '%FILTHY%' OR Type LIKE '%DUAL_ORDER%' OR Type LIKE '%SEVERIN%' OR Type LIKE '%ROMAN_GLADIUS%'"):
             for field in ("Description", "ShortDescription", "Adjective", "Civilopedia", "Strategy", "Help", "Quote", "DawnOfManQuote"):
                 if field in item.keys() and isinstance(item[field], str) and item[field].startswith("TXT_KEY_") and item[field] not in translated:
                     unresolved.add(item[field])

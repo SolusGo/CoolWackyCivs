@@ -1,0 +1,105 @@
+-- The RomanGladius Network. Civilization V: Brave New World + Community Patch.
+-- Scalar game objects are cloned so Community Patch-added columns are retained.
+
+UPDATE CustomModOptions SET Value = 1 WHERE Name IN
+('EVENTS_CITY', 'EVENTS_PLAYER_TURN', 'EVENTS_UNIT_CREATED', 'EVENTS_UNIT_PREKILL');
+
+INSERT INTO Colors(Type,Red,Green,Blue,Alpha) VALUES
+('COLOR_ROMAN_GLADIUS_PRIMARY',0.45,0.035,0.045,1),
+('COLOR_ROMAN_GLADIUS_SECONDARY',0.94,0.68,0.16,1);
+INSERT INTO PlayerColors(Type,PrimaryColor,SecondaryColor,TextColor) VALUES
+('PLAYERCOLOR_ROMAN_GLADIUS','COLOR_ROMAN_GLADIUS_PRIMARY','COLOR_ROMAN_GLADIUS_SECONDARY','COLOR_PLAYER_WHITE_TEXT');
+
+INSERT INTO IconTextureAtlases(Atlas,IconSize,Filename,IconsPerRow,IconsPerColumn) VALUES
+('ROMAN_GLADIUS_ICON_ATLAS',256,'RomanGladiusIcon256.dds',1,1),
+('ROMAN_GLADIUS_ICON_ATLAS',128,'RomanGladiusIcon128.dds',1,1),
+('ROMAN_GLADIUS_ICON_ATLAS',80,'RomanGladiusIcon80.dds',1,1),
+('ROMAN_GLADIUS_ICON_ATLAS',64,'RomanGladiusIcon64.dds',1,1),
+('ROMAN_GLADIUS_ICON_ATLAS',48,'RomanGladiusIcon48.dds',1,1),
+('ROMAN_GLADIUS_ICON_ATLAS',45,'RomanGladiusIcon45.dds',1,1),
+('ROMAN_GLADIUS_ICON_ATLAS',32,'RomanGladiusIcon32.dds',1,1),
+('ROMAN_GLADIUS_ICON_ATLAS',24,'RomanGladiusIcon24.dds',1,1),
+('ROMAN_GLADIUS_ICON_ATLAS',16,'RomanGladiusIcon16.dds',1,1),
+('ROMAN_GLADIUS_ALPHA_ATLAS',256,'RomanGladiusAlpha256.dds',1,1),
+('ROMAN_GLADIUS_ALPHA_ATLAS',128,'RomanGladiusAlpha128.dds',1,1),
+('ROMAN_GLADIUS_ALPHA_ATLAS',80,'RomanGladiusAlpha80.dds',1,1),
+('ROMAN_GLADIUS_ALPHA_ATLAS',64,'RomanGladiusAlpha64.dds',1,1),
+('ROMAN_GLADIUS_ALPHA_ATLAS',48,'RomanGladiusAlpha48.dds',1,1),
+('ROMAN_GLADIUS_ALPHA_ATLAS',45,'RomanGladiusAlpha45.dds',1,1),
+('ROMAN_GLADIUS_ALPHA_ATLAS',32,'RomanGladiusAlpha32.dds',1,1),
+('ROMAN_GLADIUS_ALPHA_ATLAS',24,'RomanGladiusAlpha24.dds',1,1),
+('ROMAN_GLADIUS_ALPHA_ATLAS',16,'RomanGladiusAlpha16.dds',1,1),
+('ROMAN_GLADIUS_LEADER_ATLAS',256,'RomanGladiusLeader256.dds',1,1),
+('ROMAN_GLADIUS_LEADER_ATLAS',128,'RomanGladiusLeader128.dds',1,1),
+('ROMAN_GLADIUS_LEADER_ATLAS',64,'RomanGladiusLeader64.dds',1,1),
+('ROMAN_GLADIUS_OBJECT_ATLAS',256,'RomanGladiusObjects256.dds',4,1),
+('ROMAN_GLADIUS_OBJECT_ATLAS',128,'RomanGladiusObjects128.dds',4,1),
+('ROMAN_GLADIUS_OBJECT_ATLAS',80,'RomanGladiusObjects80.dds',4,1),
+('ROMAN_GLADIUS_OBJECT_ATLAS',64,'RomanGladiusObjects64.dds',4,1),
+('ROMAN_GLADIUS_OBJECT_ATLAS',45,'RomanGladiusObjects45.dds',4,1),
+('ROMAN_GLADIUS_OBJECT_ATLAS',32,'RomanGladiusObjects32.dds',4,1),
+('ROMAN_GLADIUS_OBJECT_ATLAS',16,'RomanGladiusObjects16.dds',4,1),
+('ROMAN_GLADIUS_UNIT_FLAG_ATLAS',32,'RomanGladiusUnitFlag32.dds',1,1);
+
+INSERT INTO Traits(Type,Description,ShortDescription) VALUES
+('TRAIT_ROMAN_GLADIUS_SERVER_NETWORK','TXT_KEY_TRAIT_ROMAN_GLADIUS_HELP','TXT_KEY_TRAIT_ROMAN_GLADIUS_SHORT');
+
+CREATE TEMP TABLE RomanGladiusLeaderClone AS SELECT * FROM Leaders WHERE Type='LEADER_WASHINGTON';
+UPDATE RomanGladiusLeaderClone SET ID=NULL,Type='LEADER_ROMAN_GLADIUS',
+ Description='TXT_KEY_LEADER_ROMAN_GLADIUS',Civilopedia='TXT_KEY_LEADER_ROMAN_GLADIUS_PEDIA',
+ CivilopediaTag='TXT_KEY_CIVILOPEDIA_LEADERS_ROMAN_GLADIUS',ArtDefineTag='RomanGladiusLeaderScene.xml',
+ PortraitIndex=0,IconAtlas='ROMAN_GLADIUS_LEADER_ATLAS',PackageID=NULL,
+ VictoryCompetitiveness=5,WonderCompetitiveness=5,MinorCivCompetitiveness=4,
+ Boldness=4,DiploBalance=8,WarmongerHate=7,WorkAgainstWillingness=3,WorkWithWillingness=9,
+ DenounceWillingness=4,DoFWillingness=9,Loyalty=9,Neediness=5,Forgiveness=7,Chattiness=8,Meanness=2;
+INSERT INTO Leaders SELECT * FROM RomanGladiusLeaderClone;
+DROP TABLE RomanGladiusLeaderClone;
+INSERT INTO Leader_Traits VALUES ('LEADER_ROMAN_GLADIUS','TRAIT_ROMAN_GLADIUS_SERVER_NETWORK');
+
+CREATE TEMP TABLE RomanGladiusCivClone AS SELECT * FROM Civilizations WHERE Type='CIVILIZATION_AMERICA';
+UPDATE RomanGladiusCivClone SET ID=NULL,Type='CIVILIZATION_ROMAN_GLADIUS_NETWORK',
+ Description='TXT_KEY_CIV_ROMAN_GLADIUS_DESC',ShortDescription='TXT_KEY_CIV_ROMAN_GLADIUS_SHORT_DESC',
+ Adjective='TXT_KEY_CIV_ROMAN_GLADIUS_ADJECTIVE',Civilopedia='TXT_KEY_CIV_ROMAN_GLADIUS_PEDIA',
+ CivilopediaTag='TXT_KEY_CIV5_ROMAN_GLADIUS',Strategy='TXT_KEY_CIV_ROMAN_GLADIUS_STRATEGY',
+ DefaultPlayerColor='PLAYERCOLOR_ROMAN_GLADIUS',Playable=1,AIPlayable=1,PackageID=NULL,
+ PortraitIndex=0,IconAtlas='ROMAN_GLADIUS_ICON_ATLAS',AlphaIconAtlas='ROMAN_GLADIUS_ALPHA_ATLAS',
+ MapImage='RomanGladiusMap.dds',DawnOfManImage='RomanGladiusDawn.dds',
+ DawnOfManQuote='TXT_KEY_ROMAN_GLADIUS_DAWN_OF_MAN',DawnOfManAudio='',SoundtrackTag='ENGLAND',
+ ArtDefineTag='ART_DEF_CIVILIZATION_ENGLAND',ArtStyleType='ARTSTYLE_EUROPEAN',
+ ArtStyleSuffix='_EURO',ArtStylePrefix='EUROPEAN ';
+INSERT INTO Civilizations SELECT * FROM RomanGladiusCivClone;
+DROP TABLE RomanGladiusCivClone;
+
+INSERT INTO Civilization_Leaders VALUES ('CIVILIZATION_ROMAN_GLADIUS_NETWORK','LEADER_ROMAN_GLADIUS');
+INSERT INTO Civilization_FreeBuildingClasses SELECT 'CIVILIZATION_ROMAN_GLADIUS_NETWORK',BuildingClassType
+ FROM Civilization_FreeBuildingClasses WHERE CivilizationType='CIVILIZATION_AMERICA';
+INSERT INTO Civilization_FreeTechs SELECT 'CIVILIZATION_ROMAN_GLADIUS_NETWORK',TechType
+ FROM Civilization_FreeTechs WHERE CivilizationType='CIVILIZATION_AMERICA';
+INSERT INTO Civilization_FreeUnits(CivilizationType,UnitClassType,UnitAIType,Count)
+ SELECT 'CIVILIZATION_ROMAN_GLADIUS_NETWORK',UnitClassType,UnitAIType,Count
+ FROM Civilization_FreeUnits WHERE CivilizationType='CIVILIZATION_AMERICA';
+
+CREATE TEMP TABLE RomanGladiusUnitClone AS SELECT * FROM Units WHERE Type='UNIT_SETTLER';
+UPDATE RomanGladiusUnitClone SET ID=NULL,Type='UNIT_ROMAN_GLADIUS_SERVER_OWNER',
+ Description='TXT_KEY_UNIT_ROMAN_GLADIUS_SERVER_OWNER',
+ Civilopedia='TXT_KEY_UNIT_ROMAN_GLADIUS_SERVER_OWNER_PEDIA',
+ Strategy='TXT_KEY_UNIT_ROMAN_GLADIUS_SERVER_OWNER_STRATEGY',
+ Help='TXT_KEY_UNIT_ROMAN_GLADIUS_SERVER_OWNER_HELP',Cost=(Cost*160+99)/100,
+ PortraitIndex=0,IconAtlas='ROMAN_GLADIUS_OBJECT_ATLAS',
+ UnitFlagIconOffset=0,UnitFlagAtlas='ROMAN_GLADIUS_UNIT_FLAG_ATLAS';
+INSERT INTO Units SELECT * FROM RomanGladiusUnitClone;
+DROP TABLE RomanGladiusUnitClone;
+INSERT INTO Civilization_UnitClassOverrides VALUES
+('CIVILIZATION_ROMAN_GLADIUS_NETWORK','UNITCLASS_SETTLER','UNIT_ROMAN_GLADIUS_SERVER_OWNER');
+
+CREATE TEMP TABLE RomanGladiusBuildingClone AS SELECT * FROM Buildings WHERE Type='BUILDING_MONUMENT';
+UPDATE RomanGladiusBuildingClone SET ID=NULL,Type='BUILDING_ROMAN_GLADIUS_SERVER_CONSOLE',
+ Description='TXT_KEY_BUILDING_ROMAN_GLADIUS_SERVER_CONSOLE',
+ Civilopedia='TXT_KEY_BUILDING_ROMAN_GLADIUS_SERVER_CONSOLE_PEDIA',
+ Strategy='TXT_KEY_BUILDING_ROMAN_GLADIUS_SERVER_CONSOLE_STRATEGY',
+ Help='TXT_KEY_BUILDING_ROMAN_GLADIUS_SERVER_CONSOLE_HELP',
+ PortraitIndex=1,IconAtlas='ROMAN_GLADIUS_OBJECT_ATLAS';
+INSERT INTO Buildings SELECT * FROM RomanGladiusBuildingClone;
+DROP TABLE RomanGladiusBuildingClone;
+INSERT INTO Civilization_BuildingClassOverrides VALUES
+('CIVILIZATION_ROMAN_GLADIUS_NETWORK','BUILDINGCLASS_MONUMENT','BUILDING_ROMAN_GLADIUS_SERVER_CONSOLE');

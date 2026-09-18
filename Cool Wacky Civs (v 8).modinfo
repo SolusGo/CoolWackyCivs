@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="7">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="8">
   <Properties>
     <Name>Cool Wacky Civs</Name>
-    <Teaser>Six strange leaders. Six stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, and The Dual Order. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Seven strange leaders. Seven stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, and The RomanGladius Network. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -216,6 +216,46 @@
     <File md5="F20187D3F0A09D2EB1ECADECF9DE75D4" import="0">TerraFramework/SQL/01_Terra_Inheritance.sql</File>
     <File md5="86625CD6C69DBC6DAF0AFCF55A0A7333" import="0">TerraFramework/SQL/02_Terra_UniqueEffects.sql</File>
     <File md5="58B9EDE4E9B208B32D3907AC77DE63AA" import="0">TerraFramework/SQL/10_Terra_Text.sql</File>
+    <File md5="9BB9D0438924BD0015952E1945329380" import="1">RomanGladiusNetwork/Art/RomanGladiusAlpha128.dds</File>
+    <File md5="0325E3DBD9686520382E746AFCC9369A" import="1">RomanGladiusNetwork/Art/RomanGladiusAlpha16.dds</File>
+    <File md5="476CC0AF0D2ED41BD73A1BFD3149B0FE" import="1">RomanGladiusNetwork/Art/RomanGladiusAlpha24.dds</File>
+    <File md5="ADC4CCD88915DF230902AD6B2850C510" import="1">RomanGladiusNetwork/Art/RomanGladiusAlpha256.dds</File>
+    <File md5="7EA728DFD912364B2D7F84ACDC1F8510" import="1">RomanGladiusNetwork/Art/RomanGladiusAlpha32.dds</File>
+    <File md5="35CCF4F0C0245099F04A94893A9A4CDB" import="1">RomanGladiusNetwork/Art/RomanGladiusAlpha45.dds</File>
+    <File md5="18A9BF671131E22973C0A5DAB8ED9CF5" import="1">RomanGladiusNetwork/Art/RomanGladiusAlpha48.dds</File>
+    <File md5="01BDC7B23A5695F2139155985C0AD9A4" import="1">RomanGladiusNetwork/Art/RomanGladiusAlpha64.dds</File>
+    <File md5="22F3FB95AEBD546FC2AC342C2E8D66AF" import="1">RomanGladiusNetwork/Art/RomanGladiusAlpha80.dds</File>
+    <File md5="E8CEEBBD9CDCCD25079893BC00996553" import="1">RomanGladiusNetwork/Art/RomanGladiusDawn.dds</File>
+    <File md5="0BDAB6C63B75FC47CFB9FB292670D47D" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon128.dds</File>
+    <File md5="76A3AC99D8714F3E6114767C2F9CB135" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon16.dds</File>
+    <File md5="16AAF8BBC94ECF1B08006C5B3A566451" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon24.dds</File>
+    <File md5="AA41F9744B69C6287307475409B664C3" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon256.dds</File>
+    <File md5="F1B70AC3A1DB57120F09CA57FD38EAC7" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon32.dds</File>
+    <File md5="5CBDBB916E5C0D621D3788827FA4FAB8" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon45.dds</File>
+    <File md5="231745F4EF3323058534FC4DB0624014" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon48.dds</File>
+    <File md5="E89D9F5861FCD2302EF69E702B4A9457" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon64.dds</File>
+    <File md5="C668287C1663422581B9367AE313F844" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon80.dds</File>
+    <File md5="726AB6377AE9241E59F4D6D69679B73B" import="1">RomanGladiusNetwork/Art/RomanGladiusLeader.dds</File>
+    <File md5="A7B33D1456E4516841FA7DEE7907634D" import="1">RomanGladiusNetwork/Art/RomanGladiusLeader128.dds</File>
+    <File md5="49ED8299955B7D989593040944EF41FF" import="1">RomanGladiusNetwork/Art/RomanGladiusLeader256.dds</File>
+    <File md5="650AEABA78575C9112B7E7F55A9E1A39" import="1">RomanGladiusNetwork/Art/RomanGladiusLeader64.dds</File>
+    <File md5="28122F5EAD798EDBB79DD309F561003D" import="1">RomanGladiusNetwork/Art/RomanGladiusMap.dds</File>
+    <File md5="8874350CA9DA3C63E6E8728D9098150F" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects128.dds</File>
+    <File md5="4E0AB35ADFFB0FFB2D9C88F45D0BB76F" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects16.dds</File>
+    <File md5="C6D6AE2AFD3B2CF1E6FF8E6B705F4452" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects256.dds</File>
+    <File md5="80B6176EB195E123A63E506D63F463B1" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects32.dds</File>
+    <File md5="3551873FB599541FD7FCC7AE80C45903" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects45.dds</File>
+    <File md5="B28E650660681A8EC00EE4FC217C2636" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects64.dds</File>
+    <File md5="90A776FAC1276D0570B2B6B995845971" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects80.dds</File>
+    <File md5="7EA728DFD912364B2D7F84ACDC1F8510" import="1">RomanGladiusNetwork/Art/RomanGladiusUnitFlag32.dds</File>
+    <File md5="84FBB033F8EE248DC205BAB8450A0CDE" import="1">RomanGladiusNetwork/Art/RomanGladiusLeaderScene.xml</File>
+    <File md5="370E1CAA64E9FD2591975FCC35F59EF1" import="1">RomanGladiusNetwork/Lua/RomanGladiusRuntime.lua</File>
+    <File md5="E33B2540EAB76D7ED2E71EB4B4B350BF" import="0">RomanGladiusNetwork/SQL/00_RomanGladius_Core.sql</File>
+    <File md5="CFC30023CFB0B0549393F3656A7D301A" import="0">RomanGladiusNetwork/SQL/01_RomanGladius_Inheritance.sql</File>
+    <File md5="6F37FAA2C4BE38A8BA3D038FF8096968" import="0">RomanGladiusNetwork/SQL/02_RomanGladius_UniqueEffects.sql</File>
+    <File md5="AC4F17C3A133BDA347156800696BFDF8" import="0">RomanGladiusNetwork/SQL/10_RomanGladius_Text.sql</File>
+    <File md5="0C12E9D91A1BE058A3FAC45477DE330A" import="1">RomanGladiusNetwork/UI/RomanGladiusPanel.lua</File>
+    <File md5="FB3B89F19FF8F70C17BE8B7BEF21EF5D" import="0">RomanGladiusNetwork/UI/RomanGladiusPanel.xml</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -243,6 +283,10 @@
       <UpdateDatabase>DualOrder/SQL/01_DualOrder_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>DualOrder/SQL/02_DualOrder_UniqueEffects.sql</UpdateDatabase>
       <UpdateDatabase>DualOrder/SQL/10_DualOrder_Text.sql</UpdateDatabase>
+      <UpdateDatabase>RomanGladiusNetwork/SQL/00_RomanGladius_Core.sql</UpdateDatabase>
+      <UpdateDatabase>RomanGladiusNetwork/SQL/01_RomanGladius_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>RomanGladiusNetwork/SQL/02_RomanGladius_UniqueEffects.sql</UpdateDatabase>
+      <UpdateDatabase>RomanGladiusNetwork/SQL/10_RomanGladius_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -269,6 +313,10 @@
     <EntryPoint type="InGameUIAddin" file="DualOrder/UI/DualOrderPanel.xml">
       <Name>The Dual Order</Name>
       <Description>Balance Pressure indicator, Twin Mandates, Zeal, and Divided Templar runtime.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="RomanGladiusNetwork/UI/RomanGladiusPanel.xml">
+      <Name>The RomanGladius Network</Name>
+      <Description>Network Dashboard, Server staff, Reputation, chat, events, milestones, and population yields.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>
