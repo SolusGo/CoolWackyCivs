@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="8">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="9">
   <Properties>
     <Name>Cool Wacky Civs</Name>
     <Teaser>Seven strange leaders. Seven stranger ways to rule.</Teaser>
@@ -249,8 +249,8 @@
     <File md5="90A776FAC1276D0570B2B6B995845971" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects80.dds</File>
     <File md5="7EA728DFD912364B2D7F84ACDC1F8510" import="1">RomanGladiusNetwork/Art/RomanGladiusUnitFlag32.dds</File>
     <File md5="84FBB033F8EE248DC205BAB8450A0CDE" import="1">RomanGladiusNetwork/Art/RomanGladiusLeaderScene.xml</File>
-    <File md5="370E1CAA64E9FD2591975FCC35F59EF1" import="1">RomanGladiusNetwork/Lua/RomanGladiusRuntime.lua</File>
-    <File md5="E33B2540EAB76D7ED2E71EB4B4B350BF" import="0">RomanGladiusNetwork/SQL/00_RomanGladius_Core.sql</File>
+    <File md5="5018FAE52248F7BD7893E8A6E0C5006E" import="1">RomanGladiusNetwork/Lua/RomanGladiusRuntime.lua</File>
+    <File md5="7F01F105573ECBCA259759CCF9B8E3E5" import="0">RomanGladiusNetwork/SQL/00_RomanGladius_Core.sql</File>
     <File md5="CFC30023CFB0B0549393F3656A7D301A" import="0">RomanGladiusNetwork/SQL/01_RomanGladius_Inheritance.sql</File>
     <File md5="6F37FAA2C4BE38A8BA3D038FF8096968" import="0">RomanGladiusNetwork/SQL/02_RomanGladius_UniqueEffects.sql</File>
     <File md5="AC4F17C3A133BDA347156800696BFDF8" import="0">RomanGladiusNetwork/SQL/10_RomanGladius_Text.sql</File>

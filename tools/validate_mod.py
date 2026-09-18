@@ -506,6 +506,8 @@ def check_database(path: Path, cp_root: Path):
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_UNIT_CONVERTS'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_UNIT_UPGRADES'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_RESOLUTIONS'").fetchone()[0] == 1
+    assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_CITY_FOUNDING'").fetchone()[0] == 1
+    assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_CITY_CAPITAL'").fetchone()[0] == 1
     unresolved = set()
     translated = {r[0] for r in database.execute("SELECT Tag FROM Language_en_US")}
     for table in ("Civilizations", "Leaders", "Units", "Buildings", "UnitPromotions", "Traits"):

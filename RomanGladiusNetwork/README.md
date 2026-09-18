@@ -14,7 +14,7 @@ The in-game Network Dashboard lists every Server and exposes its staff, roster, 
 
 ## Unique Unit — Server Owner
 
-Replaces the Settler. It costs 60% more Production and consumes 2 Population when normally trained. Launching the second Server costs 100 Gold, the third costs 200, and so on. A newly launched Server receives a free Server Console, starts at 60 Reputation, and has Grand Opening (+50% Food) for 10 turns.
+Replaces the Settler. It costs 60% more Production and always consumes 2 Population when created, including when purchased. Launching the second Server costs 100 Gold, the third costs 200, and so on. Every newly founded Server, including the first, receives a free Server Console, starts at 60 Reputation, and has Grand Opening (+50% Food) for 10 turns.
 
 ## Unique Building — Server Console
 

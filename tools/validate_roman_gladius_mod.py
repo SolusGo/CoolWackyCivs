@@ -31,6 +31,8 @@ def static_checks() -> None:
     inheritance = (root / "SQL/01_RomanGladius_Inheritance.sql").read_text(encoding="utf-8-sig")
     runtime = (root / "Lua/RomanGladiusRuntime.lua").read_text(encoding="utf-8-sig")
     assert "Cost=(Cost*160+99)/100" in core
+    assert "'EVENTS_CITY_FOUNDING'" in core
+    assert "'EVENTS_CITY_CAPITAL'" in core
     assert "UNITCLASS_SETTLER','UNIT_ROMAN_GLADIUS_SERVER_OWNER" in core
     assert "BUILDINGCLASS_MONUMENT','BUILDING_ROMAN_GLADIUS_SERVER_CONSOLE" in core
     assert "('BUILDING_ROMAN_GLADIUS_SERVER_CONSOLE','YIELD_CULTURE',2)" in effects
@@ -38,7 +40,8 @@ def static_checks() -> None:
     assert "('UNIT_SETTLER', 'UNIT_ROMAN_GLADIUS_SERVER_OWNER')" in inheritance
     assert "('BUILDING_MONUMENT', 'BUILDING_ROMAN_GLADIUS_SERVER_CONSOLE')" in inheritance
     for token in ("R.PromoteModerator", "R.PromoteAdministrator", "R.ResolveEvent", "R.GetRoster",
-                  "R.GetServers", "R.GetNetworkState", "PlayerCityFounded", "PlayerCanFoundCity"):
+                  "R.GetServers", "R.GetNetworkState", "PlayerCityFounded", "PlayerCanFoundCity",
+                  "BALANCE_SETTLERS_CONSUME_POPULATION"):
         assert token in runtime, f"Runtime feature missing: {token}"
     panel = ET.parse(root / "UI/RomanGladiusPanel.xml")
     ids = {node.attrib["ID"] for node in panel.iter() if "ID" in node.attrib}
@@ -95,7 +98,9 @@ GameInfoTypes={
  BUILDING_ROMAN_GLADIUS_SUCCESSFUL_NETWORK=34,
 }
 GameDefines={MAX_MAJOR_CIVS=2}
+BUILT_IN_SETTLER_POPULATION=false
 Game={current=0,GetGameTurn=function()return Game.current end,Rand=function()return 99 end,
+ IsCustomModOption=function(name)return name=='BALANCE_SETTLERS_CONSUME_POPULATION' and BUILT_IN_SETTLER_POPULATION end,
  IsNetworkMultiPlayer=function()return false end}
 
 function NewCity(owner,id,x,y,pop,name,founded)
@@ -109,16 +114,20 @@ function NewCity(owner,id,x,y,pop,name,founded)
  function c:SetNumRealBuilding(id,n)self.buildings[id]=n end
  function c:IsHasBuilding(id)return (self.buildings[id] or 0)>0 end
  function c:ChangeProduction(n)self.production=self.production+n end
+ function c:GetProduction()return self.production end
  function c:ChangeFood(n)self.food=self.food+n end
  return c
 end
 function NewPlayer(id,civ)
- local p={id=id,civ=civ,alive=true,human=id==0,gold=1000,culture=0,research=0,cityList={},unitList={}}
+ local p={id=id,civ=civ,alive=true,human=id==0,gold=1000,culture=0,research=0,capitalID=nil,cityList={},unitList={}}
  function p:IsAlive()return self.alive end; function p:IsHuman()return self.human end
  function p:GetCivilizationType()return self.civ end
  function p:Cities()local i=0;return function()i=i+1;return self.cityList[i]end end
  function p:GetCityByID(id)for _,c in ipairs(self.cityList)do if c.id==id then return c end end end
- function p:GetCapitalCity()return self.cityList[1] end
+ function p:GetCapitalCity()
+  if self.capitalID then return self:GetCityByID(self.capitalID) end
+  return self.cityList[1]
+ end
  function p:GetGold()return self.gold end; function p:ChangeGold(n)self.gold=self.gold+n end
  function p:ChangeJONSCulture(n)self.culture=self.culture+n end
  function p:ChangeOverflowResearch(n)self.research=self.research+n end
@@ -128,7 +137,7 @@ function NewPlayer(id,civ)
 end
 function NewUnit(id,kind)local u={id=id,kind=kind};function u:GetUnitType()return self.kind end;return u end
 Players={[0]=NewPlayer(0,1),[1]=NewPlayer(1,99)}
-local capital=NewCity(0,1,0,0,10,'Main Server',0);Players[0].cityList={capital}
+local capital=NewCity(0,1,0,0,10,'Main Server',0);capital.buildings[20]=0;Players[0].cityList={capital}
 local plots={}
 Map={GetPlot=function(x,y)return plots[x..':'..y] end}
 function PutCity(city)plots[city.x..':'..city.y]={GetPlotCity=function()return city end}end
@@ -142,14 +151,30 @@ MapModData={}
 local R=MapModData.RomanGladiusNetwork
 local city=Players[0].cityList[1]
 assert(#GameEvents.PlayerDoTurn.handlers==1 and #GameEvents.PlayerCityFounded.handlers==1
- and #GameEvents.CityTrained.handlers==1 and #GameEvents.PlayerCanTrain.handlers==1,
+ and #GameEvents.CityTrained.handlers==1 and #GameEvents.PlayerCanTrain.handlers==1
+ and #GameEvents.CityCanTrain.handlers==1 and #GameEvents.PlayerCanFoundCity.handlers==1
+ and #GameEvents.CityCaptureComplete.handlers==1 and #GameEvents.CapitalChanged.handlers==1,
  'runtime handlers missing or duplicated')
+assert(R.Loaded,'runtime marked itself loaded before successful initialization')
 assert(city.buildings[21]==5 and city.buildings[22]==2 and city.buildings[23]==2,
  'population threshold yields are incorrect')
 assert(city.buildings[30]==1,'Owner Online is missing from the Capital')
-local s=R.GetCityState(city);assert(s.reputation==50 and s.band=='Stable' and s.hasConsole)
-R.ChangeReputation(city,42,'test');s=R.GetCityState(city)
+R.OnCityFounded(0,0,0)
+local s=R.GetCityState(city)
+assert(s.reputation==60 and s.band=='Stable' and s.hasConsole and s.opening and Players[0].gold==1000,
+ 'first Server did not receive its free Console and Grand Opening')
+R.ChangeReputation(city,32,'test');s=R.GetCityState(city)
 assert(s.reputation==92 and s.band=='Legendary' and city.buildings[25]==1,'Legendary band failed')
+
+local canFound=GameEvents.PlayerCanFoundCity.handlers[1]
+local canTrain=GameEvents.PlayerCanTrain.handlers[1]
+local cityCanTrain=GameEvents.CityCanTrain.handlers[1]
+Players[0].gold=99;assert(not canFound(0,9,9),'second Server launch ignored its 100 Gold gate')
+Players[0].gold=100;assert(canFound(0,9,9),'valid second Server launch was blocked')
+city.pop=2;assert(not canTrain(0,10) and not cityCanTrain(0,1,10),'low-Population Server could train an Owner')
+city.pop=10;assert(canTrain(0,10) and cityCanTrain(0,1,10),'eligible Server could not train an Owner')
+Players[0].gold=1000
+
 local ok,msg=R.PromoteModerator(0,1);assert(ok,msg)
 ok,msg=R.PromoteModerator(0,1);assert(ok,msg)
 ok,msg=R.PromoteAdministrator(0,1);assert(ok,msg)
@@ -165,6 +190,7 @@ assert(network.maxPopulation==100 and city.buildings[33]==1 and city.buildings[3
 assert(Players[0].gold==773,'10-player reward or Administrator upkeep failed')
 local owner=NewUnit(1,10);Players[0].unitList={owner}
 R.OnCityTrained(0,1,1,false,false);assert(city.pop==98,'Server Owner did not consume two Population')
+R.OnCityTrained(0,1,1,true,false);assert(city.pop==96,'purchased Server Owner bypassed its Population cost')
 
 local second=NewCity(0,2,5,5,1,'Survival Server',2);second.buildings[20]=0
 Players[0].cityList[#Players[0].cityList+1]=second;PutCity(second)
@@ -172,11 +198,79 @@ Game.current=2;R.OnCityFounded(0,5,5)
 local secondState=R.GetCityState(second)
 assert(Players[0].gold==673 and second.buildings[20]==1,'launch fee or free Console failed')
 assert(secondState.reputation==60 and secondState.opening and second.buildings[31]==1,'Grand Opening failed')
+Players[0].gold=199;assert(not canFound(0,9,9),'third Server launch ignored its 200 Gold gate')
+Players[0].gold=200;assert(canFound(0,9,9),'valid third Server launch was blocked')
+Players[0].gold=673
+Players[0].capitalID=2;GameEvents.CapitalChanged.handlers[1](0,2,1)
+assert(city.buildings[30]==0 and second.buildings[30]==1,'Owner Online did not follow a Capital change')
+Players[0].capitalID=1;GameEvents.CapitalChanged.handlers[1](0,1,2)
+assert(city.buildings[30]==1 and second.buildings[30]==0,'Owner Online did not return to the restored Capital')
 
 local replacement=NewCity(0,2,8,8,4,'Replacement Server',99);Players[0].cityList[2]=replacement;PutCity(replacement)
 assert(R.GetCityState(replacement).reputation==50,'refounded City inherited old Server state')
 local roster=R.GetRoster(city);assert(#roster==12 and roster[1].role=='Administrator','Player roster roles failed')
-print('PASS RomanGladius Lua runtime: yields, reputation, staff, events, milestones, founding, roster, and identity')
+
+-- A pending incident cannot be overwritten, and paid responses cannot resolve for free.
+Players[0].gold=49
+assert(R.SetEvent(replacement,'GRIEFER'))
+assert(not R.SetEvent(replacement,'CRASH') and R.GetCityState(replacement).event=='GRIEFER','pending incident was overwritten')
+ok,msg=R.ResolveEvent(0,2,nil);assert(not ok and R.GetCityState(replacement).event=='GRIEFER','invalid event choice crashed or resolved')
+ok,msg=R.ResolveEvent(0,2,1);assert(not ok and Players[0].gold==49 and R.GetCityState(replacement).event=='GRIEFER',msg)
+Players[0].gold=50;ok,msg=R.ResolveEvent(0,2,1);assert(ok and Players[0].gold==0 and R.GetCityState(replacement).event=='',msg)
+replacement.production=49;assert(R.SetEvent(replacement,'DUPLICATION'))
+ok,msg=R.ResolveEvent(0,2,1);assert(not ok and replacement.production==49 and R.GetCityState(replacement).event=='DUPLICATION',msg)
+replacement.production=50;ok,msg=R.ResolveEvent(0,2,1);assert(ok and replacement.production==0,msg)
+
+-- Invalid staff actions preserve the incident instead of falling through to another choice.
+assert(R.SetEvent(replacement,'CIVIL_WAR'))
+ok,msg=R.ResolveEvent(0,2,2);assert(not ok and R.GetCityState(replacement).event=='CIVIL_WAR',msg)
+ok,msg=R.ResolveEvent(0,2,3);assert(ok and R.GetCityState(replacement).event=='',msg)
+
+-- Staff is clamped after severe Population loss; an Administrator can still handle griefing.
+city.pop=1;s=R.GetCityState(city)
+assert(s.moderators==0 and s.admin==1,'staff count exceeded the remaining Player roster')
+assert(R.SetEvent(city,'GRIEFER'));ok,msg=R.ResolveEvent(0,1,2);assert(ok,msg)
+assert(R.SetEvent(city,'CHEATER'));ok,msg=R.ResolveEvent(0,1,1)
+assert(not ok and R.GetCityState(city).event=='CHEATER','one-Player Server allowed a free ban')
+ok,msg=R.ResolveEvent(0,1,2);assert(ok,msg)
+
+-- AI Administrators fall back from an unaffordable preferred response instead of deadlocking.
+R.ChangeReputation(city,-100,'AI fallback setup')
+local researchBefore=Players[0].research
+Players[0].human=false;Game.current=7
+Game.Rand=function(maximum,label)if label=='RomanGladius incident choice' then return 3 else return 0 end end
+R.OnPlayerTurn(0)
+assert(R.GetCityState(city).event=='' and Players[0].research==researchBefore+45,
+ 'AI failed to choose an affordable fallback for a Duplication Exploit')
+Players[0].human=true;Game.Rand=function()return 99 end
+
+-- Capture and recapture reset the new owner's state and strip foreign dummy effects.
+second.owner=1;GameEvents.CityCaptureComplete.handlers[1](0,false,5,5,1,1,true)
+assert((second.buildings[21] or 0)==0 and (second.buildings[31] or 0)==0,
+ 'foreign capture retained RomanGladius dummy effects')
+second.owner=0;GameEvents.CityCaptureComplete.handlers[1](1,false,5,5,0,1,true)
+local captured=R.GetCityState(second)
+assert(captured.reputation==40 and captured.moderators==0 and captured.admin==0 and captured.event=='','Roman recapture kept stale Server state')
+print('PASS RomanGladius Lua runtime: gating, purchases, events, staff clamps, capture, founding, roster, and identity')
+''')
+
+    # When CP/VP already removes one Population from a produced Settler, Lua removes only the second.
+    lua.execute(r'''
+MapModData={};BUILT_IN_SETTLER_POPULATION=true
+local compat=NewCity(0,3,12,12,5,'Compatibility Server',3)
+Players[0].cityList={compat};PutCity(compat)
+local compatOwner=NewUnit(2,10);Players[0].unitList={compatOwner}
+''')
+    lua.execute(source)
+    lua.execute(r'''
+local R=MapModData.RomanGladiusNetwork
+local city=Players[0].cityList[1]
+city.pop=city.pop-1 -- the enabled CP rule consumes the first Player
+R.OnCityTrained(0,3,2,false,false)
+assert(city.pop==3,'CP Settler Population compatibility charged more or less than two Players')
+city.pop=5;R.OnCityTrained(0,3,2,true,false)
+assert(city.pop==3,'purchased Owner did not pay the full two-Player cost under CP compatibility')
+print('PASS RomanGladius CP Settler Population compatibility')
 ''')
 
 

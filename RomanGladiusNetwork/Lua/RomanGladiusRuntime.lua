@@ -2,12 +2,14 @@
 if MapModData.RomanGladiusNetwork and MapModData.RomanGladiusNetwork.Loaded then return end
 MapModData.RomanGladiusNetwork = MapModData.RomanGladiusNetwork or {}
 local R = MapModData.RomanGladiusNetwork
-R.Loaded = true
 
 local save = Modding.OpenSaveData()
 local CIV = GameInfoTypes.CIVILIZATION_ROMAN_GLADIUS_NETWORK
 local OWNER = GameInfoTypes.UNIT_ROMAN_GLADIUS_SERVER_OWNER
 local CONSOLE = GameInfoTypes.BUILDING_ROMAN_GLADIUS_SERVER_CONSOLE
+local settlerPopulationOption = Game.IsCustomModOption
+    and Game.IsCustomModOption("BALANCE_SETTLERS_CONSUME_POPULATION")
+local SETTLERS_CONSUME_POPULATION = settlerPopulationOption == true or settlerPopulationOption == 1
 local B = {
     gold = GameInfoTypes.BUILDING_ROMAN_GLADIUS_PLAYER_GOLD,
     science = GameInfoTypes.BUILDING_ROMAN_GLADIUS_PLAYER_SCIENCE,
@@ -34,15 +36,15 @@ R.Events = {
     CHEATER = {name="Suspected Cheater", chat="[DiamondMiner] OWNER! This guy is flying!",
         options={"Ban Player", "Investigate", "Ignore"}},
     GRIEFER = {name="Griefer Attack", chat="[BlockBuilder] someone destroyed spawn",
-        options={"Roll Back Server", "Let Moderators Handle It", "Ignore Damage"}},
+        options={"Roll Back — 50 [ICON_GOLD]", "Let Staff Handle It", "Ignore Damage"}},
     MOD_ABUSE = {name="Moderator Abuse", chat="[Steve2004] mod gave his friend items",
         options={"Demote Moderator", "Investigate Incident", "Defend Staff"}},
     CIVIL_WAR = {name="Staff Civil War", chat="[CraftKing42 MOD] we need to talk about the staff team",
         options={"Demote One Moderator", "Demote Both", "Let Them Resolve It"}},
     CRASH = {name="Server Crash", chat="*** Connection timed out. ***",
-        options={"Restart Immediately", "Debug the Problem", "Roll Back Server"}},
+        options={"Restart Immediately", "Debug the Problem", "Roll Back — 40 [ICON_GOLD]"}},
     DUPLICATION = {name="Duplication Exploit", chat="[RedstoneRose] I found something weird with these items",
-        options={"Patch Immediately", "Study the Exploit", "Leave It Active"}},
+        options={"Patch — 50 [ICON_PRODUCTION]", "Study the Exploit", "Leave It Active"}},
     COMMUNITY = {name="Community Build", chat="[OakArchitect] everyone meet at spawn—we are building something big",
         options={"Build a Castle", "Build a Redstone Machine", "Build a Spawn Hub"}},
     DONATOR = {name="Generous Donator", chat="[BeaconBelle] I would love to support the Server",
@@ -134,9 +136,18 @@ local function state(city)
     local reputation = math.max(0, math.min(100, getNumber(prefix .. "REP", 50)))
     local moderators = math.max(0, getNumber(prefix .. "MODS", 0))
     local admin = getNumber(prefix .. "ADMIN", 0) > 0 and 1 or 0
+    local maximumModerators = math.max(0, city:GetPopulation() - admin)
+    if moderators > maximumModerators then
+        moderators = maximumModerators
+        setNumber(prefix .. "MODS", moderators)
+    end
     local openingUntil = getNumber(prefix .. "OPENING", -1)
     local peakUntil = getNumber(prefix .. "PEAK", -1)
     local event = getText(prefix .. "EVENT", "")
+    if event ~= "" and not R.Events[event] then
+        event = ""
+        setText(prefix .. "EVENT", "")
+    end
     return {reputation=reputation, moderators=moderators, admin=admin,
         openingUntil=openingUntil, peakUntil=peakUntil, event=event}
 end
@@ -298,12 +309,14 @@ local function rewardCulture(player, amount)
     if player.ChangeJONSCulture then player:ChangeJONSCulture(amount) end
 end
 local function eventResult(city, choice)
-    local value, event = state(city), state(city).event
+    local value = state(city)
+    local event = value.event
     local player = Players[city:GetOwner()]
     local message, rep = "Incident closed.", 0
     if event == "CHEATER" then
         if choice == 1 then
-            if city:GetPopulation() > 1 then city:ChangePopulation(-1, true) end
+            if city:GetPopulation() <= 1 then return false, "Banning requires at least 2 Players." end
+            city:ChangePopulation(-1, true)
             rep, message = 8, "The accused Player was banned."
             setNumber(playerKey(city:GetOwner(), "BANNED"), getNumber(playerKey(city:GetOwner(), "BANNED"), 0) + 1)
         elseif choice == 2 then
@@ -311,27 +324,40 @@ local function eventResult(city, choice)
             else rep, message = -4, "The accusation was false and trust suffered." end
         else rep, message = -10, "The report was ignored and the exploit spread." end
     elseif event == "GRIEFER" then
-        if choice == 1 then player:ChangeGold(-math.min(50, player:GetGold())); rep, message = 8, "A clean backup restored the damaged builds."
-        elseif choice == 2 and value.moderators > 0 then rep, message = 4, "The Moderators contained the griefing."
-        elseif choice == 2 then rep, message = -8, "There were no Moderators available to help."
+        if choice == 1 then
+            if player:GetGold() < 50 then return false, "Rolling back requires 50 Gold." end
+            player:ChangeGold(-50); rep, message = 8, "A clean backup restored the damaged builds."
+        elseif choice == 2 and value.moderators + value.admin > 0 then rep, message = 4, "The staff contained the griefing."
+        elseif choice == 2 then rep, message = -8, "There were no staff members available to help."
         else rep, message = -10, "The griefed builds were abandoned." end
     elseif event == "MOD_ABUSE" then
-        if choice == 1 and value.moderators > 0 then value.moderators = value.moderators - 1; rep, message = 7, "The abusive Moderator was demoted."
+        if choice == 1 then
+            if value.moderators < 1 then return false, "There is no Moderator to demote." end
+            value.moderators = value.moderators - 1; rep, message = 7, "The abusive Moderator was demoted."
         elseif choice == 2 then
             if random(100, "RomanGladius moderator investigation") < 65 then rep, message = 5, "The logs exposed command abuse."
             else rep, message = -3, "The investigation found no abuse." end
         else player:ChangeGold(30); rep, message = -9, "Defending the staff member deepened the controversy." end
     elseif event == "CIVIL_WAR" then
-        if choice == 1 and value.moderators > 0 then value.moderators = value.moderators - 1; rep, message = 4, "One Moderator was removed and the argument cooled."
-        elseif choice == 2 then value.moderators = math.max(0, value.moderators - 2); rep, message = 9, "Both combatants were removed from staff."
+        if choice == 1 then
+            if value.moderators < 1 then return false, "There is no Moderator to demote." end
+            value.moderators = value.moderators - 1; rep, message = 4, "One Moderator was removed and the argument cooled."
+        elseif choice == 2 then
+            if value.moderators < 2 then return false, "Demoting both combatants requires 2 Moderators." end
+            value.moderators = value.moderators - 2; rep, message = 9, "Both combatants were removed from staff."
         elseif random(100, "RomanGladius staff civil war") < 45 then rep, message = 3, "The staff reconciled on their own."
         else rep, message = -10, "The dispute consumed the staff chat." end
     elseif event == "CRASH" then
         if choice == 1 then rep, message = -2, "The Server restarted quickly, but the cause remains."
         elseif choice == 2 then rewardScience(player, 30); rep, message = 4, "Debugging found the faulty configuration and produced useful research."
-        else player:ChangeGold(-math.min(40, player:GetGold())); rep, message = 6, "The previous stable build was restored." end
+        else
+            if player:GetGold() < 40 then return false, "Rolling back requires 40 Gold." end
+            player:ChangeGold(-40); rep, message = 6, "The previous stable build was restored."
+        end
     elseif event == "DUPLICATION" then
-        if choice == 1 then player:ChangeGold(-math.min(50, player:GetGold())); rep, message = 8, "The exploit was patched immediately."
+        if choice == 1 then
+            if city:GetProduction() < 50 then return false, "Patching immediately requires 50 Production stored in the City." end
+            city:ChangeProduction(-50); rep, message = 8, "The exploit was patched immediately."
         elseif choice == 2 then
             rewardScience(player, 45)
             if random(100, "RomanGladius duplication study") < 35 then rep, message = -8, "The study leaked and the economy was flooded."
@@ -360,12 +386,17 @@ function R.ResolveEvent(playerID, cityID, choice)
     if not city then return false, why end
     local event = state(city).event
     if event == "" or not R.Events[event] then return false, "This Server has no unresolved incident." end
-    if choice < 1 or choice > 3 then return false, "Choose a valid response." end
+    if type(choice) ~= "number" or choice ~= math.floor(choice) or choice < 1 or choice > 3 then
+        return false, "Choose a valid response."
+    end
     return eventResult(city, choice)
 end
 function R.SetEvent(city, event)
-    if not R.Events[event] then return false end
+    if not city or not isRoman(city:GetOwner()) or not hasBuilding(city, CONSOLE) or not R.Events[event] then
+        return false
+    end
     local value = state(city)
+    if value.event ~= "" then return false end
     value.event = event
     saveState(city, value)
     addChat(city, R.Events[event].chat)
@@ -411,7 +442,8 @@ local function generateEvent(city)
             R.SetEvent(city, event)
         else positiveAutomatic(city) end
     else
-        local limit = value.moderators >= 2 and #negativeEvents or value.moderators == 1 and 5 or 4
+        local limit = value.moderators >= 2 and #negativeEvents
+            or value.moderators + value.admin >= 1 and 5 or 4
         local event = negativeEvents[random(limit, "RomanGladius incident choice") + 1]
         R.SetEvent(city, event)
     end
@@ -420,7 +452,13 @@ local function generateEvent(city)
         notify(city:GetOwner(), "Server Event: " .. R.Events[state(city).event].name,
             city:GetName() .. " needs an Owner decision in the Network Dashboard.", city)
     elseif not player:IsHuman() and state(city).event ~= "" then
-        eventResult(city, value.admin > 0 and 1 or 2)
+        local preferred = value.admin > 0 and 1 or 2
+        local resolved = eventResult(city, preferred)
+        if not resolved then
+            for choice = 1, 3 do
+                if choice ~= preferred and eventResult(city, choice) then break end
+            end
+        end
     end
 end
 
@@ -504,19 +542,17 @@ local function founded(playerID, x, y)
     if not isRoman(player) then return end
     local plot = Map.GetPlot(x, y)
     local city = plot and plot:GetPlotCity()
-    if not city then return end
+    if not city or city:GetOwner() ~= playerID then return end
     local count = cityCount(player)
-    if count > 1 then
-        local launchCost = (count - 1) * 100
-        player:ChangeGold(-math.min(launchCost, player:GetGold()))
-        city:SetNumRealBuilding(CONSOLE, 1)
-        local value = state(city)
-        value.reputation, value.openingUntil = 60, turn() + 9
-        saveState(city, value)
-        addLog(city, "Grand Opening: launched for " .. launchCost .. " Gold with 60 Reputation.")
-        addChat(city, "*** Welcome to " .. city:GetName() .. "! ***")
-        notify(playerID, "Server Launched", city:GetName() .. " is online. Grand Opening is active for 10 turns.", city)
-    end
+    local launchCost = math.max(0, (count - 1) * 100)
+    if launchCost > 0 then player:ChangeGold(-launchCost) end
+    city:SetNumRealBuilding(CONSOLE, 1)
+    local value = state(city)
+    value.reputation, value.openingUntil = 60, turn() + 9
+    saveState(city, value)
+    addLog(city, "Grand Opening: launched for " .. launchCost .. " Gold with 60 Reputation.")
+    addChat(city, "*** Welcome to " .. city:GetName() .. "! ***")
+    notify(playerID, "Server Launched", city:GetName() .. " is online. Grand Opening is active for 10 turns.", city)
     R.RefreshCity(city)
     changed(playerID)
 end
@@ -537,10 +573,12 @@ local function trained(playerID, cityID, unitID, boughtWithGold, boughtWithFaith
     local player = Players[playerID]
     if not isRoman(player) then return end
     local unit = player:GetUnitByID(unitID)
-    if not unit or unit:GetUnitType() ~= OWNER or truth(boughtWithGold) or truth(boughtWithFaith) then return end
+    if not unit or unit:GetUnitType() ~= OWNER then return end
     local city = player:GetCityByID(cityID)
-    if city and city:GetPopulation() > 2 then
-        city:ChangePopulation(-2, true)
+    local populationCost = SETTLERS_CONSUME_POPULATION
+        and not truth(boughtWithGold) and not truth(boughtWithFaith) and 1 or 2
+    if city and city:GetPopulation() > populationCost then
+        city:ChangePopulation(-populationCost, true)
         addLog(city, "Two Players left to prepare a new Server launch.")
         R.RefreshCity(city)
     end
@@ -615,4 +653,5 @@ if GameEvents.CityConstructed then GameEvents.CityConstructed.Add(function(playe
 if GameEvents.CityPopulationChanged then GameEvents.CityPopulationChanged.Add(function(playerID) refreshPlayer(playerID) end) end
 if GameEvents.CapitalChanged then GameEvents.CapitalChanged.Add(refreshPlayer) end
 for playerID = 0, GameDefines.MAX_MAJOR_CIVS - 1 do if Players[playerID] then refreshPlayer(playerID) end end
+R.Loaded = true
 print("RomanGladius Network: runtime loaded")

@@ -1,5 +1,14 @@
 # Patch Notes
 
+## Cool Wacky Civs version 9 — RomanGladius reliability pass — 2026-09-19
+
+- Enabled the Community Patch city-founding event required to enforce escalating Server launch fees, plus immediate capital-change refreshes for Owner Online.
+- Fixed the first Server missing its promised free Server Console, 60 Reputation, and ten-turn Grand Opening.
+- Closed the purchased-Server-Owner Population bypass and made the two-Population charge compatible with the optional CP/VP Settler population rule.
+- Clamped staff rosters after Population loss, prevented incidents from being overwritten, and stopped invalid or unaffordable event choices from silently granting another outcome or resolving for free.
+- Corrected Administrator handling of Griefer Attacks, made immediate duplication patches consume Production as designed, and added safe AI fallback choices.
+- Expanded deterministic regression coverage for founding gates, first/second/third Server costs, purchases, CP compatibility, event prerequisites, resource costs, staff loss, capture/recapture, and persistent city identity.
+
 ## Cool Wacky Civs version 8 — The RomanGladius Network — 2026-09-18
 
 - Added Lachlan “RomanGladius” and The RomanGladius Network as the collection's seventh civilization, with tall Growth, Gold, Science, Culture, and Diplomacy priorities.
