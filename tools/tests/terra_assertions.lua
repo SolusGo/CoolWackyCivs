@@ -1,7 +1,7 @@
 local T=MapModData.TerraFramework
 for _,name in ipairs({'CityConstructed','PlayerDoTurn','PlayerDoneTurn','CityCaptureComplete',
     'PlayerCityFounded','UnitSetXY','UnitUpgraded','UnitConverted','UnitPrekill',
-    'TradeRouteCompleted','PlayerPlunderedTradeRoute'}) do
+    'PlayerTradeRouteCompleted','PlayerPlunderedTradeRoute'}) do
     assert(#GameEvents[name].handlers==1,name..' handler was not registered exactly once')
 end
 local function mode(expected)
@@ -32,6 +32,10 @@ T.Constructed(0,1,30,false,false);T.Initialize();mode(10)
 city.b[3]=1;Players[0].routes={{FromCity=city},{FromCity=city},{FromCity=city},{FromCity=other}};T.RefreshTrade(0);assert(city.b[4]==3 and other:GetNumRealBuilding(4)==0)
 Players[0].routes={{FromCity=city}};T.RefreshTrade(0);assert(city.b[4]==1)
 Players[0].routes={};T.RefreshTrade(0);assert(city.b[4]==0)
+Players[0].routes={{FromCity=city}};city.b[4]=0
+GameEvents.PlayerTradeRouteCompleted.handlers[1](0,city:GetID(),2,99,0,0)
+assert(city.b[4]==1,'PlayerTradeRouteCompleted did not refresh Terra routes')
+Players[0].routes={};T.RefreshTrade(0)
 T.Capture(0,false,1,1,2);mode(nil)
 T.Constructed(0,1,30,false,false);city.founded=22;T.Initialize();mode(nil)
 plot.owner=0;plot.rough=true;T.Turn(0);config(20)

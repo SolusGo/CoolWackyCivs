@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="10">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="11">
   <Properties>
     <Name>Cool Wacky Civs</Name>
     <Teaser>Seven strange leaders. Seven stranger ways to rule.</Teaser>
@@ -211,7 +211,7 @@
     <File md5="F69A7C711DC862B28FF8A8803387884E" import="1">TerraFramework/Art/TerraOperative45.dds</File>
     <File md5="DFEA792A9620FD4A6538E1E2F0208212" import="1">TerraFramework/Art/TerraOperative64.dds</File>
     <File md5="17B60B0CA678ED7E819537182E300991" import="1">TerraFramework/Art/TerraOperative80.dds</File>
-    <File md5="5EF4B62631841BEC0843C3E6562F3F4A" import="1">TerraFramework/Lua/TerraRuntime.lua</File>
+    <File md5="C9A0C49FEA742BF7A18DF784CF26D73B" import="1">TerraFramework/Lua/TerraRuntime.lua</File>
     <File md5="54E038DDF8DD7B18CEA6541BB46DA4B4" import="0">TerraFramework/SQL/00_Terra_Core.sql</File>
     <File md5="F20187D3F0A09D2EB1ECADECF9DE75D4" import="0">TerraFramework/SQL/01_Terra_Inheritance.sql</File>
     <File md5="86625CD6C69DBC6DAF0AFCF55A0A7333" import="0">TerraFramework/SQL/02_Terra_UniqueEffects.sql</File>
@@ -249,7 +249,7 @@
     <File md5="90A776FAC1276D0570B2B6B995845971" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects80.dds</File>
     <File md5="7EA728DFD912364B2D7F84ACDC1F8510" import="1">RomanGladiusNetwork/Art/RomanGladiusUnitFlag32.dds</File>
     <File md5="84FBB033F8EE248DC205BAB8450A0CDE" import="1">RomanGladiusNetwork/Art/RomanGladiusLeaderScene.xml</File>
-    <File md5="778A483EDB9D950BD1750D8D6535F5CE" import="1">RomanGladiusNetwork/Lua/RomanGladiusRuntime.lua</File>
+    <File md5="149E20C9ABCFAF9FA6A101425F3849F9" import="1">RomanGladiusNetwork/Lua/RomanGladiusRuntime.lua</File>
     <File md5="7F01F105573ECBCA259759CCF9B8E3E5" import="0">RomanGladiusNetwork/SQL/00_RomanGladius_Core.sql</File>
     <File md5="CFC30023CFB0B0549393F3656A7D301A" import="0">RomanGladiusNetwork/SQL/01_RomanGladius_Inheritance.sql</File>
     <File md5="6F37FAA2C4BE38A8BA3D038FF8096968" import="0">RomanGladiusNetwork/SQL/02_RomanGladius_UniqueEffects.sql</File>

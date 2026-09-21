@@ -147,7 +147,7 @@ def check_ui_and_lua():
         "TerraFramework/Lua/TerraRuntime.lua": (
             "CityConstructed", "PlayerDoTurn", "PlayerDoneTurn", "CityCaptureComplete",
             "PlayerCityFounded", "UnitSetXY", "UnitUpgraded", "UnitConverted", "UnitPrekill",
-            "TradeRouteCompleted", "PlayerPlunderedTradeRoute",
+            "PlayerTradeRouteCompleted", "PlayerPlunderedTradeRoute",
         ),
         "FilthyRealm/Lua/FilthyRuntime.lua": (
             "PlayerDoTurn", "UnitPrekill", "CityCaptureComplete", "CityTrained",
@@ -163,7 +163,7 @@ def check_ui_and_lua():
         ),
         "RomanGladiusNetwork/Lua/RomanGladiusRuntime.lua": (
             "PlayerDoTurn", "PlayerCityFounded", "CityTrained", "PlayerCanTrain",
-            "CityCaptureComplete",
+            "CityCaptureComplete", "SetPopulation",
         ),
     }
     for relative, hooks in runtime_hooks.items():

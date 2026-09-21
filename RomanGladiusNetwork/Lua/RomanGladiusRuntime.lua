@@ -620,6 +620,11 @@ local function capture(_, _, x, y, newOwner)
         R.RefreshCity(city)
     end
 end
+local function onSetPopulation(x, y)
+    local plot = Map.GetPlot(x, y)
+    local city = plot and plot:GetPlotCity()
+    if city then refreshPlayer(city:GetOwner()) end
+end
 
 function R.GetRoster(city)
     local value, roster = state(city), {}
@@ -664,6 +669,7 @@ end
 
 R.RefreshPlayer, R.OnPlayerTurn, R.OnCityFounded, R.OnCityTrained = refreshPlayer, onPlayerTurn, founded, trained
 R.InitializeRomanServerCity = initializeRomanServerCity
+R.OnSetPopulation = onSetPopulation
 GameEvents.PlayerDoTurn.Add(onPlayerTurn)
 GameEvents.PlayerCityFounded.Add(founded)
 GameEvents.CityTrained.Add(trained)
@@ -672,7 +678,7 @@ if GameEvents.CityCanTrain then GameEvents.CityCanTrain.Add(cityCanTrain) end
 if GameEvents.PlayerCanFoundCity then GameEvents.PlayerCanFoundCity.Add(canFound) end
 GameEvents.CityCaptureComplete.Add(capture)
 if GameEvents.CityConstructed then GameEvents.CityConstructed.Add(function(playerID) refreshPlayer(playerID) end) end
-if GameEvents.CityPopulationChanged then GameEvents.CityPopulationChanged.Add(function(playerID) refreshPlayer(playerID) end) end
+if GameEvents.SetPopulation then GameEvents.SetPopulation.Add(onSetPopulation) end
 if GameEvents.CapitalChanged then GameEvents.CapitalChanged.Add(refreshPlayer) end
 for playerID = 0, GameDefines.MAX_MAJOR_CIVS - 1 do
     local player = Players[playerID]

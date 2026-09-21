@@ -1,5 +1,11 @@
 # Patch Notes
 
+## Cool Wacky Civs version 11 — Community Patch hook follow-up — 2026-09-21
+
+- Restored Terra's actual Community Patch `PlayerTradeRouteCompleted` hook while retaining the trade-unit-only `UnitPrekill` optimization.
+- Replaced RomanGladius's unsupported `CityPopulationChanged` registration with the Community Patch `SetPopulation(x, y, oldPopulation, newPopulation)` event and coordinate-based City lookup.
+- Hardened event mocks and added immediate Server-yield regression coverage for population increases, decreases, and non-player coordinate arguments.
+
 ## Cool Wacky Civs version 10 — runtime bug-fix pass — 2026-09-21
 
 - Corrected Terra's Community Patch trade-route completion hook and limited turn-end and unit-removal trade scans to the affected player or actual trade units.

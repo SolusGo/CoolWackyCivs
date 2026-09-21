@@ -41,7 +41,7 @@ def static_checks() -> None:
     assert "('BUILDING_MONUMENT', 'BUILDING_ROMAN_GLADIUS_SERVER_CONSOLE')" in inheritance
     for token in ("R.PromoteModerator", "R.PromoteAdministrator", "R.ResolveEvent", "R.GetRoster",
                   "R.GetServers", "R.GetNetworkState", "PlayerCityFounded", "PlayerCanFoundCity",
-                  "BALANCE_SETTLERS_CONSUME_POPULATION", "InitializeRomanServerCity"):
+                  "BALANCE_SETTLERS_CONSUME_POPULATION", "InitializeRomanServerCity", "SetPopulation"):
         assert token in runtime, f"Runtime feature missing: {token}"
     panel = ET.parse(root / "UI/RomanGladiusPanel.xml")
     ids = {node.attrib["ID"] for node in panel.iter() if "ID" in node.attrib}
@@ -82,7 +82,7 @@ function event()
 end
 GameEvents={PlayerDoTurn=event(),PlayerCityFounded=event(),CityTrained=event(),PlayerCanTrain=event(),
  CityCanTrain=event(),PlayerCanFoundCity=event(),CityCaptureComplete=event(),CityConstructed=event(),
- CityPopulationChanged=event(),CapitalChanged=event()}
+ SetPopulation=event(),CapitalChanged=event()}
 LuaEvents={}
 Events={}
 NotificationTypes={NOTIFICATION_GENERIC=1}
@@ -153,12 +153,20 @@ local city=Players[0].cityList[1]
 assert(#GameEvents.PlayerDoTurn.handlers==1 and #GameEvents.PlayerCityFounded.handlers==1
  and #GameEvents.CityTrained.handlers==1 and #GameEvents.PlayerCanTrain.handlers==1
  and #GameEvents.CityCanTrain.handlers==1 and #GameEvents.PlayerCanFoundCity.handlers==1
- and #GameEvents.CityCaptureComplete.handlers==1 and #GameEvents.CapitalChanged.handlers==1,
+ and #GameEvents.CityCaptureComplete.handlers==1 and #GameEvents.SetPopulation.handlers==1
+ and #GameEvents.CapitalChanged.handlers==1,
  'runtime handlers missing or duplicated')
 assert(R.Loaded,'runtime marked itself loaded before successful initialization')
 assert(city.buildings[21]==5 and city.buildings[22]==2 and city.buildings[23]==2,
  'population threshold yields are incorrect')
 assert(city.buildings[30]==1,'Owner Online is missing from the Capital')
+city.pop=20;GameEvents.SetPopulation.handlers[1](0,0,10,20)
+assert(city.buildings[21]==10 and city.buildings[22]==5 and city.buildings[23]==4,
+ 'population increase did not immediately refresh Server yields')
+city.pop=3;GameEvents.SetPopulation.handlers[1](0,0,20,3)
+assert(city.buildings[21]==1 and city.buildings[22]==0 and city.buildings[23]==0,
+ 'population decrease did not immediately refresh Server yields')
+city.pop=10;GameEvents.SetPopulation.handlers[1](0,0,3,10)
 local initialLogCount=#R.GetLogs(city)
 R.OnCityFounded(0,0,0)
 local s=R.GetCityState(city)
@@ -200,6 +208,10 @@ Game.current=2;R.OnCityFounded(0,5,5)
 local secondState=R.GetCityState(second)
 assert(Players[0].gold==673 and second.buildings[20]==1,'launch fee or free Console failed')
 assert(secondState.reputation==60 and secondState.opening and second.buildings[31]==1,'Grand Opening failed')
+second.pop=20;GameEvents.SetPopulation.handlers[1](5,5,1,20)
+assert(second.buildings[21]==10 and second.buildings[22]==5 and second.buildings[23]==4,
+ 'SetPopulation did not resolve the changed City from x/y')
+second.pop=1;GameEvents.SetPopulation.handlers[1](5,5,20,1)
 Players[0].gold=199;assert(not canFound(0,9,9),'third Server launch ignored its 200 Gold gate')
 Players[0].gold=200;assert(canFound(0,9,9),'valid third Server launch was blocked')
 Players[0].gold=673
@@ -281,7 +293,7 @@ assert(city.pop==3,'purchased Owner did not pay the full two-Player cost under C
 MapModData={};BUILT_IN_SETTLER_POPULATION=false;Game.current=30
 GameEvents={PlayerDoTurn=event(),PlayerCityFounded=event(),CityTrained=event(),PlayerCanTrain=event(),
  CityCanTrain=event(),PlayerCanFoundCity=event(),CityCaptureComplete=event(),CityConstructed=event(),
- CityPopulationChanged=event(),CapitalChanged=event()}
+ SetPopulation=event(),CapitalChanged=event()}
 local preA=NewCity(0,10,50,50,6,'Preplaced A',30);preA.buildings[20]=0
 local preB=NewCity(0,11,52,50,7,'Preplaced B',30);preB.buildings[20]=0
 local foreign=NewCity(1,12,54,50,5,'Foreign Server',30);foreign.buildings[20]=0

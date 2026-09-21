@@ -189,7 +189,7 @@ GameEvents.UnitSetXY.Add(moved)
 GameEvents.UnitUpgraded.Add(upgraded)
 if GameEvents.UnitConverted then GameEvents.UnitConverted.Add(converted) end
 GameEvents.UnitPrekill.Add(tradeUnitPrekill)
-GameEvents.TradeRouteCompleted.Add(refreshAllTrade)
+GameEvents.PlayerTradeRouteCompleted.Add(refreshAllTrade)
 GameEvents.PlayerPlunderedTradeRoute.Add(refreshAllTrade)
 initialize()
 print("Terra Framework: runtime loaded")
