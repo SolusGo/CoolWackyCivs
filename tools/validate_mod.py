@@ -147,7 +147,7 @@ def check_ui_and_lua():
         "TerraFramework/Lua/TerraRuntime.lua": (
             "CityConstructed", "PlayerDoTurn", "PlayerDoneTurn", "CityCaptureComplete",
             "PlayerCityFounded", "UnitSetXY", "UnitUpgraded", "UnitConverted", "UnitPrekill",
-            "PlayerTradeRouteCompleted", "PlayerPlunderedTradeRoute",
+            "TradeRouteCompleted", "PlayerPlunderedTradeRoute",
         ),
         "FilthyRealm/Lua/FilthyRuntime.lua": (
             "PlayerDoTurn", "UnitPrekill", "CityCaptureComplete", "CityTrained",

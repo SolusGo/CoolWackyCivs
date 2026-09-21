@@ -537,24 +537,43 @@ local function onPlayerTurn(playerID)
     changed(playerID)
 end
 
+local function initializeRomanServerCity(city, chargeLaunch)
+    if not city then return false end
+    local playerID, player = city:GetOwner(), Players[city:GetOwner()]
+    if not isRoman(player) then return false end
+    local prefix = cityPrefix(city)
+    if getNumber(prefix .. "INITIALIZED", 0) > 0 then
+        R.RefreshCity(city)
+        return false
+    end
+    -- Existing saves from before the initialization flag already have state.
+    -- Adopt it without replaying launch rewards, fees, logs or notifications.
+    if save.GetValue(prefix .. "REP") ~= nil then
+        setNumber(prefix .. "INITIALIZED", 1)
+        R.RefreshCity(city)
+        return false
+    end
+    local launchCost = chargeLaunch and math.max(0, (cityCount(player) - 1) * 100) or 0
+    if launchCost > 0 then player:ChangeGold(-launchCost) end
+    city:SetNumRealBuilding(CONSOLE, 1)
+    local value = state(city)
+    value.reputation, value.openingUntil = 60, turn() + 9
+    saveState(city, value)
+    setNumber(prefix .. "INITIALIZED", 1)
+    addLog(city, "Grand Opening: launched for " .. launchCost .. " Gold with 60 Reputation.")
+    addChat(city, "*** Welcome to " .. city:GetName() .. "! ***")
+    notify(playerID, "Server Launched", city:GetName() .. " is online. Grand Opening is active for 10 turns.", city)
+    R.RefreshCity(city)
+    changed(playerID)
+    return true
+end
 local function founded(playerID, x, y)
     local player = Players[playerID]
     if not isRoman(player) then return end
     local plot = Map.GetPlot(x, y)
     local city = plot and plot:GetPlotCity()
     if not city or city:GetOwner() ~= playerID then return end
-    local count = cityCount(player)
-    local launchCost = math.max(0, (count - 1) * 100)
-    if launchCost > 0 then player:ChangeGold(-launchCost) end
-    city:SetNumRealBuilding(CONSOLE, 1)
-    local value = state(city)
-    value.reputation, value.openingUntil = 60, turn() + 9
-    saveState(city, value)
-    addLog(city, "Grand Opening: launched for " .. launchCost .. " Gold with 60 Reputation.")
-    addChat(city, "*** Welcome to " .. city:GetName() .. "! ***")
-    notify(playerID, "Server Launched", city:GetName() .. " is online. Grand Opening is active for 10 turns.", city)
-    R.RefreshCity(city)
-    changed(playerID)
+    initializeRomanServerCity(city, true)
 end
 local function canTrain(playerID, unitType)
     if unitType ~= OWNER then return true end
@@ -594,7 +613,9 @@ local function capture(_, _, x, y, newOwner)
     if city then
         if isRoman(newOwner) then
             local value = state(city); value.reputation = 40; value.moderators = 0; value.admin = 0; value.event = ""
-            saveState(city, value); addLog(city, "Captured Server joined the Network at 40 Reputation.")
+            saveState(city, value)
+            setNumber(cityPrefix(city) .. "INITIALIZED", 1)
+            addLog(city, "Captured Server joined the Network at 40 Reputation.")
         end
         R.RefreshCity(city)
     end
@@ -642,6 +663,7 @@ function R.GetNetworkState(playerID)
 end
 
 R.RefreshPlayer, R.OnPlayerTurn, R.OnCityFounded, R.OnCityTrained = refreshPlayer, onPlayerTurn, founded, trained
+R.InitializeRomanServerCity = initializeRomanServerCity
 GameEvents.PlayerDoTurn.Add(onPlayerTurn)
 GameEvents.PlayerCityFounded.Add(founded)
 GameEvents.CityTrained.Add(trained)
@@ -652,6 +674,11 @@ GameEvents.CityCaptureComplete.Add(capture)
 if GameEvents.CityConstructed then GameEvents.CityConstructed.Add(function(playerID) refreshPlayer(playerID) end) end
 if GameEvents.CityPopulationChanged then GameEvents.CityPopulationChanged.Add(function(playerID) refreshPlayer(playerID) end) end
 if GameEvents.CapitalChanged then GameEvents.CapitalChanged.Add(refreshPlayer) end
-for playerID = 0, GameDefines.MAX_MAJOR_CIVS - 1 do if Players[playerID] then refreshPlayer(playerID) end end
+for playerID = 0, GameDefines.MAX_MAJOR_CIVS - 1 do
+    local player = Players[playerID]
+    if isRoman(player) then
+        for city in player:Cities() do initializeRomanServerCity(city, false) end
+    elseif player then refreshPlayer(playerID) end
+end
 R.Loaded = true
 print("RomanGladius Network: runtime loaded")

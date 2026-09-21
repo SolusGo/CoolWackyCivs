@@ -1,5 +1,15 @@
 # Patch Notes
 
+## Cool Wacky Civs version 10 — runtime bug-fix pass — 2026-09-21
+
+- Corrected Terra's Community Patch trade-route completion hook and limited turn-end and unit-removal trade scans to the affected player or actual trade units.
+- Made Filth levels save-backed by physical city identity, preserving levels when `NeverCapture` dummy buildings are stripped during normal conquest while retaining Filthy Frank's intentional capture cleanse.
+- Added explicit Filthy unit-conversion policy: Salamander lifetime and Peace Lord Intervention follow matching replacement units; Humiliation and Stop survive ownership conversion but intentionally clear on upgrades with their `LostWithUpgrade` promotions.
+- Delayed Capano's per-unit Boulder Sector seen flag until the Sector is visible to the active player, so hidden entry cannot consume a later cosmetic discovery roll.
+- Added idempotent Roman Server initialization for scenario, Advanced Start, and other preplaced cities, with persistent guards against duplicate Reputation, Grand Opening, fees, logs, or notifications; captured Servers retain their separate 40-Reputation setup.
+- Reduced routine global refreshes in Filthy Realm, Rou'ls Ascendancy, and Dual Order combat/conversion/turn hooks without changing their spatial or state-dependent effects.
+- Expanded deterministic regression coverage for conquest/save restoration, conversion and upgrade state, hidden/visible Sector entry, trade-unit filtering, and preplaced/reloaded/captured Roman Servers.
+
 ## Cool Wacky Civs version 9 — RomanGladius reliability pass — 2026-09-19
 
 - Enabled the Community Patch city-founding event required to enforce escalating Server launch fees, plus immediate capital-change refreshes for Owner Online.

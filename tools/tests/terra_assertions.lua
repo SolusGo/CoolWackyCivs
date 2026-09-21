@@ -1,7 +1,7 @@
 local T=MapModData.TerraFramework
 for _,name in ipairs({'CityConstructed','PlayerDoTurn','PlayerDoneTurn','CityCaptureComplete',
     'PlayerCityFounded','UnitSetXY','UnitUpgraded','UnitConverted','UnitPrekill',
-    'PlayerTradeRouteCompleted','PlayerPlunderedTradeRoute'}) do
+    'TradeRouteCompleted','PlayerPlunderedTradeRoute'}) do
     assert(#GameEvents[name].handlers==1,name..' handler was not registered exactly once')
 end
 local function mode(expected)
@@ -50,4 +50,7 @@ unit.p[5]=true;unit.p[21]=true;T.Converted(0,0,2,1,true);config(nil);assert(not 
 -- A converted operative keeps its identity marker but waits for the next turn to configure.
 unit.kind=2;unit.p[20]=true;T.Converted(2,0,9,1,false);config(nil);assert(unit.p[5])
 city.b[3]=0;T.RefreshTrade(0);assert(city.b[4]==0)
+city.b[4]=7;T.TradeUnitPrekill(0,1);assert(city.b[4]==7,'non-trade death triggered a route refresh')
+unit.trade=true;T.TradeUnitPrekill(0,1);assert(city.b[4]==0,'trade-unit removal did not refresh its owner')
+unit.trade=false
 T.Constructed(0,1,30,false,false);Players[0].civ=99;T.Turn(0);mode(nil)

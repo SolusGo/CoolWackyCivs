@@ -140,6 +140,13 @@ local function moved(playerID, unitID)
     -- Idempotent snapshots also cover route creation/removal without a UI dependency.
     if unit and unit:IsTrade() then refreshTrade(playerID) end
 end
+local function tradeUnitPrekill(playerID, unitID)
+    local p = Players[playerID]
+    local unit = p and p:GetUnitByID(unitID)
+    -- UnitPrekill also covers combat, upgrades, Great People and scripted removals.
+    -- Only a disappearing trade unit can affect Terra's outgoing-route snapshot.
+    if unit and unit:IsTrade() then refreshTrade(playerID) end
+end
 local function upgraded(playerID, oldID, newID)
     local p = Players[playerID]
     local unit = p and p:GetUnitByID(newID)
@@ -171,17 +178,18 @@ local function initialize()
 end
 T.GetMode = readMode
 T.Constructed, T.Turn, T.Capture, T.Founded = constructed, turn, capture, founded
-T.RefreshTrade, T.Moved, T.Upgraded, T.Converted, T.Initialize = refreshTrade, moved, upgraded, converted, initialize
+T.RefreshTrade, T.Moved, T.TradeUnitPrekill = refreshTrade, moved, tradeUnitPrekill
+T.Upgraded, T.Converted, T.Initialize = upgraded, converted, initialize
 GameEvents.CityConstructed.Add(constructed)
 GameEvents.PlayerDoTurn.Add(turn)
-GameEvents.PlayerDoneTurn.Add(refreshAllTrade)
+GameEvents.PlayerDoneTurn.Add(refreshTrade)
 GameEvents.CityCaptureComplete.Add(capture)
 GameEvents.PlayerCityFounded.Add(founded)
 GameEvents.UnitSetXY.Add(moved)
 GameEvents.UnitUpgraded.Add(upgraded)
 if GameEvents.UnitConverted then GameEvents.UnitConverted.Add(converted) end
-GameEvents.UnitPrekill.Add(refreshAllTrade)
-GameEvents.PlayerTradeRouteCompleted.Add(refreshAllTrade)
+GameEvents.UnitPrekill.Add(tradeUnitPrekill)
+GameEvents.TradeRouteCompleted.Add(refreshAllTrade)
 GameEvents.PlayerPlunderedTradeRoute.Add(refreshAllTrade)
 initialize()
 print("Terra Framework: runtime loaded")

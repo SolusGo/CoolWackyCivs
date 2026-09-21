@@ -13,14 +13,18 @@ Modding = {OpenSaveData=function()
     }
 end}
 
-Game = {turn=20, active=0, GetGameTurn=function() return Game.turn end,
-    GetActivePlayer=function() return Game.active end, Rand=function() return 99 end}
+Game = {turn=20, active=0, random=99, GetGameTurn=function() return Game.turn end,
+    GetActivePlayer=function() return Game.active end, Rand=function() return Game.random end}
 GameDefines = {MAX_CIV_PLAYERS=3, MAX_MAJOR_CIVS=3, MOVE_DENOMINATOR=60}
 DomainTypes = {DOMAIN_LAND=0}
 DirectionTypes = {NUM_DIRECTION_TYPES=6}
 NotificationTypes = {NOTIFICATION_GENERIC=1}
 Locale = {ConvertTextKey=function(key, ...) return key end}
-Events = {GameplayAlertMessage=function() end, AddPopupTextEvent=function() end}
+popupCount = 0
+Events = {GameplayAlertMessage=function() end, AddPopupTextEvent=function() popupCount = popupCount + 1 end}
+Vector2 = function(x, y) return {x=x, y=y} end
+ToHexFromGrid = function(value) return value end
+HexToWorld = function(value) return value end
 
 GameEvents = setmetatable({}, {__index=function(table, key)
     local event = {handlers={}}

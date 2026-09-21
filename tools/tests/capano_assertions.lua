@@ -94,6 +94,22 @@ enemyMover:SetPlot(Map.GetPlot(6, 1))
 C.OnUnitSetXY(1, 4, 6, 1)
 assert(enemyMover.moves == 60 and enemyMover:IsHasPromotion(I.AwkwardPurple))
 
+-- Hidden entry must not consume the unit's one-time first-entry message.
+local hiddenSector = Map.GetPlot(7, 2)
+hiddenSector.improvement, hiddenSector.owner, hiddenSector.visible = I.BoulderSector, 0, false
+C.OnPlayerDoTurn(1)
+enemyMover:SetPlot(hiddenSector); C.OnUnitSetXY(1, 4, 7, 2)
+local seenKey = "CAPANO_V1_SECTOR_SEEN_" .. C.GetUnitState(enemyMover).serial .. "_" .. hiddenSector:GetPlotIndex()
+assert(persisted[seenKey] == nil and popupCount == 0,'hidden Sector entry was marked seen')
+enemyMover:SetPlot(Map.GetPlot(6, 2)); C.OnUnitSetXY(1, 4, 6, 2)
+hiddenSector.visible, Game.random = true, 0
+enemyMover:SetPlot(hiddenSector); C.OnUnitSetXY(1, 4, 7, 2)
+assert(persisted[seenKey] == 1 and popupCount == 1,'visible Sector entry did not consume/show its message')
+enemyMover:SetPlot(Map.GetPlot(6, 2)); C.OnUnitSetXY(1, 4, 6, 2)
+enemyMover:SetPlot(hiddenSector); C.OnUnitSetXY(1, 4, 7, 2)
+assert(popupCount == 1,'seen Sector replayed its one-time message')
+Game.random = 99
+
 -- A unit trained in the Competition Centre activates its attack bonus after
 -- two adjacent moves, and the marker survives while the active bonus resets.
 local centrePlot = Map.GetPlot(0, 1)

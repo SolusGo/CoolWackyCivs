@@ -540,10 +540,10 @@ local function showSectorMessage(unit, plot)
     local index = plot:GetPlotIndex()
     local key = "CAPANO_V1_SECTOR_SEEN_" .. tostring(data.serial) .. "_" .. tostring(index)
     if save.GetValue(key) ~= nil then return end
-    save.SetValue(key, 1)
     local active = Game.GetActivePlayer and Game.GetActivePlayer() or -1
     local activePlayer = Players[active]
     if activePlayer == nil or not plot:IsVisible(activePlayer:GetTeam(), false) then return end
+    save.SetValue(key, 1)
     local roll = Game.Rand(100, "Capano BlocHaus first entry")
     local message
     if roll == 0 then message = "ENRICO."

@@ -301,8 +301,10 @@ local function aiActions(id)
     if bestA then R.DoSwap(id,bestA:GetID(),bestB:GetID()) end
 end
 GameEvents.PlayerDoTurn.Add(function(id)
-    R.RefreshAuras()
     local p=Players[id]; if not p or not p:IsAlive() then return end
+    -- Spatial hooks keep nearby units current; the turn boundary only needs to
+    -- reconcile the active player's units before applying their aura healing.
+    for u in p:Units() do refreshUnit(u) end
     local s=R.GetState(id)
     if s.auraHealTurn~=Game.GetGameTurn() then
         s.auraHealTurn=Game.GetGameTurn(); R.Save(id)

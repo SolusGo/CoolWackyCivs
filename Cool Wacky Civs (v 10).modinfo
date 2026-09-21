@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="9">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="10">
   <Properties>
     <Name>Cool Wacky Civs</Name>
     <Teaser>Seven strange leaders. Seven stranger ways to rule.</Teaser>
@@ -55,7 +55,7 @@
     <File md5="38DD78110769A4CA508F453601B7A6E4" import="1">CapanoCircuit/Art/CapanoObjects64.dds</File>
     <File md5="D22A68FCA5E1609DAE664025556FF73B" import="1">CapanoCircuit/Art/CapanoObjects80.dds</File>
     <File md5="4538D1584814413F2D4C78B52C5BC9F8" import="1">CapanoCircuit/Art/CapanoUnitFlag32.dds</File>
-    <File md5="6EDF330F89E136971FECDCD7FA3CAADD" import="1">CapanoCircuit/Lua/CapanoRuntime.lua</File>
+    <File md5="9137E0A3F948655F7B798EF5BC7C7162" import="1">CapanoCircuit/Lua/CapanoRuntime.lua</File>
     <File md5="8C4D5A7EE9CD84B39DC3239E00B68DF6" import="0">CapanoCircuit/SQL/00_Capano_Core.sql</File>
     <File md5="E44393B20933AAEA54C9BF39562CBFE5" import="0">CapanoCircuit/SQL/01_Capano_Inheritance.sql</File>
     <File md5="E61A64A1028AB793CE212EBC40664546" import="0">CapanoCircuit/SQL/02_Capano_UniqueEffects.sql</File>
@@ -90,7 +90,7 @@
     <File md5="15E516E0676FC827DF38D2E459FEFCFB" import="1">FilthyRealm/Art/FilthyObjects64.dds</File>
     <File md5="899837750DF75D2439DE82C04E985E88" import="1">FilthyRealm/Art/FilthyObjects80.dds</File>
     <File md5="3B8641E929895C36120D21AAE32133E3" import="1">FilthyRealm/Art/FilthyUnitFlag32.dds</File>
-    <File md5="5678AE44894534B372052E0B7B22946C" import="1">FilthyRealm/Lua/FilthyRuntime.lua</File>
+    <File md5="5A5DBE41F4741917C67605EF394272EC" import="1">FilthyRealm/Lua/FilthyRuntime.lua</File>
     <File md5="3505BCF1DD8146260593CC3AB3D23EB0" import="0">FilthyRealm/SQL/00_Filthy_Core.sql</File>
     <File md5="3835228BE4BF6D3A7C5F0FF3F40D376E" import="0">FilthyRealm/SQL/01_Filthy_Inheritance.sql</File>
     <File md5="5E282CC532747AAF858BDF4BDADE7039" import="0">FilthyRealm/SQL/02_Filthy_UniqueEffects.sql</File>
@@ -130,7 +130,7 @@
     <File md5="79316044D8EF577367A0496506C81332" import="1">DualOrder/Art/DualOrderObjects64.dds</File>
     <File md5="006C2EF67EAE6D4938388E35738EA936" import="1">DualOrder/Art/DualOrderObjects80.dds</File>
     <File md5="B98A88DAAE7602E3E1607658B0075084" import="1">DualOrder/Art/DualOrderUnitFlag32.dds</File>
-    <File md5="11B56E156C1DA79F2454E8987774515E" import="1">DualOrder/Lua/DualOrderRuntime.lua</File>
+    <File md5="7891B46A6560135AAA2C4F2F6B1C6BA0" import="1">DualOrder/Lua/DualOrderRuntime.lua</File>
     <File md5="1859E9FF8A49D59E36EB03CF377DADCF" import="0">DualOrder/SQL/00_DualOrder_Core.sql</File>
     <File md5="F1973CC36E23A8F82195AC13B4C4E4F7" import="0">DualOrder/SQL/01_DualOrder_Inheritance.sql</File>
     <File md5="4C8416BC7C111E18BE7BB3F3AA6713FE" import="0">DualOrder/SQL/02_DualOrder_UniqueEffects.sql</File>
@@ -176,7 +176,7 @@
     <File md5="22CF50D090A8E0B118060B4C64C464AF" import="1">RoulsAscendancy/Art/RoulsLeader256.dds</File>
     <File md5="1495571C56D7FE4631755471521B28FA" import="1">RoulsAscendancy/Art/RoulsLeader64.dds</File>
     <File md5="05459C58F5C944FD791B6382A6D7DEF6" import="1">RoulsAscendancy/Art/RoulsLeaderScene.xml</File>
-    <File md5="4D1B1D5FCCDF7BCD5CE49F3CE8845C52" import="1">RoulsAscendancy/Lua/RoulsActions.lua</File>
+    <File md5="1A2667FB422DD5C608DB90460C95E049" import="1">RoulsAscendancy/Lua/RoulsActions.lua</File>
     <File md5="24D2F5C8ECBA61CB5488B10F603CCC00" import="1">RoulsAscendancy/Lua/RoulsCore.lua</File>
     <File md5="3B74A02B584443CA96D1393B6CED9363" import="0">RoulsAscendancy/SQL/00_Rouls_Core.sql</File>
     <File md5="8A8C8F7A34724AF8A2E2642C1882618F" import="0">RoulsAscendancy/SQL/01_Rouls_Inheritance.sql</File>
@@ -211,7 +211,7 @@
     <File md5="F69A7C711DC862B28FF8A8803387884E" import="1">TerraFramework/Art/TerraOperative45.dds</File>
     <File md5="DFEA792A9620FD4A6538E1E2F0208212" import="1">TerraFramework/Art/TerraOperative64.dds</File>
     <File md5="17B60B0CA678ED7E819537182E300991" import="1">TerraFramework/Art/TerraOperative80.dds</File>
-    <File md5="397B6D4DC9C2DD298F205BBBC5A547BF" import="1">TerraFramework/Lua/TerraRuntime.lua</File>
+    <File md5="5EF4B62631841BEC0843C3E6562F3F4A" import="1">TerraFramework/Lua/TerraRuntime.lua</File>
     <File md5="54E038DDF8DD7B18CEA6541BB46DA4B4" import="0">TerraFramework/SQL/00_Terra_Core.sql</File>
     <File md5="F20187D3F0A09D2EB1ECADECF9DE75D4" import="0">TerraFramework/SQL/01_Terra_Inheritance.sql</File>
     <File md5="86625CD6C69DBC6DAF0AFCF55A0A7333" import="0">TerraFramework/SQL/02_Terra_UniqueEffects.sql</File>
@@ -249,7 +249,7 @@
     <File md5="90A776FAC1276D0570B2B6B995845971" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects80.dds</File>
     <File md5="7EA728DFD912364B2D7F84ACDC1F8510" import="1">RomanGladiusNetwork/Art/RomanGladiusUnitFlag32.dds</File>
     <File md5="84FBB033F8EE248DC205BAB8450A0CDE" import="1">RomanGladiusNetwork/Art/RomanGladiusLeaderScene.xml</File>
-    <File md5="5018FAE52248F7BD7893E8A6E0C5006E" import="1">RomanGladiusNetwork/Lua/RomanGladiusRuntime.lua</File>
+    <File md5="778A483EDB9D950BD1750D8D6535F5CE" import="1">RomanGladiusNetwork/Lua/RomanGladiusRuntime.lua</File>
     <File md5="7F01F105573ECBCA259759CCF9B8E3E5" import="0">RomanGladiusNetwork/SQL/00_RomanGladius_Core.sql</File>
     <File md5="CFC30023CFB0B0549393F3656A7D301A" import="0">RomanGladiusNetwork/SQL/01_RomanGladius_Inheritance.sql</File>
     <File md5="6F37FAA2C4BE38A8BA3D038FF8096968" import="0">RomanGladiusNetwork/SQL/02_RomanGladius_UniqueEffects.sql</File>

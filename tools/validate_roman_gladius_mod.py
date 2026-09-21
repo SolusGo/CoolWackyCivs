@@ -41,7 +41,7 @@ def static_checks() -> None:
     assert "('BUILDING_MONUMENT', 'BUILDING_ROMAN_GLADIUS_SERVER_CONSOLE')" in inheritance
     for token in ("R.PromoteModerator", "R.PromoteAdministrator", "R.ResolveEvent", "R.GetRoster",
                   "R.GetServers", "R.GetNetworkState", "PlayerCityFounded", "PlayerCanFoundCity",
-                  "BALANCE_SETTLERS_CONSUME_POPULATION"):
+                  "BALANCE_SETTLERS_CONSUME_POPULATION", "InitializeRomanServerCity"):
         assert token in runtime, f"Runtime feature missing: {token}"
     panel = ET.parse(root / "UI/RomanGladiusPanel.xml")
     ids = {node.attrib["ID"] for node in panel.iter() if "ID" in node.attrib}
@@ -159,10 +159,12 @@ assert(R.Loaded,'runtime marked itself loaded before successful initialization')
 assert(city.buildings[21]==5 and city.buildings[22]==2 and city.buildings[23]==2,
  'population threshold yields are incorrect')
 assert(city.buildings[30]==1,'Owner Online is missing from the Capital')
+local initialLogCount=#R.GetLogs(city)
 R.OnCityFounded(0,0,0)
 local s=R.GetCityState(city)
 assert(s.reputation==60 and s.band=='Stable' and s.hasConsole and s.opening and Players[0].gold==1000,
  'first Server did not receive its free Console and Grand Opening')
+assert(#R.GetLogs(city)==initialLogCount,'duplicate founding replayed one-time Server initialization')
 R.ChangeReputation(city,32,'test');s=R.GetCityState(city)
 assert(s.reputation==92 and s.band=='Legendary' and city.buildings[25]==1,'Legendary band failed')
 
@@ -270,7 +272,38 @@ R.OnCityTrained(0,3,2,false,false)
 assert(city.pop==3,'CP Settler Population compatibility charged more or less than two Players')
 city.pop=5;R.OnCityTrained(0,3,2,true,false)
 assert(city.pop==3,'purchased Owner did not pay the full two-Player cost under CP compatibility')
-print('PASS RomanGladius CP Settler Population compatibility')
+ print('PASS RomanGladius CP Settler Population compatibility')
+ ''')
+
+    # Scenario/Advanced Start cities present before Lua loads receive the same
+    # one-time setup without launch fees, and captured cities remain at 40 Rep.
+    lua.execute(r'''
+MapModData={};BUILT_IN_SETTLER_POPULATION=false;Game.current=30
+GameEvents={PlayerDoTurn=event(),PlayerCityFounded=event(),CityTrained=event(),PlayerCanTrain=event(),
+ CityCanTrain=event(),PlayerCanFoundCity=event(),CityCaptureComplete=event(),CityConstructed=event(),
+ CityPopulationChanged=event(),CapitalChanged=event()}
+local preA=NewCity(0,10,50,50,6,'Preplaced A',30);preA.buildings[20]=0
+local preB=NewCity(0,11,52,50,7,'Preplaced B',30);preB.buildings[20]=0
+local foreign=NewCity(1,12,54,50,5,'Foreign Server',30);foreign.buildings[20]=0
+Players[0].cityList={preA,preB};Players[0].capitalID=10;Players[0].gold=777
+Players[1].cityList={foreign};PutCity(preA);PutCity(preB);PutCity(foreign)
+''')
+    lua.execute(source)
+    lua.execute(r'''
+local R=MapModData.RomanGladiusNetwork
+local a,b=Players[0].cityList[1],Players[0].cityList[2]
+assert(R.GetCityState(a).reputation==60 and R.GetCityState(b).reputation==60
+ and a.buildings[20]==1 and b.buildings[20]==1 and a.buildings[31]==1 and b.buildings[31]==1,
+ 'preplaced Roman Servers missed full one-time initialization')
+assert(Players[0].gold==777 and #R.GetLogs(a)==1 and #R.GetLogs(b)==1,
+ 'preplaced initialization charged launch fees or duplicated logs')
+assert(not R.InitializeRomanServerCity(a,false) and #R.GetLogs(a)==1,
+ 'preplaced initialization was not idempotent across reload')
+local captured=Players[1].cityList[1];captured.owner=0;Players[0].cityList[#Players[0].cityList+1]=captured
+GameEvents.CityCaptureComplete.handlers[1](1,false,54,50,0,5,true)
+assert(R.GetCityState(captured).reputation==40 and not R.InitializeRomanServerCity(captured,false),
+ 'captured Roman Server replayed founding rewards')
+print('PASS RomanGladius preplaced/reload/capture initialization')
 ''')
 
 

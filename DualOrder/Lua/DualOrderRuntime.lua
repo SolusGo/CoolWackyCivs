@@ -329,7 +329,6 @@ local function onUnitPrekill(playerID, unitID, unitType, _, _, _, killerPlayerID
 end
 local function onUnitConverted(_, newPlayerID, _, newUnitID)
     onUnitCreated(newPlayerID, newUnitID)
-    refreshAllUnits()
     return true
 end
 local function onWarChanged()
@@ -389,7 +388,14 @@ local function onBattleFinished()
     if credited then healFromZeal(credited)
     elseif attacker and battle.defenderUnit and defender == nil then healFromZeal(attacker)
     elseif defender and battle.attackerUnit and attacker == nil then healFromZeal(defender) end
-    refreshAllUnits()
+    if attacker then
+        local owner = Players[attacker:GetOwner()]
+        refreshUnit(attacker, isDual(owner) and balanceState(owner) or nil)
+    end
+    if defender then
+        local owner = Players[defender:GetOwner()]
+        refreshUnit(defender, isDual(owner) and balanceState(owner) or nil)
+    end
 end
 
 local function onUnitSetXY(playerID, unitID)

@@ -30,7 +30,7 @@ The Filthy Kitchen replaces the Broadcast Tower, retains inherited Brave New Wor
 - `SQL/00_Filthy_Core.sql` creates the civilization, leader, unique objects, art atlases, and temporary promotions.
 - `SQL/01_Filthy_Inheritance.sql` clones every BNW/Community Patch companion-table row for Great War Infantry and the Broadcast Tower.
 - `SQL/02_Filthy_UniqueEffects.sql` defines the ten mutually exclusive normal/distorted Filth buildings, AI flavor, city list, and supporting effects.
-- `Lua/FilthyRuntime.lua` owns save data and gameplay state. Unit script markers preserve temporary effects without overwriting other mods' script data.
+- `Lua/FilthyRuntime.lua` owns save data and gameplay state. Filth is persisted by physical city identity so conquest cannot erase `NeverCapture` dummy buildings; Filthy captures still cleanse it. Unit script markers preserve temporary effects without overwriting other mods' script data, with upgrade-lost debuffs intentionally excluded from upgrade transfer.
 - `UI/FilthyPanel.xml` is the only entry point; it includes the runtime before presenting controls.
 - `docs/OriginalDesign.md` preserves the supplied design brief, while `docs/ART_GENERATION.md` records the art pipeline.
 

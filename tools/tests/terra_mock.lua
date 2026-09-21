@@ -54,11 +54,11 @@ function plot:IsRoughGround() return self.rough end
 function plot:IsWater() return self.water end
 function plot:GetPlotCity() return city end
 Map={GetPlot=function() return plot end}
-unit={kind=2,p={},embarked=false}
+unit={kind=2,p={},embarked=false,trade=false}
 function unit:GetUnitType() return self.kind end
 function unit:GetPlot() return plot end
 function unit:IsEmbarked() return self.embarked end
 function unit:IsHasPromotion(id) return self.p[id] or false end
 function unit:SetHasPromotion(id,v) self.p[id]=v end
-function unit:IsTrade() return false end
+function unit:IsTrade() return self.trade end
 Players[0].units[1]=unit

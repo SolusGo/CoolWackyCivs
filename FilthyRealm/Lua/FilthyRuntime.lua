@@ -31,7 +31,7 @@ local MAX_MAJOR = GameDefines.MAX_MAJOR_CIVS or 22
 local MAX_CIV = GameDefines.MAX_CIV_PLAYERS or 64
 local MOVE = GameDefines.MOVE_DENOMINATOR or 60
 local save = Modding.OpenSaveData()
-local routeCache, battles = {}, {}
+local routeCache, battles, pendingConversions = {}, {}, {}
 local snapshotGreatWorks
 
 local function truth(value) return value == true or value == 1 end
@@ -43,6 +43,7 @@ local function cityKey(city)
     -- so Ravioli cooldowns cannot be reset by transferring ownership.
     return table.concat({city:GetX(), city:GetY(), founded}, "_")
 end
+local function filthKey(city) return "FILTHY_V1_CITY_" .. cityKey(city) .. "_FILTH" end
 local function getNumber(key, fallback)
     local value = tonumber(save.GetValue(key))
     return value == nil and (fallback or 0) or value
@@ -135,15 +136,31 @@ local function getFilth(city)
         if city:GetNumRealBuilding(I.Distorted[level]) > 0 then return level, true end
         if city:GetNumRealBuilding(I.Filth[level]) > 0 then return level, false end
     end
+    -- NeverCapture dummy buildings are removed before CityCaptureComplete. The
+    -- save-backed level remains authoritative until the post-capture restore.
+    local stored = tonumber(save.GetValue(filthKey(city)))
+    if stored and stored > 0 then return math.max(0, math.min(5, math.floor(stored))), false end
     return 0, false
 end
 F.GetFilth = getFilth
 
 local function writeFilth(city, level)
+    level = math.max(0, math.min(5, math.floor(level or 0)))
+    setNumber(filthKey(city), level)
     local distorted = level > 0 and isDistorted(city)
     for index = 1, 5 do
         city:SetNumRealBuilding(I.Filth[index], (level == index and not distorted) and 1 or 0)
         city:SetNumRealBuilding(I.Distorted[index], (level == index and distorted) and 1 or 0)
+    end
+end
+local function restoreFilth()
+    for playerID = 0, MAX_CIV - 1 do
+        local player = Players[playerID]
+        if player and player:IsAlive() then
+            for city in player:Cities() do
+                writeFilth(city, isFilthy(player) and 0 or getFilth(city))
+            end
+        end
     end
 end
 local function setFilth(city, level, sourcePlayerID)
@@ -709,6 +726,11 @@ end
 local function onPrekill(ownerID, unitID, unitType, x, y, delay, killerPlayerID)
     local owner, killer = Players[ownerID], killerPlayerID and Players[killerPlayerID]
     local victim = owner and owner:GetUnitByID(unitID) or nil
+    if victim and (victim:GetScriptData() or ""):match(unitMarker) then
+        pendingConversions[ownerID .. ":" .. unitID] = {
+            state=unitState(victim), unitType=victim:GetUnitType(), savedTurn=turn()
+        }
+    end
     if victim and victim:GetUnitType() == I.Salamander then refreshAuras(ownerID, unitID) end
     if not victim or not isMilitary(victim) or not isFilthy(killer) or not atWar(owner, killer) then return end
     local plot = Map.GetPlot(x, y)
@@ -855,6 +877,9 @@ end
 local function onPlayerTurn(playerID)
     local player = Players[playerID]
     if not player or not player:IsAlive() then return end
+    for key, snapshot in pairs(pendingConversions) do
+        if snapshot.savedTurn ~= turn() then pendingConversions[key] = nil end
+    end
     refreshTemporary(playerID)
     if isFilthy(player) then
         local expiry = getNumber(playerKey(playerID, "DISTORT_EXPIRES"), -1)
@@ -882,7 +907,53 @@ local function onMoved(playerID, unitID)
     elseif isMilitary(unit) then refreshAuraUnit(unit, activeSalamanders()) end
 end
 
+local function onUnitConverted(oldPlayerID, newPlayerID, oldUnitID, newUnitID, isUpgrade)
+    local key = oldPlayerID .. ":" .. oldUnitID
+    local snapshot = pendingConversions[key]
+    pendingConversions[key] = nil
+    if not snapshot then
+        local oldPlayer = Players[oldPlayerID]
+        local oldUnit = oldPlayer and oldPlayer:GetUnitByID(oldUnitID) or nil
+        if oldUnit and (oldUnit:GetScriptData() or ""):match(unitMarker) then
+            snapshot = {state=unitState(oldUnit), unitType=oldUnit:GetUnitType()}
+        end
+    end
+    local newPlayer = Players[newPlayerID]
+    local newUnit = newPlayer and newPlayer:GetUnitByID(newUnitID) or nil
+    if not newUnit then return end
+    if not snapshot and (newUnit:GetScriptData() or ""):match(unitMarker) then
+        snapshot = {state=unitState(newUnit), unitType=newUnit:GetUnitType()}
+    end
+
+    if snapshot then
+        local before = snapshot.state
+        local after = {salUntil=-1, intervention=0, humUntil=-1, stopUntil=-1}
+        -- The summon lifetime belongs to Salamander Man, while Intervention is
+        -- a once-per-Peace-Lord entitlement. Neither transfers to another type.
+        if newUnit:GetUnitType() == I.Salamander then after.salUntil = before.salUntil end
+        if newUnit:GetUnitType() == I.PeaceLord then after.intervention = before.intervention end
+        -- Humiliation and Stop use LostWithUpgrade promotions by design. They
+        -- survive ownership/capture conversion, but an upgrade intentionally
+        -- removes both the promotion and its backing timer.
+        if not truth(isUpgrade) then
+            after.humUntil, after.stopUntil = before.humUntil, before.stopUntil
+        end
+        setUnitState(newUnit, after)
+        setPromo(newUnit, I.Humiliated, after.humUntil > turn())
+        setPromo(newUnit, I.Stopped, after.stopUntil > turn())
+        if after.stopUntil > turn() then newUnit:SetMoves(0) end
+    end
+
+    if (snapshot and snapshot.unitType == I.Salamander) or newUnit:GetUnitType() == I.Salamander then
+        refreshAuras()
+    else
+        refreshAuraUnit(newUnit, activeSalamanders())
+    end
+    refreshCombat(newUnit)
+end
+
 F.OnPlayerTurn, F.OnPillage, F.OnPrekill, F.OnMoved = onPlayerTurn, onPillage, onPrekill, onMoved
+F.OnUnitConverted, F.RestoreFilth = onUnitConverted, restoreFilth
 F.RefreshCombat, F.RefreshAuras = refreshAllCombat, refreshAuras
 
 GameEvents.PlayerDoTurn.Add(onPlayerTurn)
@@ -895,7 +966,6 @@ GameEvents.BattleJoined.Add(function(playerID, unitID, role, isCity)
 end)
 GameEvents.BattleFinished.Add(function()
     if #battles > 0 then table.remove(battles) end
-    refreshAuras()
 end)
 if GameEvents.UnitSetXY then GameEvents.UnitSetXY.Add(onMoved) end
 if GameEvents.PlayerCanGiftUnit then
@@ -918,8 +988,9 @@ elseif GameEvents.DenouncedPlayer then GameEvents.DenouncedPlayer.Add(onDenounce
 if GameEvents.ResolutionResult then GameEvents.ResolutionResult.Add(onResolution) end
 if GameEvents.PlayerTargetedByResolution then GameEvents.PlayerTargetedByResolution.Add(F.OnTargetedResolution) end
 if GameEvents.GreatWorkCreated then GameEvents.GreatWorkCreated.Add(onGreatWorkCreated) end
-if GameEvents.UnitConverted then GameEvents.UnitConverted.Add(function() refreshAuras(); refreshAllCombat() end) end
+if GameEvents.UnitConverted then GameEvents.UnitConverted.Add(onUnitConverted) end
 
+restoreFilth()
 for playerID = 0, MAX_MAJOR - 1 do
     local player = Players[playerID]
     if isFilthy(player) then

@@ -270,10 +270,62 @@ assert(ok and foodCity:GetFood()==0 and capital:GetFood()==beforeFood+11,'Food R
 local productionCity=NewCity(1,6,32,30,'Production City'); productionCity.production=9; Players[1].cityList[#Players[1].cityList+1]=productionCity
 F.ChangePoints(0,60); local oldProduction=capital:GetProduction(); ok=F.UseRavioli(0,1,6,'PRODUCTION')
 assert(ok and productionCity:GetProduction()==0 and capital:GetProduction()==oldProduction+9,'Production Ravioli transfer failed')
-local scienceCity=NewCity(1,7,33,30,'Science City'); Players[1].cityList[#Players[1].cityList+1]=scienceCity
-F.ChangePoints(0,60); local oldResearch=Players[0].research; ok=F.UseRavioli(0,1,7,'SCIENCE')
-assert(ok and Players[0].research==oldResearch+15,'Science Ravioli grant failed')
-''')
+ local scienceCity=NewCity(1,7,33,30,'Science City'); Players[1].cityList[#Players[1].cityList+1]=scienceCity
+ F.ChangePoints(0,60); local oldResearch=Players[0].research; ok=F.UseRavioli(0,1,7,'SCIENCE')
+ assert(ok and Players[0].research==oldResearch+15,'Science Ravioli grant failed')
+
+ -- NeverCapture Filth buildings disappear before CityCaptureComplete; the
+ -- save-backed city level must restore them through repeated normal captures.
+ local conquest=NewCity(1,8,40,40,'Conquest City');conquest.founded=4
+ Players[1].cityList[#Players[1].cityList+1]=conquest
+ F.ChangeFilth(conquest,5,0);assert(F.GetFilth(conquest)==5)
+ for i=31,45 do conquest.buildings[i]=0 end
+ conquest.owner=3;Players[3].cityList[#Players[3].cityList+1]=conquest
+ GameEvents.CityCaptureComplete.handlers[1](1,false,40,40,3,5,true)
+ assert(F.GetFilth(conquest)==5 and conquest.buildings[35]==1,'maximum Filth was lost on normal capture')
+ for i=31,45 do conquest.buildings[i]=0 end
+ conquest.owner=1
+ GameEvents.CityCaptureComplete.handlers[1](3,false,40,40,1,5,true)
+ assert(F.GetFilth(conquest)==5 and conquest.buildings[35]==1,'Filth failed across repeated ownership changes')
+ for i=31,45 do conquest.buildings[i]=0 end
+ F.RestoreFilth()
+ assert(F.GetFilth(conquest)==5 and conquest.buildings[35]==1,'save/load restoration lost conquered Filth')
+ for i=31,45 do conquest.buildings[i]=0 end
+ conquest.owner=0;Players[0].cityList[#Players[0].cityList+1]=conquest
+ GameEvents.CityCaptureComplete.handlers[1](1,false,40,40,0,5,true)
+ assert(F.GetFilth(conquest)==0,'Filthy capture did not intentionally cleanse Filth')
+ local clean=NewCity(1,9,42,40,'Clean City');Players[1].cityList[#Players[1].cityList+1]=clean
+ clean.owner=3;GameEvents.CityCaptureComplete.handlers[1](1,false,42,40,3,5,true)
+ assert(F.GetFilth(clean)==0,'zero-Filth city gained Filth on capture')
+
+ -- Conversion policy: per-unit entitlements/lifetimes survive only on their
+ -- matching type; LostWithUpgrade debuffs clear on upgrades but survive capture.
+ local upgrading=NewUnit(0,3,45,40,true,100);Players[0].unitList[#Players[0].unitList+1]=upgrading
+ F.SetUnitState(upgrading,{salUntil=20,intervention=1,humUntil=20,stopUntil=20})
+ F.OnPrekill(0,upgrading:GetID(),3,45,40,false,-1);upgrading.dead=true
+ local upgraded=NewUnit(0,3,45,40,true,100);upgraded.script='[OTHER:kept]';Players[0].unitList[#Players[0].unitList+1]=upgraded
+ F.OnUnitConverted(0,0,upgrading:GetID(),upgraded:GetID(),true)
+ local upgradedState=F.GetUnitState(upgraded)
+ assert(upgradedState.intervention==1 and upgradedState.humUntil==-1 and upgradedState.stopUntil==-1,
+  'upgrade conversion policy did not preserve/drop the intended fields')
+ assert(upgraded.script:find('%[OTHER:kept%]') and not upgraded:IsHasPromotion(22) and not upgraded:IsHasPromotion(26),
+  'upgrade conversion corrupted foreign ScriptData or retained temporary promotions')
+ local afflicted=NewUnit(1,90,46,40,true,100);Players[1].unitList[#Players[1].unitList+1]=afflicted
+ F.SetUnitState(afflicted,{salUntil=-1,intervention=0,humUntil=20,stopUntil=20})
+ F.OnPrekill(1,afflicted:GetID(),90,46,40,false,-1);afflicted.dead=true
+ local capturedUnit=NewUnit(3,90,46,40,true,100);Players[3].unitList[#Players[3].unitList+1]=capturedUnit
+ F.OnUnitConverted(1,3,afflicted:GetID(),capturedUnit:GetID(),false)
+ local capturedState=F.GetUnitState(capturedUnit)
+ assert(capturedState.humUntil==20 and capturedState.stopUntil==20 and capturedUnit:GetMoves()==0
+  and capturedUnit:IsHasPromotion(22) and capturedUnit:IsHasPromotion(26),
+  'capture conversion lost simultaneous temporary effects')
+ local summoned=NewUnit(0,4,47,40,true,100);Players[0].unitList[#Players[0].unitList+1]=summoned
+ F.SetUnitState(summoned,{salUntil=21,intervention=0,humUntil=-1,stopUntil=-1})
+ F.OnPrekill(0,summoned:GetID(),4,47,40,false,-1);summoned.dead=true
+ local convertedSummon=NewUnit(0,4,47,40,true,100);Players[0].unitList[#Players[0].unitList+1]=convertedSummon
+ F.OnUnitConverted(0,0,summoned:GetID(),convertedSummon:GetID(),false)
+ assert(F.GetUnitState(convertedSummon).salUntil==21,'Salamander lifetime did not survive conversion/save state')
+ ''')
     print("PASS Filthy Lua adversarial mock: abilities, persistence, movement, City-States, diplomacy, routes and Great Works")
 
 
