@@ -171,19 +171,13 @@ local function alliedCityStates(playerID)
 end
 local function academyGold(city)
     if not cityHasSpecialistBuilding(city) then return 0 end
-    local count, seen = 0, {}
+    local count = 0
     local limit = GameDefines.NUM_CITY_PLOTS or 37
     for index = 0, limit - 1 do
         local plot = city:GetCityIndexPlot(index)
-        if plot and plot:GetImprovementType() == I.Academy then
-            for direction = 0, DirectionTypes.NUM_DIRECTION_TYPES - 1 do
-                local candidate = adjacent(plot, direction)
-                if candidate and candidate.GetWorkingCity and candidate:GetWorkingCity() == city then
-                    local plotIndex = candidate.GetPlotIndex and candidate:GetPlotIndex()
-                        or (candidate:GetX() .. ':' .. candidate:GetY())
-                    if not seen[plotIndex] then seen[plotIndex], count = true, count + 1 end
-                end
-            end
+        if plot and plot:GetImprovementType() == I.Academy
+            and plot.GetWorkingCity and plot:GetWorkingCity() == city then
+            count = count + 1
         end
     end
     return count
@@ -421,13 +415,28 @@ local function onPlayerGoldenAge(playerID, started)
     state.golden = active
     store(playerID, 'GoldenState', active and 1 or 0)
 end
-local function onSetAlly(minorID, oldAlly, newAlly)
-    if oldAlly and oldAlly >= 0 and isMessi(oldAlly) then activateResilience(oldAlly, 'City-State ally lost') end
-    if newAlly and newAlly >= 0 and isMessi(newAlly) then
-        firstEraReward(newAlly, 'Alliance', 3, 'TXT_KEY_MESSI_SOURCE_ALLIANCE')
-        refreshPlayer(newAlly, false)
+local function recordAllianceEvent(playerID, minorID, isAlly)
+    local ids = {}
+    for value in string.gmatch(tostring(load(playerID, 'AllyList', '')), '[^,]+') do
+        local id = tonumber(value)
+        if id then ids[id] = true end
     end
-    if oldAlly and oldAlly >= 0 and isMessi(oldAlly) then refreshPlayer(oldAlly, false) end
+    if truth(isAlly) then ids[minorID] = true else ids[minorID] = nil end
+    local ordered = {}
+    for id in pairs(ids) do ordered[#ordered + 1] = id end
+    table.sort(ordered)
+    for index, id in ipairs(ordered) do ordered[index] = tostring(id) end
+    store(playerID, 'AllyList', table.concat(ordered, ','))
+end
+local function onMinorAlliesChanged(minorID, majorID, isAlly, oldFriendship, newFriendship)
+    if not isMessi(majorID) then return end
+    if truth(isAlly) then
+        firstEraReward(majorID, 'Alliance', 3, 'TXT_KEY_MESSI_SOURCE_ALLIANCE')
+    else
+        activateResilience(majorID, 'City-State ally lost')
+    end
+    recordAllianceEvent(majorID, minorID, isAlly)
+    refreshPlayer(majorID, false)
 end
 
 local function questSnapshot(playerID, award)
@@ -594,9 +603,17 @@ local function onUnitPrekill(victimPlayerID, victimUnitID, unitType, x, y, delay
     end
 end
 
-local function onUnitConverted(_, newPlayerID, _, newUnitID)
+local function onUnitConverted(oldPlayerID, newPlayerID, oldUnitID, newUnitID, isUpgrade)
     local player = Players[newPlayerID]
-    if isMessi(player) then refreshUnit(player:GetUnitByID(newUnitID), getState(newPlayerID), false) end
+    local unit = player and player:GetUnitByID(newUnitID) or nil
+    if isMessi(player) then
+        refreshUnit(unit, getState(newPlayerID), false)
+    elseif unit and isMessi(oldPlayerID) then
+        setPromotion(unit, I.OneTwo, false)
+        setPromotion(unit, I.OneTwoChapter3, false)
+        setPromotion(unit, I.Vision, false)
+        setPromotion(unit, I.Resilience, false)
+    end
     return true
 end
 local function onUnitUpgraded(playerID, _, newUnitID)
@@ -631,7 +648,7 @@ M.OnCityFounded = onCityFounded
 M.OnCityTrained = onCityTrained
 M.OnCityConstructed = onCityConstructed
 M.OnUnitPrekill = onUnitPrekill
-M.OnSetAlly = onSetAlly
+M.OnMinorAlliesChanged = onMinorAlliesChanged
 M.OnBattleStarted = onBattleStarted
 M.OnBattleJoined = onBattleJoined
 M.OnBattleFinished = onBattleFinished
@@ -650,7 +667,7 @@ if GameEvents.UnitConverted then GameEvents.UnitConverted.Add(onUnitConverted) e
 if GameEvents.UnitUpgraded then GameEvents.UnitUpgraded.Add(onUnitUpgraded) end
 if GameEvents.TeamTechResearched then GameEvents.TeamTechResearched.Add(onTeamTechResearched) end
 if GameEvents.PlayerGoldenAge then GameEvents.PlayerGoldenAge.Add(onPlayerGoldenAge) end
-if GameEvents.SetAlly then GameEvents.SetAlly.Add(onSetAlly) end
+if GameEvents.MinorAlliesChanged then GameEvents.MinorAlliesChanged.Add(onMinorAlliesChanged) end
 if GameEvents.BattleStarted then GameEvents.BattleStarted.Add(onBattleStarted) end
 if GameEvents.BattleJoined then GameEvents.BattleJoined.Add(onBattleJoined) end
 if GameEvents.BattleFinished then GameEvents.BattleFinished.Add(onBattleFinished) end

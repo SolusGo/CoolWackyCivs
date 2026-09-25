@@ -95,6 +95,7 @@ def check_packaging():
         "FilthyRealm/UI/FilthyPanel.xml",
         "DualOrder/UI/DualOrderPanel.xml",
         "RomanGladiusNetwork/UI/RomanGladiusPanel.xml",
+        "EternalNumberTen/Lua/MessiRuntime.lua",
         "EternalNumberTen/UI/MessiLegacyPanel.xml",
     ], "Combined runtime entry points are incomplete or out of order"
     assert values["SupportsMultiplayer"] == "false", "Unvalidated multiplayer must remain disabled"
@@ -173,7 +174,7 @@ def check_ui_and_lua():
         "EternalNumberTen/Lua/MessiRuntime.lua": (
             "PlayerDoTurn", "PlayerCityFounded", "CityTrained", "CityConstructed",
             "CityCaptureComplete", "UnitCreated", "UnitPrekill", "UnitConverted",
-            "UnitUpgraded", "TeamTechResearched", "PlayerGoldenAge", "SetAlly",
+            "UnitUpgraded", "TeamTechResearched", "PlayerGoldenAge", "MinorAlliesChanged",
             "BattleStarted", "BattleJoined", "BattleFinished",
         ),
     }
@@ -599,6 +600,7 @@ def check_database(path: Path, cp_root: Path):
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_BATTLES'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_UNIT_ACTIONS'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_UNIT_CONVERTS'").fetchone()[0] == 1
+    assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_MINORS'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_UNIT_UPGRADES'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_RESOLUTIONS'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_CITY_FOUNDING'").fetchone()[0] == 1

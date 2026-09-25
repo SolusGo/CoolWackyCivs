@@ -1,7 +1,5 @@
 include('IconSupport')
-include('MessiRuntime')
 
-local M = MapModData.MessiLegacy
 local open, dirty, selected = false, true, 1
 local chapterButtons = {
     Controls.Chapter1, Controls.Chapter2, Controls.Chapter3,
@@ -32,7 +30,8 @@ local function refresh()
     if not dirty then return end
     dirty = false
     local playerID, player = active()
-    local state = player and M.GetUIState(playerID) or nil
+    local runtime = MapModData and MapModData.MessiLegacy or nil
+    local state = player and runtime and runtime.GetUIState and runtime.GetUIState(playerID) or nil
     local visible = state ~= nil
     Controls.LauncherFrame:SetHide(not visible)
     Controls.MainPanel:SetHide(not visible or not open)
@@ -52,12 +51,12 @@ local function refresh()
     Controls.GoldenStar:SetText(L('TXT_KEY_MESSI_UI_GOLDEN_STAR'))
     Controls.HistoryLabel:SetText(L('TXT_KEY_MESSI_UI_HISTORY', state.epilogue, state.tourism))
     for index, button in ipairs(chapterButtons) do
-        local chapter = M.GetChapter(index)
+        local chapter = runtime.GetChapter(index)
         local status = state.unlocked[index] and L('TXT_KEY_MESSI_UI_UNLOCKED') or L('TXT_KEY_MESSI_UI_LOCKED')
         local marker = index == selected and '[ICON_CHECKBOX] ' or ''
         button:SetText(marker .. L(chapter.title) .. '[NEWLINE]' .. status .. '  •  ' .. chapter.threshold)
     end
-    local chapter = M.GetChapter(selected)
+    local chapter = runtime.GetChapter(selected)
     Controls.ChapterTitle:SetText(L(chapter.title))
     Controls.ChapterRequirement:SetText(chapter.threshold .. ' Legacy  •  ' .. eraText(chapter))
     Controls.ChapterEffects:SetText(L(chapter.effects))

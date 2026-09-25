@@ -27,18 +27,19 @@ After Chapter VI, every 55 additional Legacy grants a two-turn Golden Age and `1
 
 - **The Number Ten** replaces the Great General. It has 2 Movement, ignores terrain movement costs and enemy Zones of Control, retains Citadel construction, and can build a Football Academy. Adjacent combat units receive Vision Beyond the Defence for the turn: +1 Movement, ignored enemy Zones of Control, and +6% Flanking Bonus. An assisted killer with Vision heals 5 HP.
 - **La Masia** replaces the Garden at Theology. It costs 135 Production, requires no Fresh Water, supplies +15% Great Person generation and +1 Culture, and adds exactly `floor(Specialists / 2)` Food. A Great Person born there grants one WLTKD turn, one additional Legacy, and a refreshable six-turn +5% Production bonus.
-- **Football Academy** is an alternative Great General improvement. It culture-bombs one tile, supplies +1 Culture and +1 Science, adds +1 Tourism after Flight, gives a stationed unit +10% Defense, and deals no adjacent damage. Its contextual Gold is applied to the working city for distinct worked tiles adjacent to an Academy when that city has at least one specialist-slot building.
+- **Football Academy** is an alternative Great General improvement. It culture-bombs one tile, supplies +1 Culture and +1 Science, adds +1 Tourism after Flight, gives a stationed unit +10% Defense, and deals no adjacent damage. Each Academy assigned to a working city contributes exactly +1 Gold to that city when it contains at least one specialist-slot building.
 
 ## Legacy panel
 
-The optional in-game panel shows current Legacy, the next threshold and Era gate, all six chapters, chapter story/effects, the Third Star, and Epilogue history. Gameplay remains in `MessiRuntime.lua`; closing or failing to load the panel does not disable any mechanic.
+The gameplay runtime and optional Legacy panel are registered as separate in-game add-ins. The panel shows current Legacy, the next threshold and Era gate, all six chapters, chapter story/effects, the Third Star, and Epilogue history. It waits safely for `MapModData.MessiLegacy` if its UI context loads first; closing or failing to load the panel does not disable gameplay.
 
 ## Community Patch dependencies
 
 - `UnitPrekill` plus battle membership hooks provide reliable victim position and killer attribution for Assists and military-death Resilience.
 - `PlayerGoldenAge(iPlayer, bStart, iTurns)` detects Golden Age starts and ends.
-- `SetAlly(iMinor, iOldAlly, iNewAlly)` detects alliance gains and losses immediately; turn snapshots provide a save/load fallback.
-- `CityConstructed`, `UnitCreated`, `PlayerCityFounded`, `TeamTechResearched`, unit conversion, and unit upgrade hooks keep rewards and states event-driven.
+- `MinorAlliesChanged(iMinor, iMajor, bIsAlly, iOldFriendship, iNewFriendship)`, enabled by `EVENTS_MINORS`, detects alliance gains and losses immediately; idempotent turn snapshots provide a save/load fallback.
+- `UnitConverted(iOldPlayer, iNewPlayer, iOldUnit, iNewUnit, bIsUpgrade)`, enabled by `EVENTS_UNIT_CONVERTS`, refreshes the converted unit and safely coexists with the upgrade hook.
+- `CityConstructed`, `UnitCreated`, `PlayerCityFounded`, `TeamTechResearched`, and unit upgrade hooks keep rewards and states event-driven.
 - Hidden CP policies implement exact Great Person rate, Golden Age duration, quest Influence, Great General aura, Golden Age yield, Great Work yield, and permanent Tourism effects.
 
 The Community Patch does not expose a dedicated quest-completed Lua hook. Chapter V therefore compares each City-State's displayed quest count and Influence at the Messi turn boundary. A decreased quest count accompanied by increased Influence counts as completion; its per-Era Legacy cap is persisted. The +10% Influence reward itself is an exact CP policy effect.

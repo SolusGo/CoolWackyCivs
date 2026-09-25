@@ -1,15 +1,103 @@
 """Focused deterministic checks for The Eternal Number Ten runtime."""
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
+from xml.etree import ElementTree as ET
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / ".tools" / "python"))
 
 
+def static_checks() -> None:
+    core = (REPO / "EternalNumberTen/SQL/00_Messi_Core.sql").read_text(encoding="utf-8-sig")
+    runtime = (REPO / "EternalNumberTen/Lua/MessiRuntime.lua").read_text(encoding="utf-8-sig")
+    panel = (REPO / "EternalNumberTen/UI/MessiLegacyPanel.lua").read_text(encoding="utf-8-sig")
+    option_block = re.search(r"UPDATE\s+CustomModOptions.*?Name\s+IN\s*\((.*?)\);", core, re.I | re.S)
+    assert option_block, "Missing Messi CustomModOptions update"
+    options = set(re.findall(r"'([^']+)'", option_block.group(1)))
+    expected_options = {
+        "EVENTS_BATTLES", "EVENTS_CITY", "EVENTS_GOLDEN_AGE", "EVENTS_MINORS",
+        "EVENTS_UNIT_CONVERTS", "EVENTS_UNIT_CREATED", "EVENTS_UNIT_PREKILL",
+        "EVENTS_UNIT_UPGRADES",
+    }
+    assert options == expected_options, f"Wrong Messi CP event options: {options ^ expected_options}"
+    assert "GameEvents.MinorAlliesChanged" in runtime, "Missing MinorAlliesChanged registration"
+    assert "GameEvents.SetAlly" not in runtime, "Obsolete SetAlly registration remains"
+    assert re.search(
+        r"local function onUnitConverted\(oldPlayerID, newPlayerID, oldUnitID, newUnitID, isUpgrade\)",
+        runtime,
+    ), "UnitConverted handler does not use the documented five-argument signature"
+    assert "include('MessiRuntime')" not in panel and 'include("MessiRuntime")' not in panel, (
+        "Legacy panel still owns gameplay runtime initialization"
+    )
+
+    root = ET.parse(REPO / "CoolWackyCivs.civ5proj").getroot()
+    namespace = root.tag.split("}")[0].strip("{")
+    ns = {"m": namespace}
+    entries = [
+        node.text.replace("\\", "/")
+        for node in root.findall(".//m:ModContent/m:Content/m:FileName", ns)
+    ]
+    runtime_entry = "EternalNumberTen/Lua/MessiRuntime.lua"
+    panel_entry = "EternalNumberTen/UI/MessiLegacyPanel.xml"
+    assert entries.count(runtime_entry) == 1 and entries.count(panel_entry) == 1, (
+        "Runtime and Legacy panel must each have one independent InGameUIAddin entry"
+    )
+    assert entries.index(runtime_entry) < entries.index(panel_entry), "Runtime must initialize before the optional panel"
+    print("PASS Eternal Number Ten static: CP options/signatures and independent runtime/UI add-ins")
+
+
+def panel_without_runtime_check(LuaRuntime) -> None:
+    lua = LuaRuntime(unpack_returned_tuples=True)
+    lua.execute(r'''
+MapModData={}
+Players={[0]={}}
+Game={GetActivePlayer=function()return 0 end}
+Locale={ConvertTextKey=function(key,...)return key end}
+GameInfo={Eras={}}
+Mouse={eLClick=1}; KeyEvents={KeyDown=1}; Keys={VK_ESCAPE=27}
+IconHookup=function()end
+include=function(name)assert(name=='IconSupport','panel included gameplay runtime')end
+local function control()
+ local c={hidden=false}
+ function c:RegisterCallback(...)end
+ function c:SetHide(value)self.hidden=value end
+ function c:SetText(value)self.text=value end
+ return c
+end
+Controls=setmetatable({}, {__index=function(table,key)local value=control();rawset(table,key,value);return value end})
+local function event()
+ local value={}
+ value.Add=function(handler)value.handler=handler end
+ return value
+end
+LuaEvents={MessiLegacyChanged=event()}
+Events={SerialEventGameDataDirty=event(),GameplaySetActivePlayer=event(),
+ ActivePlayerTurnStart=event(),ActivePlayerTurnEnd=event()}
+ContextPtr={}
+function ContextPtr:SetInputHandler(handler)self.input=handler end
+function ContextPtr:SetUpdate(handler)self.update=handler end
+''')
+    panel = (REPO / "EternalNumberTen/UI/MessiLegacyPanel.lua").read_text(encoding="utf-8-sig")
+    lua.execute(panel)
+    assert lua.eval("Controls.LauncherFrame.hidden") is True
+    assert lua.eval("Controls.MainPanel.hidden") is True
+    lua.execute(r'''
+MapModData.MessiLegacy={GetUIState=function()return nil end}
+Events.SerialEventGameDataDirty.handler()
+ContextPtr.update(1)
+assert(Controls.LauncherFrame.hidden and Controls.MainPanel.hidden)
+''')
+    print("PASS Eternal Number Ten panel: safe load before runtime initialization")
+
+
 def main() -> None:
     from lupa.lua51 import LuaRuntime
+
+    static_checks()
+    panel_without_runtime_check(LuaRuntime)
 
     lua = LuaRuntime(unpack_returned_tuples=True)
     lua.execute(r'''
@@ -47,7 +135,7 @@ local function event()
 end
 GameEvents={}
 for _,name in ipairs({'PlayerDoTurn','PlayerCityFounded','CityTrained','CityConstructed','CityCaptureComplete',
- 'UnitCreated','UnitPrekill','UnitConverted','UnitUpgraded','TeamTechResearched','PlayerGoldenAge','SetAlly',
+ 'UnitCreated','UnitPrekill','UnitConverted','UnitUpgraded','TeamTechResearched','PlayerGoldenAge','MinorAlliesChanged',
  'BattleStarted','BattleJoined','BattleFinished'}) do GameEvents[name]=event() end
 LuaEvents={}
 LuaEvents.MessiLegacyChanged=setmetatable({handlers={},Add=function(self,f)self.handlers[#self.handlers+1]=f end},
@@ -104,11 +192,12 @@ end
 local nextUnit=0
 function NewUnit(owner,kind,x,y,military)
  nextUnit=nextUnit+1
- local u={owner=owner,id=nextUnit,kind=kind,x=x,y=y,military=military,promotions={},damage=20,xp=0}
+ local u={owner=owner,id=nextUnit,kind=kind,x=x,y=y,military=military,promotions={},promotionChanges=0,damage=20,xp=0}
  function u:GetOwner()return self.owner end; function u:GetID()return self.id end
  function u:GetUnitType()return self.kind end; function u:GetPlot()return plots[pkey(self.x,self.y)] end
  function u:IsCombatUnit()return self.military end; function u:GetDomainType()return 0 end
- function u:IsHasPromotion(p)return self.promotions[p]==true end; function u:SetHasPromotion(p,v)self.promotions[p]=v end
+ function u:IsHasPromotion(p)return self.promotions[p]==true end
+ function u:SetHasPromotion(p,v)self.promotions[p]=v;self.promotionChanges=self.promotionChanges+1 end
  function u:ChangeDamage(n)self.damage=math.max(0,self.damage+n) end; function u:GetDamage()return self.damage end
  function u:ChangeExperience(n)self.xp=self.xp+n end
  plots[pkey(x,y)].units[#plots[pkey(x,y)].units+1]=u
@@ -153,7 +242,10 @@ local victim=NewUnit(1,80,1,1,true); Players[1].unitList={victim}
     lua.execute(r'''
 local M=MapModData.MessiLegacy
 local p=Players[0]; local city=p.cityList[1]; local killer=p.unitList[1]
-assert(#GameEvents.PlayerDoTurn.handlers==1 and #GameEvents.UnitPrekill.handlers==1 and #GameEvents.SetAlly.handlers==1,'handlers missing or duplicated')
+for name,event in pairs(GameEvents) do
+ assert(#event.handlers==1,'handler missing or duplicated: '..name)
+end
+assert(GameEvents.SetAlly==nil,'obsolete SetAlly mock or handler remains')
 M.ChangeMessiLegacy(0,240,'test')
 local state=M.GetState(0)
 for i=1,6 do assert(state.unlocked[i] and p.policies[100+i],'chapter '..i..' not unlocked') end
@@ -161,10 +253,46 @@ assert(p.goldenTurns==6 and p.freePolicies==1 and city.wltkd==3,'Chapter VI one-
 for i=1,3 do assert(p.unitList[i].xp==8,'military XP missing') end
 assert(p.unitList[4].damage==0,'Number Ten was not fully healed')
 assert(city.buildings[22]==1 and city.buildings[21]==3 and city.buildings[24]==1,'specialist or wonder dummies incorrect')
+assert((city.buildings[27] or 0)==0,'Academy Gold should start at zero')
+Map.GetPlot(1,0).improvement=30; Map.GetPlot(1,0).working=city
+M.RefreshPlayer(0,false)
+assert(city.buildings[27]==1,'one worked Football Academy should grant one Academy Gold')
+Map.GetPlot(0,1).improvement=30; Map.GetPlot(0,1).working=city
+M.RefreshPlayer(0,false)
+assert(city.buildings[27]==2,'Academy Gold must count Academies, not adjacent tiles')
 
+state.golden=p.golden
 M.OnPlayerDoTurn(0)
 assert(killer:IsHasPromotion(40) and killer:IsHasPromotion(41),'Passing Triangles missing')
 assert(killer:IsHasPromotion(42),'Vision Beyond the Defence missing')
+
+local beforeAlliance=state.legacy
+Players[2].ally=0
+M.OnMinorAlliesChanged(2,0,true,0,60)
+assert(state.legacy==beforeAlliance+3,'first alliance did not grant three Legacy')
+M.OnMinorAlliesChanged(2,0,true,60,61)
+assert(state.legacy==beforeAlliance+3,'duplicate alliance event granted Legacy twice')
+M.OnPlayerDoTurn(0)
+assert(state.legacy==beforeAlliance+3,'alliance fallback duplicated the event reward')
+Players[2].ally=-1
+M.OnMinorAlliesChanged(2,0,false,60,0)
+assert(state.resilienceEnd==104 and state.resilienceNext==122,'alliance loss did not activate Resilience')
+M.OnPlayerDoTurn(0)
+assert(state.resilienceEnd==104 and state.resilienceNext==122,'alliance fallback duplicated Resilience activation')
+Players[2].ally=0
+M.OnMinorAlliesChanged(2,0,true,0,60)
+assert(state.legacy==beforeAlliance+3,'same-era alliance regain granted Legacy twice')
+
+local converted=NewUnit(0,80,-1,-1,true); p.unitList[#p.unitList+1]=converted
+GameEvents.UnitConverted.handlers[1](1,0,999,converted:GetID(),false)
+assert(converted:IsHasPromotion(44),'converted unit did not receive active Resilience')
+local conversionChanges=converted.promotionChanges
+GameEvents.UnitUpgraded.handlers[1](0,999,converted:GetID(),false)
+assert(converted.promotionChanges==conversionChanges,'conversion and upgrade refreshes were not idempotent')
+local departed=NewUnit(1,80,-1,-1,true); Players[1].unitList[#Players[1].unitList+1]=departed
+for _,promotion in ipairs({40,41,42,44}) do departed:SetHasPromotion(promotion,true) end
+GameEvents.UnitConverted.handlers[1](0,1,999,departed:GetID(),false)
+for _,promotion in ipairs({40,41,42,44}) do assert(not departed:IsHasPromotion(promotion),'departing unit kept Messi promotion '..promotion) end
 
 local beforeLegacy=state.legacy
 M.OnBattleStarted(0,1,1); M.OnBattleJoined(0,killer:GetID(),0,false); M.OnBattleJoined(1,Players[1].unitList[1]:GetID(),1,false)
@@ -173,7 +301,6 @@ M.OnBattleFinished()
 assert(state.legacy==beforeLegacy+1 and p.culture==3 and p.gap==3,'Assist reward incorrect')
 assert(killer.damage==15,'Vision Assist healing incorrect')
 
-assert(M.ActivateResilience(0,'test'),'Resilience did not activate')
 assert(not M.ActivateResilience(0,'repeat'),'Resilience ignored cooldown')
 M.RefreshPlayer(0,false)
 assert(city.buildings[25]==1 and killer:IsHasPromotion(44),'Resilience effects missing')
@@ -189,7 +316,7 @@ for i=1,6 do assert(p.policies[110+i],'Epilogue Tourism policy missing') end
 
 SetTurn(104); M.OnPlayerDoTurn(0)
 assert(city.buildings[25]==0 and not killer:IsHasPromotion(44),'Resilience did not expire')
-print('PASS Eternal Number Ten runtime: chapters, formation, Assists, Resilience, La Masia, Epilogue')
+print('PASS Eternal Number Ten runtime: chapters, Academies, alliances, conversions, formation, Assists, Resilience, La Masia, Epilogue')
 ''')
 
 

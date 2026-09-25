@@ -236,8 +236,14 @@
       </Content>
       <Content>
         <Type>InGameUIAddin</Type>
-        <Name>The Eternal Number Ten</Name>
-        <Description>Legacy, Career Chapters, formation warfare, Assists, Resilience, La Masia, and Epilogue progression.</Description>
+        <Name>The Eternal Number Ten Runtime</Name>
+        <Description>Legacy, Career Chapters, formation warfare, Assists, Resilience, La Masia, and Epilogue gameplay.</Description>
+        <FileName>EternalNumberTen/Lua/MessiRuntime.lua</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>The Eternal Number Ten Legacy Panel</Name>
+        <Description>Optional Legacy, Career Chapter, Third Star, and Epilogue interface.</Description>
         <FileName>EternalNumberTen/UI/MessiLegacyPanel.xml</FileName>
       </Content>
     </ModContent>
