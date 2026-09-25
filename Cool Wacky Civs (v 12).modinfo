@@ -276,9 +276,9 @@
     <File md5="D898D0466B700CF1178CDE0F5E8145DC" import="1">EternalNumberTen/Art/MessiIcon64.dds</File>
     <File md5="2BCB0CE02EE02ECC6BDD62FC013BE575" import="1">EternalNumberTen/Art/MessiIcon80.dds</File>
     <File md5="60D29CDAC67018ACCB51DF404962F717" import="1">EternalNumberTen/Art/MessiLeader.dds</File>
-    <File md5="7AB3DEF5698D59850D7CE2784AC0FC03" import="1">EternalNumberTen/Art/MessiLeader128.dds</File>
-    <File md5="F6EFCF9C8F068B3B14F408765055B5DB" import="1">EternalNumberTen/Art/MessiLeader256.dds</File>
-    <File md5="3C4395269B6A59A4036A023F21E04921" import="1">EternalNumberTen/Art/MessiLeader64.dds</File>
+    <File md5="7416BB273B53FA6A49735E66E304C4B1" import="1">EternalNumberTen/Art/MessiLeader128.dds</File>
+    <File md5="9F381F1BF0EFE88A6E70677B0990FB31" import="1">EternalNumberTen/Art/MessiLeader256.dds</File>
+    <File md5="372C266B4EE30338C5FCA1984404505D" import="1">EternalNumberTen/Art/MessiLeader64.dds</File>
     <File md5="D195B6A451E87A7C4599BE4C31E3A8A7" import="1">EternalNumberTen/Art/MessiLeaderScene.xml</File>
     <File md5="4285A95EA26F40A732268526A93D0F31" import="1">EternalNumberTen/Art/MessiMap.dds</File>
     <File md5="E058D90564F77701CC67CB15EF25213D" import="1">EternalNumberTen/Art/MessiObjects128.dds</File>

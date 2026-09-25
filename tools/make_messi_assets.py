@@ -130,6 +130,7 @@ def circular_asset(source: Image.Image, size: int, centering=(0.5, 0.5), preserv
 
 
 leader = Image.open(SOURCE / "EternalLeader.png").convert("RGBA")
+leader_icon = Image.open(SOURCE / "EternalLeaderIcon.png").convert("RGBA")
 dawn = Image.open(SOURCE / "EternalDawn.png").convert("RGBA")
 academy = Image.open(SOURCE / "FootballAcademy.png").convert("RGBA")
 civ_icon = emblem()
@@ -144,7 +145,7 @@ for size in SIZES:
 save_dds(alpha_emblem(32), OUTPUT / "MessiUnitFlag32.dds")
 
 for size in LEADER_SIZES:
-    save_dds(circular_asset(leader, size, centering=(0.30, 0.36)), OUTPUT / f"MessiLeader{size}.dds")
+    save_dds(circular_asset(leader_icon, size, centering=(0.50, 0.50)), OUTPUT / f"MessiLeader{size}.dds")
 
 object_sources = (
     (symbol("number"), (0.5, 0.5)),

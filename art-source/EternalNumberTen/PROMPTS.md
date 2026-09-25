@@ -6,6 +6,10 @@ The built-in image generator produced the three PNG source assets. A direct publ
 
 Use case: stylized-concept. Civilization V leader scene source art. An original fictional football playmaker portrayed as the dignified leader of The Eternal Number Ten, in an elegant open-air hall overlooking a South American riverside city at golden hour. Richly painted historical-game portrait; sky blue, white, gold, and navy. No real-person likeness, text, watermark, sponsor, trademark, crest, copied uniform, extra people, or trophy.
 
+## Back-facing leader icon
+
+Use case: precise-object-edit. Civilization V leader icon source artwork. An original, fictional, non-identifiable Number Ten viewed entirely from behind, celebrating with both arms raised above a floodlit stadium and South American riverside city. Replace ceremonial clothing with a fitted modern football jersey and matching shorts: sky-blue and ivory vertical stripes, subtle navy and gold piping, realistic athletic fabric, and a large clean number 10. Preserve the painterly Civilization V presentation. No person name, real-person likeness, copied pose, club or federation crest, sponsor, manufacturer logo, tournament patch, tattoos, watermark, or branded trophy.
+
 ## Dawn of Man
 
 Use case: illustration-story. A symbolic journey from a small child practising football on a humble neighbourhood field to a legendary Number Ten silhouette beneath three golden stars. A South American riverside city at dawn blends into a floodlit stadium. All figures are original and non-identifiable. No watermark, sponsor, trademark, crest, branded trophy, or copied uniform.
