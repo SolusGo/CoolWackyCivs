@@ -21,7 +21,7 @@ At the beginning of a turn, an eligible land combat unit beside at least two fri
 
 Legacy can accumulate before an Era gate. The runtime checks every unmet chapter after Legacy or Era changes and never grants a chapter twice.
 
-After Chapter VI, every 55 additional Legacy grants a two-turn Golden Age and `15 × current Era number` Culture. The first six repeat rewards also grant +1% permanent Tourism each. Later repeats retain the Golden Age and Culture without exceeding +6% Tourism.
+Every 55 Legacy earned after Chapter VI actually unlocks grants a two-turn Golden Age and `15 × current Era number` Culture. Legacy banked before the Atomic Era gate does not count toward these repeats. The first six repeat rewards also grant +1% permanent Tourism each; later repeats retain the Golden Age and Culture without exceeding +6% Tourism.
 
 ## Uniques
 

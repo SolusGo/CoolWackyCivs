@@ -67,6 +67,7 @@ local function isMessi(value)
 end
 local function getState(playerID)
     if states[playerID] then return states[playerID] end
+    local savedEpilogueBase = load(playerID, 'EpilogueBaseLegacy', nil)
     local state = {
         legacy=tonumber(load(playerID, 'Legacy', 0)) or 0,
         assists=tonumber(load(playerID, 'AssistCount', 0)) or 0,
@@ -74,11 +75,21 @@ local function getState(playerID)
         resilienceEnd=tonumber(load(playerID, 'ResilienceEnd', -1)) or -1,
         resilienceNext=tonumber(load(playerID, 'ResilienceNext', -1)) or -1,
         epilogue=tonumber(load(playerID, 'EpilogueCount', 0)) or 0,
+        epilogueBaseLegacy=tonumber(savedEpilogueBase),
         tourism=tonumber(load(playerID, 'EpilogueTourism', 0)) or 0,
         golden=truth(load(playerID, 'GoldenState', 0)),
         unlocked={},
     }
     for index = 1, 6 do state.unlocked[index] = truth(load(playerID, 'Chapter' .. index, 0)) end
+    if state.unlocked[6] then
+        local baseline = state.epilogueBaseLegacy
+        if baseline == nil then baseline = state.legacy - (state.epilogue * 55) end
+        baseline = math.max(0, math.min(state.legacy, baseline))
+        state.epilogueBaseLegacy = baseline
+        if tonumber(savedEpilogueBase) ~= baseline then store(playerID, 'EpilogueBaseLegacy', baseline) end
+    else
+        state.epilogueBaseLegacy = nil
+    end
     states[playerID] = state
     return state
 end
@@ -281,15 +292,21 @@ local function applyChapter(playerID, player, state, index)
     state.unlocked[index] = true
     store(playerID, 'Chapter' .. index, 1)
     if index == 2 then grantFreeLaMasia(playerID, player) end
-    if index == 6 then chapterSix(playerID, player, state) end
+    if index == 6 then
+        if state.epilogueBaseLegacy == nil then
+            state.epilogueBaseLegacy = state.legacy
+            store(playerID, 'EpilogueBaseLegacy', state.epilogueBaseLegacy)
+        end
+        chapterSix(playerID, player, state)
+    end
     notify(player, 'TXT_KEY_MESSI_NOTIFICATION_CHAPTER', 'TXT_KEY_MESSI_NOTIFICATION_CHAPTER_SUMMARY',
         L(chapter.title), L(chapter.effects))
     log('chapter ' .. index .. ' unlocked')
 end
 
 local function processEpilogue(playerID, player, state)
-    if not state.unlocked[6] then return end
-    local earned = math.max(0, math.floor((state.legacy - chapters[6].threshold) / 55))
+    if not state.unlocked[6] or state.epilogueBaseLegacy == nil then return end
+    local earned = math.max(0, math.floor((state.legacy - state.epilogueBaseLegacy) / 55))
     while state.epilogue < earned do
         state.epilogue = state.epilogue + 1
         store(playerID, 'EpilogueCount', state.epilogue)
@@ -622,6 +639,14 @@ local function onUnitUpgraded(playerID, _, newUnitID)
     return true
 end
 local function onCityChanged(playerID) if isMessi(playerID) then refreshPlayer(playerID, false) end end
+local function onCityCaptureComplete(oldPlayerID, isCapital, x, y, newPlayerID, population, conquest)
+    if type(oldPlayerID) == 'number' and oldPlayerID >= 0 and isMessi(oldPlayerID) then
+        refreshPlayer(oldPlayerID, false)
+    end
+    if type(newPlayerID) == 'number' and newPlayerID >= 0 and isMessi(newPlayerID) then
+        refreshPlayer(newPlayerID, false)
+    end
+end
 
 local function uiState(playerID)
     local player = Players[playerID]
@@ -657,10 +682,7 @@ GameEvents.PlayerDoTurn.Add(onPlayerDoTurn)
 GameEvents.PlayerCityFounded.Add(onCityFounded)
 GameEvents.CityTrained.Add(onCityTrained)
 if GameEvents.CityConstructed then GameEvents.CityConstructed.Add(onCityConstructed) end
-if GameEvents.CityCaptureComplete then GameEvents.CityCaptureComplete.Add(function(_, oldOwner, x, y, newOwner)
-    if oldOwner and isMessi(oldOwner) then refreshPlayer(oldOwner, false) end
-    if newOwner and isMessi(newOwner) then refreshPlayer(newOwner, false) end
-end) end
+if GameEvents.CityCaptureComplete then GameEvents.CityCaptureComplete.Add(onCityCaptureComplete) end
 if GameEvents.UnitCreated then GameEvents.UnitCreated.Add(onUnitCreated) end
 if GameEvents.UnitPrekill then GameEvents.UnitPrekill.Add(onUnitPrekill) end
 if GameEvents.UnitConverted then GameEvents.UnitConverted.Add(onUnitConverted) end

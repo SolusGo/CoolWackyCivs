@@ -1,6 +1,6 @@
 # Implementation notes
 
-`Lua/MessiRuntime.lua` owns all mutable gameplay. Every Legacy source calls the exported `MapModData.MessiLegacy.ChangeMessiLegacy(playerID, amount, sourceKey)` function. Chapter state, Era-first rewards, Assist counters, Resilience times, delayed La Masia state, per-city Production expiry, quest snapshots, Epilogue count, and permanent Tourism are stored with player-scoped save keys.
+`Lua/MessiRuntime.lua` owns all mutable gameplay. Every Legacy source calls the exported `MapModData.MessiLegacy.ChangeMessiLegacy(playerID, amount, sourceKey)` function. Chapter state, Era-first rewards, Assist counters, Resilience times, delayed La Masia state, per-city Production expiry, quest snapshots, Epilogue baseline/count, and permanent Tourism are stored with player-scoped save keys.
 
 The SQL layer uses hidden policies for effects the Community Patch can apply natively and dummy buildings only for variable city-local counts or timed modifiers. This prevents save/load drift and avoids recomputing permanent bonuses by hand.
 
@@ -17,6 +17,8 @@ Assist attribution uses `BattleStarted`, `BattleJoined`, and `UnitPrekill`: the 
 World Wonders are classified by `BuildingClasses.MaxGlobalInstances`; Great People are classified by `SPECIALUNIT_PEOPLE` with a Great Person class fallback. Replacement buildings and free buildings are detected through live city building queries.
 
 Football Academy Gold counts qualifying Academy plots, not their adjacent tiles. Each Academy whose working city contains at least one building with specialist slots contributes one Gold dummy-building stack to that city, so one Academy cannot create several Gold by surrounding-plot count.
+
+Chapter VI persists the current Legacy total as `EpilogueBaseLegacy` when it first unlocks, so only later Legacy advances The Story Continues. For an older save with Chapter VI already unlocked and no baseline key, the runtime derives `current Legacy - (saved Epilogue count × 55)`, clamps it to the valid Legacy range, and persists it before processing repeats; this preserves prior rewards without replaying them.
 
 Chapter V quest completion uses a documented fallback because current Community Patch source exposes quest queries and reward modifiers but no quest-completed Lua event. A disappearing displayed quest plus increased Influence is treated as completion. This is intentionally conservative: expiry, revocation, and war cancellation do not normally increase Influence.
 

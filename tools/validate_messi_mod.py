@@ -29,6 +29,11 @@ def static_checks() -> None:
         r"local function onUnitConverted\(oldPlayerID, newPlayerID, oldUnitID, newUnitID, isUpgrade\)",
         runtime,
     ), "UnitConverted handler does not use the documented five-argument signature"
+    assert re.search(
+        r"local function onCityCaptureComplete\(oldPlayerID, isCapital, x, y, newPlayerID, population, conquest\)",
+        runtime,
+    ), "CityCaptureComplete handler does not use the standard seven-argument signature"
+    assert "state.legacy - state.epilogueBaseLegacy" in runtime, "Epilogue is not based on post-Chapter-VI Legacy"
     assert "include('MessiRuntime')" not in panel and 'include("MessiRuntime")' not in panel, (
         "Legacy panel still owns gameplay runtime initialization"
     )
@@ -103,6 +108,8 @@ def main() -> None:
     lua.execute(r'''
 MapModData={}
 local saved={}
+function SetSavedValue(k,v)saved[k]=v end
+function GetSavedValue(k)return saved[k] end
 Modding={OpenSaveData=function() return {
  GetValue=function(k)return saved[k] end,
  SetValue=function(k,v)saved[k]=v end,
@@ -229,6 +236,7 @@ end
 Players={}
 Players[0]=NewPlayer(0,1,false); Players[1]=NewPlayer(1,99,false)
 Players[2]=NewPlayer(2,98,true); Players[3]=NewPlayer(3,97,true)
+Players[0].era=5
 Teams={}
 for i=0,3 do Teams[i]={tech=true,IsHasTech=function(self,t)return self.tech end} end
 local city=NewCity(0,1,0,0); Players[0].cityList={city}
@@ -246,13 +254,48 @@ for name,event in pairs(GameEvents) do
  assert(#event.handlers==1,'handler missing or duplicated: '..name)
 end
 assert(GameEvents.SetAlly==nil,'obsolete SetAlly mock or handler remains')
-M.ChangeMessiLegacy(0,240,'test')
+local captureRefreshes=0
+LuaEvents.MessiLegacyChanged:Add(function(playerID)if playerID==0 then captureRefreshes=captureRefreshes+1 end end)
+local capture=GameEvents.CityCaptureComplete.handlers[1]
+local beforeCapture=captureRefreshes
+capture(0,false,0,0,1,5,true)
+assert(captureRefreshes==beforeCapture+1,'Messi old owner was not refreshed after non-capital capture')
+beforeCapture=captureRefreshes
+capture(0,true,0,0,1,5,true)
+assert(captureRefreshes==beforeCapture+1,'capital flag was mistaken for the old owner')
+beforeCapture=captureRefreshes
+capture(1,false,0,0,0,5,true)
+assert(captureRefreshes==beforeCapture+1,'Messi new owner was not refreshed after capture')
+beforeCapture=captureRefreshes
+capture(1,false,0,0,3,5,true)
+assert(captureRefreshes==beforeCapture,'capture without a Messi owner caused a Messi refresh')
+
+M.ChangeMessiLegacy(0,350,'test')
 local state=M.GetState(0)
-for i=1,6 do assert(state.unlocked[i] and p.policies[100+i],'chapter '..i..' not unlocked') end
+for i=1,5 do assert(state.unlocked[i] and p.policies[100+i],'chapter '..i..' not unlocked') end
+assert(not state.unlocked[6] and state.epilogue==0 and state.tourism==0,'Chapter VI or Epilogue ignored its Era gate')
+assert(state.epilogueBaseLegacy==nil and GetSavedValue('Messi|0|EpilogueBaseLegacy')==nil,'Epilogue baseline was created before Chapter VI')
+p.era=6; M.CheckChapters(0)
+assert(state.unlocked[6] and p.policies[106],'Chapter VI did not unlock in Atomic Era')
+assert(state.epilogueBaseLegacy==350 and GetSavedValue('Messi|0|EpilogueBaseLegacy')==350,'Chapter VI baseline is incorrect')
+assert(state.epilogue==0 and state.tourism==0,'banked pre-Chapter-VI Legacy granted retroactive Epilogue rewards')
 assert(p.goldenTurns==6 and p.freePolicies==1 and city.wltkd==3,'Chapter VI one-time rewards incorrect')
 for i=1,3 do assert(p.unitList[i].xp==8,'military XP missing') end
 assert(p.unitList[4].damage==0,'Number Ten was not fully healed')
 assert(city.buildings[22]==1 and city.buildings[21]==3 and city.buildings[24]==1,'specialist or wonder dummies incorrect')
+
+M.ChangeMessiLegacy(0,54,'test')
+assert(state.epilogue==0 and state.tourism==0,'Epilogue triggered before 55 post-unlock Legacy')
+M.ChangeMessiLegacy(0,1,'test')
+assert(state.epilogue==1 and state.tourism==1,'first post-unlock Epilogue reward is incorrect')
+M.ChangeMessiLegacy(0,55,'test')
+assert(state.epilogue==2 and state.tourism==2,'second post-unlock Epilogue reward is incorrect')
+local cultureAtTwo, goldenAtTwo=p.culture,p.goldenTurns
+M.ChangeMessiLegacy(0,55*5,'test')
+assert(state.epilogue==7 and state.tourism==6,'Epilogue count or Tourism cap is incorrect')
+assert(p.culture==cultureAtTwo+(5*15*7) and p.goldenTurns==goldenAtTwo+10,'post-cap Epilogue rewards did not continue')
+for i=1,6 do assert(p.policies[110+i],'Epilogue Tourism policy missing') end
+
 assert((city.buildings[27] or 0)==0,'Academy Gold should start at zero')
 Map.GetPlot(1,0).improvement=30; Map.GetPlot(1,0).working=city
 M.RefreshPlayer(0,false)
@@ -295,10 +338,11 @@ GameEvents.UnitConverted.handlers[1](0,1,999,departed:GetID(),false)
 for _,promotion in ipairs({40,41,42,44}) do assert(not departed:IsHasPromotion(promotion),'departing unit kept Messi promotion '..promotion) end
 
 local beforeLegacy=state.legacy
+local beforeCulture, beforeGap=p.culture,p.gap
 M.OnBattleStarted(0,1,1); M.OnBattleJoined(0,killer:GetID(),0,false); M.OnBattleJoined(1,Players[1].unitList[1]:GetID(),1,false)
 M.OnUnitPrekill(1,Players[1].unitList[1]:GetID(),80,1,1,false,0)
 M.OnBattleFinished()
-assert(state.legacy==beforeLegacy+1 and p.culture==3 and p.gap==3,'Assist reward incorrect')
+assert(state.legacy==beforeLegacy+1 and p.culture==beforeCulture+3 and p.gap==beforeGap+3,'Assist reward incorrect')
 assert(killer.damage==15,'Vision Assist healing incorrect')
 
 assert(not M.ActivateResilience(0,'repeat'),'Resilience ignored cooldown')
@@ -309,14 +353,24 @@ local gp=NewUnit(0,81,0,0,false); p.unitList[#p.unitList+1]=gp
 local beforeGP=state.legacy; M.OnUnitCreated(0,gp:GetID())
 assert(state.legacy==beforeGP+3 and city.wltkd==4 and city.buildings[23]==1,'La Masia Great Person trigger incorrect')
 
-local beforeEpilogue=state.epilogue
-M.ChangeMessiLegacy(0,55*7,'test')
-assert(state.epilogue>=beforeEpilogue+7 and state.tourism==6,'Epilogue count or Tourism cap incorrect')
-for i=1,6 do assert(p.policies[110+i],'Epilogue Tourism policy missing') end
+Players[1].civ=1
+SetSavedValue('Messi|1|Legacy',570)
+SetSavedValue('Messi|1|EpilogueCount',4)
+SetSavedValue('Messi|1|EpilogueTourism',4)
+for i=1,6 do SetSavedValue('Messi|1|Chapter'..i,1) end
+local migrated=M.GetState(1)
+assert(migrated.epilogueBaseLegacy==350 and GetSavedValue('Messi|1|EpilogueBaseLegacy')==350,'old-save Epilogue baseline migration is incorrect')
+local oldCulture,oldGolden=Players[1].culture,Players[1].goldenTurns
+M.CheckChapters(1)
+assert(migrated.epilogue==4 and Players[1].culture==oldCulture and Players[1].goldenTurns==oldGolden,'old save replayed Epilogue rewards during migration')
+M.ChangeMessiLegacy(1,54,'test')
+assert(migrated.epilogue==4,'migrated Epilogue triggered before another 55 Legacy')
+M.ChangeMessiLegacy(1,1,'test')
+assert(migrated.epilogue==5 and Players[1].culture==oldCulture+105 and Players[1].goldenTurns==oldGolden+2,'migrated Epilogue cadence is incorrect')
 
 SetTurn(104); M.OnPlayerDoTurn(0)
 assert(city.buildings[25]==0 and not killer:IsHasPromotion(44),'Resilience did not expire')
-print('PASS Eternal Number Ten runtime: chapters, Academies, alliances, conversions, formation, Assists, Resilience, La Masia, Epilogue')
+print('PASS Eternal Number Ten runtime: capture, Epilogue baseline/migration, chapters, Academies, alliances, conversions, formation, Assists, Resilience, La Masia')
 ''')
 
 
