@@ -1,5 +1,14 @@
 # Patch Notes
 
+## Cool Wacky Civs version 12 — The Eternal Number Ten — 2026-09-25
+
+- Added Lionel Messi and The Eternal Number Ten as the collection's eighth civilization, built around persistent Legacy and six Era-gated Career Chapters.
+- Added Passing Triangles, Assists, Resilience, first-in-Era Golden Age and alliance rewards, City-State quest rewards, and repeatable post-career Epilogue milestones.
+- Added The Number Ten Great General replacement, its Vision aura, and the Football Academy improvement alongside the La Masia Garden replacement.
+- Added the Legacy panel, complete English localization and Civilopedia material, AI flavors, city and spy lists, and deterministic Lua regression coverage.
+- Generated a cohesive set of original, symbolic leader, Dawn of Man, heraldry, unit, building, improvement, promotion, and chapter artwork and compiled every required Civ V DDS atlas size.
+- Expanded the combined project, manifest, documentation, packaging, and SQL/schema validation for the eighth civilization.
+
 ## Cool Wacky Civs version 11 — Community Patch hook follow-up — 2026-09-21
 
 - Restored Terra's actual Community Patch `PlayerTradeRouteCompleted` hook while retaining the trade-unit-only `UnitPrekill` optimization.

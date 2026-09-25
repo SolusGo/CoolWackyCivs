@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="11">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="12">
   <Properties>
     <Name>Cool Wacky Civs</Name>
-    <Teaser>Seven strange leaders. Seven stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, and The RomanGladius Network. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Eight strange leaders. Eight stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, and The Eternal Number Ten. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -256,6 +256,46 @@
     <File md5="AC4F17C3A133BDA347156800696BFDF8" import="0">RomanGladiusNetwork/SQL/10_RomanGladius_Text.sql</File>
     <File md5="0C12E9D91A1BE058A3FAC45477DE330A" import="1">RomanGladiusNetwork/UI/RomanGladiusPanel.lua</File>
     <File md5="FB3B89F19FF8F70C17BE8B7BEF21EF5D" import="0">RomanGladiusNetwork/UI/RomanGladiusPanel.xml</File>
+    <File md5="9371C80403FCBF1B2A0074A1F3807E0C" import="1">EternalNumberTen/Art/MessiAlpha128.dds</File>
+    <File md5="4839B99B22C3A0B3BB71DF92961F825B" import="1">EternalNumberTen/Art/MessiAlpha16.dds</File>
+    <File md5="FDE965BB743989CB8C53EAE9A09BE3E2" import="1">EternalNumberTen/Art/MessiAlpha24.dds</File>
+    <File md5="D752AFDB260332ABC910B97D16C91620" import="1">EternalNumberTen/Art/MessiAlpha256.dds</File>
+    <File md5="E4C6D6B7DA11348B40C31EB2D8DE5508" import="1">EternalNumberTen/Art/MessiAlpha32.dds</File>
+    <File md5="F15D865740A7066362E9D12CC6D4817F" import="1">EternalNumberTen/Art/MessiAlpha45.dds</File>
+    <File md5="A8EFBE004B2B8CDA2482F2DA0B01414D" import="1">EternalNumberTen/Art/MessiAlpha48.dds</File>
+    <File md5="2123F9F6C6CCE9E691DBD2354B6C3966" import="1">EternalNumberTen/Art/MessiAlpha64.dds</File>
+    <File md5="433AB40E936EC627037915DC20C4C018" import="1">EternalNumberTen/Art/MessiAlpha80.dds</File>
+    <File md5="71E06A0B3C89AE526139CBF6425EDAE6" import="1">EternalNumberTen/Art/MessiDawn.dds</File>
+    <File md5="A401C94E1D430D11E7BBFBD5B9263D15" import="1">EternalNumberTen/Art/MessiIcon128.dds</File>
+    <File md5="E38E259F1D4AF1C2F3904CA23EE2B30B" import="1">EternalNumberTen/Art/MessiIcon16.dds</File>
+    <File md5="9C39264E9F3102A6B690220F716C3B75" import="1">EternalNumberTen/Art/MessiIcon24.dds</File>
+    <File md5="7455FC0C6A9FC14744DEA0C6593FA446" import="1">EternalNumberTen/Art/MessiIcon256.dds</File>
+    <File md5="CA60F859DBA5FB8B49F13CF7561DFA9A" import="1">EternalNumberTen/Art/MessiIcon32.dds</File>
+    <File md5="A05047938780AC17FBBE1626E6A350D9" import="1">EternalNumberTen/Art/MessiIcon45.dds</File>
+    <File md5="F47979110AC92E3964628F19533B449A" import="1">EternalNumberTen/Art/MessiIcon48.dds</File>
+    <File md5="D898D0466B700CF1178CDE0F5E8145DC" import="1">EternalNumberTen/Art/MessiIcon64.dds</File>
+    <File md5="2BCB0CE02EE02ECC6BDD62FC013BE575" import="1">EternalNumberTen/Art/MessiIcon80.dds</File>
+    <File md5="60D29CDAC67018ACCB51DF404962F717" import="1">EternalNumberTen/Art/MessiLeader.dds</File>
+    <File md5="7AB3DEF5698D59850D7CE2784AC0FC03" import="1">EternalNumberTen/Art/MessiLeader128.dds</File>
+    <File md5="F6EFCF9C8F068B3B14F408765055B5DB" import="1">EternalNumberTen/Art/MessiLeader256.dds</File>
+    <File md5="3C4395269B6A59A4036A023F21E04921" import="1">EternalNumberTen/Art/MessiLeader64.dds</File>
+    <File md5="D195B6A451E87A7C4599BE4C31E3A8A7" import="1">EternalNumberTen/Art/MessiLeaderScene.xml</File>
+    <File md5="4285A95EA26F40A732268526A93D0F31" import="1">EternalNumberTen/Art/MessiMap.dds</File>
+    <File md5="E058D90564F77701CC67CB15EF25213D" import="1">EternalNumberTen/Art/MessiObjects128.dds</File>
+    <File md5="040D7EF0EB4A6E5EAA6B0415E80C6AE0" import="1">EternalNumberTen/Art/MessiObjects16.dds</File>
+    <File md5="3349167AB783D61DFF132E008934CB5C" import="1">EternalNumberTen/Art/MessiObjects256.dds</File>
+    <File md5="7D962B74419F340EB8D731EF416FCACD" import="1">EternalNumberTen/Art/MessiObjects32.dds</File>
+    <File md5="6C246ACDDCB0DB4A0323A15148137B86" import="1">EternalNumberTen/Art/MessiObjects45.dds</File>
+    <File md5="80EA8BCB5127DC4B1FB6A72C6BBF0987" import="1">EternalNumberTen/Art/MessiObjects64.dds</File>
+    <File md5="E0BBA9F10362B9F21E2A81D53EC69664" import="1">EternalNumberTen/Art/MessiObjects80.dds</File>
+    <File md5="E4C6D6B7DA11348B40C31EB2D8DE5508" import="1">EternalNumberTen/Art/MessiUnitFlag32.dds</File>
+    <File md5="A0A67133C478D35FA3A89089AACD52A2" import="1">EternalNumberTen/Lua/MessiRuntime.lua</File>
+    <File md5="00E78EE7E7304F96B90789DF8436E56E" import="0">EternalNumberTen/SQL/00_Messi_Core.sql</File>
+    <File md5="F4CB218CE93AAB60D58D87980F5509E3" import="0">EternalNumberTen/SQL/01_Messi_Inheritance.sql</File>
+    <File md5="3E7FE54D8F95C6F27C5EFB23E56E4A4D" import="0">EternalNumberTen/SQL/02_Messi_UniqueEffects.sql</File>
+    <File md5="DD5678B18557DD8A03F88CA2292D5F21" import="0">EternalNumberTen/SQL/10_Messi_Text.sql</File>
+    <File md5="F86E08B4D736EFE134F4AA2429609FB2" import="1">EternalNumberTen/UI/MessiLegacyPanel.lua</File>
+    <File md5="5AC62D6F656FF6E6EF88F6DDB99ED150" import="0">EternalNumberTen/UI/MessiLegacyPanel.xml</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -287,6 +327,10 @@
       <UpdateDatabase>RomanGladiusNetwork/SQL/01_RomanGladius_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>RomanGladiusNetwork/SQL/02_RomanGladius_UniqueEffects.sql</UpdateDatabase>
       <UpdateDatabase>RomanGladiusNetwork/SQL/10_RomanGladius_Text.sql</UpdateDatabase>
+      <UpdateDatabase>EternalNumberTen/SQL/00_Messi_Core.sql</UpdateDatabase>
+      <UpdateDatabase>EternalNumberTen/SQL/01_Messi_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>EternalNumberTen/SQL/02_Messi_UniqueEffects.sql</UpdateDatabase>
+      <UpdateDatabase>EternalNumberTen/SQL/10_Messi_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -317,6 +361,10 @@
     <EntryPoint type="InGameUIAddin" file="RomanGladiusNetwork/UI/RomanGladiusPanel.xml">
       <Name>The RomanGladius Network</Name>
       <Description>Network Dashboard, Server staff, Reputation, chat, events, milestones, and population yields.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="EternalNumberTen/UI/MessiLegacyPanel.xml">
+      <Name>The Eternal Number Ten</Name>
+      <Description>Legacy, Career Chapters, formation warfare, Assists, Resilience, La Masia, and Epilogue progression.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

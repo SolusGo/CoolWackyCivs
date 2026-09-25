@@ -58,7 +58,10 @@ def check_packaging():
     names = {name for name, _ in files}
     assert len(names) == len(files), "Duplicate project content"
     assert all((ROOT / name).is_file() for name in names), "Project contains missing files"
-    civ_roots = ("RoulsAscendancy", "LunaNetwork", "TerraFramework", "CapanoCircuit", "FilthyRealm", "DualOrder", "RomanGladiusNetwork")
+    civ_roots = (
+        "RoulsAscendancy", "LunaNetwork", "TerraFramework", "CapanoCircuit",
+        "FilthyRealm", "DualOrder", "RomanGladiusNetwork", "EternalNumberTen",
+    )
     actual = {
         p.relative_to(ROOT).as_posix()
         for folder in civ_roots
@@ -70,6 +73,7 @@ def check_packaging():
         if name.endswith(".sql") or name in {
             "RoulsAscendancy/UI/RoulsPanel.xml", "FilthyRealm/UI/FilthyPanel.xml",
             "DualOrder/UI/DualOrderPanel.xml", "RomanGladiusNetwork/UI/RomanGladiusPanel.xml",
+            "EternalNumberTen/UI/MessiLegacyPanel.xml",
         }:
             assert not imported, f"Database SQL must not import into VFS: {name}"
         else:
@@ -91,6 +95,7 @@ def check_packaging():
         "FilthyRealm/UI/FilthyPanel.xml",
         "DualOrder/UI/DualOrderPanel.xml",
         "RomanGladiusNetwork/UI/RomanGladiusPanel.xml",
+        "EternalNumberTen/UI/MessiLegacyPanel.xml",
     ], "Combined runtime entry points are incomplete or out of order"
     assert values["SupportsMultiplayer"] == "false", "Unvalidated multiplayer must remain disabled"
     dependencies = props.findall("m:ModDependencies/m:Association/m:Id", NS)
@@ -165,6 +170,12 @@ def check_ui_and_lua():
             "PlayerDoTurn", "PlayerCityFounded", "CityTrained", "PlayerCanTrain",
             "CityCaptureComplete", "SetPopulation",
         ),
+        "EternalNumberTen/Lua/MessiRuntime.lua": (
+            "PlayerDoTurn", "PlayerCityFounded", "CityTrained", "CityConstructed",
+            "CityCaptureComplete", "UnitCreated", "UnitPrekill", "UnitConverted",
+            "UnitUpgraded", "TeamTechResearched", "PlayerGoldenAge", "SetAlly",
+            "BattleStarted", "BattleJoined", "BattleFinished",
+        ),
     }
     for relative, hooks in runtime_hooks.items():
         source = (ROOT / relative).read_text(encoding="utf-8-sig")
@@ -200,7 +211,8 @@ def check_ui_and_lua():
             assert texture.size == (width, height), f"Unreadable DDS payload: {path}"
         if path.name in {"RoulsLeader.dds", "FilthyLeader.dds", "FilthyDawn.dds",
                          "DualOrderLeader.dds", "DualOrderDawn.dds",
-                         "RomanGladiusLeader.dds", "RomanGladiusDawn.dds"}:
+                         "RomanGladiusLeader.dds", "RomanGladiusDawn.dds",
+                         "MessiLeader.dds", "MessiDawn.dds"}:
             assert (width, height) == (1600, 900), "Static leader scene must be 1600x900"
     directxtex_checks(dds_paths)
     print(f"PASS XML/control wiring, runtime hooks, DDS decode and Lua 5.1 syntax ({len(lua_files)} scripts)")
@@ -222,6 +234,7 @@ def apply_current_cp_schema(database, cp_root: Path):
         "Database Changes/City/Buildings/BuildingTableChanges.sql",
         "Database Changes/UnitPromotions/PromotionTableChanges.sql",
         "Database Changes/Units/UnitTableChanges.sql",
+        "Database Changes/Policies/PolicyTableChanges.sql",
         "Database Changes/AI/LeaderTableChanges.sql",
         "Database Changes/Civilizations/CivilizationTableChanges.sql",
     )
@@ -246,13 +259,19 @@ def apply_current_cp_schema(database, cp_root: Path):
     # cache backup. Only table shapes declared by the installed CP are used.
     for xml_path in sorted((cp_root / "Database Changes").rglob("*.xml")):
         try:
-            tree = ET.parse(xml_path)
+            root = ET.parse(xml_path).getroot()
         except ET.ParseError:
-            continue
-        for table in tree.findall("Table"):
+            # Some shipped CP schema files contain decorative comments with
+            # repeated "--", which Civ V accepts but strict XML parsers reject.
+            source = re.sub(r"<!--.*?-->", "", xml_path.read_text(encoding="utf-8-sig"), flags=re.S)
+            try:
+                root = ET.fromstring(source)
+            except ET.ParseError:
+                continue
+        for table in root.findall("Table"):
             name = table.get("name")
             if not name or not (name.startswith("Building_") or name.startswith("Unit_")
-                                or name in {"DiploModifiers"}):
+                                or name.startswith("Policy_") or name in {"DiploModifiers"}):
                 continue
             columns = []
             for column in table.findall("Column"):
@@ -274,12 +293,16 @@ def check_database(path: Path, cp_root: Path):
     # Allow validation against a cache which already contains this mod by
     # removing only its namespaced rows from the disposable in-memory clone.
     tables = [r[0] for r in database.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'")]
+    namespace_markers = (
+        "ROULS", "GPT_LUNA", "LUNA_", "GPT_TERRA", "TERRA_", "CAPANO", "FILTHY",
+        "DUAL_ORDER", "SEVERIN", "ROMAN_GLADIUS", "MESSI", "ETERNAL_NUMBER_TEN",
+    )
     for table in tables:
         columns = [r[1] for r in database.execute(f"PRAGMA table_info({quote(table)})")]
         predicate = " OR ".join(
-            f"CAST({quote(c)} AS TEXT) LIKE '%{prefix}%'"
+            f"INSTR(CAST({quote(c)} AS TEXT), '{marker}') > 0"
             for c in columns
-            for prefix in ("ROULS", "LUNA", "TERRA", "CAPANO", "FILTHY", "DUAL_ORDER", "SEVERIN", "ROMAN_GLADIUS")
+            for marker in namespace_markers
         )
         if predicate:
             try:
@@ -299,6 +322,7 @@ def check_database(path: Path, cp_root: Path):
         "CIVILIZATION_FILTHY_REALM",
         "CIVILIZATION_DUAL_ORDER",
         "CIVILIZATION_ROMAN_GLADIUS_NETWORK",
+        "CIVILIZATION_ETERNAL_NUMBER_TEN",
     ):
         assert database.execute(
             "SELECT COUNT(*) FROM Civilizations WHERE Type=?", (civilization,)
@@ -327,6 +351,11 @@ def check_database(path: Path, cp_root: Path):
         "ROMAN_GLADIUS_ALPHA_ATLAS": ("RomanGladiusAlpha", (256, 128, 80, 64, 48, 45, 32, 24, 16)),
         "ROMAN_GLADIUS_LEADER_ATLAS": ("RomanGladiusLeader", (256, 128, 64)),
         "ROMAN_GLADIUS_OBJECT_ATLAS": ("RomanGladiusObjects", (256, 128, 80, 64, 45, 32, 16)),
+        "MESSI_ICON_ATLAS": ("MessiIcon", (256, 128, 80, 64, 48, 45, 32, 24, 16)),
+        "MESSI_ALPHA_ATLAS": ("MessiAlpha", (256, 128, 80, 64, 48, 45, 32, 24, 16)),
+        "MESSI_LEADER_ATLAS": ("MessiLeader", (256, 128, 64)),
+        "MESSI_OBJECT_ATLAS": ("MessiObjects", (256, 128, 80, 64, 45, 32, 16)),
+        "MESSI_UNIT_FLAG_ATLAS": ("MessiUnitFlag", (32,)),
     }
     for atlas, (stem, sizes) in atlas_specs.items():
         actual = {row[0]: row[1] for row in database.execute(
@@ -457,6 +486,69 @@ def check_database(path: Path, cp_root: Path):
             f"Unsafe or visible RomanGladius dummy building: {building_type}"
         )
 
+    great_general = row("Units", "UNIT_GREAT_GENERAL")
+    number_ten = row("Units", "UNIT_MESSI_NUMBER_TEN")
+    assert number_ten["Moves"] == 2
+    for field in ("Class", "Special", "Domain", "DefaultUnitAI", "WorkRate"):
+        if field in number_ten.keys():
+            assert number_ten[field] == great_general[field], f"The Number Ten lost inherited {field}"
+    assert database.execute(
+        "SELECT COUNT(*) FROM Unit_FreePromotions WHERE UnitType='UNIT_MESSI_NUMBER_TEN' "
+        "AND PromotionType='PROMOTION_MESSI_NUMBER_TEN_MOBILITY'"
+    ).fetchone()[0] == 1
+    assert {r[0] for r in database.execute(
+        "SELECT BuildType FROM Unit_Builds WHERE UnitType='UNIT_MESSI_NUMBER_TEN'"
+    )} >= {"BUILD_CITADEL", "BUILD_MESSI_FOOTBALL_ACADEMY"}
+
+    garden = row("Buildings", "BUILDING_GARDEN")
+    la_masia = row("Buildings", "BUILDING_MESSI_LA_MASIA")
+    assert (la_masia["Cost"], la_masia["PrereqTech"], la_masia["FreshWater"],
+            la_masia["GreatPeopleRateModifier"]) == (135, "TECH_THEOLOGY", 0, 15)
+    assert la_masia["BuildingClass"] == garden["BuildingClass"]
+    assert yield_value("BUILDING_MESSI_LA_MASIA", "YIELD_CULTURE") == 1
+
+    academy = row("Improvements", "IMPROVEMENT_MESSI_FOOTBALL_ACADEMY")
+    assert academy["NearbyEnemyDamage"] == 0 and academy["DefenseModifier"] == 10
+    academy_yields = dict(database.execute(
+        "SELECT YieldType,Yield FROM Improvement_Yields "
+        "WHERE ImprovementType='IMPROVEMENT_MESSI_FOOTBALL_ACADEMY'"
+    ))
+    assert academy_yields == {"YIELD_CULTURE": 1, "YIELD_SCIENCE": 1}
+    assert database.execute(
+        "SELECT Yield FROM Improvement_TechYieldChanges WHERE "
+        "ImprovementType='IMPROVEMENT_MESSI_FOOTBALL_ACADEMY' AND "
+        "TechType='TECH_FLIGHT' AND YieldType='YIELD_TOURISM'"
+    ).fetchone()[0] == 1
+
+    chapter_2 = row("Policies", "POLICY_MESSI_CHAPTER_2")
+    chapter_3 = row("Policies", "POLICY_MESSI_CHAPTER_3")
+    chapter_5 = row("Policies", "POLICY_MESSI_CHAPTER_5")
+    assert chapter_2["IsDummy"] == 1 and chapter_2["GreatPeopleRateModifier"] == 6
+    assert chapter_3["GoldenAgeDurationMod"] == 10
+    assert chapter_5["MinorQuestFriendshipMod"] == 10 and chapter_5["GreatGeneralExtraBonus"] == 2
+    assert dict(database.execute(
+        "SELECT YieldType,Yield FROM Policy_GoldenAgeYieldMod "
+        "WHERE PolicyType='POLICY_MESSI_CHAPTER_6'"
+    )) == {"YIELD_SCIENCE": 6, "YIELD_TOURISM": 6}
+    assert database.execute(
+        "SELECT Yield FROM Policy_GreatWorkYieldChanges WHERE "
+        "PolicyType='POLICY_MESSI_CHAPTER_6' AND YieldType='YIELD_CULTURE'"
+    ).fetchone()[0] == 1
+    for building_type in (
+        "BUILDING_MESSI_CAPITAL_SPECIALIST_SCIENCE",
+        "BUILDING_MESSI_LA_MASIA_SPECIALIST_FOOD",
+        "BUILDING_MESSI_LA_MASIA_PRODUCTION",
+        "BUILDING_MESSI_WORLD_WONDER_CULTURE",
+        "BUILDING_MESSI_RESILIENCE_PRODUCTION",
+        "BUILDING_MESSI_ALLIED_CITY_STATE",
+        "BUILDING_MESSI_ACADEMY_GOLD",
+    ):
+        dummy = row("Buildings", building_type)
+        assert (dummy["Cost"], dummy["FaithCost"], dummy["NeverCapture"], dummy["NukeImmune"],
+                dummy["IsDummy"], dummy["ShowInPedia"]) == (-1, -1, 1, 1, 1, 0), (
+            f"Unsafe or visible Eternal Number Ten dummy building: {building_type}"
+        )
+
     def assert_companion_rows(key, base_type, unique_type, scalar_table, skip_tables=()):
         """Every CP/BNW relation attached to the base object must survive cloning."""
         for table in tables:
@@ -491,6 +583,8 @@ def check_database(path: Path, cp_root: Path):
     assert_companion_rows("BuildingType", "BUILDING_MONUMENT", "BUILDING_ROMAN_GLADIUS_SERVER_CONSOLE", "Buildings",
                           {"Building_Flavors", "Building_YieldChanges"})
     assert_companion_rows("UnitType", "UNIT_SETTLER", "UNIT_ROMAN_GLADIUS_SERVER_OWNER", "Units")
+    assert_companion_rows("BuildingType", "BUILDING_GARDEN", "BUILDING_MESSI_LA_MASIA", "Buildings",
+                          {"Building_YieldChanges"})
     assert all(row("Buildings", f"BUILDING_FILTHY_LEVEL_{level}")["ShowInPedia"] == 0 for level in range(1, 6))
     assert all(row("Buildings", f"BUILDING_FILTHY_DISTORTED_{level}")["ShowInPedia"] == 0 for level in range(1, 6))
     stopped = row("UnitPromotions", "PROMOTION_FILTHY_STOPPED")
@@ -500,6 +594,7 @@ def check_database(path: Path, cp_root: Path):
     assert start_techs("CIVILIZATION_FILTHY_REALM") == start_techs("CIVILIZATION_AMERICA"), "Filthy Realm gained a bonus starting technology"
     assert start_techs("CIVILIZATION_DUAL_ORDER") == start_techs("CIVILIZATION_AMERICA"), "Dual Order gained a bonus starting technology"
     assert start_techs("CIVILIZATION_ROMAN_GLADIUS_NETWORK") == start_techs("CIVILIZATION_AMERICA"), "RomanGladius gained a bonus starting technology"
+    assert start_techs("CIVILIZATION_ETERNAL_NUMBER_TEN") == start_techs("CIVILIZATION_AMERICA"), "Eternal Number Ten gained a bonus starting technology"
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_UNIT_PREKILL'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_BATTLES'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_UNIT_ACTIONS'").fetchone()[0] == 1
@@ -511,7 +606,12 @@ def check_database(path: Path, cp_root: Path):
     unresolved = set()
     translated = {r[0] for r in database.execute("SELECT Tag FROM Language_en_US")}
     for table in ("Civilizations", "Leaders", "Units", "Buildings", "UnitPromotions", "Traits"):
-        for item in database.execute(f"SELECT * FROM {quote(table)} WHERE Type LIKE '%ROULS%' OR Type LIKE '%FILTHY%' OR Type LIKE '%DUAL_ORDER%' OR Type LIKE '%SEVERIN%' OR Type LIKE '%ROMAN_GLADIUS%'"):
+        for item in database.execute(
+            f"SELECT * FROM {quote(table)} WHERE Type LIKE '%ROULS%' OR Type LIKE '%FILTHY%' "
+            "OR Type LIKE '%DUAL_ORDER%' OR Type LIKE '%SEVERIN%' OR Type LIKE '%ROMAN_GLADIUS%' "
+            "OR INSTR(Type,'MESSI_') > 0 OR Type='LEADER_LIONEL_MESSI' "
+            "OR INSTR(Type,'ETERNAL_NUMBER_TEN') > 0"
+        ):
             for field in ("Description", "ShortDescription", "Adjective", "Civilopedia", "Strategy", "Help", "Quote", "DawnOfManQuote"):
                 if field in item.keys() and isinstance(item[field], str) and item[field].startswith("TXT_KEY_") and item[field] not in translated:
                     unresolved.add(item[field])

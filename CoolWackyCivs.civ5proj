@@ -6,8 +6,8 @@
     <Name>Cool Wacky Civs</Name>
     <SafeName>Cool Wacky Civs</SafeName>
     <Guid>4c02158d-ad52-4b73-bf2a-555ce58a1e60</Guid>
-    <Teaser>Seven strange leaders. Seven stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, and The RomanGladius Network. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Eight strange leaders. Eight stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, and The Eternal Number Ten. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -27,7 +27,7 @@
     <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <HideSetupGame>false</HideSetupGame>
-    <ModVersion>11</ModVersion>
+    <ModVersion>12</ModVersion>
     <Stability>Alpha</Stability>
     <ModActions>
       <Action>
@@ -170,6 +170,26 @@
         <Type>UpdateDatabase</Type>
         <FileName>RomanGladiusNetwork/SQL/10_RomanGladius_Text.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>EternalNumberTen/SQL/00_Messi_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>EternalNumberTen/SQL/01_Messi_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>EternalNumberTen/SQL/02_Messi_UniqueEffects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>EternalNumberTen/SQL/10_Messi_Text.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -213,6 +233,12 @@
         <Name>The RomanGladius Network</Name>
         <Description>Network Dashboard, Server staff, Reputation, chat, events, milestones, and population yields.</Description>
         <FileName>RomanGladiusNetwork/UI/RomanGladiusPanel.xml</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>The Eternal Number Ten</Name>
+        <Description>Legacy, Career Chapters, formation warfare, Assists, Resilience, La Masia, and Epilogue progression.</Description>
+        <FileName>EternalNumberTen/UI/MessiLegacyPanel.xml</FileName>
       </Content>
     </ModContent>
     <ModDependencies>
@@ -985,6 +1011,46 @@
       <SubType>XML</SubType>
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
+    <Content Include="EternalNumberTen/Art/MessiAlpha128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiAlpha16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiAlpha24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiAlpha256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiAlpha32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiAlpha45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiAlpha48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiAlpha64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiAlpha80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiDawn.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiIcon128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiIcon16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiIcon24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiIcon256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiIcon32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiIcon45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiIcon48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiIcon64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiIcon80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiLeader.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiLeader128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiLeader256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiLeader64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiLeaderScene.xml"><SubType>XML</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiMap.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiObjects128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiObjects16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiObjects256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiObjects32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiObjects45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiObjects64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiObjects80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/MessiUnitFlag32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Lua/MessiRuntime.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/SQL/00_Messi_Core.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/SQL/01_Messi_Inheritance.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/SQL/02_Messi_UniqueEffects.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/SQL/10_Messi_Text.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/UI/MessiLegacyPanel.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/UI/MessiLegacyPanel.xml"><SubType>XML</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CapanoCircuit\Art\" />
@@ -1008,6 +1074,11 @@
     <Folder Include="RomanGladiusNetwork\Lua\" />
     <Folder Include="RomanGladiusNetwork\SQL\" />
     <Folder Include="RomanGladiusNetwork\UI\" />
+    <Folder Include="EternalNumberTen\" />
+    <Folder Include="EternalNumberTen\Art\" />
+    <Folder Include="EternalNumberTen\Lua\" />
+    <Folder Include="EternalNumberTen\SQL\" />
+    <Folder Include="EternalNumberTen\UI\" />
     <Folder Include="RoulsAscendancy\" />
     <Folder Include="LunaNetwork\" />
     <Folder Include="RoulsAscendancy\Art\" />

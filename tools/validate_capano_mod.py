@@ -174,6 +174,7 @@ def assert_vfs_flags(files: dict[str, tuple[bool, str]], context: str) -> None:
         should_import = not name.endswith(".sql") and name not in {
             "RoulsAscendancy/UI/RoulsPanel.xml", "FilthyRealm/UI/FilthyPanel.xml",
             "DualOrder/UI/DualOrderPanel.xml", "RomanGladiusNetwork/UI/RomanGladiusPanel.xml",
+            "EternalNumberTen/UI/MessiLegacyPanel.xml",
         }
         assert imported == should_import, (
             f"{context}: {name} has import={int(imported)}, expected {int(should_import)}"
