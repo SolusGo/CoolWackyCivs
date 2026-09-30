@@ -1,6 +1,6 @@
 # Cool Wacky Civs
 
-Cool Wacky Civs is one Civilization V: Brave New World mod containing eight civilizations built for the Community Patch. The repository has one ModBuddy solution, one project, one manifest, and one deployable package; each civilization keeps its own gameplay and implementation README.
+Cool Wacky Civs is one Civilization V: Brave New World mod containing nine civilizations built for the Community Patch. The repository has one ModBuddy solution, one project, one manifest, and one deployable package; each civilization keeps its own gameplay and implementation README.
 
 ## Civilizations
 
@@ -12,8 +12,9 @@ Cool Wacky Civs is one Civilization V: Brave New World mod containing eight civi
 - [The Dual Order](DualOrder/README.md) — Grandmaster Severin balances Faith and military infrastructure, converts active wars into capped Balance Pressure, and fields Divided Templars.
 - [The RomanGladius Network](RomanGladiusNetwork/README.md) — Lachlan grows Cities as multiplayer Servers, appoints staff, protects Reputation, resolves community incidents, and turns Players into Gold, Science, and Culture.
 - [The Eternal Number Ten](EternalNumberTen/README.md) — Lionel Messi builds a persistent Legacy through Great People, Wonders, diplomacy, and coordinated Assists, unlocking six permanent Career Chapters from Rosario to immortality.
+- [The Boy Beyond the Sky](MasayaBeyondSky/README.md) — child Masaya Hinata builds Joy of Flight through exploration, combat participation, promotions, and joyful practice before launching six-turn Beyond the Sky bursts.
 
-All eight civilizations are installed and enabled together. Rou'ls and Luna are human-only; Terra, Capano, Filthy Frank, Grandmaster Severin, Lachlan, and Lionel Messi also support AI selection with design-specific flavors and automated mechanics. The collection supports single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
+All nine civilizations are installed and enabled together. Rou'ls and Luna are human-only; Terra, Capano, Filthy Frank, Grandmaster Severin, Lachlan, Lionel Messi, and Masaya Hinata also support AI selection with design-specific flavors and automated mechanics. The collection supports single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
 
 ## Requirements
 
@@ -29,7 +30,7 @@ Install the repository-local development dependencies:
 python -m pip install --target .tools/python -r requirements-dev.txt
 ```
 
-Validate all eight civilizations and build the single collection package:
+Validate all nine civilizations and build the single collection package:
 
 ```powershell
 python tools/validate_all.py

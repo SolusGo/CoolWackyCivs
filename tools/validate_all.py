@@ -1,4 +1,4 @@
-"""Run the combined eight-civilization package and focused validation suites."""
+"""Run the combined nine-civilization package and focused validation suites."""
 from __future__ import annotations
 
 import subprocess
@@ -15,6 +15,7 @@ SCRIPTS = (
     "validate_dual_order_mod.py",
     "validate_roman_gladius_mod.py",
     "validate_messi_mod.py",
+    "validate_masaya_mod.py",
 )
 
 
@@ -22,7 +23,7 @@ def main() -> None:
     for script in SCRIPTS:
         print(f"\n=== {script} ===", flush=True)
         subprocess.run([sys.executable, str(REPO / "tools" / script)], cwd=REPO, check=True)
-    print("\nAll eight-civilization Cool Wacky Civs validation suites passed.")
+    print("\nAll nine-civilization Cool Wacky Civs validation suites passed.")
 
 
 if __name__ == "__main__":

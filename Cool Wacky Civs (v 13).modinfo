@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="12">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="13">
   <Properties>
     <Name>Cool Wacky Civs</Name>
-    <Teaser>Eight strange leaders. Eight stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, and The Eternal Number Ten. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Nine strange leaders. Nine stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, and The Boy Beyond the Sky. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -296,6 +296,43 @@
     <File md5="DD5678B18557DD8A03F88CA2292D5F21" import="0">EternalNumberTen/SQL/10_Messi_Text.sql</File>
     <File md5="312B252182631033931FC4BEDB6DE5D9" import="1">EternalNumberTen/UI/MessiLegacyPanel.lua</File>
     <File md5="5AC62D6F656FF6E6EF88F6DDB99ED150" import="0">EternalNumberTen/UI/MessiLegacyPanel.xml</File>
+    <File md5="F48A7B3E82BC6C7749A83E832A81F2B7" import="1">MasayaBeyondSky/Art/MasayaAlpha128.dds</File>
+    <File md5="820CF29F7A23E95C1980A9F2977B07D2" import="1">MasayaBeyondSky/Art/MasayaAlpha16.dds</File>
+    <File md5="A10062B5CA70ABD72F8A3BF52B4F6795" import="1">MasayaBeyondSky/Art/MasayaAlpha24.dds</File>
+    <File md5="8C8A1443B83B8D82C5EE01B295EEE2A2" import="1">MasayaBeyondSky/Art/MasayaAlpha256.dds</File>
+    <File md5="44F99879C7AFD35BB2561D5DEE487A62" import="1">MasayaBeyondSky/Art/MasayaAlpha32.dds</File>
+    <File md5="C7E9FFE79555CD7706B78057BFCF7736" import="1">MasayaBeyondSky/Art/MasayaAlpha45.dds</File>
+    <File md5="6215FB10E6C5C6865B816A4D2DD6701D" import="1">MasayaBeyondSky/Art/MasayaAlpha48.dds</File>
+    <File md5="BDE667F33A4725EEEBED78BD480DF609" import="1">MasayaBeyondSky/Art/MasayaAlpha64.dds</File>
+    <File md5="F0B97EE97C195BE12E76B3CF30D195AB" import="1">MasayaBeyondSky/Art/MasayaAlpha80.dds</File>
+    <File md5="5FEE49704E8A74AE11D89038BA22E071" import="1">MasayaBeyondSky/Art/MasayaDawn.dds</File>
+    <File md5="88B1D04B2F8E8DA4B56AF11DC2D98E88" import="1">MasayaBeyondSky/Art/MasayaIcon128.dds</File>
+    <File md5="D8D477CCA918326B8F57E2AE8496D68D" import="1">MasayaBeyondSky/Art/MasayaIcon16.dds</File>
+    <File md5="23FC897922A57C3992E03BC8747DD0D1" import="1">MasayaBeyondSky/Art/MasayaIcon24.dds</File>
+    <File md5="BF28DC40B7431E3434C72FAFCB1248F3" import="1">MasayaBeyondSky/Art/MasayaIcon256.dds</File>
+    <File md5="6314D3072ADFC1A4E8693CD3648E2949" import="1">MasayaBeyondSky/Art/MasayaIcon32.dds</File>
+    <File md5="13449FD1E13659F137EBF604FD6A57A5" import="1">MasayaBeyondSky/Art/MasayaIcon45.dds</File>
+    <File md5="3EF6B4945C74C41A4389B7B49BC66612" import="1">MasayaBeyondSky/Art/MasayaIcon48.dds</File>
+    <File md5="91446FEF49FED476A4E6CA30419211BA" import="1">MasayaBeyondSky/Art/MasayaIcon64.dds</File>
+    <File md5="8ABC55A3B3A43F34327DDE3DDB652A9B" import="1">MasayaBeyondSky/Art/MasayaIcon80.dds</File>
+    <File md5="BBD1FDED1CDEE164C306C27B41AC2A8B" import="1">MasayaBeyondSky/Art/MasayaLeader.dds</File>
+    <File md5="5B0B4B4A641187E9AD31B9D12251E075" import="1">MasayaBeyondSky/Art/MasayaLeaderScene.xml</File>
+    <File md5="E29140B23EC707B4751268EE7377A065" import="1">MasayaBeyondSky/Art/MasayaMap.dds</File>
+    <File md5="5D7956B15E2223A77CB591CC877CCDD0" import="1">MasayaBeyondSky/Art/MasayaObjects128.dds</File>
+    <File md5="B2674FC4893F7D98E6B6D3EEA45B424A" import="1">MasayaBeyondSky/Art/MasayaObjects16.dds</File>
+    <File md5="EEC614241F278B39424ED79ED90B8F7E" import="1">MasayaBeyondSky/Art/MasayaObjects256.dds</File>
+    <File md5="84EF4D2F3241513306BEA08C6BC27082" import="1">MasayaBeyondSky/Art/MasayaObjects32.dds</File>
+    <File md5="0274459DA99AC77A372FC0928DECC801" import="1">MasayaBeyondSky/Art/MasayaObjects45.dds</File>
+    <File md5="7DC5D07BB50F1B144C308D998E0A1310" import="1">MasayaBeyondSky/Art/MasayaObjects64.dds</File>
+    <File md5="140E6BEBEFC04D27137561CD7A518EA6" import="1">MasayaBeyondSky/Art/MasayaObjects80.dds</File>
+    <File md5="44F99879C7AFD35BB2561D5DEE487A62" import="1">MasayaBeyondSky/Art/MasayaUnitFlag32.dds</File>
+    <File md5="E4AE49010DEB37F50D6AF885A51F4717" import="1">MasayaBeyondSky/Lua/MasayaRuntime.lua</File>
+    <File md5="334A0CEE00D3B08D7A0A19B962144822" import="0">MasayaBeyondSky/SQL/00_Masaya_Core.sql</File>
+    <File md5="386274E3672113374B289F8E64D0EF1B" import="0">MasayaBeyondSky/SQL/01_Masaya_Inheritance.sql</File>
+    <File md5="503BA29BBC9D8B6D37085C4D4C21AFDE" import="0">MasayaBeyondSky/SQL/02_Masaya_UniqueEffects.sql</File>
+    <File md5="ED5C95FC1EFE65AC5EB79E4C83E63927" import="0">MasayaBeyondSky/SQL/10_Masaya_Text.sql</File>
+    <File md5="3B6B527AAB8B556F9EAD776EB7D5C9D9" import="1">MasayaBeyondSky/UI/MasayaJoyPanel.lua</File>
+    <File md5="0037635CC8E2CFAD4FD90A6B20827437" import="0">MasayaBeyondSky/UI/MasayaJoyPanel.xml</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -331,6 +368,10 @@
       <UpdateDatabase>EternalNumberTen/SQL/01_Messi_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>EternalNumberTen/SQL/02_Messi_UniqueEffects.sql</UpdateDatabase>
       <UpdateDatabase>EternalNumberTen/SQL/10_Messi_Text.sql</UpdateDatabase>
+      <UpdateDatabase>MasayaBeyondSky/SQL/00_Masaya_Core.sql</UpdateDatabase>
+      <UpdateDatabase>MasayaBeyondSky/SQL/01_Masaya_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>MasayaBeyondSky/SQL/02_Masaya_UniqueEffects.sql</UpdateDatabase>
+      <UpdateDatabase>MasayaBeyondSky/SQL/10_Masaya_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -369,6 +410,14 @@
     <EntryPoint type="InGameUIAddin" file="EternalNumberTen/UI/MessiLegacyPanel.xml">
       <Name>The Eternal Number Ten Legacy Panel</Name>
       <Description>Optional Legacy, Career Chapter, Third Star, and Epilogue interface.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="MasayaBeyondSky/Lua/MasayaRuntime.lua">
+      <Name>The Boy Beyond the Sky Runtime</Name>
+      <Description>Joy of Flight, exploration, combat participation, promotions, training, and Junior FC Prodigy gameplay.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="MasayaBeyondSky/UI/MasayaJoyPanel.xml">
+      <Name>The Boy Beyond the Sky Joy Panel</Name>
+      <Description>Event-driven Joy of Flight meter and threshold-state display.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

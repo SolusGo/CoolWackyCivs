@@ -61,6 +61,7 @@ def check_packaging():
     civ_roots = (
         "RoulsAscendancy", "LunaNetwork", "TerraFramework", "CapanoCircuit",
         "FilthyRealm", "DualOrder", "RomanGladiusNetwork", "EternalNumberTen",
+        "MasayaBeyondSky",
     )
     actual = {
         p.relative_to(ROOT).as_posix()
@@ -74,6 +75,7 @@ def check_packaging():
             "RoulsAscendancy/UI/RoulsPanel.xml", "FilthyRealm/UI/FilthyPanel.xml",
             "DualOrder/UI/DualOrderPanel.xml", "RomanGladiusNetwork/UI/RomanGladiusPanel.xml",
             "EternalNumberTen/UI/MessiLegacyPanel.xml",
+            "MasayaBeyondSky/UI/MasayaJoyPanel.xml",
         }:
             assert not imported, f"Database SQL must not import into VFS: {name}"
         else:
@@ -97,6 +99,8 @@ def check_packaging():
         "RomanGladiusNetwork/UI/RomanGladiusPanel.xml",
         "EternalNumberTen/Lua/MessiRuntime.lua",
         "EternalNumberTen/UI/MessiLegacyPanel.xml",
+        "MasayaBeyondSky/Lua/MasayaRuntime.lua",
+        "MasayaBeyondSky/UI/MasayaJoyPanel.xml",
     ], "Combined runtime entry points are incomplete or out of order"
     assert values["SupportsMultiplayer"] == "false", "Unvalidated multiplayer must remain disabled"
     dependencies = props.findall("m:ModDependencies/m:Association/m:Id", NS)
@@ -177,6 +181,10 @@ def check_ui_and_lua():
             "UnitUpgraded", "TeamTechResearched", "PlayerGoldenAge", "MinorAlliesChanged",
             "BattleStarted", "BattleJoined", "BattleFinished",
         ),
+        "MasayaBeyondSky/Lua/MasayaRuntime.lua": (
+            "PlayerDoTurn", "CityTrained", "UnitSetXY", "UnitCreated", "UnitPromoted",
+            "UnitConverted", "UnitUpgraded", "BattleStarted", "BattleJoined", "BattleFinished",
+        ),
     }
     for relative, hooks in runtime_hooks.items():
         source = (ROOT / relative).read_text(encoding="utf-8-sig")
@@ -213,7 +221,8 @@ def check_ui_and_lua():
         if path.name in {"RoulsLeader.dds", "FilthyLeader.dds", "FilthyDawn.dds",
                          "DualOrderLeader.dds", "DualOrderDawn.dds",
                          "RomanGladiusLeader.dds", "RomanGladiusDawn.dds",
-                         "MessiLeader.dds", "MessiDawn.dds"}:
+                         "MessiLeader.dds", "MessiDawn.dds",
+                         "MasayaLeader.dds", "MasayaDawn.dds"}:
             assert (width, height) == (1600, 900), "Static leader scene must be 1600x900"
     directxtex_checks(dds_paths)
     print(f"PASS XML/control wiring, runtime hooks, DDS decode and Lua 5.1 syntax ({len(lua_files)} scripts)")
@@ -297,6 +306,7 @@ def check_database(path: Path, cp_root: Path):
     namespace_markers = (
         "ROULS", "GPT_LUNA", "LUNA_", "GPT_TERRA", "TERRA_", "CAPANO", "FILTHY",
         "DUAL_ORDER", "SEVERIN", "ROMAN_GLADIUS", "MESSI", "ETERNAL_NUMBER_TEN",
+        "MASAYA_KID",
     )
     for table in tables:
         columns = [r[1] for r in database.execute(f"PRAGMA table_info({quote(table)})")]
@@ -324,6 +334,7 @@ def check_database(path: Path, cp_root: Path):
         "CIVILIZATION_DUAL_ORDER",
         "CIVILIZATION_ROMAN_GLADIUS_NETWORK",
         "CIVILIZATION_ETERNAL_NUMBER_TEN",
+        "CIVILIZATION_MASAYA_KID",
     ):
         assert database.execute(
             "SELECT COUNT(*) FROM Civilizations WHERE Type=?", (civilization,)
@@ -357,6 +368,10 @@ def check_database(path: Path, cp_root: Path):
         "MESSI_LEADER_ATLAS": ("MessiLeader", (256, 128, 64)),
         "MESSI_OBJECT_ATLAS": ("MessiObjects", (256, 128, 80, 64, 45, 32, 16)),
         "MESSI_UNIT_FLAG_ATLAS": ("MessiUnitFlag", (32,)),
+        "MASAYA_KID_ICON_ATLAS": ("MasayaIcon", (256, 128, 80, 64, 48, 45, 32, 24, 16)),
+        "MASAYA_KID_ALPHA_ATLAS": ("MasayaAlpha", (256, 128, 80, 64, 48, 45, 32, 24, 16)),
+        "MASAYA_KID_OBJECT_ATLAS": ("MasayaObjects", (256, 128, 80, 64, 45, 32, 16)),
+        "MASAYA_KID_UNIT_FLAG_ATLAS": ("MasayaUnitFlag", (32,)),
     }
     for atlas, (stem, sizes) in atlas_specs.items():
         actual = {row[0]: row[1] for row in database.execute(
@@ -586,6 +601,10 @@ def check_database(path: Path, cp_root: Path):
     assert_companion_rows("UnitType", "UNIT_SETTLER", "UNIT_ROMAN_GLADIUS_SERVER_OWNER", "Units")
     assert_companion_rows("BuildingType", "BUILDING_GARDEN", "BUILDING_MESSI_LA_MASIA", "Buildings",
                           {"Building_YieldChanges"})
+    assert_companion_rows("BuildingType", "BUILDING_BARRACKS", "BUILDING_MASAYA_KID_GRAV_ROOM", "Buildings",
+                          {"Building_YieldChanges"})
+    assert_companion_rows("UnitType", "UNIT_HORSEMAN", "UNIT_MASAYA_KID_FC_PRODIGY", "Units",
+                          {"Unit_FreePromotions"})
     assert all(row("Buildings", f"BUILDING_FILTHY_LEVEL_{level}")["ShowInPedia"] == 0 for level in range(1, 6))
     assert all(row("Buildings", f"BUILDING_FILTHY_DISTORTED_{level}")["ShowInPedia"] == 0 for level in range(1, 6))
     stopped = row("UnitPromotions", "PROMOTION_FILTHY_STOPPED")
@@ -596,6 +615,7 @@ def check_database(path: Path, cp_root: Path):
     assert start_techs("CIVILIZATION_DUAL_ORDER") == start_techs("CIVILIZATION_AMERICA"), "Dual Order gained a bonus starting technology"
     assert start_techs("CIVILIZATION_ROMAN_GLADIUS_NETWORK") == start_techs("CIVILIZATION_AMERICA"), "RomanGladius gained a bonus starting technology"
     assert start_techs("CIVILIZATION_ETERNAL_NUMBER_TEN") == start_techs("CIVILIZATION_AMERICA"), "Eternal Number Ten gained a bonus starting technology"
+    assert start_techs("CIVILIZATION_MASAYA_KID") == start_techs("CIVILIZATION_JAPAN"), "Masaya gained a bonus starting technology"
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_UNIT_PREKILL'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_BATTLES'").fetchone()[0] == 1
     assert database.execute("SELECT Value FROM CustomModOptions WHERE Name='EVENTS_UNIT_ACTIONS'").fetchone()[0] == 1
@@ -612,7 +632,7 @@ def check_database(path: Path, cp_root: Path):
             f"SELECT * FROM {quote(table)} WHERE Type LIKE '%ROULS%' OR Type LIKE '%FILTHY%' "
             "OR Type LIKE '%DUAL_ORDER%' OR Type LIKE '%SEVERIN%' OR Type LIKE '%ROMAN_GLADIUS%' "
             "OR INSTR(Type,'MESSI_') > 0 OR Type='LEADER_LIONEL_MESSI' "
-            "OR INSTR(Type,'ETERNAL_NUMBER_TEN') > 0"
+            "OR INSTR(Type,'ETERNAL_NUMBER_TEN') > 0 OR INSTR(Type,'MASAYA_KID') > 0"
         ):
             for field in ("Description", "ShortDescription", "Adjective", "Civilopedia", "Strategy", "Help", "Quote", "DawnOfManQuote"):
                 if field in item.keys() and isinstance(item[field], str) and item[field].startswith("TXT_KEY_") and item[field] not in translated:

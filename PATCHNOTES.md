@@ -1,5 +1,14 @@
 # Patch Notes
 
+## Version 13 — The Boy Beyond the Sky — 2026-09-30
+
+- Added child Masaya Hinata and the AI-playable Boy Beyond the Sky civilization.
+- Added the persistent 0-100 Joy of Flight meter, event-driven exploration/combat/promotion/level/training sources, Can't Stop Flying at 50, and six-turn Beyond the Sky activations at 100.
+- Added the Junior FC Prodigy Horseman replacement with Just One More Flight, Natural Prodigy, conditional Zone-of-Control immunity, and a dedicated small-scale unit flag.
+- Added the Grav-Shoe Practice Room Barracks replacement with Culture, Science, per-city garrison cadence, and Can’t Put Them Down trainees.
+- Added a compact event-driven Joy UI, full Civilopedia/diplomacy text, leader/Dawn/map art, complete icon/alpha/object atlases, and a reproducible art compiler based on the supplied concept sheet.
+- Bumped the combined collection from eight civilizations/version 12 to nine civilizations/version 13.
+
 ## Cool Wacky Civs version 12 — The Eternal Number Ten — 2026-09-25
 
 - Added Lionel Messi and The Eternal Number Ten as the collection's eighth civilization, built around persistent Legacy and six Era-gated Career Chapters.

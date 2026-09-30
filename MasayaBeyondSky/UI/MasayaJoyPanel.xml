@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Context ID="MasayaJoyPanel">
+  <Grid ID="JoyFrame" Anchor="C,T" Offset="0,72" Size="420,66" Style="GridBlackIndent8" Hidden="1">
+    <Box Anchor="L,C" Offset="2,0" Size="4,58" Color="42,150,245,255" />
+    <Image ID="JoyIcon" Anchor="L,T" Offset="12,8" Size="32,32" ConsumeMouse="0" />
+    <Label ID="JoyLabel" Anchor="L,T" Offset="54,7" Size="350,22" Font="TwCenMT18"
+      ColorSet="Beige_Black_Alpha" String="JOY OF FLIGHT  |  0 / 100" />
+    <Box Anchor="L,T" Offset="55,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill1" Anchor="L,T" Offset="56,33" Size="25,8" Color="53,164,250,255" />
+    <Box Anchor="L,T" Offset="85,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill2" Anchor="L,T" Offset="86,33" Size="25,8" Color="53,164,250,255" />
+    <Box Anchor="L,T" Offset="115,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill3" Anchor="L,T" Offset="116,33" Size="25,8" Color="53,164,250,255" />
+    <Box Anchor="L,T" Offset="145,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill4" Anchor="L,T" Offset="146,33" Size="25,8" Color="53,164,250,255" />
+    <Box Anchor="L,T" Offset="175,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill5" Anchor="L,T" Offset="176,33" Size="25,8" Color="235,202,92,255" />
+    <Box Anchor="L,T" Offset="205,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill6" Anchor="L,T" Offset="206,33" Size="25,8" Color="235,202,92,255" />
+    <Box Anchor="L,T" Offset="235,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill7" Anchor="L,T" Offset="236,33" Size="25,8" Color="235,202,92,255" />
+    <Box Anchor="L,T" Offset="265,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill8" Anchor="L,T" Offset="266,33" Size="25,8" Color="235,202,92,255" />
+    <Box Anchor="L,T" Offset="295,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill9" Anchor="L,T" Offset="296,33" Size="25,8" Color="235,202,92,255" />
+    <Box Anchor="L,T" Offset="325,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill10" Anchor="L,T" Offset="326,33" Size="25,8" Color="255,239,166,255" />
+    <Label ID="StateLabel" Anchor="L,B" Offset="55,3" Size="350,18" Font="TwCenMT14"
+      ColorSet="Beige_Black_Alpha" String="BUILD JOY THROUGH FLIGHT" />
+  </Grid>
+</Context>

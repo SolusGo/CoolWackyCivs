@@ -6,8 +6,8 @@
     <Name>Cool Wacky Civs</Name>
     <SafeName>Cool Wacky Civs</SafeName>
     <Guid>4c02158d-ad52-4b73-bf2a-555ce58a1e60</Guid>
-    <Teaser>Eight strange leaders. Eight stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, and The Eternal Number Ten. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Nine strange leaders. Nine stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, and The Boy Beyond the Sky. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -27,7 +27,7 @@
     <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <HideSetupGame>false</HideSetupGame>
-    <ModVersion>12</ModVersion>
+    <ModVersion>13</ModVersion>
     <Stability>Alpha</Stability>
     <ModActions>
       <Action>
@@ -190,6 +190,26 @@
         <Type>UpdateDatabase</Type>
         <FileName>EternalNumberTen/SQL/10_Messi_Text.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>MasayaBeyondSky/SQL/00_Masaya_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>MasayaBeyondSky/SQL/01_Masaya_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>MasayaBeyondSky/SQL/02_Masaya_UniqueEffects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>MasayaBeyondSky/SQL/10_Masaya_Text.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -245,6 +265,18 @@
         <Name>The Eternal Number Ten Legacy Panel</Name>
         <Description>Optional Legacy, Career Chapter, Third Star, and Epilogue interface.</Description>
         <FileName>EternalNumberTen/UI/MessiLegacyPanel.xml</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>The Boy Beyond the Sky Runtime</Name>
+        <Description>Joy of Flight, exploration, combat participation, promotions, training, and Junior FC Prodigy gameplay.</Description>
+        <FileName>MasayaBeyondSky/Lua/MasayaRuntime.lua</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>The Boy Beyond the Sky Joy Panel</Name>
+        <Description>Event-driven Joy of Flight meter and threshold-state display.</Description>
+        <FileName>MasayaBeyondSky/UI/MasayaJoyPanel.xml</FileName>
       </Content>
     </ModContent>
     <ModDependencies>
@@ -1057,6 +1089,43 @@
     <Content Include="EternalNumberTen/SQL/10_Messi_Text.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
     <Content Include="EternalNumberTen/UI/MessiLegacyPanel.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
     <Content Include="EternalNumberTen/UI/MessiLegacyPanel.xml"><SubType>XML</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaAlpha128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaAlpha16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaAlpha24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaAlpha256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaAlpha32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaAlpha45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaAlpha48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaAlpha64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaAlpha80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaDawn.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaIcon128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaIcon16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaIcon24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaIcon256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaIcon32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaIcon45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaIcon48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaIcon64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaIcon80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaLeader.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaLeaderScene.xml"><SubType>XML</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaMap.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaObjects128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaObjects16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaObjects256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaObjects32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaObjects45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaObjects64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaObjects80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/MasayaUnitFlag32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Lua/MasayaRuntime.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/SQL/00_Masaya_Core.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/SQL/01_Masaya_Inheritance.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/SQL/02_Masaya_UniqueEffects.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/SQL/10_Masaya_Text.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/UI/MasayaJoyPanel.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/UI/MasayaJoyPanel.xml"><SubType>XML</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CapanoCircuit\Art\" />
@@ -1085,6 +1154,11 @@
     <Folder Include="EternalNumberTen\Lua\" />
     <Folder Include="EternalNumberTen\SQL\" />
     <Folder Include="EternalNumberTen\UI\" />
+    <Folder Include="MasayaBeyondSky\" />
+    <Folder Include="MasayaBeyondSky\Art\" />
+    <Folder Include="MasayaBeyondSky\Lua\" />
+    <Folder Include="MasayaBeyondSky\SQL\" />
+    <Folder Include="MasayaBeyondSky\UI\" />
     <Folder Include="RoulsAscendancy\" />
     <Folder Include="LunaNetwork\" />
     <Folder Include="RoulsAscendancy\Art\" />
