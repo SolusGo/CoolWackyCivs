@@ -1,11 +1,15 @@
 -- Masaya Hinata: Joy of Flight, combat participation, exploration, training,
--- and the Junior FC Prodigy. Loaded once as an InGameUIAddin under CP v151+.
+-- and the Junior FC Prodigy. Loaded once per gameplay Lua context as an
+-- InGameUIAddin under CP v151+.
+
+-- _G is private to a Lua context.  A shared MapModData guard can become stale
+-- when Civ V recreates the gameplay context, so it must not own registration.
+if rawget(_G, "__MASAYA_KID_RUNTIME_CONTEXT_LOADED") then return end
+rawset(_G, "__MASAYA_KID_RUNTIME_CONTEXT_LOADED", true)
 
 MapModData = MapModData or {}
 MapModData.MasayaKid = MapModData.MasayaKid or {}
 local M = MapModData.MasayaKid
-if M.RuntimeLoaded then return end
-M.RuntimeLoaded = true
 
 local function ID(name) return GameInfoTypes[name] end
 local I = {
@@ -129,12 +133,21 @@ local function getUnitState(unit)
     end
     return data
 end
+local function hasUnitState(unit)
+    return unit ~= nil and (unit:GetScriptData() or ""):match(marker) ~= nil
+end
 local function setUnitState(unit, data)
     if not unit then return end
     local original = (unit:GetScriptData() or ""):gsub(marker, "")
     local values = {}
     for index, key in ipairs(fields) do values[index] = data[key] or defaults[key] end
     unit:SetScriptData(original .. "[MASAYAKID1:" .. table.concat(values, ",") .. "]")
+end
+local function clearUnitState(unit)
+    if not unit then return end
+    local original = unit:GetScriptData() or ""
+    local cleaned, removed = original:gsub(marker, "")
+    if removed > 0 then unit:SetScriptData(cleaned) end
 end
 local function identify(unit)
     local data = getUnitState(unit)
@@ -148,10 +161,23 @@ local function identify(unit)
 end
 
 local refreshPlayer
+local function clearDynamicPromotions(unit)
+    setPromo(unit, I.CantStopXP, false)
+    setPromo(unit, I.CantStopMove, false)
+    setPromo(unit, I.Beyond, false)
+    setPromo(unit, I.ProdigyZOC, false)
+    setPromo(unit, I.CantPutActive, false)
+    setPromo(unit, I.CantPut, false)
+end
 local function refreshUnit(unit, state)
     if not unit then return end
     local ownerMasaya = isMasaya(unit:GetOwner())
-    local land = ownerMasaya and isLandMilitary(unit)
+    if not ownerMasaya then
+        clearDynamicPromotions(unit)
+        return
+    end
+    state = state or getState(unit:GetOwner())
+    local land = isLandMilitary(unit)
     local beyond = land and beyondActive(state)
     local cantStop = land and not beyond and state.joy >= 50
     setPromo(unit, I.CantStopXP, cantStop)
@@ -159,11 +185,11 @@ local function refreshUnit(unit, state)
     setPromo(unit, I.Beyond, beyond)
 
     local data = identify(unit)
-    local cantPutActive = ownerMasaya and unit:IsHasPromotion(I.CantPut)
+    local cantPutActive = unit:IsHasPromotion(I.CantPut)
         and data.createdTurn >= 0 and turn() - data.createdTurn < 10
     setPromo(unit, I.CantPutActive, cantPutActive)
 
-    local zoc = ownerMasaya and unit:GetUnitType() == I.Prodigy and unit:GetMoves() > MOVE
+    local zoc = unit:GetUnitType() == I.Prodigy and unit:GetMoves() > MOVE
     setPromo(unit, I.ProdigyZOC, zoc)
 end
 refreshPlayer = function(playerID)
@@ -327,26 +353,43 @@ local function prepareBattle()
     local battle = battles[#battles]
     if not battle or battle.prepared or not battle.attacker or not battle.defender then return end
     battle.prepared = true
-    if battle.attacker.isCity or battle.defender.isCity then return end
-    local attacker = getUnit(battle.attacker.playerID, battle.attacker.id)
-    local defender = getUnit(battle.defender.playerID, battle.defender.id)
-    if not isMilitary(attacker) or not isMilitary(defender) then return end
-    local ap, dp = Players[attacker:GetOwner()], Players[defender:GetOwner()]
+    local attacker = battle.attacker.isCity
+        and getCity(battle.attacker.playerID, battle.attacker.id)
+        or getUnit(battle.attacker.playerID, battle.attacker.id)
+    local defender = battle.defender.isCity
+        and getCity(battle.defender.playerID, battle.defender.id)
+        or getUnit(battle.defender.playerID, battle.defender.id)
+    if not attacker or not defender then return end
+    local attackerUnit = not battle.attacker.isCity and attacker or nil
+    local defenderUnit = not battle.defender.isCity and defender or nil
+    if (attackerUnit and not isMilitary(attackerUnit))
+        or (defenderUnit and not isMilitary(defenderUnit)) then return end
+    local ap, dp = Players[battle.attacker.playerID], Players[battle.defender.playerID]
     if not ap or not dp or ap:GetTeam() == dp:GetTeam() then return end
 
-    battle.valid, battle.attackerUnit, battle.defenderUnit = true, attacker, defender
-    battle.attackStrength = attackStrength(attacker, defender)
-    battle.defenseStrength = defenseStrength(defender, attacker)
-    battle.members = {
-        {playerID=attacker:GetOwner(),unitID=attacker:GetID(),xp=attacker:GetExperience(),
-            enemyPlayerID=defender:GetOwner(),enemyUnitID=defender:GetID(),
-            strong=battle.defenseStrength >= battle.attackStrength},
-        {playerID=defender:GetOwner(),unitID=defender:GetID(),xp=defender:GetExperience(),
-            enemyPlayerID=attacker:GetOwner(),enemyUnitID=attacker:GetID(),
-            strong=battle.attackStrength >= battle.defenseStrength}
-    }
-    if isMasaya(ap) then applyNatural(attacker, defender) end
-    if isMasaya(dp) then applyNatural(defender, attacker) end
+    battle.members = {}
+    if attackerUnit then
+        battle.members[#battle.members + 1] = {
+            playerID=battle.attacker.playerID,unitID=attackerUnit:GetID(),
+            xp=attackerUnit:GetExperience(),strong=false}
+    end
+    if defenderUnit then
+        battle.members[#battle.members + 1] = {
+            playerID=battle.defender.playerID,unitID=defenderUnit:GetID(),
+            xp=defenderUnit:GetExperience(),strong=false}
+    end
+    battle.valid = #battle.members > 0
+
+    -- Effective-strength comparisons and Natural Prodigy only make sense when
+    -- both combatants are units.  Unit-city combat still records participation.
+    if attackerUnit and defenderUnit then
+        battle.attackStrength = attackStrength(attackerUnit, defenderUnit)
+        battle.defenseStrength = defenseStrength(defenderUnit, attackerUnit)
+        battle.members[1].strong = battle.defenseStrength >= battle.attackStrength
+        battle.members[2].strong = battle.attackStrength >= battle.defenseStrength
+        if isMasaya(ap) then applyNatural(attackerUnit, defenderUnit) end
+        if isMasaya(dp) then applyNatural(defenderUnit, attackerUnit) end
+    end
 end
 local function onBattleStarted(battleType, x, y)
     battles[#battles + 1] = {battleType=battleType,x=x,y=y,prepared=false}
@@ -388,7 +431,13 @@ local function onBattleFinished()
                 changeJoy(member.playerID, 3, "TXT_KEY_MASAYA_KID_SOURCE_STRONG")
             end
             local unit = getUnit(member.playerID, member.unitID)
-            if unit then processSurvivingCombat(member, unit); clearNatural(unit) end
+            if unit then
+                processSurvivingCombat(member, unit)
+                clearNatural(unit)
+                -- Attacks can spend movement without UnitSetXY, so refresh the
+                -- Prodigy's conditional IgnoreZOC state after every combat.
+                refreshUnit(unit, getState(member.playerID))
+            end
         else
             clearNatural(getUnit(member.playerID, member.unitID))
         end
@@ -459,36 +508,32 @@ local function onCityTrained(playerID, cityID, unitID)
 end
 local function onUnitCreated(playerID, unitID)
     local unit = getUnit(playerID, unitID)
-    if not unit then return end
+    if not unit or not isMasaya(playerID) then return end
     identify(unit)
     clearNatural(unit)
-    if isMasaya(playerID) then
-        if unit:GetUnitType() == I.Prodigy then
-            setPromo(unit, I.Inherent, true)
-            setPromo(unit, I.MoreFlight, true)
-            setPromo(unit, I.Natural, true)
-        end
-        refreshUnit(unit, getState(playerID))
+    if unit:GetUnitType() == I.Prodigy then
+        setPromo(unit, I.Inherent, true)
+        setPromo(unit, I.MoreFlight, true)
+        setPromo(unit, I.Natural, true)
     end
+    refreshUnit(unit, getState(playerID))
 end
 local function onUnitConverted(oldPlayerID, newPlayerID, oldUnitID, newUnitID, isUpgrade)
     local oldUnit, newUnit = getUnit(oldPlayerID, oldUnitID), getUnit(newPlayerID, newUnitID)
     if not newUnit then return true end
-    local data = oldUnit and getUnitState(oldUnit) or identify(newUnit)
-    if oldPlayerID ~= newPlayerID and not isMasaya(oldPlayerID) then
-        data = identify(newUnit)
-        if newUnit:GetLevel() >= 4 then data.levelFour = 1 end
-    end
-    setUnitState(newUnit, data)
     clearNatural(newUnit)
-    if isMasaya(newPlayerID) then refreshUnit(newUnit, getState(newPlayerID))
+    if isMasaya(newPlayerID) then
+        local data
+        if oldUnit and hasUnitState(oldUnit) then data = getUnitState(oldUnit)
+        elseif hasUnitState(newUnit) then data = getUnitState(newUnit)
+        else data = identify(newUnit) end
+        if newUnit:GetLevel() >= 4 then data.levelFour = 1 end
+        setUnitState(newUnit, data)
+        refreshUnit(newUnit, getState(newPlayerID))
     else
-        setPromo(newUnit, I.CantStopXP, false)
-        setPromo(newUnit, I.CantStopMove, false)
-        setPromo(newUnit, I.Beyond, false)
-        setPromo(newUnit, I.ProdigyZOC, false)
-        setPromo(newUnit, I.CantPutActive, false)
-        setPromo(newUnit, I.CantPut, false)
+        -- Captures/gifts out of the civilization shed only our namespaced data.
+        clearUnitState(newUnit)
+        clearDynamicPromotions(newUnit)
     end
     return true
 end
@@ -519,20 +564,18 @@ local function initialize()
             if isMasaya(player) then initializeRevealed(player:GetTeam()) end
             for unit in player:Units() do
                 clearNatural(unit)
-                local data = identify(unit)
                 if isMasaya(player) then
+                    local data = identify(unit)
                     if data.levelFour == 0 and unit:GetLevel() >= 4 then
                         data.levelFour = 1
                         setUnitState(unit, data)
                     end
                     refreshUnit(unit, getState(playerID))
                 else
-                    setPromo(unit, I.CantStopXP, false)
-                    setPromo(unit, I.CantStopMove, false)
-                    setPromo(unit, I.Beyond, false)
-                    setPromo(unit, I.ProdigyZOC, false)
-                    setPromo(unit, I.CantPutActive, false)
-                    setPromo(unit, I.CantPut, false)
+                    -- Clean markers written by pre-fix versions without touching
+                    -- any other mod's ScriptData.
+                    clearUnitState(unit)
+                    clearDynamicPromotions(unit)
                 end
             end
         end
@@ -544,12 +587,14 @@ M.GetState = getState
 M.GetUIState = getUIState
 M.GetUnitState = getUnitState
 M.SetUnitState = setUnitState
+M.HasUnitState = hasUnitState
 M.ChangeJoy = changeJoy
 M.RefreshPlayer = refreshPlayer
 M.OnPlayerDoTurn = onPlayerDoTurn
 M.OnUnitSetXY = onUnitSetXY
 M.OnUnitPromoted = onUnitPromoted
 M.OnUnitCreated = onUnitCreated
+M.OnUnitConverted = onUnitConverted
 M.OnCityTrained = onCityTrained
 M.OnBattleStarted = onBattleStarted
 M.OnBattleJoined = onBattleJoined
@@ -562,11 +607,6 @@ if GameEvents.UnitSetXY then GameEvents.UnitSetXY.Add(onUnitSetXY) end
 if GameEvents.UnitCreated then GameEvents.UnitCreated.Add(onUnitCreated) end
 if GameEvents.UnitPromoted then GameEvents.UnitPromoted.Add(onUnitPromoted) end
 if GameEvents.UnitConverted then GameEvents.UnitConverted.Add(onUnitConverted) end
-if GameEvents.UnitUpgraded then
-    GameEvents.UnitUpgraded.Add(function(playerID, oldUnitID, newUnitID)
-        return onUnitConverted(playerID, playerID, oldUnitID, newUnitID, true)
-    end)
-end
 if GameEvents.BattleStarted then GameEvents.BattleStarted.Add(onBattleStarted) end
 if GameEvents.BattleJoined then GameEvents.BattleJoined.Add(onBattleJoined) end
 if GameEvents.BattleFinished then GameEvents.BattleFinished.Add(onBattleFinished) end

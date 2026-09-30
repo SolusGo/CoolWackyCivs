@@ -88,7 +88,7 @@ def database_checks(path: Path, cp_root: Path) -> None:
 
     inherent = row("UnitPromotions", "PROMOTION_MASAYA_KID_PRODIGY_INHERENT")
     assert (inherent["IgnoreTerrainCost"], inherent["CanMoveAfterAttacking"],
-            inherent["River"], inherent["CityAttack"]) == (1, 1, 1, -33)
+            inherent["River"], inherent["CityAttack"]) == (1, 1, 1, 0)
     beyond = row("UnitPromotions", "PROMOTION_MASAYA_KID_BEYOND_SKY")
     assert (beyond["MovesChange"], beyond["IgnoreTerrainCost"], beyond["AttackMod"],
             beyond["ExperiencePercent"], beyond["River"]) == (1, 1, 15, 50, 1)
@@ -104,6 +104,14 @@ def database_checks(path: Path, cp_root: Path) -> None:
         "PROMOTION_MASAYA_KID_JUST_ONE_MORE_FLIGHT",
         "PROMOTION_MASAYA_KID_NATURAL_PRODIGY",
     } <= free_promotions
+    city_penalties = [tuple(result) for result in database.execute(
+        "SELECT ufp.PromotionType,up.CityAttack FROM Unit_FreePromotions ufp "
+        "JOIN UnitPromotions up ON up.Type=ufp.PromotionType "
+        "WHERE ufp.UnitType='UNIT_MASAYA_KID_FC_PRODIGY' AND up.CityAttack<>0"
+    )]
+    assert city_penalties == [("PROMOTION_CITY_PENALTY", -33)], (
+        f"Prodigy city penalty must be inherited exactly once: {city_penalties}"
+    )
 
     tables = [result[0] for result in database.execute(
         "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'"
@@ -219,6 +227,12 @@ def package_and_art_checks() -> None:
     panel_root = ET.parse(ROOT / "UI/MasayaJoyPanel.xml").getroot()
     ids = {element.attrib["ID"] for element in panel_root.iter() if "ID" in element.attrib}
     assert {"JoyFrame", "JoyIcon", "JoyLabel", "StateLabel", *{f"Fill{i}" for i in range(1,11)}} <= ids
+    runtime_source = (ROOT / "Lua/MasayaRuntime.lua").read_text(encoding="utf-8-sig")
+    panel_source = (ROOT / "UI/MasayaJoyPanel.lua").read_text(encoding="utf-8-sig")
+    assert 'include("MasayaRuntime")' not in panel_source
+    assert "GameEvents." not in panel_source, "UI must not own gameplay event handlers"
+    assert "M.RuntimeLoaded" not in runtime_source
+    assert "__MASAYA_KID_RUNTIME_CONTEXT_LOADED" in runtime_source
     print(f"PASS Masaya packaging/art: {len(shipped)} shipped files and {len(list((ROOT/'Art').glob('*.dds')))} DDS textures")
 
 
@@ -231,7 +245,7 @@ def lua_behavior_checks() -> None:
     passed, message = compile_lua(source)
     assert passed, message
     lua.execute(r'''
-MapModData={}; saved={}
+MapModData={MasayaKid={RuntimeLoaded=true}}; saved={}
 Modding={OpenSaveData=function()return {GetValue=function(k)return saved[k] end,
  SetValue=function(k,v)saved[k]=v end}end}
 GameInfoTypes={CIVILIZATION_MASAYA_KID=1,UNIT_MASAYA_KID_FC_PRODIGY=10,
@@ -319,16 +333,27 @@ end
 Players={[0]=NewPlayer(0,1),[1]=NewPlayer(1,99)}
 local prodigy=NewUnit(0,10,12,0,0,51);local scout=NewUnit(0,11,8,1,0,50)
 local enemy=NewUnit(1,12,20,0,1,51)
+enemy.script='[OTHER:abc]';prodigy.promotions[39]=true;prodigy.promotions[40]=true
 Players[0].unitList={prodigy,scout};Players[1].unitList={enemy}
 local city=NewCity(0,1,0,0);city.garrison=prodigy;Players[0].cityList={city}
-TestProdigy=prodigy;TestScout=scout;TestEnemy=enemy;TestCity=city;TestHidden=hidden
+local enemyCity=NewCity(1,2,0,2);Players[1].cityList={enemyCity}
+TestProdigy=prodigy;TestScout=scout;TestEnemy=enemy;TestCity=city
+TestEnemyCity=enemyCity;TestHidden=hidden
 ''')
     lua.execute(source)
+    lua.execute(source)  # Same-context includes must not duplicate registrations.
     lua.execute(r'''
 local M=MapModData.MasayaKid; local p=Players[0]; local prodigy=TestProdigy; local scout=TestScout
-local enemy=TestEnemy; local hidden=TestHidden
+local enemy=TestEnemy; local enemyCity=TestEnemyCity; local hidden=TestHidden
+assert(not prodigy:IsHasPromotion(39) and not prodigy:IsHasPromotion(40),'load did not scrub Natural bonuses')
+assert(enemy.script=='[OTHER:abc]' and not M.HasUnitState(enemy),'foreign unit ScriptData was modified on load')
+M.OnUnitCreated(1,enemy:GetID())
+assert(enemy.script=='[OTHER:abc]' and not M.HasUnitState(enemy),'foreign creation wrote Masaya ScriptData')
 M.OnUnitCreated(0,prodigy:GetID())
-for name,event in pairs(GameEvents)do assert(#event.handlers==1,'missing/duplicate '..name)end
+for name,event in pairs(GameEvents)do
+ local expected=name=='UnitUpgraded' and 0 or 1
+ assert(#event.handlers==expected,'wrong handler count for '..name)
+end
 M.ChangeJoy(0,49,'test');assert(M.GetState(0).joy==49 and not prodigy:IsHasPromotion(35))
 M.ChangeJoy(0,1,'test');assert(prodigy:IsHasPromotion(35) and prodigy:IsHasPromotion(36))
 assert(scout:IsHasPromotion(35) and scout:IsHasPromotion(36),'threshold bonuses missing')
@@ -336,6 +361,14 @@ assert(scout:IsHasPromotion(35) and scout:IsHasPromotion(36),'threshold bonuses 
 local trainee=NewUnit(0,11,8,0,0,50);p.unitList[#p.unitList+1]=trainee
 M.OnCityTrained(0,1,trainee:GetID())
 assert(trainee.xp==5 and trainee:IsHasPromotion(33) and trainee:IsHasPromotion(34),'training effects missing')
+
+-- Participation rewards require actual combat XP; merely receiving battle
+-- callbacks against a city must not fake the generic or Practice Room reward.
+local noXPJoy=M.GetState(0).joy
+M.OnBattleStarted(0,0,0);M.OnBattleJoined(0,trainee:GetID(),0,false);M.OnBattleJoined(1,enemyCity:GetID(),1,true)
+M.OnBattleFinished()
+assert(M.GetState(0).joy==noXPJoy and M.GetUnitState(trainee).firstCombatJoy==0,
+ 'city callback without combat XP awarded participation Joy')
 
 local before=M.GetState(0).joy;trainee.level=4;M.OnUnitPromoted(0,trainee:GetID(),999)
 assert(M.GetState(0).joy==before+15,'promotion plus first Level 4 reward incorrect')
@@ -362,17 +395,95 @@ assert(not prodigy:IsHasPromotion(39) and not prodigy:IsHasPromotion(40),'tempor
 M.OnBattleStarted(0,0,0);M.OnBattleJoined(0,prodigy:GetID(),0,false);M.OnBattleJoined(1,enemy:GetID(),1,false)
 prodigy.xp=prodigy.xp+3;M.OnBattleFinished();assert(M.GetState(0).joy==12,'per-turn combat cap incorrect')
 
+-- Unit-city and city-unit battles still pay normal survived-combat rewards,
+-- never apply Natural/strong-opponent logic, and refresh movement-based ZOC.
+M.GetState(0).joy=0;saved.MASAYA_KID_V1_P0_JOY=0;SetTurn(21)
+local cityProdigy=NewUnit(0,10,12,0,0,51);p.unitList[#p.unitList+1]=cityProdigy
+M.OnUnitCreated(0,cityProdigy:GetID());M.OnCityTrained(0,1,cityProdigy:GetID())
+cityProdigy.moves=60
+M.OnBattleStarted(0,0,0);M.OnBattleJoined(0,cityProdigy:GetID(),0,false);M.OnBattleJoined(1,enemyCity:GetID(),1,true)
+assert(not cityProdigy:IsHasPromotion(39) and not cityProdigy:IsHasPromotion(40),
+ 'Natural Prodigy applied against a city')
+cityProdigy.xp=cityProdigy.xp+3;M.OnBattleFinished()
+assert(M.GetState(0).joy==6 and cityProdigy.xp==4,
+ 'first city combat did not pay combat/Cant Put/flight rewards')
+assert(not cityProdigy:IsHasPromotion(38),'post-combat ZOC stayed active at one move')
+
+cityProdigy.moves=120
+M.OnBattleStarted(0,0,0);M.OnBattleJoined(0,cityProdigy:GetID(),0,false);M.OnBattleJoined(1,enemyCity:GetID(),1,true)
+cityProdigy.xp=cityProdigy.xp+3;M.OnBattleFinished()
+assert(M.GetState(0).joy==8 and cityProdigy:IsHasPromotion(38),
+ 'second city combat reward or post-combat ZOC refresh incorrect')
+
+M.OnBattleStarted(0,0,0);M.OnBattleJoined(1,enemyCity:GetID(),0,true);M.OnBattleJoined(0,cityProdigy:GetID(),1,false)
+cityProdigy.xp=cityProdigy.xp+3;M.OnBattleFinished()
+assert(M.GetState(0).joy==10 and M.GetUnitState(cityProdigy).prodigyCombats==3,
+ 'city-defender combat or first-three flight cap incorrect')
+
+local doomed=NewUnit(0,10,12,0,0,51);p.unitList[#p.unitList+1]=doomed
+M.OnUnitCreated(0,doomed:GetID());local doomedJoy=M.GetState(0).joy
+M.OnBattleStarted(0,0,0);M.OnBattleJoined(0,doomed:GetID(),0,false);M.OnBattleJoined(1,enemyCity:GetID(),1,true)
+for i,u in ipairs(p.unitList)do if u==doomed then table.remove(p.unitList,i);break end end
+M.OnBattleFinished();assert(M.GetState(0).joy==doomedJoy and doomed.xp==0,
+ 'destroyed unit received survived-combat rewards')
+
+-- UnitConverted is the sole upgrade path and preserves the full state block.
+local oldState=M.GetUnitState(trainee);oldState.prodigyCombats=2;oldState.exploreXP=4
+oldState.firstCombatJoy=1;M.SetUnitState(trainee,oldState)
+local upgraded=NewUnit(0,11,8,0,0,50);upgraded.script='[OTHER:new]';p.unitList[#p.unitList+1]=upgraded
+GameEvents.UnitConverted.handlers[1](0,0,trainee:GetID(),upgraded:GetID(),true)
+local upgradedState=M.GetUnitState(upgraded)
+assert(upgradedState.serial==oldState.serial and upgradedState.prodigyCombats==2
+ and upgradedState.exploreXP==4 and upgradedState.firstCombatJoy==1,
+ 'upgrade did not preserve Masaya state exactly once')
+assert(upgraded.script:find('[OTHER:new]',1,true),'upgrade overwrote other ScriptData')
+
+local gifted=NewUnit(1,11,8,0,1,50);gifted.script='[OTHER:keep]';Players[1].unitList[#Players[1].unitList+1]=gifted
+M.OnUnitConverted(0,1,trainee:GetID(),gifted:GetID(),false)
+assert(gifted.script=='[OTHER:keep]' and not M.HasUnitState(gifted),
+ 'conversion out retained Masaya state or damaged other ScriptData')
+
 -- A plot not revealed when the cache was built awards Joy and trainee XP once.
 local traineeState=M.GetUnitState(trainee);traineeState.createdTurn=20;M.SetUnitState(trainee,traineeState)
 hidden.revealed[0]=true;trainee.x=3;trainee.y=0;M.OnUnitSetXY(0,trainee:GetID(),3,0)
-assert(M.GetState(0).joy==13 and trainee.xp==6,'exploration reward incorrect')
-M.OnUnitSetXY(0,trainee:GetID(),3,0);assert(M.GetState(0).joy==13,'tile paid twice')
+assert(M.GetState(0).joy==11 and trainee.xp==6,'exploration reward incorrect')
+M.OnUnitSetXY(0,trainee:GetID(),3,0);assert(M.GetState(0).joy==11,'tile paid twice')
 
 -- Practice Room counters pause and pay independently every third garrisoned turn.
 M.GetState(0).joy=0;saved.MASAYA_KID_V1_P0_JOY=0
 for t=30,32 do SetTurn(t);M.OnPlayerDoTurn(0) end
 assert(M.GetState(0).joy==1,'Practice Room three-turn cadence incorrect')
-print('PASS Masaya runtime: thresholds, promotion/level, Beyond, combat, exploration, training, and garrison cadence')
+M.PlayerState[0]=nil
+assert(M.GetState(0).joy==1 and M.GetUnitState(upgraded).serial==oldState.serial,
+ 'player or unit state did not survive a save-backed reload')
+print('PASS Masaya runtime: context ownership, scoped persistence, city/unit combat, upgrades, thresholds, exploration, training, and garrison cadence')
+''')
+
+    # The panel is a read-only consumer and must load safely before the runtime.
+    panel = LuaRuntime(unpack_returned_tuples=True)
+    panel.execute(r'''
+Includes={};function include(name)Includes[#Includes+1]=name end
+local function event()local e={handlers={}};e.Add=function(f)e.handlers[#e.handlers+1]=f end;return e end
+Events={SerialEventGameDataDirty=event(),SerialEventUnitInfoDirty=event(),
+ GameplaySetActivePlayer=event(),ActivePlayerTurnStart=event()}
+LuaEvents={};MapModData={};Game={GetActivePlayer=function()return 0 end,
+ IsNetworkMultiPlayer=function()return false end};Players={[0]={IsAlive=function()return true end}}
+function IconHookup(...)end
+local function control()return {SetHide=function(self,v)self.hidden=v end,
+ SetText=function(self,v)self.text=v end,SetToolTipString=function(self,v)self.tip=v end}end
+Controls={JoyFrame=control(),JoyIcon=control(),JoyLabel=control(),StateLabel=control()}
+for i=1,10 do Controls['Fill'..i]=control() end
+''')
+    panel.execute((ROOT / "UI/MasayaJoyPanel.lua").read_text(encoding="utf-8-sig"))
+    panel.execute(r'''
+assert(#Includes==1 and Includes[1]=='IconSupport','panel loaded gameplay runtime')
+assert(Controls.JoyFrame.hidden==true,'panel was not safe while runtime unavailable')
+MapModData.MasayaKid={IsMasaya=function()return true end,
+ GetUIState=function()return {joy=50,beyond=false,cantStop=true,turns=0} end}
+Events.SerialEventGameDataDirty.handlers[1]()
+assert(Controls.JoyFrame.hidden==false and Controls.JoyLabel.text:find('50 / 100',1,true),
+ 'panel did not consume late runtime state')
+print('PASS Masaya UI: independent loading and event-driven shared-state consumption')
 ''')
 
 

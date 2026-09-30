@@ -326,12 +326,12 @@
     <File md5="7DC5D07BB50F1B144C308D998E0A1310" import="1">MasayaBeyondSky/Art/MasayaObjects64.dds</File>
     <File md5="140E6BEBEFC04D27137561CD7A518EA6" import="1">MasayaBeyondSky/Art/MasayaObjects80.dds</File>
     <File md5="44F99879C7AFD35BB2561D5DEE487A62" import="1">MasayaBeyondSky/Art/MasayaUnitFlag32.dds</File>
-    <File md5="E4AE49010DEB37F50D6AF885A51F4717" import="1">MasayaBeyondSky/Lua/MasayaRuntime.lua</File>
+    <File md5="98583631947792C4BF15ECA192D420E7" import="1">MasayaBeyondSky/Lua/MasayaRuntime.lua</File>
     <File md5="334A0CEE00D3B08D7A0A19B962144822" import="0">MasayaBeyondSky/SQL/00_Masaya_Core.sql</File>
-    <File md5="386274E3672113374B289F8E64D0EF1B" import="0">MasayaBeyondSky/SQL/01_Masaya_Inheritance.sql</File>
-    <File md5="503BA29BBC9D8B6D37085C4D4C21AFDE" import="0">MasayaBeyondSky/SQL/02_Masaya_UniqueEffects.sql</File>
+    <File md5="F66C1D8E8FEE748C6F00461531A77BC2" import="0">MasayaBeyondSky/SQL/01_Masaya_Inheritance.sql</File>
+    <File md5="24AA6D096C26A5C29B4B40DB64E337D3" import="0">MasayaBeyondSky/SQL/02_Masaya_UniqueEffects.sql</File>
     <File md5="ED5C95FC1EFE65AC5EB79E4C83E63927" import="0">MasayaBeyondSky/SQL/10_Masaya_Text.sql</File>
-    <File md5="3B6B527AAB8B556F9EAD776EB7D5C9D9" import="1">MasayaBeyondSky/UI/MasayaJoyPanel.lua</File>
+    <File md5="48177AC2761DACB92E2093DEC1101AE2" import="1">MasayaBeyondSky/UI/MasayaJoyPanel.lua</File>
     <File md5="0037635CC8E2CFAD4FD90A6B20827437" import="0">MasayaBeyondSky/UI/MasayaJoyPanel.xml</File>
   </Files>
   <Actions>

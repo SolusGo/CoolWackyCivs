@@ -183,7 +183,7 @@ def check_ui_and_lua():
         ),
         "MasayaBeyondSky/Lua/MasayaRuntime.lua": (
             "PlayerDoTurn", "CityTrained", "UnitSetXY", "UnitCreated", "UnitPromoted",
-            "UnitConverted", "UnitUpgraded", "BattleStarted", "BattleJoined", "BattleFinished",
+            "UnitConverted", "BattleStarted", "BattleJoined", "BattleFinished",
         ),
     }
     for relative, hooks in runtime_hooks.items():

@@ -1,15 +1,15 @@
 include("IconSupport")
-include("MasayaRuntime")
 
-local M = MapModData.MasayaKid
 local iconReady = false
 local fills = {Controls.Fill1,Controls.Fill2,Controls.Fill3,Controls.Fill4,Controls.Fill5,
     Controls.Fill6,Controls.Fill7,Controls.Fill8,Controls.Fill9,Controls.Fill10}
 
 local function refresh()
+    local M = MapModData and MapModData.MasayaKid or nil
     local playerID = Game.GetActivePlayer()
     local player = Players[playerID]
-    local visible = player and player:IsAlive() and M and M.IsMasaya(player)
+    local visible = player and player:IsAlive() and M and M.IsMasaya and M.GetUIState
+        and M.IsMasaya(player)
         and not (Game.IsNetworkMultiPlayer and Game.IsNetworkMultiPlayer())
     Controls.JoyFrame:SetHide(not visible)
     if not visible then return end
@@ -30,7 +30,7 @@ local function refresh()
         Controls.StateLabel:SetText("BUILD JOY THROUGH FLIGHT")
     end
     Controls.JoyFrame:SetToolTipString(
-        "Joy comes from newly revealed tiles, combat XP, promotions, strong opponents, " ..
+        "Joy comes from revealed tiles first recorded during Masaya movement, combat XP, promotions, strong opponents, " ..
         "Level 4 units, Junior FC Prodigy combats, and garrisoned Grav-Shoe Practice Rooms. " ..
         "At 50 Joy, Can't Stop Flying activates. At 100 Joy, Beyond the Sky lasts 6 turns.")
 end
