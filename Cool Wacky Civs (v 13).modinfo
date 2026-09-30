@@ -326,7 +326,7 @@
     <File md5="7DC5D07BB50F1B144C308D998E0A1310" import="1">MasayaBeyondSky/Art/MasayaObjects64.dds</File>
     <File md5="140E6BEBEFC04D27137561CD7A518EA6" import="1">MasayaBeyondSky/Art/MasayaObjects80.dds</File>
     <File md5="44F99879C7AFD35BB2561D5DEE487A62" import="1">MasayaBeyondSky/Art/MasayaUnitFlag32.dds</File>
-    <File md5="98583631947792C4BF15ECA192D420E7" import="1">MasayaBeyondSky/Lua/MasayaRuntime.lua</File>
+    <File md5="C83766928DF193D9F05B07017080D6FA" import="1">MasayaBeyondSky/Lua/MasayaRuntime.lua</File>
     <File md5="334A0CEE00D3B08D7A0A19B962144822" import="0">MasayaBeyondSky/SQL/00_Masaya_Core.sql</File>
     <File md5="F66C1D8E8FEE748C6F00461531A77BC2" import="0">MasayaBeyondSky/SQL/01_Masaya_Inheritance.sql</File>
     <File md5="24AA6D096C26A5C29B4B40DB64E337D3" import="0">MasayaBeyondSky/SQL/02_Masaya_UniqueEffects.sql</File>

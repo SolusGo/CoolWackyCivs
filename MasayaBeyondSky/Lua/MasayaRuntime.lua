@@ -8,7 +8,9 @@ if rawget(_G, "__MASAYA_KID_RUNTIME_CONTEXT_LOADED") then return end
 rawset(_G, "__MASAYA_KID_RUNTIME_CONTEXT_LOADED", true)
 
 MapModData = MapModData or {}
-MapModData.MasayaKid = MapModData.MasayaKid or {}
+-- MapModData can outlive the game that populated it. This namespace contains
+-- only context-local API/cache data; persistent values live in OpenSaveData.
+MapModData.MasayaKid = {}
 local M = MapModData.MasayaKid
 
 local function ID(name) return GameInfoTypes[name] end
@@ -105,6 +107,13 @@ local function getState(playerID)
             joy = math.max(0, math.min(100, tonumber(loadPlayer(playerID, "JOY", 0)) or 0)),
             beyondEnd = tonumber(loadPlayer(playerID, "BEYOND_END", -1)) or -1
         }
+        -- A save can be loaded on or after the persisted expiry turn. Normalize
+        -- silently before any unit refresh; live turn expiration still notifies.
+        if state.beyondEnd >= 0 and state.beyondEnd <= turn() then
+            state.joy, state.beyondEnd = 25, -1
+            storePlayer(playerID, "JOY", state.joy)
+            storePlayer(playerID, "BEYOND_END", state.beyondEnd)
+        end
         M.PlayerState[playerID] = state
     end
     return state

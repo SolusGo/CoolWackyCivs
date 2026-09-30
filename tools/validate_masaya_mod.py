@@ -233,6 +233,7 @@ def package_and_art_checks() -> None:
     assert "GameEvents." not in panel_source, "UI must not own gameplay event handlers"
     assert "M.RuntimeLoaded" not in runtime_source
     assert "__MASAYA_KID_RUNTIME_CONTEXT_LOADED" in runtime_source
+    assert "MapModData.MasayaKid = {}" in runtime_source
     print(f"PASS Masaya packaging/art: {len(shipped)} shipped files and {len(list((ROOT/'Art').glob('*.dds')))} DDS textures")
 
 
@@ -484,6 +485,43 @@ Events.SerialEventGameDataDirty.handlers[1]()
 assert(Controls.JoyFrame.hidden==false and Controls.JoyLabel.text:find('50 / 100',1,true),
  'panel did not consume late runtime state')
 print('PASS Masaya UI: independent loading and event-driven shared-state consumption')
+''')
+
+    # MapModData may survive unloading, but a new gameplay context must replace
+    # its stale runtime cache and reload authoritative state from OpenSaveData.
+    lua.execute(r'''
+MapModData.MasayaKid.PlayerState[0]={joy=87,beyondEnd=-1}
+saved.MASAYA_KID_V1_P0_JOY=20;saved.MASAYA_KID_V1_P0_BEYOND_END=-1
+_G.__MASAYA_KID_RUNTIME_CONTEXT_LOADED=nil
+''')
+    lua.execute(source)
+    lua.execute(r'''
+assert(MapModData.MasayaKid.GetState(0).joy==20,
+ 'fresh gameplay context reused stale MapModData PlayerState')
+''')
+
+    # Expired persisted Beyond data is canonicalized silently before initialize
+    # refreshes units, rather than briefly enabling Can't Stop Flying.
+    lua.execute(r'''
+MapModData.MasayaKid.PlayerState[0]={joy=87,beyondEnd=-1}
+saved.MASAYA_KID_V1_P0_JOY=100;saved.MASAYA_KID_V1_P0_BEYOND_END=80
+SetTurn(80);NotificationCount=#Players[0].notifications
+_G.__MASAYA_KID_RUNTIME_CONTEXT_LOADED=nil
+''')
+    lua.execute(source)
+    lua.execute(r'''
+local M=MapModData.MasayaKid;local state=M.GetState(0)
+assert(state.joy==25 and state.beyondEnd==-1,
+ 'expired Beyond state was not normalized on load')
+assert(saved.MASAYA_KID_V1_P0_JOY==25 and saved.MASAYA_KID_V1_P0_BEYOND_END==-1,
+ 'normalized Beyond state was not persisted')
+assert(#Players[0].notifications==NotificationCount,
+ 'load-time Beyond normalization sent a duplicate notification')
+for unit in Players[0]:Units() do
+ assert(not unit:IsHasPromotion(35) and not unit:IsHasPromotion(36)
+  and not unit:IsHasPromotion(37),'expired Beyond load left a dynamic state promotion')
+end
+print('PASS Masaya reload: stale MapModData rejected and expired Beyond normalized silently')
 ''')
 
 
