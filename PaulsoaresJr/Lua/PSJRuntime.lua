@@ -64,8 +64,9 @@ end
 -- Identity lives on the unit, survives save/reload, and is explicitly copied on
 -- same-owner upgrades. No reusable engine unit ID is used as persistent identity.
 local marker = "%[PSJ1:([^%]]*)%]"
-local fields = {"serial","origin","ancient","outside","lastTurn","returned","originArea"}
-local defaults = {0,-1,0,0,-1,0,-1}
+local fields = {"serial","origin","ancient","outside","lastTurn","returned","originArea","landmassCount"}
+-- -1 marks a seven-field save awaiting migration from its saved area flags.
+local defaults = {0,-1,0,0,-1,0,-1,-1}
 local function read(u)
     local raw = (u:GetScriptData() or ""):match(marker)
     if not raw then return nil end
@@ -80,6 +81,9 @@ local function write(u,d)
     u:SetScriptData((u:GetScriptData() or ""):gsub(marker,"").."[PSJ1:"..table.concat(values,",").."]")
 end
 local function identify(u)
+    -- Transfer intentionally strips Learning; unit type alone cannot establish
+    -- a new personal lineage, even when a later caller sees the same Survivor.
+    if not u or not LEARNING or not u:IsHasPromotion(LEARNING) then return nil end
     local d=read(u)
     if d then return d end
     local pid=u:GetOwner()
@@ -88,7 +92,7 @@ local function identify(u)
     save.SetValue("PSJ_V1_SERIAL",serial)
     local plot=u:GetPlot()
     d={serial=serial,origin=pid,ancient=Players[pid]:GetCurrentEra()==ANCIENT and 1 or 0,
-       outside=0,lastTurn=-1,returned=0,originArea=plot and plot:GetArea() or -1}
+       outside=0,lastTurn=-1,returned=0,originArea=plot and plot:GetArea() or -1,landmassCount=0}
     write(u,d)
     return d
 end
@@ -124,9 +128,14 @@ local function moved(pid,uid)
     if not d or not plot or plot:IsWater() then return end
     local area=plot:GetArea()
     if d.originArea<0 then d.originArea=area; write(u,d) end
-    if area~=d.originArea then
+    if area~=d.originArea and d.landmassCount>=0 and d.landmassCount<3 then
         local k="PSJ_V1_U"..d.serial.."_AREA_"..area
-        if not save.GetValue(k) then save.SetValue(k,1); u:ChangeExperience(10) end
+        if not save.GetValue(k) then
+            save.SetValue(k,1)
+            d.landmassCount=d.landmassCount+1
+            write(u,d) -- Persist both markers before granting XP.
+            u:ChangeExperience(10)
+        end
     end
 end
 
@@ -296,7 +305,7 @@ end
 local upgradeSnapshots={}
 local function upgraded(pid,oldID,newID)
     local old=unit(pid,oldID)
-    local d=old and read(old)
+    local d=old and relevant(old)
     if d then upgradeSnapshots[pid..":"..newID]=d end
 end
 local function converted(oldOwner,newOwner,oldID,newID,isUpgrade)
@@ -306,7 +315,8 @@ local function converted(oldOwner,newOwner,oldID,newID,isUpgrade)
     local old=unit(oldOwner,oldID)
     local d=upgradeSnapshots[k] or (old and read(old)) or read(u)
     upgradeSnapshots[k]=nil
-    if (isUpgrade==true or isUpgrade==1) and oldOwner==newOwner and paul(newOwner) and d and d.origin==newOwner then
+    local validSource=old and old:IsHasPromotion(LEARNING) or (not old and u:IsHasPromotion(LEARNING))
+    if (isUpgrade==true or isUpgrade==1) and oldOwner==newOwner and paul(newOwner) and d and d.origin==newOwner and validSource then
         write(u,d); u:SetHasPromotion(LEARNING,true); refreshVeteran(u,d)
     elseif d then
         u:SetScriptData((u:GetScriptData() or ""):gsub(marker,""))
@@ -318,22 +328,41 @@ local function created(pid,uid)
     if paul(pid) and u and u:GetUnitType()==SURVIVOR then identify(u) end
 end
 local function initialize()
+    local legacyUnits,landAreas={},{}
     for pid=0,GameDefines.MAX_MAJOR_CIVS-1 do
         local p=paul(pid)
         if p then
             if get(pid,"ERA",-1)<0 then set(pid,"ERA",p:GetCurrentEra()) end
             observeCapital(pid)
-            for u in p:Units() do if u:GetUnitType()==SURVIVOR then identify(u) end end
+            for u in p:Units() do
+                if u:GetUnitType()==SURVIVOR and u:IsHasPromotion(LEARNING) then identify(u) end
+                local d=relevant(u)
+                if d and d.landmassCount<0 then legacyUnits[#legacyUnits+1]={unit=u,data=d} end
+            end
         end
     end
     -- One load-time map scan handles Natural Wonders already revealed by the map.
     for index=0,Map.GetNumPlots()-1 do
         local plot=Map.GetPlotByIndex(index)
+        -- Reuse the existing single load-time scan for old unit records. There
+        -- is no new map scan or per-turn migration work.
+        if #legacyUnits>0 and plot and not plot:IsWater() then landAreas[plot:GetArea()]=true end
         if plot and plot:IsNaturalWonder() then
             for pid=0,GameDefines.MAX_MAJOR_CIVS-1 do local p=paul(pid)
                 if p and plot:IsRevealed(p:GetTeam(),false) then earn(pid,"FIRST_WONDER") end
             end
         end
+    end
+    for _,entry in ipairs(legacyUnits) do
+        local d,count=entry.data,0
+        for area in pairs(landAreas) do
+            if area~=d.originArea and save.GetValue("PSJ_V1_U"..d.serial.."_AREA_"..area) then
+                count=count+1
+                if count==3 then break end
+            end
+        end
+        d.landmassCount=count
+        write(entry.unit,d)
     end
 end
 local handlers={PlayerDoTurn=turn,PlayerCityFounded=founded,CityConstructed=constructed,

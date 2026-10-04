@@ -2,10 +2,11 @@
 -- All identifiers are namespaced; no existing civilization is modified.
 
 UPDATE CustomModOptions SET Value = 1 WHERE Name IN
-('EVENTS_NEW_ERA', 'EVENTS_NW_DISCOVERY', 'EVENTS_GOODY_CHOICE', 'EVENTS_BATTLES', 'EVENTS_CITY', 'EVENTS_DIPLO_MODIFIERS', 'EVENTS_PLOT',
- 'EVENTS_PLAYER_TURN', 'EVENTS_TILE_IMPROVEMENTS', 'EVENTS_UNIT_CAPTURE',
- 'EVENTS_UNIT_CONVERTS', 'EVENTS_UNIT_CREATED', 'EVENTS_UNIT_PREKILL',
- 'EVENTS_UNIT_UPGRADES', 'EVENTS_WAR_AND_PEACE');
+('EVENTS_NW_DISCOVERY', 'EVENTS_GOODY_CHOICE', 'EVENTS_PLOT',
+ 'EVENTS_UNIT_CONVERTS', 'EVENTS_UNIT_CREATED');
+-- CP v151 (5.4.2/5.4.6) already sends the other used hooks through base
+-- CallHook paths. NW_DISCOVERY is needed for the discovering unit arguments.
+-- Do not disable event families requested by other civilizations.
 
 INSERT INTO IconTextureAtlases (Atlas, IconSize, Filename, IconsPerRow, IconsPerColumn) VALUES
 ('PSJ_ICON_ATLAS',256,'PSJIcon256.dds',2,1),

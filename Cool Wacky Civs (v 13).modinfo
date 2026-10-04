@@ -56,11 +56,11 @@
     <File md5="9DCD1EB0C8CB519A3F7A7D9BFD33756F" import="1">PaulsoaresJr/Art/PSJObjects64.dds</File>
     <File md5="5A25A21E7EC53AEB62FE1E5679C02DA7" import="1">PaulsoaresJr/Art/PSJObjects80.dds</File>
     <File md5="229D3300D84F8F8B06AD95B5CBC957B5" import="1">PaulsoaresJr/Art/PSJUnitFlag32.dds</File>
-    <File md5="44A0886E60198964974B4FE16ADB27B6" import="1">PaulsoaresJr/Lua/PSJRuntime.lua</File>
-    <File md5="9D51F27AC226EDC1EC69AFF522979878" import="0">PaulsoaresJr/SQL/00_PSJ_Core.sql</File>
+    <File md5="EAF0D1DCFDE948DBBED2246866E5DF76" import="1">PaulsoaresJr/Lua/PSJRuntime.lua</File>
+    <File md5="DF57D7049557351DC3BD411AE8EFD881" import="0">PaulsoaresJr/SQL/00_PSJ_Core.sql</File>
     <File md5="AD68D11015AAE310121E9E461F7626F2" import="0">PaulsoaresJr/SQL/01_PSJ_Inheritance.sql</File>
     <File md5="C5775FA7A0ECF77C26710D93E68F3DAC" import="0">PaulsoaresJr/SQL/02_PSJ_UniqueEffects.sql</File>
-    <File md5="67F6452ACD86FF5BD916A2E1C6482AF2" import="0">PaulsoaresJr/SQL/10_PSJ_Text.sql</File>
+    <File md5="7200D1622D0660D8A6A9D39AAA6B9647" import="0">PaulsoaresJr/SQL/10_PSJ_Text.sql</File>
     <File md5="079D691E6D668B05A6C35CE0D39AD04B" import="1">CapanoCircuit/Art/CapanoAlpha128.dds</File>
     <File md5="345B9AE5E73CED911EE2FB737BDF8D68" import="1">CapanoCircuit/Art/CapanoAlpha16.dds</File>
     <File md5="C4A334B203E42219AC860A3B9FE4F7CE" import="1">CapanoCircuit/Art/CapanoAlpha24.dds</File>

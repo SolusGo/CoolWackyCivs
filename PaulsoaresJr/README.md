@@ -27,7 +27,7 @@ Replaces the Scout, copying its active cost, strength, terrain promotions, prere
 
 - 5 XP for a ruin bonus when the DLL identifies a surviving discovering unit.
 - 10 XP for an attributed Natural Wonder discovery. DLL event variants lacking discovering-player/unit parameters still grant the civilization Memory, but cannot grant unit XP.
-- 10 XP for first arrival on each non-starting landmass; revisiting it never pays again. Water areas do not count.
+- The first three non-starting landmasses discovered by this Survivor lineage grant +10 XP each, for a lifetime maximum of +30 XP. Revisits and water areas never pay. The cap persists through save/reload and legitimate same-owner upgrades.
 - 15 XP if this Survivor triggers First Journey.
 - +5 additional normal healing in neutral/enemy territory. Native `NeutralHealChange` and `EnemyHealChange` preserve normal movement, embarkation and other healing restrictions. Friendly territory has no extra healing.
 
@@ -53,13 +53,42 @@ Explore naturally, collect different first experiences, keep the original Surviv
 
 Requires BNW and Community Patch v151 or compatible APIs. Four ordered SQL files register, inherit, specialize and localize the civilization. `Lua/PSJRuntime.lua` is one InGameUIAddin in the collection manifest. Pure SQL/Lua/XML/DDS files are playable without ModBuddy; the project is maintained only to match the collection's existing build pipeline. Run `python tools/build_mod.py` for the deployable folder, ZIP and `.civ5mod` under `dist/`.
 
-Persistent player state uses the repository's `Modding.OpenSaveData()` pattern under `PSJ_V1_*`. Unit state uses a namespaced `[PSJ1:...]` ScriptData segment and save-backed serials rather than reusable engine unit IDs; unrelated ScriptData is preserved. UnitUpgraded snapshots state before conversion, and UnitConverted restores it after native promotion copying. Capture/gifting to another owner removes the personal history and custom promotions, including between two Paul players. Unit death requires no periodic cleanup of dead engine references.
+Persistent player state uses the repository's `Modding.OpenSaveData()` pattern under `PSJ_V1_*`. Unit state uses a namespaced `[PSJ1:...]` ScriptData segment and save-backed serials rather than reusable engine unit IDs; unrelated ScriptData is preserved. UnitUpgraded snapshots state before conversion, and UnitConverted restores it after native promotion copying. Transferred/captured/gifted Survivors permanently lose their personal PSJ history and custom promotions, including between two Paul players. Reload does not recreate that history; only legitimate same-owner upgrade lineages retain it. Native Survivors must retain Learning the World to establish or bootstrap their history. The appended landmass-count field defaults safely for older seven-field markers. During the existing load-time map pass, migration counts the lineage's saved per-area visits, capped at three, without awarding XP. Identity, Ancient qualification and returning-home state remain intact. New area/count markers are saved before awarding XP. Unit death requires no periodic cleanup of dead engine references.
 
 Gameplay is event-driven with one owner-turn fallback for free buildings, contact, First Night, Home tiers, veteran eligibility and returning explorers. No per-frame timers or polling. A single load-time map scan recognizes already revealed Natural Wonders without inventing unit attribution. Important reward and turn markers are persisted before applying their effects. Logs use `[PSJ]` and only describe acquisitions, era changes, recalls and veteran awards.
 
 Late-era starts establish the current era as the baseline and receive no retroactive Memories, era recall, skipped-era narratives or Ancient veterans. First Night still follows capital founding; advanced/free Starter Houses are recognized on the owner turn. If debug tools skip eras, only the entered era receives its correctly aged recall. No Barbarians, no Ruins and One City Challenge simply leave the corresponding Memories unavailable. Both AI and multiple Paul instances receive independent bonuses; notifications are only shown for the active human player. Gameplay never assumes Player 0.
 
 The **collection** continues to disable multiplayer and hotseat pending synchronization testing of all its civilizations. This runtime avoids UI-dependent gameplay and uses deterministic state, but has not been certified for network multiplayer. The optional Memory panel is deferred; the Civilopedia Memories concept explains every trigger and notifications show rewards.
+
+## DLL event audit
+
+Audited against pinned **Release-5.4.2** and **Release-5.4.6** (the installed CP mod metadata is v151 / 5.4.6), rather than relying on mock argument lists. Both releases agree on the callback ordering below. Lua safely ignores trailing arguments that a callback does not need.
+
+| Hook | Actual arguments | Switch required by PSJ |
+| --- | --- | --- |
+| PlayerDoTurn | player | None; base hook |
+| PlayerCityFounded | player, x, y | None; base hook |
+| CityConstructed | player, city, building, gold, faith/culture | None; base construction/purchase hooks; free-building fallback runs on owner turn |
+| CityCaptureComplete | oldOwner, capital, x, y, newOwner, population, conquest, greatWorks, capturedGreatWorks | None; base hook |
+| PlayerBuilt | player, unit, x, y, build | EVENTS_PLOT |
+| UnitPrekill | owner, unit, unitType, x, y, delay, killer | None; identical base fallback |
+| TeamSetEra | team, era; optional first flag | None; base two-argument fallback is sufficient |
+| TeamMeet | otherTeam, thisTeam | None; base hook |
+| NaturalWonderDiscovered | team, feature, x, y, first, discoveringPlayer, discoveringUnit | EVENTS_NW_DISCOVERY, for the unit attribution arguments |
+| GoodyHutReceivedBonus | player, unit, goody, x, y | EVENTS_GOODY_CHOICE |
+| UnitSetXY | player, unit, x, y | None; base hook |
+| UnitCreated | player, unit, unitType, x, y | EVENTS_UNIT_CREATED |
+| UnitUpgraded | player, oldUnit, newUnit, goodyUpgrade | None; identical base fallback before conversion |
+| UnitConverted | oldOwner, newOwner, oldUnit, newUnit, upgrade | EVENTS_UNIT_CONVERTS |
+
+PSJ therefore enables only **EVENTS_NW_DISCOVERY, EVENTS_GOODY_CHOICE, EVENTS_PLOT, EVENTS_UNIT_CREATED and EVENTS_UNIT_CONVERTS**. It does not switch off any option enabled by another civilization. Its callbacks work with either the base path or an expanded path enabled elsewhere in the collection, independent of SQL load order.
+
+Removed PSJ declarations: EVENTS_BATTLES, EVENTS_DIPLO_MODIFIERS, EVENTS_WAR_AND_PEACE and EVENTS_UNIT_CAPTURE (no matching PSJ callbacks); EVENTS_PLAYER_TURN (controls PlayerDoneTurn, not PlayerDoTurn); EVENTS_TILE_IMPROVEMENTS (different hooks from PlayerBuilt); EVENTS_NEW_ERA, EVENTS_CITY, EVENTS_UNIT_PREKILL and EVENTS_UNIT_UPGRADES (the used arguments already arrive through their base fallback paths). The existing owner-turn fallback continues to recognize free Starter Houses when the expanded city family is off.
+
+Sources: [5.4.2 event definitions](https://github.com/LoneGazebo/Community-Patch-DLL/blob/Release-5.4.2/CvGameCoreDLL_Expansion2/CustomMods.h), [unit dispatch and upgrade/conversion ordering](https://github.com/LoneGazebo/Community-Patch-DLL/blob/Release-5.4.2/CvGameCoreDLL_Expansion2/CvUnit.cpp), [city construction/purchases](https://github.com/LoneGazebo/Community-Patch-DLL/blob/Release-5.4.2/CvGameCoreDLL_Expansion2/CvCity.cpp), [player dispatch and ruin upgrades](https://github.com/LoneGazebo/Community-Patch-DLL/blob/Release-5.4.2/CvGameCoreDLL_Expansion2/CvPlayer.cpp), [team dispatch](https://github.com/LoneGazebo/Community-Patch-DLL/blob/Release-5.4.2/CvGameCoreDLL_Expansion2/CvTeam.cpp), [wonder discovery](https://github.com/LoneGazebo/Community-Patch-DLL/blob/Release-5.4.2/CvGameCoreDLL_Expansion2/CvPlot.cpp); cross-checked with the corresponding [5.4.6 source tree](https://github.com/LoneGazebo/Community-Patch-DLL/tree/Release-5.4.6/CvGameCoreDLL_Expansion2).
+
+UnitUpgraded still fires before `convert()`; UnitConverted fires after native promotion copying and before the old unit is killed. The existing snapshot-before-conversion implementation is retained.
 
 ## Art and audio
 
@@ -80,17 +109,17 @@ No Paul or Minecraft audio is bundled. Dawn narration is localized text; DawnOfM
 
 ## Validation and practical engine test checklist
 
-`python tools/validate_psj_mod.py` checks SQL in a disposable clone of the BNW cache with installed CP schema; every populated Scout/Monument companion table; override/trait registration; yield totals; promotion healing/defense; dummy tiers; localization; duplicate IDs; atlas dimensions and alpha; Lua 5.1 behavior; all ten Memory triggers; replay prevention; era sums; unit upgrades/capture; Home capture/regaining/rebuilding/Palace relocation/refounding; AI; late starts; save-backed context reload; and independent speed channels. `python tools/validate_all.py` additionally checks the whole collection, DDS decoding with DirectXTex, XML, load ordering and existing civ regressions.
+`python tools/validate_psj_mod.py` checks SQL in a disposable clone of the BNW cache with installed CP schema; every populated Scout/Monument companion table; override/trait registration; yield totals; promotion healing/defense; dummy tiers; localization; duplicate IDs; atlas dimensions and alpha; Lua 5.1 behavior; all ten Memory triggers; replay prevention; era sums; unit upgrades/capture and actual Survivor transfer/reload regression; first-three landmass cap across upgrade/reload and older-marker migration; Home capture/regaining/rebuilding/Palace relocation/refounding; AI; late starts; save-backed context reload; and independent speed channels. `python tools/validate_all.py` additionally checks the whole collection, DDS decoding with DirectXTex, XML, load ordering and existing civ regressions.
 
 Automated mocks are not a running Civ V match. Complete these in-engine smoke tests on a new game with logging enabled:
 
 - **Setup:** choose Paul; check name, trait, both uniques, icons at setup/Civilopedia/production, leader scene, map and Dawn paragraphs. Found Home normally; after the first full turn verify 5 Culture/Science once. Save before and after it, reload, and ensure no duplicate.
 - **House:** construct the first House, then another; verify 10 Culture once and Monument policy/class requirements. Test free Monuments, sell/rebuild, capture/regain, relocate Palace, raze/refound.
 - **Memories:** independently kill a Barbarian, finish a Mine, improve Wheat/Fish/another valid Food resource, travel the threshold, meet a major and a City-State, reveal a Natural Wonder, found/acquire a second city, and enter Classical. Check exact immediate yields, acquired era in Lua.log, notification and repeat prevention. Save/reload around each.
-- **Survivor:** check Scout cost/strength, 2 moves, terrain abilities, ruins, attributed wonders and new landmasses. Revisit tiles. Wound it and compare normal stationary healing abroad (+5) with movement/embarkation restrictions. Upgrade it; inspect promotions/history and Lua.log.
+- **Survivor:** check Scout cost/strength, 2 moves, terrain abilities, ruins, attributed wonders and five non-starting landmasses. Only the first three grant 10 XP each; revisit them and repeat after upgrade/reload to check the 30 XP lifetime cap. Wound it and compare normal stationary healing abroad (+5) with movement/embarkation restrictions. Upgrade it; inspect promotions/history and Lua.log.
 - **Return:** spend nine turns abroad and return (no reward); spend ten consecutive turns abroad and return within two tiles of current Capital (15 Culture once). Repeat after upgrade, save/reload and capture; verify no farming.
 - **Era aging:** with IGE/debug enter each era; verify ages and one consolidated recall. Nine Ancient Memories yield 27/27 in Classical, plus Something New's 10/10; those nine plus a Classical Memory yield 57/57 in Medieval. Check all Home tiers and no stacking.
-- **Modern:** preserve an Ancient Survivor and its upgrade; compare a later-built Survivor. Only the Ancient lineage gains +1 Sight/+10% Defense. Check capture between different Paul players.
+- **Modern:** preserve an Ancient Survivor and its upgrade; compare a later-built Survivor. Only the Ancient lineage gains +1 Sight/+10% Defense. Check capture/gifting of an actual Survivor between different Paul players, save/reload, advance its new owner to Modern and upgrade it; identity and both PSJ promotions must remain absent. Compare a native Survivor through the same sequence to verify legitimate history survives. Also load an older seven-field unit record and verify previous landmass visits count toward the cap.
 - **Information:** see Do You Remember? once, followed by ordinary recall, without extra finale yields. Reload before/after the transition.
 - **Edge settings:** tiny map, Classical/Modern/Information start, advanced start, no Barbarians, no Ruins, OCC, pre-revealed Natural Wonder, multiple Paul players, and AI observer/autoplay. Compare Quick/Standard/Epic/Marathon reward scaling.
 - **Long game:** review Lua.log, database.log and xml.log through several eras; verify AI gains bonuses and no missing art, SQL failures or nil-reference crashes. Network/hotseat testing must precede enabling those collection flags.

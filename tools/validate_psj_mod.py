@@ -15,6 +15,21 @@ from build_mod import read_project, NS
 ROOT = REPO / 'PaulsoaresJr'
 
 
+def event_option_checks():
+    # Audited dispatch sites in Release-5.4.2 and Release-5.4.6, documented in
+    # the README: the other used hooks have base CallHook paths, with adequate
+    # argument ordering. Do not depend on another civ enabling these five.
+    required={'EVENTS_NW_DISCOVERY','EVENTS_GOODY_CHOICE','EVENTS_PLOT',
+              'EVENTS_UNIT_CREATED','EVENTS_UNIT_CONVERTS'}
+    core=(ROOT/'SQL/00_PSJ_Core.sql').read_text(encoding='utf-8')
+    block=re.search(r'UPDATE CustomModOptions SET Value = 1 WHERE Name IN\s*\((.*?)\);',core,re.S)
+    assert block, 'Missing PSJ event declarations'
+    declared=re.findall(r"'(EVENTS_[A-Z_]+)'",block.group(1))
+    assert len(declared)==len(set(declared)) and set(declared)==required, 'PSJ must declare only its five required event switches'
+    assert not re.search(r'UPDATE\s+CustomModOptions\s+SET\s+Value\s*=\s*0',core,re.I), 'PSJ must not disable another civ event family'
+    print('PASS PSJ event options: five necessary switches; base fallbacks and argument ordering audited against CP v151 source')
+
+
 def database_checks():
     user = Path.home() / "Documents/My Games/Sid Meier's Civilization 5"
     source = sqlite3.connect((user/'cache_backup/Civ5DebugDatabase.db').as_uri()+'?mode=ro',uri=True)
@@ -133,10 +148,17 @@ GameEvents.PlayerBuilt.Fire(2,1,1,0,2)
 assert(P.capital.food==10,'Food did not scale')
 print('PASS PSJ GameSpeed: independent Culture/Research/Growth scaling')
 """)
+    # Fresh fixture specifically uses the actual Survivor type on transfer,
+    # rather than only an upgraded descendant. The script recreates contexts.
+    lua=LuaRuntime(unpack_returned_tuples=True)
+    lua.execute((REPO/'tools/tests/psj_mock.lua').read_text())
+    lua.globals().PSJRuntimeSource=source
+    lua.execute(source)
+    lua.execute((REPO/'tools/tests/psj_lineage_assertions.lua').read_text())
 
 
 def main():
-    database_checks(); lua_checks()
+    event_option_checks(); database_checks(); lua_checks()
     entries=[e.text for e in read_project()[1].findall('m:ModContent/m:Content/m:FileName',NS)]
     assert entries.count('PaulsoaresJr/Lua/PSJRuntime.lua')==1
     ET.parse(ROOT/'Art/PSJLeaderScene.xml')
