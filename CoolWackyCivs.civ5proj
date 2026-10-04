@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Deploy" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Default</Configuration>
@@ -6,8 +6,8 @@
     <Name>Cool Wacky Civs</Name>
     <SafeName>Cool Wacky Civs</SafeName>
     <Guid>4c02158d-ad52-4b73-bf2a-555ce58a1e60</Guid>
-    <Teaser>Ten strange leaders. Ten stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, and The First Night. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Eleven strange leaders. Eleven stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, and The Viltrum Empire. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -27,7 +27,7 @@
     <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <HideSetupGame>false</HideSetupGame>
-    <ModVersion>13</ModVersion>
+    <ModVersion>14</ModVersion>
     <Stability>Alpha</Stability>
     <ModActions>
       <Action>
@@ -230,6 +230,26 @@
         <Type>UpdateDatabase</Type>
         <FileName>PaulsoaresJr/SQL/10_PSJ_Text.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>ViltrumEmpire/SQL/00_Viltrum_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>ViltrumEmpire/SQL/01_Viltrum_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>ViltrumEmpire/SQL/02_Viltrum_Effects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>ViltrumEmpire/SQL/10_Viltrum_Text.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -303,6 +323,12 @@
         <Name>The First Night Memories</Name>
         <Description>Memories, Home, Survivor exploration and era narratives.</Description>
         <FileName>PaulsoaresJr/Lua/PSJRuntime.lua</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>The Viltrum Empire</Name>
+        <Description>Imperial status, Great Purge, Scourge and survivor gameplay.</Description>
+        <FileName>ViltrumEmpire/UI/ViltrumPanel.xml</FileName>
       </Content>
     </ModContent>
     <ModDependencies>
@@ -1302,6 +1328,162 @@
     <Folder Include="TerraFramework\Art\" />
     <Folder Include="TerraFramework\Lua\" />
     <Folder Include="TerraFramework\SQL\" />
+    <Content Include="ViltrumEmpire\Art\ViltrumAlpha128.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumAlpha16.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumAlpha24.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumAlpha256.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumAlpha32.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumAlpha45.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumAlpha48.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumAlpha64.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumAlpha80.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumDawn.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumIcon128.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumIcon16.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumIcon24.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumIcon256.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumIcon32.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumIcon45.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumIcon48.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumIcon64.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumIcon80.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumLeader.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumLeaderScene.xml">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumMap.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumObjects128.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumObjects16.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumObjects24.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumObjects256.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumObjects32.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumObjects45.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumObjects48.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumObjects64.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumObjects80.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Art\ViltrumUnitFlag32.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\Lua\ViltrumRuntime.lua">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\SQL\00_Viltrum_Core.sql">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\SQL\01_Viltrum_Inheritance.sql">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\SQL\02_Viltrum_Effects.sql">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\SQL\10_Viltrum_Text.sql">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\UI\ViltrumPanel.lua">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="ViltrumEmpire\UI\ViltrumPanel.xml">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Firaxis\ModBuddy\Civ5Mod.targets" />
   <PropertyGroup>

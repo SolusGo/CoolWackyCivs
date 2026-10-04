@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Context ID="ViltrumPanel">
+ <Grid ID="Launcher" Anchor="C,T" Offset="0,24" Size="480,38" Style="GridBlackIndent8" Hidden="1">
+  <GridButton ID="Status" Anchor="C,C" Size="468,32" Style="BaseButton" String="VILTRUM IMPERIAL STATUS" />
+ </Grid>
+ <Grid ID="Panel" Anchor="C,C" Size="800,650" Style="Grid9DetailFive140" ConsumeMouse="1" Hidden="1">
+  <Image ID="Emblem" Anchor="L,T" Offset="24,18" Size="64,64" />
+  <Label ID="Title" Anchor="L,T" Offset="106,26" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="THE VILTRUM EMPIRE" />
+  <Label ID="State" Anchor="L,T" Offset="28,94" Size="744,80" WrapWidth="744" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+  <Image ID="EventIcon" Anchor="L,T" Offset="28,184" Size="128,128" />
+  <Label ID="EventTitle" Anchor="L,T" Offset="176,184" Size="580,30" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" />
+  <Label ID="EventText" Anchor="L,T" Offset="176,226" Size="580,290" WrapWidth="580" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+  <GridButton ID="ChoiceA" Anchor="C,B" Offset="0,100" Size="738,42" Style="BaseButton" />
+  <GridButton ID="ChoiceB" Anchor="C,B" Offset="0,50" Size="738,42" Style="BaseButton" />
+  <GridButton ID="Close" Anchor="R,T" Offset="18,18" Size="42,32" Style="BaseButton" String="X" />
+ </Grid>
+</Context>

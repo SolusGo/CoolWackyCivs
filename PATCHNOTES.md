@@ -1,5 +1,14 @@
 # Patch Notes
 
+## Version 14 — The Viltrum Empire — 2026-10-05
+
+- Added AI-playable Grand Regent Thragg as the collection's eleventh civilization, with Blood of Conquest, Imperial Momentum, first-conquest rewards and garrison bonuses.
+- Added the 1300-Production Viltrumite Warrior (82 Strength, three Movement, native flight/deployment) and a separate conventional Auxiliary Infantry option; added the Breeding Complex Military Academy replacement.
+- Added persistent two-choice Great Purge, guaranteed Replaceable Parts/first-Warrior Scourge countdown, both catastrophe branches, genuine survivor promotions, recovery periods and the optional extinction follow-up.
+- Preserved the supplied civilization emblem and concept panels, generated a clean black-haired Thragg scene, and compiled 31 custom DDS textures.
+- Added Lua 5.1 adversarial lifecycle/pop-up checks, fourteen casualty-floor scenarios, all-speed fallback tests and installed-CP schema assertions. All eleven-civilization suites pass; actual engine/IGE testing remains outstanding.
+- Documented native flat-HP healing approximations, optional diplomatic-opinion omission, inherited 3D models, and AI/multiplayer limitations in ViltrumEmpire/README.md.
+
 ## Version 13 — The Boy Beyond the Sky — 2026-09-30
 
 - Added child Masaya Hinata and the AI-playable Boy Beyond the Sky civilization.

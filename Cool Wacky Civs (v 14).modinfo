@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="13">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="14">
   <Properties>
     <Name>Cool Wacky Civs</Name>
-    <Teaser>Ten strange leaders. Ten stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, and The First Night. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Eleven strange leaders. Eleven stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, and The Viltrum Empire. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -368,6 +368,45 @@
     <File md5="ED5C95FC1EFE65AC5EB79E4C83E63927" import="0">MasayaBeyondSky/SQL/10_Masaya_Text.sql</File>
     <File md5="48177AC2761DACB92E2093DEC1101AE2" import="1">MasayaBeyondSky/UI/MasayaJoyPanel.lua</File>
     <File md5="0037635CC8E2CFAD4FD90A6B20827437" import="0">MasayaBeyondSky/UI/MasayaJoyPanel.xml</File>
+    <File md5="B18AE897AF1608F57D34357319525D89" import="1">ViltrumEmpire/Art/ViltrumAlpha128.dds</File>
+    <File md5="4000B57E5E400A227D6C01215F7B89CD" import="1">ViltrumEmpire/Art/ViltrumAlpha16.dds</File>
+    <File md5="54A88EA91969698BD75BD04E6DE5F0BB" import="1">ViltrumEmpire/Art/ViltrumAlpha24.dds</File>
+    <File md5="705EE6EB1275E2240536A76E59761430" import="1">ViltrumEmpire/Art/ViltrumAlpha256.dds</File>
+    <File md5="7B49B5F0C3B5A5D52DA6179D483A2F54" import="1">ViltrumEmpire/Art/ViltrumAlpha32.dds</File>
+    <File md5="BC844474E3C5C801E6094FDAE02BAD5D" import="1">ViltrumEmpire/Art/ViltrumAlpha45.dds</File>
+    <File md5="ED17E76C8EB68BAFE8DCEAD22B6F6BC9" import="1">ViltrumEmpire/Art/ViltrumAlpha48.dds</File>
+    <File md5="E1EC96E16B831268B0A71A2715187C46" import="1">ViltrumEmpire/Art/ViltrumAlpha64.dds</File>
+    <File md5="396512D953813641A71874E88A044740" import="1">ViltrumEmpire/Art/ViltrumAlpha80.dds</File>
+    <File md5="EA902A2672D99632FAF34FD6B3FB742D" import="1">ViltrumEmpire/Art/ViltrumDawn.dds</File>
+    <File md5="A345AD07E8E427EE3A54C1833BCB934C" import="1">ViltrumEmpire/Art/ViltrumIcon128.dds</File>
+    <File md5="636684F3453BF2BA0D14C582FE4D84D2" import="1">ViltrumEmpire/Art/ViltrumIcon16.dds</File>
+    <File md5="A8EA12443A50D8D44329925B7C6E26CA" import="1">ViltrumEmpire/Art/ViltrumIcon24.dds</File>
+    <File md5="21A2D26AFDA9D601BA1FC5512C67C13D" import="1">ViltrumEmpire/Art/ViltrumIcon256.dds</File>
+    <File md5="F40811805EB16BFD1EF17557B1CC3206" import="1">ViltrumEmpire/Art/ViltrumIcon32.dds</File>
+    <File md5="F6B0FCA1A16A21C81A5E8111C760C87C" import="1">ViltrumEmpire/Art/ViltrumIcon45.dds</File>
+    <File md5="24620FC29EBB784B3C7DF50C8C21BE0D" import="1">ViltrumEmpire/Art/ViltrumIcon48.dds</File>
+    <File md5="0C10203412FF40A5477AA96FD7DFC376" import="1">ViltrumEmpire/Art/ViltrumIcon64.dds</File>
+    <File md5="3CA9412A27031A8B145A0C47955D6EB0" import="1">ViltrumEmpire/Art/ViltrumIcon80.dds</File>
+    <File md5="65E274D1F442DBBEF224313D6F8355DD" import="1">ViltrumEmpire/Art/ViltrumLeader.dds</File>
+    <File md5="E7A50DBEECC87B276DF601359D2FDFDF" import="1">ViltrumEmpire/Art/ViltrumLeaderScene.xml</File>
+    <File md5="419A83FEDEAF0BFB6C11FDF54E6EC81B" import="1">ViltrumEmpire/Art/ViltrumMap.dds</File>
+    <File md5="7E22E911E73F58225ED7D798BF4AFE95" import="1">ViltrumEmpire/Art/ViltrumObjects128.dds</File>
+    <File md5="6FE78A1677F011C9F49A27CEB2242FCB" import="1">ViltrumEmpire/Art/ViltrumObjects16.dds</File>
+    <File md5="1EC1EDAC5B9A0F6C2B4267E4CC0F9D88" import="1">ViltrumEmpire/Art/ViltrumObjects24.dds</File>
+    <File md5="ABF8F55B8C65F31A7AE8E69C5E3B3583" import="1">ViltrumEmpire/Art/ViltrumObjects256.dds</File>
+    <File md5="EF1A4C227C01C7833E4DD2829ACA422F" import="1">ViltrumEmpire/Art/ViltrumObjects32.dds</File>
+    <File md5="FB8F68DBB0182E86D0D59D40352BD895" import="1">ViltrumEmpire/Art/ViltrumObjects45.dds</File>
+    <File md5="19036B01F9E81DB1A9FC959FC07A2932" import="1">ViltrumEmpire/Art/ViltrumObjects48.dds</File>
+    <File md5="627EC331504E89015C398D3FAB4224F7" import="1">ViltrumEmpire/Art/ViltrumObjects64.dds</File>
+    <File md5="204B685E213EA8D19367090A415CBCB1" import="1">ViltrumEmpire/Art/ViltrumObjects80.dds</File>
+    <File md5="1193FADC2F3A9717050489515A3A6649" import="1">ViltrumEmpire/Art/ViltrumUnitFlag32.dds</File>
+    <File md5="3D6106F57B2B955DCBE0ACEB164AC1B2" import="1">ViltrumEmpire/Lua/ViltrumRuntime.lua</File>
+    <File md5="DD13FE224B7F2B318847B2546BA65AA3" import="0">ViltrumEmpire/SQL/00_Viltrum_Core.sql</File>
+    <File md5="CD2726258A4A6C8F167BBBD138ADD1FC" import="0">ViltrumEmpire/SQL/01_Viltrum_Inheritance.sql</File>
+    <File md5="23C0CBF70DA21CB8B93554554B4F389A" import="0">ViltrumEmpire/SQL/02_Viltrum_Effects.sql</File>
+    <File md5="66A1A64188ED0CCF5493BE4238BE78C3" import="0">ViltrumEmpire/SQL/10_Viltrum_Text.sql</File>
+    <File md5="9E02B8D936F74BE83B0FACC87ECFEA87" import="1">ViltrumEmpire/UI/ViltrumPanel.lua</File>
+    <File md5="BE5DBBF3B43436ECCE16757B5546AA85" import="0">ViltrumEmpire/UI/ViltrumPanel.xml</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -411,6 +450,10 @@
       <UpdateDatabase>PaulsoaresJr/SQL/01_PSJ_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>PaulsoaresJr/SQL/02_PSJ_UniqueEffects.sql</UpdateDatabase>
       <UpdateDatabase>PaulsoaresJr/SQL/10_PSJ_Text.sql</UpdateDatabase>
+      <UpdateDatabase>ViltrumEmpire/SQL/00_Viltrum_Core.sql</UpdateDatabase>
+      <UpdateDatabase>ViltrumEmpire/SQL/01_Viltrum_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>ViltrumEmpire/SQL/02_Viltrum_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>ViltrumEmpire/SQL/10_Viltrum_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -461,6 +504,10 @@
     <EntryPoint type="InGameUIAddin" file="PaulsoaresJr/Lua/PSJRuntime.lua">
       <Name>The First Night Memories</Name>
       <Description>Memories, Home, Survivor exploration and era narratives.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="ViltrumEmpire/UI/ViltrumPanel.xml">
+      <Name>The Viltrum Empire</Name>
+      <Description>Imperial status, Great Purge, Scourge and survivor gameplay.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

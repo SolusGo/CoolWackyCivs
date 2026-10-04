@@ -61,7 +61,7 @@ def check_packaging():
     civ_roots = (
         "RoulsAscendancy", "LunaNetwork", "TerraFramework", "CapanoCircuit",
         "FilthyRealm", "DualOrder", "RomanGladiusNetwork", "EternalNumberTen",
-        "MasayaBeyondSky", "PaulsoaresJr",
+        "MasayaBeyondSky", "PaulsoaresJr", "ViltrumEmpire",
     )
     actual = {
         p.relative_to(ROOT).as_posix()
@@ -76,6 +76,7 @@ def check_packaging():
             "DualOrder/UI/DualOrderPanel.xml", "RomanGladiusNetwork/UI/RomanGladiusPanel.xml",
             "EternalNumberTen/UI/MessiLegacyPanel.xml",
             "MasayaBeyondSky/UI/MasayaJoyPanel.xml",
+            "ViltrumEmpire/UI/ViltrumPanel.xml",
         }:
             assert not imported, f"Database SQL must not import into VFS: {name}"
         else:
@@ -102,6 +103,7 @@ def check_packaging():
         "MasayaBeyondSky/Lua/MasayaRuntime.lua",
         "MasayaBeyondSky/UI/MasayaJoyPanel.xml",
         "PaulsoaresJr/Lua/PSJRuntime.lua",
+        "ViltrumEmpire/UI/ViltrumPanel.xml",
     ], "Combined runtime entry points are incomplete or out of order"
     assert values["SupportsMultiplayer"] == "false", "Unvalidated multiplayer must remain disabled"
     dependencies = props.findall("m:ModDependencies/m:Association/m:Id", NS)
@@ -307,7 +309,7 @@ def check_database(path: Path, cp_root: Path):
     namespace_markers = (
         "ROULS", "GPT_LUNA", "LUNA_", "GPT_TERRA", "TERRA_", "CAPANO", "FILTHY",
         "DUAL_ORDER", "SEVERIN", "ROMAN_GLADIUS", "MESSI", "ETERNAL_NUMBER_TEN",
-        "MASAYA_KID", "PSJ_",
+        "MASAYA_KID", "PSJ_", "VILTRUM",
     )
     for table in tables:
         columns = [r[1] for r in database.execute(f"PRAGMA table_info({quote(table)})")]
@@ -337,6 +339,7 @@ def check_database(path: Path, cp_root: Path):
         "CIVILIZATION_ETERNAL_NUMBER_TEN",
         "CIVILIZATION_MASAYA_KID",
         "CIVILIZATION_PSJ_FIRST_NIGHT",
+        "CIVILIZATION_VILTRUM",
     ):
         assert database.execute(
             "SELECT COUNT(*) FROM Civilizations WHERE Type=?", (civilization,)
