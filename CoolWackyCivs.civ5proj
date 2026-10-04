@@ -6,8 +6,8 @@
     <Name>Cool Wacky Civs</Name>
     <SafeName>Cool Wacky Civs</SafeName>
     <Guid>4c02158d-ad52-4b73-bf2a-555ce58a1e60</Guid>
-    <Teaser>Nine strange leaders. Nine stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, and The Boy Beyond the Sky. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Ten strange leaders. Ten stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, and The First Night. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -210,6 +210,26 @@
         <Type>UpdateDatabase</Type>
         <FileName>MasayaBeyondSky/SQL/10_Masaya_Text.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>PaulsoaresJr/SQL/00_PSJ_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>PaulsoaresJr/SQL/01_PSJ_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>PaulsoaresJr/SQL/02_PSJ_UniqueEffects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>PaulsoaresJr/SQL/10_PSJ_Text.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -278,6 +298,12 @@
         <Description>Event-driven Joy of Flight meter and threshold-state display.</Description>
         <FileName>MasayaBeyondSky/UI/MasayaJoyPanel.xml</FileName>
       </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>The First Night Memories</Name>
+        <Description>Memories, Home, Survivor exploration and era narratives.</Description>
+        <FileName>PaulsoaresJr/Lua/PSJRuntime.lua</FileName>
+      </Content>
     </ModContent>
     <ModDependencies>
       <Association>
@@ -308,6 +334,112 @@
     <OutputPath>.</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="PaulsoaresJr/Art/PSJAlpha128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJAlpha16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJAlpha24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJAlpha256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJAlpha32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJAlpha45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJAlpha48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJAlpha64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJAlpha80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJDawn.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJIcon128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJIcon16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJIcon24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJIcon256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJIcon32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJIcon45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJIcon48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJIcon64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJIcon80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJLeader.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJLeaderScene.xml">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJMap.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJObjects128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJObjects16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJObjects256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJObjects32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJObjects45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJObjects64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJObjects80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Art/PSJUnitFlag32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/Lua/PSJRuntime.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/SQL/00_PSJ_Core.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/SQL/01_PSJ_Inheritance.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/SQL/02_PSJ_UniqueEffects.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="PaulsoaresJr/SQL/10_PSJ_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+
     <Content Include="CapanoCircuit/Art/CapanoAlpha128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>

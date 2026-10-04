@@ -2,8 +2,8 @@
 <Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="13">
   <Properties>
     <Name>Cool Wacky Civs</Name>
-    <Teaser>Nine strange leaders. Nine stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, and The Boy Beyond the Sky. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Ten strange leaders. Ten stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, and The First Night. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -26,6 +26,41 @@
   <References />
   <Blocks />
   <Files>
+    <File md5="6784F5D4D24F20FA530A33FE8766660B" import="1">PaulsoaresJr/Art/PSJAlpha128.dds</File>
+    <File md5="70FF7C168471408CE7B538B125F476DA" import="1">PaulsoaresJr/Art/PSJAlpha16.dds</File>
+    <File md5="E3F4815D63A046D312625F48DCF4C11F" import="1">PaulsoaresJr/Art/PSJAlpha24.dds</File>
+    <File md5="A52B21BC16F3D8CF098318A3D43DC341" import="1">PaulsoaresJr/Art/PSJAlpha256.dds</File>
+    <File md5="76C4D50C1D600A1FF5E744C32AA77D2D" import="1">PaulsoaresJr/Art/PSJAlpha32.dds</File>
+    <File md5="4A1FFB65D48A81567FF2643A4BD7EB9E" import="1">PaulsoaresJr/Art/PSJAlpha45.dds</File>
+    <File md5="A3333439D59075F6FB8269E8A197A7E3" import="1">PaulsoaresJr/Art/PSJAlpha48.dds</File>
+    <File md5="A1BEE4F67D5D5A742D2E06C325EF4697" import="1">PaulsoaresJr/Art/PSJAlpha64.dds</File>
+    <File md5="D0D5A278A34462778F4F2B61735B6878" import="1">PaulsoaresJr/Art/PSJAlpha80.dds</File>
+    <File md5="034D46298808F335F75591C1614B2176" import="1">PaulsoaresJr/Art/PSJDawn.dds</File>
+    <File md5="D596BCAE9AF4F539E78814D25384CBC1" import="1">PaulsoaresJr/Art/PSJIcon128.dds</File>
+    <File md5="D5442AA53A7AFE5793242CD09C135D63" import="1">PaulsoaresJr/Art/PSJIcon16.dds</File>
+    <File md5="09CBE532326F4A44AE0E91E1F8948B68" import="1">PaulsoaresJr/Art/PSJIcon24.dds</File>
+    <File md5="816E9F09DFE30B6E44C6577F61C64E4F" import="1">PaulsoaresJr/Art/PSJIcon256.dds</File>
+    <File md5="31302E9D5EC3FDC9B1A4947A46918304" import="1">PaulsoaresJr/Art/PSJIcon32.dds</File>
+    <File md5="24755639B110A7ADBBDA18D7DACCF93E" import="1">PaulsoaresJr/Art/PSJIcon45.dds</File>
+    <File md5="BFEFC0E6CD33945309012D3F22C13997" import="1">PaulsoaresJr/Art/PSJIcon48.dds</File>
+    <File md5="A9D53152F4D21863A89A29C1913919A5" import="1">PaulsoaresJr/Art/PSJIcon64.dds</File>
+    <File md5="40EFECB286EA6B04CD8C8D2485AAEE09" import="1">PaulsoaresJr/Art/PSJIcon80.dds</File>
+    <File md5="A6DB82F9682065F10F079ECD50DEB0F1" import="1">PaulsoaresJr/Art/PSJLeader.dds</File>
+    <File md5="3B4D31AB9EE1645FE2A51FD1A2EECD21" import="1">PaulsoaresJr/Art/PSJLeaderScene.xml</File>
+    <File md5="17F9EBE26F53ECF7BC36D756872DC5A1" import="1">PaulsoaresJr/Art/PSJMap.dds</File>
+    <File md5="3A2D134B07D307DBA97EF1F8CB1277B1" import="1">PaulsoaresJr/Art/PSJObjects128.dds</File>
+    <File md5="82E0C78BBA6B657A032025245476C2C5" import="1">PaulsoaresJr/Art/PSJObjects16.dds</File>
+    <File md5="35640F3E2B07BA982626E026FBF9ECC9" import="1">PaulsoaresJr/Art/PSJObjects256.dds</File>
+    <File md5="B6D307AFD447B5C773CFF42176BC65DE" import="1">PaulsoaresJr/Art/PSJObjects32.dds</File>
+    <File md5="F9ECE08A30D96133ADBA3150F61A0432" import="1">PaulsoaresJr/Art/PSJObjects45.dds</File>
+    <File md5="9DCD1EB0C8CB519A3F7A7D9BFD33756F" import="1">PaulsoaresJr/Art/PSJObjects64.dds</File>
+    <File md5="5A25A21E7EC53AEB62FE1E5679C02DA7" import="1">PaulsoaresJr/Art/PSJObjects80.dds</File>
+    <File md5="229D3300D84F8F8B06AD95B5CBC957B5" import="1">PaulsoaresJr/Art/PSJUnitFlag32.dds</File>
+    <File md5="44A0886E60198964974B4FE16ADB27B6" import="1">PaulsoaresJr/Lua/PSJRuntime.lua</File>
+    <File md5="9D51F27AC226EDC1EC69AFF522979878" import="0">PaulsoaresJr/SQL/00_PSJ_Core.sql</File>
+    <File md5="AD68D11015AAE310121E9E461F7626F2" import="0">PaulsoaresJr/SQL/01_PSJ_Inheritance.sql</File>
+    <File md5="C5775FA7A0ECF77C26710D93E68F3DAC" import="0">PaulsoaresJr/SQL/02_PSJ_UniqueEffects.sql</File>
+    <File md5="67F6452ACD86FF5BD916A2E1C6482AF2" import="0">PaulsoaresJr/SQL/10_PSJ_Text.sql</File>
     <File md5="079D691E6D668B05A6C35CE0D39AD04B" import="1">CapanoCircuit/Art/CapanoAlpha128.dds</File>
     <File md5="345B9AE5E73CED911EE2FB737BDF8D68" import="1">CapanoCircuit/Art/CapanoAlpha16.dds</File>
     <File md5="C4A334B203E42219AC860A3B9FE4F7CE" import="1">CapanoCircuit/Art/CapanoAlpha24.dds</File>
@@ -372,6 +407,10 @@
       <UpdateDatabase>MasayaBeyondSky/SQL/01_Masaya_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>MasayaBeyondSky/SQL/02_Masaya_UniqueEffects.sql</UpdateDatabase>
       <UpdateDatabase>MasayaBeyondSky/SQL/10_Masaya_Text.sql</UpdateDatabase>
+      <UpdateDatabase>PaulsoaresJr/SQL/00_PSJ_Core.sql</UpdateDatabase>
+      <UpdateDatabase>PaulsoaresJr/SQL/01_PSJ_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>PaulsoaresJr/SQL/02_PSJ_UniqueEffects.sql</UpdateDatabase>
+      <UpdateDatabase>PaulsoaresJr/SQL/10_PSJ_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -418,6 +457,10 @@
     <EntryPoint type="InGameUIAddin" file="MasayaBeyondSky/UI/MasayaJoyPanel.xml">
       <Name>The Boy Beyond the Sky Joy Panel</Name>
       <Description>Event-driven Joy of Flight meter and threshold-state display.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="PaulsoaresJr/Lua/PSJRuntime.lua">
+      <Name>The First Night Memories</Name>
+      <Description>Memories, Home, Survivor exploration and era narratives.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

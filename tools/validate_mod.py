@@ -61,7 +61,7 @@ def check_packaging():
     civ_roots = (
         "RoulsAscendancy", "LunaNetwork", "TerraFramework", "CapanoCircuit",
         "FilthyRealm", "DualOrder", "RomanGladiusNetwork", "EternalNumberTen",
-        "MasayaBeyondSky",
+        "MasayaBeyondSky", "PaulsoaresJr",
     )
     actual = {
         p.relative_to(ROOT).as_posix()
@@ -101,6 +101,7 @@ def check_packaging():
         "EternalNumberTen/UI/MessiLegacyPanel.xml",
         "MasayaBeyondSky/Lua/MasayaRuntime.lua",
         "MasayaBeyondSky/UI/MasayaJoyPanel.xml",
+        "PaulsoaresJr/Lua/PSJRuntime.lua",
     ], "Combined runtime entry points are incomplete or out of order"
     assert values["SupportsMultiplayer"] == "false", "Unvalidated multiplayer must remain disabled"
     dependencies = props.findall("m:ModDependencies/m:Association/m:Id", NS)
@@ -222,7 +223,7 @@ def check_ui_and_lua():
                          "DualOrderLeader.dds", "DualOrderDawn.dds",
                          "RomanGladiusLeader.dds", "RomanGladiusDawn.dds",
                          "MessiLeader.dds", "MessiDawn.dds",
-                         "MasayaLeader.dds", "MasayaDawn.dds"}:
+                         "MasayaLeader.dds", "MasayaDawn.dds", "PSJLeader.dds", "PSJDawn.dds"}:
             assert (width, height) == (1600, 900), "Static leader scene must be 1600x900"
     directxtex_checks(dds_paths)
     print(f"PASS XML/control wiring, runtime hooks, DDS decode and Lua 5.1 syntax ({len(lua_files)} scripts)")
@@ -306,7 +307,7 @@ def check_database(path: Path, cp_root: Path):
     namespace_markers = (
         "ROULS", "GPT_LUNA", "LUNA_", "GPT_TERRA", "TERRA_", "CAPANO", "FILTHY",
         "DUAL_ORDER", "SEVERIN", "ROMAN_GLADIUS", "MESSI", "ETERNAL_NUMBER_TEN",
-        "MASAYA_KID",
+        "MASAYA_KID", "PSJ_",
     )
     for table in tables:
         columns = [r[1] for r in database.execute(f"PRAGMA table_info({quote(table)})")]
@@ -335,6 +336,7 @@ def check_database(path: Path, cp_root: Path):
         "CIVILIZATION_ROMAN_GLADIUS_NETWORK",
         "CIVILIZATION_ETERNAL_NUMBER_TEN",
         "CIVILIZATION_MASAYA_KID",
+        "CIVILIZATION_PSJ_FIRST_NIGHT",
     ):
         assert database.execute(
             "SELECT COUNT(*) FROM Civilizations WHERE Type=?", (civilization,)

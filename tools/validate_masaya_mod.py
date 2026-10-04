@@ -198,7 +198,7 @@ def package_and_art_checks() -> None:
         assert project[name] == (not name.endswith(".sql") and not name.endswith("Panel.xml"))
     actions = [node.text.replace("\\", "/") for node in
                props.findall("m:ModActions/m:Action/m:FileName", NS)]
-    assert actions[-4:] == [
+    assert [name for name in actions if name.startswith("MasayaBeyondSky/")] == [
         "MasayaBeyondSky/SQL/00_Masaya_Core.sql",
         "MasayaBeyondSky/SQL/01_Masaya_Inheritance.sql",
         "MasayaBeyondSky/SQL/02_Masaya_UniqueEffects.sql",
@@ -206,7 +206,7 @@ def package_and_art_checks() -> None:
     ]
     entries = [node.text.replace("\\", "/") for node in
                props.findall("m:ModContent/m:Content/m:FileName", NS)]
-    assert entries[-2:] == ["MasayaBeyondSky/Lua/MasayaRuntime.lua",
+    assert [name for name in entries if name.startswith("MasayaBeyondSky/")] == ["MasayaBeyondSky/Lua/MasayaRuntime.lua",
                             "MasayaBeyondSky/UI/MasayaJoyPanel.xml"]
 
     from PIL import Image
