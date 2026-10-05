@@ -86,7 +86,7 @@ CREATE TEMP TABLE PSJCivClone AS SELECT * FROM Civilizations WHERE Type='CIVILIZ
 UPDATE PSJCivClone SET ID=NULL,Type='CIVILIZATION_PSJ_FIRST_NIGHT',Description='TXT_KEY_CIV_PSJ_DESC',
  ShortDescription='TXT_KEY_CIV_PSJ_SHORT_DESC',Adjective='TXT_KEY_CIV_PSJ_ADJECTIVE',
  Civilopedia='TXT_KEY_CIV_PSJ_PEDIA',CivilopediaTag='TXT_KEY_CIV5_PSJ',Strategy='TXT_KEY_CIV_PSJ_STRATEGY',
- DefaultPlayerColor='PLAYERCOLOR_PSJ',Playable=1,AIPlayable=1,PackageID=NULL,
+ DefaultPlayerColor='PLAYERCOLOR_PSJ',Playable=1,AIPlayable=0,PackageID=NULL,
  ArtDefineTag='ART_DEF_CIVILIZATION_AMERICA',ArtStyleType='ARTSTYLE_EUROPEAN',ArtStyleSuffix='_EURO',ArtStylePrefix='EUROPEAN ',
  PortraitIndex=0,IconAtlas='PSJ_ICON_ATLAS',AlphaIconAtlas='PSJ_ALPHA_ATLAS',
  MapImage='PSJMap.dds',DawnOfManImage='PSJDawn.dds',DawnOfManQuote='TXT_KEY_PSJ_DAWN_OF_MAN',

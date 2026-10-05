@@ -1,6 +1,6 @@
 # The Capano Circuit
 
-Enrico Capano leads an independent Civilization V: Brave New World + Community Patch v151 civilization built around setting terrain, studying difficult opponents, and turning repeated failure into a SEND. It is AI-playable and favors Science, Culture, military training, defense, reconnaissance, and tile improvement.
+Enrico Capano leads an independent Civilization V: Brave New World + Community Patch v151 civilization built around setting terrain, studying difficult opponents, and turning repeated failure into a SEND. It is human-only and favors Science, Culture, military training, defense, reconnaissance, and tile improvement.
 
 ## Unique ability — Impossible Until It's Possible
 
@@ -45,7 +45,7 @@ The Competition Coaching Centre replaces and dynamically inherits the current Ar
 
 ## AI and implementation
 
-Enrico is AI-playable with the design's restrained expansion/offense and high Science, Culture, training, defense, recon, and improvement flavors. Community Patch diplomacy hooks add Respect the Send (+10), Abandoned Project (-10), and Strong Climbers (+5) when their stated thresholds are met.
+Enrico is human-only; the retained AI fallback uses the design's restrained expansion/offense and high Science, Culture, training, defense, recon, and improvement flavors. Community Patch diplomacy hooks add Respect the Send (+10), Abandoned Project (-10), and Strong Climbers (+5) when their stated thresholds are met.
 
 Target identity, Beta, training era, Yellow status, SEND progression, Ammagamma, and diplomacy milestones persist through `Modding.OpenSaveData` or namespaced unit script data. Battle bonuses are temporary target-specific promotions applied only around the Community Patch battle callbacks. Unit-ID reuse is guarded with saved serials, and conversions clear foreign Projects while upgrades preserve same-owner progress.
 

@@ -86,7 +86,7 @@ UPDATE MasayaKidCivClone SET ID=NULL,Type='CIVILIZATION_MASAYA_KID',
  Description='TXT_KEY_CIV_MASAYA_KID_DESC',ShortDescription='TXT_KEY_CIV_MASAYA_KID_SHORT_DESC',
  Adjective='TXT_KEY_CIV_MASAYA_KID_ADJECTIVE',Civilopedia='TXT_KEY_CIV_MASAYA_KID_PEDIA',
  CivilopediaTag='TXT_KEY_CIV5_MASAYA_KID',Strategy='TXT_KEY_CIV_MASAYA_KID_STRATEGY',
- DefaultPlayerColor='PLAYERCOLOR_MASAYA_KID',Playable=1,AIPlayable=1,PackageID=NULL,
+ DefaultPlayerColor='PLAYERCOLOR_MASAYA_KID',Playable=1,AIPlayable=0,PackageID=NULL,
  PortraitIndex=0,IconAtlas='MASAYA_KID_ICON_ATLAS',AlphaIconAtlas='MASAYA_KID_ALPHA_ATLAS',
  MapImage='MasayaMap.dds',DawnOfManImage='MasayaDawn.dds',
  DawnOfManQuote='TXT_KEY_MASAYA_KID_DAWN_OF_MAN',DawnOfManAudio='',SoundtrackTag='JAPAN';

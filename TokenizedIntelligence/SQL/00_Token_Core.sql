@@ -9,7 +9,7 @@ INSERT INTO Leaders SELECT * FROM TokenClone;
 DROP TABLE TokenClone;
 INSERT INTO Leader_Traits VALUES ('LEADER_TOKEN_AXIOM','TRAIT_TOKEN_CONTEXT');
 CREATE TEMP TABLE TokenClone AS SELECT * FROM Civilizations WHERE Type='CIVILIZATION_AMERICA';
-UPDATE TokenClone SET ID=NULL,Type='CIVILIZATION_TOKEN_INTELLIGENCE',Description='TXT_KEY_TOKEN_CIV',ShortDescription='TXT_KEY_TOKEN_SHORT',Adjective='TXT_KEY_TOKEN_ADJECTIVE',Civilopedia='TXT_KEY_TOKEN_CIV_PEDIA',CivilopediaTag='TXT_KEY_CIV5_TOKEN',Strategy='TXT_KEY_TOKEN_STRATEGY',DefaultPlayerColor='PLAYERCOLOR_TOKEN',Playable=1,AIPlayable=1,PackageID=NULL,PortraitIndex=0,IconAtlas='TOKEN_ICON_ATLAS',AlphaIconAtlas='TOKEN_ALPHA_ATLAS',MapImage='TokenMap.dds',DawnOfManImage='TokenDawn.dds',DawnOfManQuote='TXT_KEY_TOKEN_DAWN',DawnOfManAudio='';
+UPDATE TokenClone SET ID=NULL,Type='CIVILIZATION_TOKEN_INTELLIGENCE',Description='TXT_KEY_TOKEN_CIV',ShortDescription='TXT_KEY_TOKEN_SHORT',Adjective='TXT_KEY_TOKEN_ADJECTIVE',Civilopedia='TXT_KEY_TOKEN_CIV_PEDIA',CivilopediaTag='TXT_KEY_CIV5_TOKEN',Strategy='TXT_KEY_TOKEN_STRATEGY',DefaultPlayerColor='PLAYERCOLOR_TOKEN',Playable=1,AIPlayable=0,PackageID=NULL,PortraitIndex=0,IconAtlas='TOKEN_ICON_ATLAS',AlphaIconAtlas='TOKEN_ALPHA_ATLAS',MapImage='TokenMap.dds',DawnOfManImage='TokenDawn.dds',DawnOfManQuote='TXT_KEY_TOKEN_DAWN',DawnOfManAudio='';
 INSERT INTO Civilizations SELECT * FROM TokenClone;
 DROP TABLE TokenClone;
 INSERT INTO Civilization_Leaders VALUES ('CIVILIZATION_TOKEN_INTELLIGENCE','LEADER_TOKEN_AXIOM');

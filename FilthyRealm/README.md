@@ -1,5 +1,7 @@
 # The Filthy Realm
 
+This civilization is human-only (`Playable = 1`, `AIPlayable = 0`): humans can select it, but AI players cannot.
+
 Filthy Frank leads a Culture/Domination civilization built around sustained contact with foreign cities. International Trade Routes, cultural influence, pillaging, and kills near enemy cities apply up to five levels of Filth. The hidden Filth buildings impose the exact percentage penalties from the design; levels four and five grant nearby Filthy military units the strongest applicable combat bonus, never a stack of multiple bonuses.
 
 ## Filth and Filthy Points

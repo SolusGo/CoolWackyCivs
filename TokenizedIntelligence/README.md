@@ -2,7 +2,7 @@
 
 A twelfth civilization in **Cool Wacky Civs**, led by **Axiom, Keeper of Context**.
 Requires Civilization V: Brave New World and Community Patch v151 (5.4.2+) like
-the rest of the collection. AI selection and automated Token spending are enabled.
+the rest of the collection. Human selection is enabled; AI selection is disabled (`Playable = 1`, `AIPlayable = 0`).
 
 Build the collection with `python tools/build_mod.py`. Extract the generated
 `dist/Cool Wacky Civs (v 17)` directory into the game's `MODS` directory, or import

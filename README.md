@@ -19,7 +19,7 @@ Cool Wacky Civs is one Civilization V: Brave New World mod containing twelve civ
 
 Token hardening in version 17 preserves version 16 Token save keys. Clear Context restores Tokens and clears persistent Prompts/cache while Compute Saturation expires naturally; weaker saturation cannot prolong a stronger tier.
 
-All twelve civilizations are installed and enabled together. Rou'ls and Luna are human-only; Terra, Capano, Filthy Frank, Grandmaster Severin, Lachlan, Lionel Messi, Masaya Hinata, PaulsoaresJr, Thragg, and Axiom also support AI selection with design-specific flavors and automated mechanics. The collection supports single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
+All twelve civilizations are installed and enabled together and are human-only (`Playable = 1`, `AIPlayable = 0`): humans can select them, but AI players cannot. The collection supports single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
 
 ## Requirements
 

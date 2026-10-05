@@ -1,5 +1,7 @@
 # PaulsoaresJr — The First Night
 
+This civilization is human-only (`Playable = 1`, `AIPlayable = 0`): humans can select it, but AI players cannot.
+
 A love letter to the generation who learned Minecraft while it was still mysterious, and to the patient guide who helped them survive their first nights. This is a fictional nostalgic civilization, not a claim of real historical nationhood.
 
 ## How to Survive & Thrive

@@ -62,7 +62,7 @@ UPDATE RomanGladiusCivClone SET ID=NULL,Type='CIVILIZATION_ROMAN_GLADIUS_NETWORK
  Description='TXT_KEY_CIV_ROMAN_GLADIUS_DESC',ShortDescription='TXT_KEY_CIV_ROMAN_GLADIUS_SHORT_DESC',
  Adjective='TXT_KEY_CIV_ROMAN_GLADIUS_ADJECTIVE',Civilopedia='TXT_KEY_CIV_ROMAN_GLADIUS_PEDIA',
  CivilopediaTag='TXT_KEY_CIV5_ROMAN_GLADIUS',Strategy='TXT_KEY_CIV_ROMAN_GLADIUS_STRATEGY',
- DefaultPlayerColor='PLAYERCOLOR_ROMAN_GLADIUS',Playable=1,AIPlayable=1,PackageID=NULL,
+ DefaultPlayerColor='PLAYERCOLOR_ROMAN_GLADIUS',Playable=1,AIPlayable=0,PackageID=NULL,
  PortraitIndex=0,IconAtlas='ROMAN_GLADIUS_ICON_ATLAS',AlphaIconAtlas='ROMAN_GLADIUS_ALPHA_ATLAS',
  MapImage='RomanGladiusMap.dds',DawnOfManImage='RomanGladiusDawn.dds',
  DawnOfManQuote='TXT_KEY_ROMAN_GLADIUS_DAWN_OF_MAN',DawnOfManAudio='',SoundtrackTag='ENGLAND',

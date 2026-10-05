@@ -28,4 +28,4 @@ The runtime includes Suspected Cheater, Griefer Attack, Moderator Abuse, Staff C
 
 ## Compatibility
 
-Requires Brave New World and Community Patch 151 / release 5.4.2 or newer. The civilization is AI-playable. State is stored per City identity so captures or refounded City IDs cannot inherit another Server's records.
+Requires Brave New World and Community Patch 151 / release 5.4.2 or newer. The civilization is human-only (`Playable = 1`, `AIPlayable = 0`). State is stored per City identity so captures or refounded City IDs cannot inherit another Server's records.

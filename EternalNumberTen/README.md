@@ -1,5 +1,7 @@
 # The Eternal Number Ten
 
+This civilization is human-only (`Playable = 1`, `AIPlayable = 0`): humans can select it, but AI players cannot.
+
 The Eternal Number Ten is a Civilization V: Brave New World civilization led by Lionel Messi. It starts without an immediate numerical trait bonus and earns strength through a persistent Legacy career. The implementation requires the Community Patch and is shipped inside the combined Cool Wacky Civs package.
 
 ## Unique ability — From Rosario to Immortality

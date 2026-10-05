@@ -23,7 +23,7 @@ CREATE TEMP TABLE TerraClone AS SELECT * FROM Civilizations WHERE Type='CIVILIZA
 UPDATE TerraClone SET ID=NULL,Type='CIVILIZATION_GPT_TERRA',Description='TXT_KEY_CIV_TERRA_DESC',
  ShortDescription='TXT_KEY_CIV_TERRA_SHORT_DESC',Adjective='TXT_KEY_CIV_TERRA_ADJECTIVE',
  Civilopedia='TXT_KEY_CIV_TERRA_PEDIA',CivilopediaTag='TXT_KEY_CIV5_TERRA',Strategy='TXT_KEY_CIV_TERRA_STRATEGY',
- DefaultPlayerColor='PLAYERCOLOR_TERRA',Playable=1,AIPlayable=1,PackageID=NULL,
+ DefaultPlayerColor='PLAYERCOLOR_TERRA',Playable=1,AIPlayable=0,PackageID=NULL,
  PortraitIndex=0,IconAtlas='TERRA_ICON_ATLAS',AlphaIconAtlas='TERRA_ALPHA_ATLAS',
  MapImage='TerraMap.dds',DawnOfManImage='TerraLeader.dds',DawnOfManQuote='TXT_KEY_TERRA_DAWN_OF_MAN',DawnOfManAudio='';
 INSERT INTO Civilizations SELECT * FROM TerraClone;

@@ -57,7 +57,7 @@
     <File md5="5A25A21E7EC53AEB62FE1E5679C02DA7" import="1">PaulsoaresJr/Art/PSJObjects80.dds</File>
     <File md5="229D3300D84F8F8B06AD95B5CBC957B5" import="1">PaulsoaresJr/Art/PSJUnitFlag32.dds</File>
     <File md5="EAF0D1DCFDE948DBBED2246866E5DF76" import="1">PaulsoaresJr/Lua/PSJRuntime.lua</File>
-    <File md5="DF57D7049557351DC3BD411AE8EFD881" import="0">PaulsoaresJr/SQL/00_PSJ_Core.sql</File>
+    <File md5="D678CAC485751773CE2C1A01AD7353A9" import="0">PaulsoaresJr/SQL/00_PSJ_Core.sql</File>
     <File md5="AD68D11015AAE310121E9E461F7626F2" import="0">PaulsoaresJr/SQL/01_PSJ_Inheritance.sql</File>
     <File md5="C5775FA7A0ECF77C26710D93E68F3DAC" import="0">PaulsoaresJr/SQL/02_PSJ_UniqueEffects.sql</File>
     <File md5="7200D1622D0660D8A6A9D39AAA6B9647" import="0">PaulsoaresJr/SQL/10_PSJ_Text.sql</File>
@@ -91,7 +91,7 @@
     <File md5="D22A68FCA5E1609DAE664025556FF73B" import="1">CapanoCircuit/Art/CapanoObjects80.dds</File>
     <File md5="4538D1584814413F2D4C78B52C5BC9F8" import="1">CapanoCircuit/Art/CapanoUnitFlag32.dds</File>
     <File md5="9137E0A3F948655F7B798EF5BC7C7162" import="1">CapanoCircuit/Lua/CapanoRuntime.lua</File>
-    <File md5="8C4D5A7EE9CD84B39DC3239E00B68DF6" import="0">CapanoCircuit/SQL/00_Capano_Core.sql</File>
+    <File md5="13FA6941DE4F2D5F0A3482A027A9F754" import="0">CapanoCircuit/SQL/00_Capano_Core.sql</File>
     <File md5="E44393B20933AAEA54C9BF39562CBFE5" import="0">CapanoCircuit/SQL/01_Capano_Inheritance.sql</File>
     <File md5="E61A64A1028AB793CE212EBC40664546" import="0">CapanoCircuit/SQL/02_Capano_UniqueEffects.sql</File>
     <File md5="9834DC5A4975F0345FEA98C7B479363B" import="0">CapanoCircuit/SQL/10_Capano_Text.sql</File>
@@ -126,7 +126,7 @@
     <File md5="899837750DF75D2439DE82C04E985E88" import="1">FilthyRealm/Art/FilthyObjects80.dds</File>
     <File md5="3B8641E929895C36120D21AAE32133E3" import="1">FilthyRealm/Art/FilthyUnitFlag32.dds</File>
     <File md5="5A5DBE41F4741917C67605EF394272EC" import="1">FilthyRealm/Lua/FilthyRuntime.lua</File>
-    <File md5="3505BCF1DD8146260593CC3AB3D23EB0" import="0">FilthyRealm/SQL/00_Filthy_Core.sql</File>
+    <File md5="69A2C036747B8610913175187C9F5C16" import="0">FilthyRealm/SQL/00_Filthy_Core.sql</File>
     <File md5="3835228BE4BF6D3A7C5F0FF3F40D376E" import="0">FilthyRealm/SQL/01_Filthy_Inheritance.sql</File>
     <File md5="5E282CC532747AAF858BDF4BDADE7039" import="0">FilthyRealm/SQL/02_Filthy_UniqueEffects.sql</File>
     <File md5="39BD5E5F96F64763BBE755B3D006B6BB" import="0">FilthyRealm/SQL/10_Filthy_Text.sql</File>
@@ -166,7 +166,7 @@
     <File md5="006C2EF67EAE6D4938388E35738EA936" import="1">DualOrder/Art/DualOrderObjects80.dds</File>
     <File md5="B98A88DAAE7602E3E1607658B0075084" import="1">DualOrder/Art/DualOrderUnitFlag32.dds</File>
     <File md5="7891B46A6560135AAA2C4F2F6B1C6BA0" import="1">DualOrder/Lua/DualOrderRuntime.lua</File>
-    <File md5="1859E9FF8A49D59E36EB03CF377DADCF" import="0">DualOrder/SQL/00_DualOrder_Core.sql</File>
+    <File md5="B3F2B9647A0AC986CBD0CDE171D27122" import="0">DualOrder/SQL/00_DualOrder_Core.sql</File>
     <File md5="F1973CC36E23A8F82195AC13B4C4E4F7" import="0">DualOrder/SQL/01_DualOrder_Inheritance.sql</File>
     <File md5="4C8416BC7C111E18BE7BB3F3AA6713FE" import="0">DualOrder/SQL/02_DualOrder_UniqueEffects.sql</File>
     <File md5="ED89627C0DE8AA124DD257F52487C9C8" import="0">DualOrder/SQL/10_DualOrder_Text.sql</File>
@@ -247,7 +247,7 @@
     <File md5="DFEA792A9620FD4A6538E1E2F0208212" import="1">TerraFramework/Art/TerraOperative64.dds</File>
     <File md5="17B60B0CA678ED7E819537182E300991" import="1">TerraFramework/Art/TerraOperative80.dds</File>
     <File md5="C9A0C49FEA742BF7A18DF784CF26D73B" import="1">TerraFramework/Lua/TerraRuntime.lua</File>
-    <File md5="54E038DDF8DD7B18CEA6541BB46DA4B4" import="0">TerraFramework/SQL/00_Terra_Core.sql</File>
+    <File md5="A25C00BDE26C38D7783610FFC5D1992B" import="0">TerraFramework/SQL/00_Terra_Core.sql</File>
     <File md5="F20187D3F0A09D2EB1ECADECF9DE75D4" import="0">TerraFramework/SQL/01_Terra_Inheritance.sql</File>
     <File md5="86625CD6C69DBC6DAF0AFCF55A0A7333" import="0">TerraFramework/SQL/02_Terra_UniqueEffects.sql</File>
     <File md5="58B9EDE4E9B208B32D3907AC77DE63AA" import="0">TerraFramework/SQL/10_Terra_Text.sql</File>
@@ -285,7 +285,7 @@
     <File md5="7EA728DFD912364B2D7F84ACDC1F8510" import="1">RomanGladiusNetwork/Art/RomanGladiusUnitFlag32.dds</File>
     <File md5="84FBB033F8EE248DC205BAB8450A0CDE" import="1">RomanGladiusNetwork/Art/RomanGladiusLeaderScene.xml</File>
     <File md5="149E20C9ABCFAF9FA6A101425F3849F9" import="1">RomanGladiusNetwork/Lua/RomanGladiusRuntime.lua</File>
-    <File md5="7F01F105573ECBCA259759CCF9B8E3E5" import="0">RomanGladiusNetwork/SQL/00_RomanGladius_Core.sql</File>
+    <File md5="4E6873E60275F359AFA5EA28EAD24F9B" import="0">RomanGladiusNetwork/SQL/00_RomanGladius_Core.sql</File>
     <File md5="CFC30023CFB0B0549393F3656A7D301A" import="0">RomanGladiusNetwork/SQL/01_RomanGladius_Inheritance.sql</File>
     <File md5="6F37FAA2C4BE38A8BA3D038FF8096968" import="0">RomanGladiusNetwork/SQL/02_RomanGladius_UniqueEffects.sql</File>
     <File md5="AC4F17C3A133BDA347156800696BFDF8" import="0">RomanGladiusNetwork/SQL/10_RomanGladius_Text.sql</File>
@@ -325,7 +325,7 @@
     <File md5="E0BBA9F10362B9F21E2A81D53EC69664" import="1">EternalNumberTen/Art/MessiObjects80.dds</File>
     <File md5="E4C6D6B7DA11348B40C31EB2D8DE5508" import="1">EternalNumberTen/Art/MessiUnitFlag32.dds</File>
     <File md5="BC23F1F48BB2F1BF262914AE6A866FDB" import="1">EternalNumberTen/Lua/MessiRuntime.lua</File>
-    <File md5="B350B07AE52B56CF7636804E47CBD47E" import="0">EternalNumberTen/SQL/00_Messi_Core.sql</File>
+    <File md5="AE3017031B689E1BC9353C30444B0198" import="0">EternalNumberTen/SQL/00_Messi_Core.sql</File>
     <File md5="F4CB218CE93AAB60D58D87980F5509E3" import="0">EternalNumberTen/SQL/01_Messi_Inheritance.sql</File>
     <File md5="3E7FE54D8F95C6F27C5EFB23E56E4A4D" import="0">EternalNumberTen/SQL/02_Messi_UniqueEffects.sql</File>
     <File md5="DD5678B18557DD8A03F88CA2292D5F21" import="0">EternalNumberTen/SQL/10_Messi_Text.sql</File>
@@ -362,7 +362,7 @@
     <File md5="140E6BEBEFC04D27137561CD7A518EA6" import="1">MasayaBeyondSky/Art/MasayaObjects80.dds</File>
     <File md5="44F99879C7AFD35BB2561D5DEE487A62" import="1">MasayaBeyondSky/Art/MasayaUnitFlag32.dds</File>
     <File md5="C83766928DF193D9F05B07017080D6FA" import="1">MasayaBeyondSky/Lua/MasayaRuntime.lua</File>
-    <File md5="334A0CEE00D3B08D7A0A19B962144822" import="0">MasayaBeyondSky/SQL/00_Masaya_Core.sql</File>
+    <File md5="BBFAC9F7F7AC3EBE97408F69355D6BA3" import="0">MasayaBeyondSky/SQL/00_Masaya_Core.sql</File>
     <File md5="F66C1D8E8FEE748C6F00461531A77BC2" import="0">MasayaBeyondSky/SQL/01_Masaya_Inheritance.sql</File>
     <File md5="24AA6D096C26A5C29B4B40DB64E337D3" import="0">MasayaBeyondSky/SQL/02_Masaya_UniqueEffects.sql</File>
     <File md5="ED5C95FC1EFE65AC5EB79E4C83E63927" import="0">MasayaBeyondSky/SQL/10_Masaya_Text.sql</File>
@@ -401,7 +401,7 @@
     <File md5="E7F158FE651F04A434836A2A1BAE17E8" import="1">TokenizedIntelligence/Art/TokenObjects80.dds</File>
     <File md5="8EC804D77262D0D67F3B2CE9100FC5C8" import="1">TokenizedIntelligence/Art/TokenUnitFlag32.dds</File>
     <File md5="9A689CF56037DA7085193C44E42F2314" import="1">TokenizedIntelligence/Lua/TokenRuntime.lua</File>
-    <File md5="4E95B7E49794194234009FFF347C0ADF" import="0">TokenizedIntelligence/SQL/00_Token_Core.sql</File>
+    <File md5="E5D6BFB29603BB04D4A2BF45683501C3" import="0">TokenizedIntelligence/SQL/00_Token_Core.sql</File>
     <File md5="0E82CAF66D90BB82B97AAE820D0FE889" import="0">TokenizedIntelligence/SQL/01_Token_Inheritance.sql</File>
     <File md5="D7E3A10ABED77003569B82035934C639" import="0">TokenizedIntelligence/SQL/02_Token_Effects.sql</File>
     <File md5="936CD1B1537BC8039C31D663C5CE9EBF" import="0">TokenizedIntelligence/SQL/10_Token_Text.sql</File>
@@ -440,7 +440,7 @@
     <File md5="204B685E213EA8D19367090A415CBCB1" import="1">ViltrumEmpire/Art/ViltrumObjects80.dds</File>
     <File md5="1193FADC2F3A9717050489515A3A6649" import="1">ViltrumEmpire/Art/ViltrumUnitFlag32.dds</File>
     <File md5="6F0BE4C33E67211A7F2D5FF24803375E" import="1">ViltrumEmpire/Lua/ViltrumRuntime.lua</File>
-    <File md5="255107AD55E96ABC877CC667F736D8EA" import="0">ViltrumEmpire/SQL/00_Viltrum_Core.sql</File>
+    <File md5="51E9CCE1AF487305A1E1FF84EE5B5FEF" import="0">ViltrumEmpire/SQL/00_Viltrum_Core.sql</File>
     <File md5="386C53ED5D192678FD47AEC38CF3250D" import="0">ViltrumEmpire/SQL/01_Viltrum_Inheritance.sql</File>
     <File md5="E1543DD22D865072549BB8CA4C22DF23" import="0">ViltrumEmpire/SQL/02_Viltrum_Effects.sql</File>
     <File md5="D03709B1D92197C3D32C159F5ABD3A6D" import="0">ViltrumEmpire/SQL/10_Viltrum_Text.sql</File>

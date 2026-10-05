@@ -349,6 +349,9 @@ def check_database(path: Path, cp_root: Path):
         assert database.execute(
             "SELECT COUNT(*) FROM Civilizations WHERE Type=?", (civilization,)
         ).fetchone()[0] == 1, f"Combined activation is missing {civilization}"
+        assert tuple(database.execute(
+            "SELECT Playable, AIPlayable FROM Civilizations WHERE Type=?", (civilization,)
+        ).fetchone()) == (1, 0), f"{civilization} must be human-only"
 
     atlas_specs = {
         "ROULS_ICON_ATLAS": ("RoulsIcon", (256, 128, 80, 64, 45, 32)),

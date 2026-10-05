@@ -78,7 +78,7 @@ def database_checks():
         assert (home['Cost'],home['UnmoddedHappiness'],home['NeverCapture'],home['IsDummy'],home['ShowInPedia'])==(-1,i,1,1,0)
         assert db.execute('SELECT SUM(Yield) FROM Building_YieldChanges WHERE BuildingType=? AND YieldType=?',(home['Type'],'YIELD_CULTURE')).fetchone()[0]==i
     civ=row('Civilizations','CIVILIZATION_PSJ_FIRST_NIGHT')
-    assert civ['Playable']==civ['AIPlayable']==1
+    assert (civ['Playable'], civ['AIPlayable']) == (1, 0)
     assert list(db.execute("SELECT UnitType FROM Civilization_UnitClassOverrides WHERE CivilizationType='CIVILIZATION_PSJ_FIRST_NIGHT'"))[0][0]=='UNIT_PSJ_SURVIVOR'
     assert list(db.execute("SELECT BuildingType FROM Civilization_BuildingClassOverrides WHERE CivilizationType='CIVILIZATION_PSJ_FIRST_NIGHT'"))[0][0]=='BUILDING_PSJ_STARTER_HOUSE'
     assert db.execute("SELECT TraitType FROM Leader_Traits WHERE LeaderType='LEADER_PSJ_PAUL'").fetchone()[0]=='TRAIT_PSJ_SURVIVE_THRIVE'

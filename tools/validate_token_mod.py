@@ -37,7 +37,7 @@ def database(cp_root=None):
             if key not in allcols or not cols or t=='Building_Flavors':continue
             def companions(k):return sorted(tuple(r) for r in d.execute('SELECT '+','.join(map(quote,cols))+' FROM '+quote(t)+' WHERE '+key+'=?',(k,)))
             assert companions(base)==companions(unique),(t,unique)
-    assert row('Civilizations','CIVILIZATION_TOKEN_INTELLIGENCE')['AIPlayable']==1
+    assert (row('Civilizations','CIVILIZATION_TOKEN_INTELLIGENCE')['Playable'], row('Civilizations','CIVILIZATION_TOKEN_INTELLIGENCE')['AIPlayable']) == (1, 0)
     assert row('Buildings','BUILDING_TOKEN_HAPPINESS')['UnmoddedHappiness']==5
     assert row('Buildings','BUILDING_TOKEN_ADMIN')['UnmoddedHappiness']==8
     assert row('UnitPromotions','PROMOTION_TOKEN_TACTICAL')['CombatPercent']==15

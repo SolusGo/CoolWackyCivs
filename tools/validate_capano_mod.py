@@ -70,7 +70,7 @@ def database_checks(path: Path, cp_root: Path) -> None:
 
     assert one("SELECT COUNT(*) FROM Civilizations WHERE Type='CIVILIZATION_CAPANO_CIRCUIT'") == 1
     assert one("SELECT Playable FROM Civilizations WHERE Type='CIVILIZATION_CAPANO_CIRCUIT'") == 1
-    assert one("SELECT AIPlayable FROM Civilizations WHERE Type='CIVILIZATION_CAPANO_CIRCUIT'") == 1
+    assert one("SELECT AIPlayable FROM Civilizations WHERE Type='CIVILIZATION_CAPANO_CIRCUIT'") == 0
     worker = database.execute("SELECT * FROM Units WHERE Type='UNIT_WORKER'").fetchone()
     setter = database.execute("SELECT * FROM Units WHERE Type='UNIT_CAPANO_ROUTE_SETTER'").fetchone()
     assert setter and setter["Moves"] == 3 and setter["WorkRate"] == worker["WorkRate"]

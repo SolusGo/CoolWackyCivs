@@ -1,5 +1,7 @@
 # The Boy Beyond the Sky
 
+This civilization is human-only (`Playable = 1`, `AIPlayable = 0`): humans can select it, but AI players cannot.
+
 Masaya Hinata leads a Civilization V: Brave New World + Community Patch v151 civilization about the uncomplicated joy of childhood Flying Circus. The design turns exploration, participation, experimentation, and experience into a renewable `Joy of Flight` meter rather than rewarding conquest.
 
 ## Unique ability — I'll Be the First to Fly Beyond the Sky

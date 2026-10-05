@@ -1,5 +1,10 @@
 # Patch Notes
 
+## Human-only civilization selection - 2026-10-05
+
+- All twelve collection civilizations now use `Playable = 1` and `AIPlayable = 0`, allowing human selection while excluding them from AI selection.
+- Updated civilization generators and database validation to preserve this setting when rebuilding.
+
 ## Version 17 — Tokenized Intelligence hardening — 2026-10-05
 
 - Weaker spending no longer prolongs stronger Compute Saturation. Equal tiers may refresh and stronger tiers upgrade; the v1 saturation save keys are unchanged.

@@ -1,5 +1,7 @@
 # The Viltrum Empire — Grand Regent Thragg
 
+This civilization is human-only (`Playable = 1`, `AIPlayable = 0`): humans can select it, but AI players cannot.
+
 An eleventh civilization in **Cool Wacky Civs**, for Brave New World and Community Patch v151 (5.4.2+). Start a **new single-player game** with the collection enabled, then select The Viltrum Empire. The collection remains multiplayer/hotseat-disabled.
 
 Viltrum conquers aggressively before a guaranteed biological collapse. Its 82-strength, three-move Viltrumite Warrior costs **1300 Production** and unlocks at Replaceable Parts. Conventional Auxiliary Infantry retains the active ruleset's Infantry statistics and technology; artillery, aircraft and other ordinary units remain available. Only Bloodline units suffer biological casualties.

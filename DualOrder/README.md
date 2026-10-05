@@ -1,5 +1,7 @@
 # The Dual Order
 
+This civilization is human-only (`Playable = 1`, `AIPlayable = 0`): humans can select it, but AI players cannot.
+
 The Dual Order is Grandmaster Severin's military-religious civilization for Civilization V: Brave New World with the Community Patch. It rewards cities that maintain both halves of the realm, turns positive Faith into wartime cohesion, and uses Golden Ages as periods of concentrated military preparation.
 
 ## Unique ability — Twin Mandates

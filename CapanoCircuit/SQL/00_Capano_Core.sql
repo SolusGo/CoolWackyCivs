@@ -85,7 +85,7 @@ CREATE TEMP TABLE CapanoCivClone AS SELECT * FROM Civilizations WHERE Type='CIVI
 UPDATE CapanoCivClone SET ID=NULL,Type='CIVILIZATION_CAPANO_CIRCUIT',Description='TXT_KEY_CIV_CAPANO_DESC',
  ShortDescription='TXT_KEY_CIV_CAPANO_SHORT_DESC',Adjective='TXT_KEY_CIV_CAPANO_ADJECTIVE',
  Civilopedia='TXT_KEY_CIV_CAPANO_PEDIA',CivilopediaTag='TXT_KEY_CIV5_CAPANO',Strategy='TXT_KEY_CIV_CAPANO_STRATEGY',
- DefaultPlayerColor='PLAYERCOLOR_CAPANO',Playable=1,AIPlayable=1,PackageID=NULL,
+ DefaultPlayerColor='PLAYERCOLOR_CAPANO',Playable=1,AIPlayable=0,PackageID=NULL,
  ArtDefineTag='ART_DEF_CIVILIZATION_AMERICA',ArtStyleType='ARTSTYLE_EUROPEAN',ArtStyleSuffix='_EURO',ArtStylePrefix='EUROPEAN ',
  PortraitIndex=0,IconAtlas='CAPANO_ICON_ATLAS',AlphaIconAtlas='CAPANO_ALPHA_ATLAS',
  MapImage='CapanoMap.dds',DawnOfManImage='CapanoLeader.dds',DawnOfManQuote='TXT_KEY_CAPANO_DAWN_OF_MAN',

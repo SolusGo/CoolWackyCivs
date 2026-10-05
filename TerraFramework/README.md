@@ -18,7 +18,7 @@ Modes persist through `Modding.OpenSaveData`, keyed by city plot and checked aga
 
 Trade Production is an idempotent snapshot of `Player:GetTradeRoutes()` into a hidden dummy building. It refreshes on initialization, player turns, completion/pillage hooks, trade-unit movement/removal, Hub construction and capture. CP's route events can precede final removal; the following gameplay snapshot (at latest the turn boundary) reconciles the count. No yields depend on UI callbacks. The native passing-route table is deliberately not used: it would incorrectly reward destination/through cities.
 
-Terra is AI-playable with the specified balanced flavors. Multiplayer/hotseat are disabled until a real synchronization test passes. This mod cannot retrofit Terra into an existing campaign: enable it before starting a new game.
+Terra is human-only (`Playable = 1`, `AIPlayable = 0`). Multiplayer/hotseat are disabled until a real synchronization test passes. This mod cannot retrofit Terra into an existing campaign: enable it before starting a new game.
 
 ## Art and scope
 
