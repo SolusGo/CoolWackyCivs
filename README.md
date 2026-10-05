@@ -1,6 +1,6 @@
 # Cool Wacky Civs
 
-Cool Wacky Civs is one Civilization V: Brave New World mod containing twelve civilizations built for the Community Patch. The repository has one ModBuddy solution, one project, one manifest, and one deployable package; each civilization keeps its own gameplay and implementation README.
+Cool Wacky Civs is one Civilization V: Brave New World mod containing thirteen civilizations built for the Community Patch. The collection has one ModBuddy solution, one project and one combined deployable package; each civilization keeps its own gameplay and implementation README. The Kingdoms also includes a pure-file standalone build.
 
 ## Civilizations
 
@@ -16,10 +16,11 @@ Cool Wacky Civs is one Civilization V: Brave New World mod containing twelve civ
 - [The First Night](PaulsoaresJr/README.md) — PaulsoaresJr guides curious Survivors through first experiences whose permanent Memories become more precious as eras pass.
 - [The Viltrum Empire](ViltrumEmpire/README.md) — Grand Regent Thragg conquers through Imperial Momentum and elite Viltrumites before a guaranteed Scourge forces quarantine or a desperate crusade.
 - [The Tokenized Intelligence](TokenizedIntelligence/README.md) — Axiom, Keeper of Context, spends finite Tokens on cached Prompts, manages congestion, and grows its Context Window through eras and inference infrastructure.
+- [The Kingdoms](TheKingdoms/README.md) — generated kings and queens rule persistent noble Houses, face demands and civil wars, and appoint seven named King's Guards.
 
 Token hardening in version 17 preserves version 16 Token save keys. Clear Context restores Tokens and clears persistent Prompts/cache while Compute Saturation expires naturally; weaker saturation cannot prolong a stronger tier.
 
-All twelve civilizations are installed and enabled together and are human-only (`Playable = 1`, `AIPlayable = 0`): humans can select them, but AI players cannot. The collection supports single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
+All thirteen civilizations are installed and enabled together. The original twelve remain human-only (`Playable = 1`, `AIPlayable = 0`). The Kingdoms is also AI-playable, with automatic political decisions. The collection supports single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
 
 ## UA, UU and UB roster
 
@@ -39,6 +40,7 @@ All twelve civilizations are installed and enabled together and are human-only (
 | [The First Night](PaulsoaresJr/README.md#ua-uu-and-ubs) | How to Survive & Thrive | Survivor (Scout) | Starter House (Monument) |
 | [The Viltrum Empire](ViltrumEmpire/README.md#ua-uu-and-ubs) | Blood of Conquest | Viltrumite Warrior (Infantry) | Viltrumite Breeding Complex (Military Academy) |
 | [The Tokenized Intelligence](TokenizedIntelligence/README.md#ua-uu-and-ubs) | Context Window | Inference Agent (Infantry) | Inference Cluster (University); Data Centre (Research Lab) |
+| [The Kingdoms](TheKingdoms/README.md) | The Kingdoms United | The King's Guards (Longswordsman; seven living identities) | The Kingdom's Wall (Walls) |
 
 **Additional uniques:** Capano has the **Boulder Sector UI**; Messi has the **Football Academy UI**. Frank can summon **Salamander Man** through his UA. Viltrum retains **Auxiliary Infantry** as a separate conventional option. Rou'ls' **The Choir Eternal** is a unique National Wonder, replacing the Heroic Epic.
 
@@ -188,7 +190,7 @@ Install the repository-local development dependencies:
 python -m pip install --target .tools/python -r requirements-dev.txt
 ```
 
-Validate all twelve civilizations and build the single collection package:
+Validate all thirteen civilizations and build the collection package:
 
 ```powershell
 python tools/validate_all.py
@@ -198,3 +200,5 @@ python tools/build_mod.py
 Outputs are written under `dist/` as one unpacked directory, one ZIP archive, and one Civ V-compatible `.civ5mod`. The checked-in manifest uses forward-slash paths and exact `True`/`False` ModBuddy metadata; this prevents ModBuddy from silently turning art VFS imports off.
 
 Open [CoolWackyCivs.civ5sln](CoolWackyCivs.civ5sln) in ModBuddy. It is the only solution and builds [CoolWackyCivs.civ5proj](CoolWackyCivs.civ5proj).
+
+The standalone Kingdoms package needs no ModBuddy project: `python tools/build_kingdoms_mod.py` builds its checked-in `.modinfo` and pure mod files into ZIP/`.civ5mod` outputs under `dist/`. Enable either the standalone Kingdoms package or the v18 collection that contains it.

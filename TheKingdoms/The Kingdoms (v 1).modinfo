@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Mod id="3df27f59-2b32-43e6-81dc-76e681913a5f" version="1">
+  <Properties>
+    <Name>The Kingdoms</Name>
+    <Teaser>Many Houses. One Crown.</Teaser>
+    <Description>A persistent feudal political civilization for Brave New World and Community Patch.</Description>
+    <Authors>SolusGo</Authors>
+    <AffectsSavedGames>1</AffectsSavedGames>
+    <MinCompatibleSaveVersion>1</MinCompatibleSaveVersion>
+    <SupportsSinglePlayer>1</SupportsSinglePlayer>
+    <SupportsMultiplayer>0</SupportsMultiplayer>
+    <SupportsHotSeat>0</SupportsHotSeat>
+    <SupportsMac>0</SupportsMac>
+    <ReloadAudioSystem>0</ReloadAudioSystem>
+    <ReloadLandmarkSystem>0</ReloadLandmarkSystem>
+    <ReloadStrategicViewSystem>0</ReloadStrategicViewSystem>
+    <ReloadUnitSystem>0</ReloadUnitSystem>
+  </Properties>
+  <Dependencies>
+    <Dlc id="6DA07636-4123-4018-B643-6575B4EC336B" minversion="0" maxversion="999" title="Expansion - Brave New World" />
+    <Mod id="d1b6328c-ff44-4b0d-aad7-c657f83610cd" minversion="151" maxversion="999" title="(1) Community Patch" />
+  </Dependencies>
+  <References />
+  <Blocks>
+    <Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" minversion="18" maxversion="999" title="Cool Wacky Civs includes The Kingdoms" />
+  </Blocks>
+  <Files>
+    <File md5="796BB73751BCD562BC3C6DE453B431E2" import="1">Art/KingdomsAlpha128.dds</File>
+    <File md5="29A8F072627A1FD0EAA30AD71DD539CB" import="1">Art/KingdomsAlpha16.dds</File>
+    <File md5="6C6389CCED5916EB1BD8A9AFD827795B" import="1">Art/KingdomsAlpha24.dds</File>
+    <File md5="D40D526DDE02E4B5B3DFA715163BE222" import="1">Art/KingdomsAlpha256.dds</File>
+    <File md5="7DD48343888D826D5155C64AB9FA9CE2" import="1">Art/KingdomsAlpha32.dds</File>
+    <File md5="B702F2CE76712E0F36C7126791A61284" import="1">Art/KingdomsAlpha45.dds</File>
+    <File md5="3F3EA79EA5771F2ACBDACF02B3CC94C8" import="1">Art/KingdomsAlpha48.dds</File>
+    <File md5="37FECD48C930CA8A14D42621DD690716" import="1">Art/KingdomsAlpha64.dds</File>
+    <File md5="0694330F4AC3BBA44056BF4C750499EB" import="1">Art/KingdomsAlpha80.dds</File>
+    <File md5="C46F57975DFEC351E2FDCB53591E2B2E" import="1">Art/KingdomsDawn.dds</File>
+    <File md5="C46F57975DFEC351E2FDCB53591E2B2E" import="1">Art/KingdomsLeader.dds</File>
+    <File md5="9F3C146B57C3037D348CEC49F2B4587C" import="1">Art/KingdomsLeaderScene.xml</File>
+    <File md5="78AB222A5817E5D9AB89539E1542F858" import="1">Art/KingdomsMap.dds</File>
+    <File md5="CA8741FF9342907C194D8A322BAB7C61" import="1">Art/KingdomsObjects128.dds</File>
+    <File md5="F2560ED4571F081B64E7132BC170606B" import="1">Art/KingdomsObjects16.dds</File>
+    <File md5="BE80100704604A025E97985D9F5F3791" import="1">Art/KingdomsObjects24.dds</File>
+    <File md5="537D43481FD73C00EE163BBF1AC7CB39" import="1">Art/KingdomsObjects256.dds</File>
+    <File md5="6E616F16DFAF9D483F4257B670CAF56B" import="1">Art/KingdomsObjects32.dds</File>
+    <File md5="C45B3D74EF3282FB6508EB02DF6BE063" import="1">Art/KingdomsObjects45.dds</File>
+    <File md5="F371D21FEE6CBA5381CE01E59FB7C699" import="1">Art/KingdomsObjects48.dds</File>
+    <File md5="412B63D152BC975A5A1360A332486CDE" import="1">Art/KingdomsObjects64.dds</File>
+    <File md5="EAC9A8DB9BDC94430E17A0302369AE09" import="1">Art/KingdomsObjects80.dds</File>
+    <File md5="6EE6719BCC7CCF712647005970BE71EC" import="1">Art/KingdomsUnitFlag32.dds</File>
+    <File md5="7CBA1F539F176DCEF459124DE772AACA" import="1">Lua/CharacterManager.lua</File>
+    <File md5="74DE8C003045059A4A30C7628D081A1E" import="1">Lua/CivilWarManager.lua</File>
+    <File md5="DE09D791922553024150F7B47355BBD1" import="1">Lua/DemandManager.lua</File>
+    <File md5="4498D176081CBC93127118DB7927298F" import="1">Lua/HistoryManager.lua</File>
+    <File md5="E337D79BC15B2DAFFED83C9D353068E7" import="1">Lua/HouseManager.lua</File>
+    <File md5="5ACA7DBE228146121D569525FC4D7C3E" import="1">Lua/KingdomManager.lua</File>
+    <File md5="1981F6272B7D207ED76BBE45A64D6FA2" import="1">Lua/KingdomsAI.lua</File>
+    <File md5="55B08F21B77F3B81906C2E25A9630BA8" import="1">Lua/KingdomsCore.lua</File>
+    <File md5="CEC1D3C4F2182CA19E5EF1A33828D5D5" import="1">Lua/KingdomsData.lua</File>
+    <File md5="E0A14851778BCF9F0E77C46A0E6432A5" import="1">Lua/KingdomsDebug.lua</File>
+    <File md5="E8A5F1E16F6717D9DA1FE9E905112101" import="1">Lua/KingdomsEffects.lua</File>
+    <File md5="7E6ECF5D0D6CFF2CAC265A4094A4BA07" import="1">Lua/KingdomsEvents.lua</File>
+    <File md5="63DF1A1AFAB5A1F8AE25F4EB60F71847" import="1">Lua/KingdomsPersistence.lua</File>
+    <File md5="65AEA11079E8EF9A8C5975AB1A19802E" import="1">Lua/KingsGuardManager.lua</File>
+    <File md5="92162885E2FC0A04AEA39211CEC333F6" import="1">Lua/RulerManager.lua</File>
+    <File md5="3AA9020BD343AE2A40CD303B2DFFB66E" import="1">Lua/SuccessionManager.lua</File>
+    <File md5="FD5AC0CB9ED1280BBA42B43766D27715" import="0">SQL/00_Kingdoms_Core.sql</File>
+    <File md5="8F9DBC9F6BF336F4B48F2618929FF225" import="0">SQL/01_Kingdoms_Inheritance.sql</File>
+    <File md5="D141DB0C3E990C318A3724ABE8AF066F" import="0">SQL/02_Kingdoms_Effects.sql</File>
+    <File md5="FD3F598FE424DD99069358A7E98CF8BE" import="0">SQL/10_Kingdoms_Text.sql</File>
+    <File md5="3FF698B68DF34686168CA9AC64AE549D" import="1">UI/KingdomsOverview.lua</File>
+    <File md5="E8D3805C95A63E037B2C3F0BA4938E93" import="0">UI/KingdomsOverview.xml</File>
+  </Files>
+  <Actions>
+    <OnModActivated>
+      <UpdateDatabase>SQL/00_Kingdoms_Core.sql</UpdateDatabase>
+      <UpdateDatabase>SQL/01_Kingdoms_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>SQL/02_Kingdoms_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>SQL/10_Kingdoms_Text.sql</UpdateDatabase>
+    </OnModActivated>
+  </Actions>
+  <EntryPoints>
+    <EntryPoint type="InGameUIAddin" file="UI/KingdomsOverview.xml">
+      <Name>The Kingdoms Overview</Name>
+      <Description>Persistent politics, AI simulation and event-driven realm panels.</Description>
+    </EntryPoint>
+  </EntryPoints>
+</Mod>

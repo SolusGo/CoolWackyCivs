@@ -1,0 +1,22 @@
+assert(loadstring(UISource))()
+local K=MapModData.TheKingdoms
+assert(not Controls.RealmLauncher.hidden and Controls.RealmPanel.hidden)
+Controls.RealmStatus.click();assert(not Controls.RealmPanel.hidden and #Instances.RealmTabs==5)
+Instances.RealmTabs[2].TabChoice.click();assert(#Instances.RealmList>=1 and #Instances.RealmActions>=2)
+Instances.RealmActions[1].ActionChoice.click();assert(Controls.RealmDetailText.text:find('HOUSE'))
+local before=Players[0].gold;local button=Instances.RealmActions[1].ActionChoice;assert(not button.disabled);button.click();assert(Players[0].gold<before)
+Controls.RealmClose.click();assert(Controls.RealmPanel.hidden)
+Events.SerialEventEnterCityScreen.Fire();assert(Controls.RealmLauncher.hidden and Controls.RealmPanel.hidden)
+Events.SerialEventExitCityScreen.Fire();assert(not Controls.RealmLauncher.hidden)
+Events.AILeaderMessage.Fire();assert(Controls.RealmLauncher.hidden);Events.LeavingLeaderViewMode.Fire();assert(not Controls.RealmLauncher.hidden)
+Events.SerialEventGameMessagePopupShown.Fire({Type=99});assert(Controls.RealmLauncher.hidden)
+Events.SerialEventGameMessagePopupProcessed.Fire(99);assert(not Controls.RealmLauncher.hidden)
+createGuard(10);assert(not Controls.RealmPanel.hidden and #Instances.RealmActions==2)
+-- Separate candidate callbacks must each appoint their displayed character.
+local s=K.State(0);local expected=s.pending[10].candidates[2]
+Instances.RealmActions[2].ActionChoice.click();assert(s.guards[expected] and not s.pending[10])
+Controls.RealmClose.click();assert(Controls.RealmPanel.hidden)
+Active=1;Events.GameplaySetActivePlayer.Fire();assert(Controls.RealmLauncher.hidden,'AI-only views must not show human controls')
+Active=2;Events.GameplaySetActivePlayer.Fire();assert(Controls.RealmLauncher.hidden,'foreign civ must not show controls')
+Active=0;Events.GameplaySetActivePlayer.Fire();Controls.RealmStatus.click();assert(not Controls.RealmPanel.hidden)
+assert(Escape(KeyEvents.KeyDown,Keys.VK_ESCAPE) and Controls.RealmPanel.hidden)

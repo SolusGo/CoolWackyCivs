@@ -1,5 +1,14 @@
 # Patch Notes
 
+## Version 18 — The Kingdoms — 2026-10-05
+
+- Added The Kingdoms, Kings Throne, The Kingdoms United, seven persistent King's Guards, and The Kingdom's Wall.
+- Added modular House politics, legal personality-driven demands, local/realm Stability, dynastic claims, generated rulers, succession, internal civil wars, faction support, limited era-scaled rebels, lineage and a persistent filtered Chronicle.
+- Added event-driven Overview/Kingdom/House/Succession/Guard/Chronicle UI, versioned dual-bank save snapshots, capture/restoration cleanup, Guard appointment and oath decisions, and upgrade-safe unit identities.
+- Added AI political decisions and AI play for The Kingdoms; the other twelve civilizations retain their existing selection settings.
+- Added original crimson/gold atlas and citadel artwork, Civilopedia and localization, an independent pure-file Kingdoms package, CP v151/current-schema checks, all-speed Lua 5.1 lifecycle/UI tests and 500-turn AI/save endurance coverage.
+- Actual Civ V engine smoke tests and balance playtesting remain documented separately from automated validation.
+
 ## Human-only civilization selection - 2026-10-05
 
 - All twelve collection civilizations now use `Playable = 1` and `AIPlayable = 0`, allowing human selection while excluding them from AI selection.
