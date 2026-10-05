@@ -41,28 +41,34 @@ local function notify(pid,title,body)
  log(title..': '..body)
 end
 local function changed() if LuaEvents.ViltrumChanged then LuaEvents.ViltrumChanged() end end
+local unitCities={}
+local function garrison(c)
+ if not c then return end
+ local u=c:GetGarrisonedUnit()
+ c:SetNumRealBuilding(D.GARRISON,military(u) and 1 or 0)
+ if u then unitCities[c:GetOwner()..':'..u:GetID()]={x=c:GetX(),y=c:GetY()} end
+end
 local function friendly(u)
  local plot=u:GetPlot()
  if not plot then return false end
  if plot.IsFriendlyTerritory then return plot:IsFriendlyTerritory(u:GetOwner()) end
  return plot:GetTeam()==Players[u:GetOwner()]:GetTeam()
 end
-local function syncPeaceLocks()
- -- CP v151 retains old peace-event declarations without reliable dispatch.
+local function syncPeaceLocks(onlyTeam)
  -- A temporary native flag is consulted by canChangeWarPeace (voluntary deals),
  -- while forced makePeace calls bypass it. Only flags we introduced are removed.
  for pid=0,GameDefines.MAX_MAJOR_CIVS-1 do
-  if isViltrum(pid) then
+  if isViltrum(pid) and (onlyTeam==nil or Players[pid]:GetTeam()==onlyTeam) then
    local p=Players[pid];local teamID=p:GetTeam();local team=Teams[teamID]
+   local neededTeam=false
+   for mate=0,GameDefines.MAX_MAJOR_CIVS-1 do
+    if isViltrum(mate) and Players[mate]:IsAlive() and Players[mate]:GetTeam()==teamID and active(mate,'noPeace') then neededTeam=true;break end
+   end
    for other=0,(GameDefines.MAX_CIV_TEAMS or 64)-1 do
     local opposing=Teams[other]
     if opposing and other~=teamID and team.SetPermanentWarPeace then
      local k='warLock:'..teamID..':'..other
-     local needed=false
-     for mate=0,GameDefines.MAX_MAJOR_CIVS-1 do
-      if isViltrum(mate) and Players[mate]:IsAlive() and Players[mate]:GetTeam()==teamID and active(mate,'noPeace') then needed=true end
-     end
-     needed=needed and team:IsAtWar(other)
+     local needed=neededTeam and team:IsAtWar(other)
      if get('world',k)==1 then
       if not needed then team:SetPermanentWarPeace(other,false);set('world',k,0) end
      elseif needed and not team:IsPermanentWarPeace(other) and not opposing:IsPermanentWarPeace(teamID) then
@@ -88,19 +94,57 @@ local function policy(p,n,b)
  local i=POL[n]
  if i and p:HasPolicy(i)~=(b and true or false) then p:SetHasPolicy(i,b and true or false) end
 end
+local syncingGrowth=false
+local function freezeGrowth(pid)
+ if syncingGrowth or not isViltrum(pid) then return end
+ syncingGrowth=true
+ local p=Players[pid]
+ local frozen=active(pid,'quarantine')
+ -- Native getGrowthMods clamps at -100 and never scales negative food.
+ -- The base -100 policy alone can be offset by WLTKD/religion/Purge/VP
+ -- happiness. Small binary dummy policies cancel only those actual bonuses.
+ if not frozen then
+  for i=0,13 do local typ=id('POLICY_VILTRUM_GROWTH_LOCK_'..i)
+   if p:HasPolicy(typ) then p:SetHasPolicy(typ,false) end
+  end
+ else
+  local function positive()
+   for c in p:Cities() do if c:FoodDifferenceTimes100()>0 then return true end end
+   return false
+  end
+  local added={}
+  for i=0,13 do
+   if not positive() then break end
+   local typ=id('POLICY_VILTRUM_GROWTH_LOCK_'..i)
+   if not p:HasPolicy(typ) then p:SetHasPolicy(typ,true);added[#added+1]=typ end
+  end
+  -- Minimize newly required compensation; retain earlier compensation until
+  -- expiry (extra negative growth is clamped and cannot affect starvation).
+  for i=#added,1,-1 do
+   p:SetHasPolicy(added[i],false)
+   if positive() then p:SetHasPolicy(added[i],true) end
+  end
+  for c in p:Cities() do
+   -- Outbreak population loss can leave food above the new growth threshold.
+   -- Keep ordinary stored food; trim only enough to prevent a phantom growth.
+   if c:GetFood()>=c:GrowthThreshold() then c:SetFood(math.max(0,c:GrowthThreshold()-1)) end
+  end
+ end
+ syncingGrowth=false
+end
 local function refresh(pid)
  if not isViltrum(pid) then return end
  local p=Players[pid]
- syncPeaceLocks()
  policy(p,'PURGE_GROWTH',active(pid,'purgeGrowth'))
  policy(p,'QUARANTINE',active(pid,'quarantine'))
  policy(p,'DYING',active(pid,'dying'))
  policy(p,'RECOVERY_A',get(pid,'scourgeChoice')==1 and active(pid,'recovery'))
  policy(p,'RECOVERY_B',get(pid,'scourgeChoice')==2 and active(pid,'recovery'))
  policy(p,'ILLUSION',active(pid,'illusion'))
+ freezeGrowth(pid)
  for c in p:Cities() do
-  local g=c:GetGarrisonedUnit()
-  local states={GARRISON=military(g),MOMENTUM=active(pid,'momentum') and not active(pid,'quarantine'),
+  garrison(c)
+  local states={MOMENTUM=active(pid,'momentum') and not active(pid,'quarantine'),
    PURGE=get(pid,'purgeChoice')==1,QUARANTINE=active(pid,'quarantine'),DYING=active(pid,'dying'),
    RECOVERY=get(pid,'scourgeChoice')==1 and active(pid,'recovery'),HAPPY=active(pid,'purgeHappy')}
   for n,b in pairs(states) do c:SetNumRealBuilding(D[n],b and 1 or 0) end
@@ -137,17 +181,29 @@ local function created(pid,uid)
  end
  refreshUnit(pid,u)
 end
+local function recover(pid)
+ if get(pid,'scourgeChoice')>0 and get(pid,'recovered')==0 and not active(pid,'quarantine') and not active(pid,'dying') then
+  set(pid,'recovered',1);set(pid,'recovery',now()+turns(get(pid,'scourgeChoice')==1 and 20 or 15))
+  notify(pid,'Repopulation Program','The crisis has ended. Recovery lasts '..remaining(pid,'recovery')..' turns.')
+  return true
+ end
+ return false
+end
 local function trained(pid,cid,uid)
  if not isViltrum(pid) then return end
  local p=Players[pid];local c=p:GetCityByID(cid);local u=unit(pid,uid)
  if not c or not military(u) then return end
+ -- CP trains cities before PlayerDoTurn. Recognize the first post-crisis
+ -- completion at the expiry boundary, even before advance has restored policy.
+ if recover(pid) then refresh(pid) end
  -- Native CityTrained fires exactly once for each production/purchase completion.
  if active(pid,'momentum') and not active(pid,'quarantine') then u:ChangeExperience(3) end
  if land(u) then
   if get(pid,'purgeChoice')==1 then u:ChangeExperience(3) end
   if c:IsHasBuilding(COMPLEX) then promotion(u,'CONDITIONING',true) end
  end
- if u:GetUnitType()==WARRIOR and get(pid,'scourgeChoice')>0 then promotion(u,'GENOME',true) end
+ if u:GetUnitType()==WARRIOR and get(pid,'recovered')==1 and not active(pid,'quarantine') and not active(pid,'dying')
+  and not has(u,'HARDENED') and not has(u,'PUREBLOOD') then promotion(u,'GENOME',true) end
  created(pid,uid)
 end
 local function constructed(pid,cid,bid)
@@ -163,7 +219,38 @@ local function member(m)
  if m.city then return Players[m.pid] and Players[m.pid]:GetCityByID(m.uid) end
  return unit(m.pid,m.uid)
 end
-local function battleStarted(kind,x,y) battles[#battles+1]={kind=kind,x=x,y=y} end
+local function clearBattle(b)
+ if not b then return end
+ for _,m in pairs({b.a,b.d}) do
+  if not m.city then local u=member(m);promotion(u,'EXECUTION_ACTIVE',false);promotion(u,'PLANET_ACTIVE',false) end
+ end
+end
+local function battleStarted(kind,x,y)
+ -- Defensive support can start inside a generated melee battle, and queued
+ -- support can defer that melee's resolution. Keep participant contexts, but
+ -- retire their temporary strength effects before any later calculation.
+ for i=#battles,1,-1 do
+  clearBattle(battles[i])
+  if battles[i].turn~=now() then table.remove(battles,i) end
+ end
+ -- Withdrawals/RED vetoes can omit Finished. Bound abandoned same-turn state.
+ if #battles>=64 then table.remove(battles,1) end
+ battles[#battles+1]={kind=kind,x=x,y=y,turn=now()}
+end
+local function battleResult(ap,au,ad,af,ah,dp,du,dd,df,dh,ip,iu,damage,x,y)
+ -- This hook is immediately before native Resolve*. Unlike Finished it carries
+ -- identity, so queued/out-of-order resolution selects the actual combat.
+ for i=#battles,1,-1 do
+  local b=battles[i]
+  local attacker=b.a and (b.a.city and au==-1 and (ap==-1 or b.a.pid==ap) or not b.a.city and b.a.pid==ap and b.a.uid==au)
+  if b.x==x and b.y==y and attacker and b.d
+   and b.d.pid==dp and (b.d.city and du==-1 or not b.d.city and b.d.uid==du) then
+   table.remove(battles,i);battles[#battles+1]=b
+   for _,context in ipairs(battles) do clearBattle(context) end
+   return
+  end
+ end
+end
 local function battleJoined(pid,uid,role,isCity)
  local b=battles[#battles];if not b or (role~=0 and role~=1) then return end
  local m={pid=pid,uid=uid,city=isCity==true or isCity==1}
@@ -173,7 +260,7 @@ local function battleJoined(pid,uid,role,isCity)
  local a,d=member(b.a),member(b.d);if not a or not d then return end
  if not b.a.city then b.a.military=military(a) end
  if not b.d.city then b.d.military=military(d) end
- if b.d.city then b.capital=d:IsOriginalCapital() end
+ if b.d.city then b.capital=d:IsCapital() end
  for _,side in ipairs({b.a,b.d}) do
   local u=not side.city and member(side)
   if u and isViltrum(side.pid) then
@@ -185,7 +272,7 @@ local function battleJoined(pid,uid,role,isCity)
  end
 end
 local function battleFinished()
- local b=table.remove(battles);if not b or not b.prepared then return end
+ local b=table.remove(battles);clearBattle(b);if not b or not b.prepared then return end
  for _,m in ipairs({b.a,b.d}) do
   if not m.city then
    local u=unit(m.pid,m.uid)
@@ -207,11 +294,13 @@ local function captured(old,capital,x,y,new,pop,conquest)
  if not isViltrum(new) then for _,bid in pairs(D) do c:SetNumRealBuilding(bid,0) end;return end
  if not (conquest==true or conquest==1) or old==new then refresh(new);return end
  local b=battles[#battles]
- if b and b.x==x and b.y==y and b.a and b.a.pid==new and not b.a.city then
-  local u=member(b.a)
-  if has(u,'PUREBLOOD') and b.capital then heal(u,maxHP(u))
-  elseif has(u,'PLANETBREAKER') then heal(u,35) end
- end
+ -- CP also sets bConquest=true for cities ceded in peace deals; the callback
+ -- omits bGift. Require the real melee capture context for ALL conquest rewards.
+ if not (b and b.kind==0 and b.x==x and b.y==y and b.a and b.d and b.d.city and b.d.pid==old and b.a.pid==new and not b.a.city and not b.captured) then refresh(new);return end
+ b.captured=true
+ local u=member(b.a)
+ if has(u,'PLANETBREAKER') then heal(u,35) end
+ if has(u,'PUREBLOOD') and b.capital then heal(u,maxHP(u)) end
  local k='capture:'..cityKey(c)
  if c:GetOriginalOwner()==new or get(new,k)==1 then
   log('Captured city already rewarded, ignoring');refresh(new);return
@@ -284,6 +373,7 @@ local function chooseScourge(pid,choice)
   set(pid,'quarantine',now()+turns(20));set(pid,'momentum',0);cancelTrade(p)
  else
   set(pid,'dying',now()+turns(25));set(pid,'noPeace',now()+turns(10))
+  syncPeaceLocks(p:GetTeam())
   if p:GetGoldenAgeTurns()>0 then p:ChangeGoldenAgeTurns(-p:GetGoldenAgeTurns()) end
  end
  set(pid,'recovered',0);set(pid,'extinctionDue',now()+turns(3))
@@ -363,16 +453,18 @@ local function prompt(pid,event)
  end
 end
 local function advance(pid)
- syncPeaceLocks()
  if not isViltrum(pid) then return end
+ -- Only crusading teams (or teams with expired saved locks) need the bounded
+ -- once-per-Viltrum-turn fallback. Other players and ordinary refreshes do none.
+ if get(pid,'noPeace')>0 then
+  syncPeaceLocks(Players[pid]:GetTeam())
+  if not active(pid,'noPeace') then set(pid,'noPeace',0) end
+ end
  local p=Players[pid];if not p:IsAlive() then return end
  -- Repeated callbacks/reload on the same game turn cannot duplicate GG progress.
  if get(pid,'lastTurn',-1)==now() then refresh(pid);return end
  set(pid,'lastTurn',now());research(pid)
- if get(pid,'scourgeChoice')>0 and get(pid,'recovered')==0 and not active(pid,'quarantine') and not active(pid,'dying') then
-  set(pid,'recovered',1);set(pid,'recovery',now()+turns(get(pid,'scourgeChoice')==1 and 20 or 15))
-  notify(pid,'Repopulation Program','The crisis has ended. Recovery lasts '..remaining(pid,'recovery')..' turns.')
- end
+ recover(pid)
  if active(pid,'purgeGeneral') then p:ChangeCombatExperience(1) end
  if get(pid,'pending')==0 then
   local start=get(pid,'countdown',-1)
@@ -399,10 +491,11 @@ local function advance(pid)
  log('Quarantine remaining: '..remaining(pid,'quarantine'));refresh(pid)
 end
 local function peace(pid,against)
- if active(pid,'noPeace') then return false end
- -- Also reject peace initiated by a counterpart against a crusading Viltrum team.
+ local p=Players[pid];if not p then return true end
+ -- Covers both directions and non-Viltrum teammates. against is a TEAM ID.
  for other=0,GameDefines.MAX_MAJOR_CIVS-1 do
-  if isViltrum(other) and Players[other]:GetTeam()==against and active(other,'noPeace') then return false end
+  if isViltrum(other) and Players[other]:IsAlive() and active(other,'noPeace')
+   and (Players[other]:GetTeam()==against or Players[other]:GetTeam()==p:GetTeam()) then return false end
  end
  return true
 end
@@ -411,10 +504,13 @@ local function canTrain(pid,cid,typ)
  local row=GameInfo.Units[typ]
  return not row or (not row.Found or row.Found==0) and (not row.Trade or row.Trade==0)
 end
-local function moved(pid,uid)
+local function moved(pid,uid,x,y)
  if not isViltrum(pid) then return end
  local u=unit(pid,uid);if u then refreshUnit(pid,u) end
- for c in Players[pid]:Cities() do c:SetNumRealBuilding(D.GARRISON,military(c:GetGarrisonedUnit()) and 1 or 0) end
+ local k=pid..':'..uid;local old=unitCities[k];unitCities[k]=nil
+ if old then local plot=Map.GetPlot(old.x,old.y);local c=plot and plot:GetPlotCity();if c and c:GetOwner()==pid then garrison(c) end end
+ local plot=u and u:GetPlot() or (x and y and Map.GetPlot(x,y))
+ local c=plot and plot:GetPlotCity();if c and c:GetOwner()==pid then garrison(c) end
 end
 local function paradrop(pid,uid)
  if not isViltrum(pid) then return end
@@ -430,24 +526,22 @@ GameEvents.CityTrained.Add(trained)
 GameEvents.CityConstructed.Add(constructed)
 GameEvents.CityCaptureComplete.Add(captured)
 GameEvents.BattleStarted.Add(battleStarted);GameEvents.BattleJoined.Add(battleJoined);GameEvents.BattleFinished.Add(battleFinished)
+GameEvents.CombatResult.Add(battleResult)
 GameEvents.UnitSetXY.Add(moved)
 GameEvents.CityCanTrain.Add(canTrain)
 GameEvents.PlayerCanMakePeace.Add(peace)
-GameEvents.DeclareWar.Add(syncPeaceLocks)
-GameEvents.MakePeace.Add(function(pid,other)
- -- Only scripted/forced peace should reach this hook while locked. Clear our
- -- flags immediately; preserve every pre-existing scenario flag.
- local p=Players[pid];if not p then return end
- local teamID=p:GetTeam()
- for _,pair in ipairs({{teamID,other},{other,teamID}}) do
-  local k='warLock:'..pair[1]..':'..pair[2]
-  if get('world',k)==1 then Teams[pair[1]]:SetPermanentWarPeace(pair[2],false);set('world',k,0) end
- end
-end)
 GameEvents.ParadropAt.Add(paradrop)
 GameEvents.UnitUpgraded.Add(function(pid,old,new) if isViltrum(pid) then created(pid,new) end end)
 GameEvents.TeamTechResearched.Add(function(team,tech)
  if tech==RP then for pid=0,GameDefines.MAX_MAJOR_CIVS-1 do if isViltrum(pid) and Players[pid]:GetTeam()==team then research(pid) end end end
 end)
 -- Read-only state restoration: do not advance time or redo any event on loading.
+if Events and Events.WarStateChanged then Events.WarStateChanged.Add(function(a,b)
+ syncPeaceLocks(a);syncPeaceLocks(b)
+end) end
+if Events and Events.SerialEventCityInfoDirty then Events.SerialEventCityInfoDirty.Add(function()
+ if syncingGrowth then return end
+ for pid=0,GameDefines.MAX_MAJOR_CIVS-1 do if isViltrum(pid) and active(pid,'quarantine') then freezeGrowth(pid) end end
+end) end
+syncPeaceLocks()
 for pid=0,GameDefines.MAX_MAJOR_CIVS-1 do if isViltrum(pid) then refresh(pid) end end

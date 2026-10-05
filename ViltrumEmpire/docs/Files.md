@@ -1,6 +1,6 @@
 # File inventory
 
-## New files
+## Original civilization files
 
 - `ViltrumEmpire/Art/ViltrumAlpha128.dds`
 - `ViltrumEmpire/Art/ViltrumAlpha16.dds`
@@ -58,7 +58,7 @@
 ## Collection changes
 
 - `CoolWackyCivs.civ5proj`
-- `Cool Wacky Civs (v 14).modinfo (replaces v 13 manifest)`
+- `Cool Wacky Civs (v 15).modinfo (v15 audit replaces v14 manifest)`
 - `README.md`
 - `PATCHNOTES.md`
 - `tools/validate_all.py`
@@ -68,3 +68,7 @@
 ## Responsibilities
 
 The four SQL files declare the civilization, active-ruleset inheritance, effects and English localization. The runtime owns every game mechanic and persisted timer/record. The UI only renders state and submits validated choices. Art is entirely packaged DDS plus the leader scene XML. Source art and its prompt stay outside the game package. Tests use the installed CP schema and explicit Lua 5.1 engine doubles. Collection changes add one civ, register files/actions, bump the package version and extend packaging validation; existing civilization gameplay files are unchanged.
+
+## Version 15 audit
+
+The exact changed-file inventory and all audit findings are in [Validation.md](Validation.md#exact-audit-file-inventory). No new art or UI XML layout is required. The existing SQL authoring tool also produces the corrected inheritance and growth policy rows.

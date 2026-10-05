@@ -7,7 +7,7 @@ for i,n in ipairs({'BLOODLINE','FLIGHT','EXECUTION','PLANETBREAKER','EXECUTION_A
 for i,n in ipairs({'GARRISON','MOMENTUM','PURGE','QUARANTINE','DYING','RECOVERY','HAPPY'}) do GameInfoTypes['BUILDING_VILTRUM_'..n]=500+i end
 for i,n in ipairs({'PURGE_GROWTH','QUARANTINE','DYING','RECOVERY_A','RECOVERY_B','ILLUSION'}) do GameInfoTypes['POLICY_VILTRUM_'..n]=600+i end
 Modding={OpenSaveData=function()return{GetValue=function(k)return Saved[k]end,SetValue=function(k,v)Saved[k]=v end}end}
-GameDefines={MAX_MAJOR_CIVS=4,BARBARIAN_PLAYER=63};DomainTypes={DOMAIN_LAND=0,DOMAIN_SEA=1,DOMAIN_AIR=2}
+GameDefines={MAX_MAJOR_CIVS=4,MAX_CIV_TEAMS=4,BARBARIAN_PLAYER=63};DomainTypes={DOMAIN_LAND=0,DOMAIN_SEA=1,DOMAIN_AIR=2}
 UnitAITypes={UNITAI_ATTACK=1,UNITAI_GENERAL=2};NotificationTypes={NOTIFICATION_GENERIC=1}
 Game={GetGameTurn=function()return T end,GetGameSpeedType=function()return 0 end,GetActivePlayer=function()return 0 end,
  IsNetworkMultiPlayer=function()return false end,Rand=function(n,label)RNGCalls=RNGCalls+1;return RNGCalls%n end}
@@ -16,12 +16,20 @@ for _,n in ipairs({'UNIT_INFANTRY','UNIT_RIFLEMAN','UNIT_MUSKETMAN','UNIT_LONGSW
  local i=GameInfoTypes[n];GameInfo.Units[i]={ID=i,Type=n}
 end
 GameInfo.Units[208]={ID=208,Found=1};GameInfo.Units[209]={ID=209,Trade=1}
+GameInfo.Units[210]={ID=210,Trade=1};GameInfo.Units[211]={ID=211}
+GameInfoTypes.UNIT_VILTRUM_AUXILIARY=212;GameInfo.Units[212]={ID=212};GameInfoTypes.UNIT_CARGO_SHIP=210;GameInfoTypes.UNIT_WORKER=211
+for i=0,13 do GameInfoTypes['POLICY_VILTRUM_GROWTH_LOCK_'..i]=700+i end
 function resetEvents()
  GameEvents={};LuaEvents={}
  for _,n in ipairs({'PlayerDoTurn','UnitCreated','CityTrained','CityConstructed','CityCaptureComplete','BattleStarted','BattleJoined',
- 'BattleFinished','DeclareWar','MakePeace','UnitSetXY','CityCanTrain','PlayerCanMakePeace','ParadropAt','UnitUpgraded','TeamTechResearched'})do
+ 'BattleFinished','CombatResult','DeclareWar','MakePeace','UnitSetXY','CityCanTrain','PlayerCanMakePeace','ParadropAt','UnitUpgraded','TeamTechResearched'})do
   local handlers={};GameEvents[n]={Add=function(f)handlers[#handlers+1]=f end,
    Fire=function(...)for _,f in ipairs(handlers)do f(...) end end,handlers=handlers}
+ end
+ Events={}
+ for _,n in ipairs({'WarStateChanged','SerialEventCityInfoDirty'}) do
+  local handlers={};Events[n]={Add=function(f)handlers[#handlers+1]=f end,
+   Fire=function(...)for _,f in ipairs(handlers)do f(...)end end,handlers=handlers}
  end
  LuaEvents.ViltrumChanged=function()end
 end
@@ -46,12 +54,13 @@ end
 Map={GetPlot=function(x,y)return Plots[x..':'..y]end,GetNumPlots=function()return 10 end,
  GetPlotByIndex=function(i)return plot(i,1,-1)end,PlotDistance=function(x,y,a,b)return math.max(math.abs(x-a),math.abs(y-b))end}
 Teams={}
-for i=0,3 do Teams[i]={tech={},war={},permanent={}};Teams[i].IsHasTech=function(self,t)return self.tech[t] or false end;Teams[i].IsAtWar=function(self,t)return self.war[t] or false end;Teams[i].IsPermanentWarPeace=function(self,t)return self.permanent[t] or false end;Teams[i].SetPermanentWarPeace=function(self,t,b)self.permanent[t]=b end end
+WarChecks=0
+for i=0,3 do Teams[i]={tech={},war={},permanent={}};Teams[i].IsHasTech=function(self,t)return self.tech[t] or false end;Teams[i].IsAtWar=function(self,t)WarChecks=WarChecks+1;return self.war[t] or false end;Teams[i].IsPermanentWarPeace=function(self,t)return self.permanent[t] or false end;Teams[i].SetPermanentWarPeace=function(self,t,b)self.permanent[t]=b end end
 Players={}
 function newPlayer(pid,civ,human)
  local p={pid=pid,civ=civ,human=human,alive=true,cities={},units={},policies={},notifications={},era=0,gold=1000,income=40,happy=5,culture=0,general=0,ga=0}
  Players[pid]=p
- function p:GetCivilizationType()return self.civ end;function p:GetTeam()return self.pid end
+ function p:GetCivilizationType()return self.civ end;function p:GetTeam()return self.team or self.pid end
  function p:IsAlive()return self.alive end;function p:IsHuman()return self.human end;function p:IsBarbarian()return self.pid==63 end
  function p:Cities()return iter(self.cities)end;function p:Units()return iter(self.units)end
  function p:GetUnitByID(uid)return self.units[uid]end;function p:GetCityByID(cid)return self.cities[cid]end
@@ -73,13 +82,28 @@ function newCity(p,cid,pop,x,y,original)
  p.cities[cid]=c;local tile=plot(c.x,c.y,p.pid);tile.city=c
  if not p.capital then p.capital=c;c.originalCapital=true end
  function c:GetX()return self.x end;function c:GetY()return self.y end;function c:GetGameTurnFounded()return self.founded end
- function c:GetOriginalOwner()return self.original end;function c:GetID()return self.cid end
+ function c:GetOriginalOwner()return self.original end;function c:GetID()return self.cid end;function c:GetOwner()return self.owner end
  function c:GetPopulation()return self.pop end;function c:ChangePopulation(n)self.pop=self.pop+n end;function c:SetPopulation(n)self.pop=n end
  function c:IsCapital()return Players[self.owner].capital==self end;function c:IsOriginalCapital()return self.originalCapital end
  function c:GetResistanceTurns()return self.resistance end;function c:ChangeResistanceTurns(n)self.resistance=math.max(0,self.resistance+n)end
- function c:IsHasBuilding(i)return (self.buildings[i] or 0)>0 end;function c:SetNumRealBuilding(i,n)self.buildings[i]=n end
+ function c:IsHasBuilding(i)return (self.buildings[i] or 0)>0 end;function c:SetNumRealBuilding(i,n)self.buildings[i]=n;self.writes=(self.writes or 0)+1 end
  function c:GetGarrisonedUnit()return self.garrison end;function c:GetStrengthValue()return self.strength end
  function c:GetDamage()return self.damage end;function c:GetMaxHitPoints()return 200 end
+ function c:GetFood()return math.floor(self.food or 0) end;function c:GrowthThreshold()return self.threshold or 30 end
+ function c:SetFood(n)self.food=n end
+ function c:FoodDifferenceTimes100()
+  local raw=self.surplus or 500
+  if raw<=0 then return raw end
+  local owner=Players[self.owner];local mod=self.growthBonus or 0
+  if owner:HasPolicy(GameInfoTypes.POLICY_VILTRUM_QUARANTINE)then mod=mod-100 end
+  for i=0,13 do if owner:HasPolicy(700+i)then mod=mod-2^i end end
+  return math.floor(raw*(100+math.max(-100,mod))/100)
+ end
+ function c:Grow() -- Source-derived doGrowth double, not native execution.
+  local delta=self:FoodDifferenceTimes100()/100;self.food=math.max(0,(self.food or 0)+delta)
+  if self.food>=self:GrowthThreshold()then self.food=self.food-self:GrowthThreshold();self.pop=self.pop+1
+  elseif self.food==0 and delta<0 and self.pop>1 then self.pop=self.pop-1 end
+ end
  return c
 end
 function newUnit(p,uid,typ,combat,x,y)
@@ -91,10 +115,26 @@ function newUnit(p,uid,typ,combat,x,y)
  function u:SetDamage(n)self.damage=n end;function u:SetHasPromotion(i,b)self.promotions[i]=b end;function u:IsHasPromotion(i)return self.promotions[i] or false end
  function u:ChangeExperience(n)self.xp=self.xp+n end;function u:GetPlot()return self.tile end
  function u:Kill()self.dead=true;Players[self.owner].units[self.uid]=nil end
- function u:SetMadeAttack(b)self.madeAttack=b end;function u:RecallTrader(b)self.recalled=b end
+ function u:SetMadeAttack(b)self.madeAttack=b;self.attacks=b and (self.attacks or 0)+1 or 0 end;function u:RecallTrader(b)self.recalled=b end
  if typ==200 then for _,n in ipairs({'BLOODLINE','FLIGHT','EXECUTION','PLANETBREAKER'})do u.promotions[GameInfoTypes['PROMOTION_VILTRUM_'..n]]=true end end
  return u
 end
 P=newPlayer(0,100,true);Foreign=newPlayer(1,101,true);Barb=newPlayer(63,102,false)
 function state(n,v,pid)Saved['VILTRUM:v1:'..(pid or 0)..':'..n]=v end
 function reload()MapModData={};resetEvents();assert(loadstring(RuntimeSource))()end
+function transferCity(c,p)
+ local old=Players[c.owner];old.cities[c.cid]=nil;if old.capital==c then old.capital=nil end
+ c.owner=p.pid;p.cities[c.cid]=c;plot(c.x,c.y).owner=p.pid
+end
+function conquerCity(c)
+ local p=Players[c.owner];local old=Players[c.original] or Foreign
+ if old==p then old=Foreign end
+ transferCity(c,old)
+ local a=nil;for u in p:Units()do if u.combat then a=u;break end end
+ if not a then a=newUnit(p,9000,202)end
+ GameEvents.BattleStarted.Fire(0,c.x,c.y)
+ GameEvents.BattleJoined.Fire(p.pid,a.uid,0,false);GameEvents.BattleJoined.Fire(old.pid,c.cid,1,true)
+ GameEvents.CombatResult.Fire(p.pid,a.uid,0,a.damage,100,old.pid,-1,0,c.damage,200,-1,-1,0,c.x,c.y)
+ transferCity(c,p);GameEvents.CityCaptureComplete.Fire(old.pid,c.originalCapital,c.x,c.y,p.pid,c.pop,true,0,0)
+ GameEvents.BattleFinished.Fire()
+end

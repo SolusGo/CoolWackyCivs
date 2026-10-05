@@ -1,5 +1,18 @@
 # Patch Notes
 
+## Version 15 — Viltrum correctness audit — 2026-10-05
+
+- Delayed Hardened Genome until primary crisis recovery, including native training-before-PlayerDoTurn at expiry; preserved existing markers and save keys.
+- Changed Last Pureblood personal healing to current/relocated enemy capitals. Added capture-callback deduplication and excluded CP peace-ceded cities despite their bConquest flag.
+- Replaced the -10000% growth tooltip hack with -100% plus bounded native compensation for actual additive growth bonuses; preserved starvation and sensible stored food.
+- Retained quarantine Settler/Caravan/Cargo Ship training and purchase restrictions; clarified all help text and the resistance minimum-one-turn rounding rule.
+- Removed unrelated-player and ordinary-refresh peace scans; used post-state team war events, preserved scenario flags and bounded the Viltrum-turn fallback. Targeted garrison movement repairs to old/new cities.
+- Hid optional Viltrum UI in City View, diplomacy and full-screen popups using events, while preserving mandatory decisions and eliminating polling.
+- Matched resolving combats through CP CombatResult identities; retained nested defensive support contexts and cleared abandoned temporary bonuses after withdrawal/abort paths.
+- Restricted inheritance to genuine unit/building companion properties, preventing foreign override corruption and duplicated free-unit grants; explicitly cleared Warrior scalar/resource-expenditure requirements.
+- Added complete audit regressions, source snapshot checks, 48 population-protection cases, auxiliary/schema checks and nested-view UI tests. Preserved the 7-tile deployment, casualty RNG/floors, balance values and multiplayer-disabled behavior.
+- Actual Civ V/IGE acceptance and old-save migration remain untested; details and exact file inventory are in ViltrumEmpire/docs/Validation.md.
+
 ## Version 14 — The Viltrum Empire — 2026-10-05
 
 - Added AI-playable Grand Regent Thragg as the collection's eleventh civilization, with Blood of Conquest, Imperial Momentum, first-conquest rewards and garrison bonuses.

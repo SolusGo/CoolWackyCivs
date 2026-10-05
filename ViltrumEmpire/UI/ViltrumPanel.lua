@@ -3,10 +3,18 @@ include('ViltrumRuntime')
 local V=MapModData.ViltrumEmpire
 local opened=false
 local queued=false
+local cityView=false
+local leaderView=false
+local popups={}
+local function worldView()
+ if cityView or leaderView or (UI and UI.IsCityScreenUp and UI.IsCityScreenUp()) then return false end
+ return next(popups)==nil
+end
 local function refresh()
  local pid=Game.GetActivePlayer();local p=Players[pid]
  local visible=p and p:IsAlive() and V.IsViltrum(pid) and not (Game.IsNetworkMultiPlayer and Game.IsNetworkMultiPlayer())
- Controls.Launcher:SetHide(not visible)
+ local world=worldView()
+ Controls.Launcher:SetHide(not visible or not world or queued)
  if not visible then
   if queued then queued=false;UIManager:DequeuePopup(ContextPtr);ContextPtr:SetHide(false) end
   opened=false;Controls.Panel:SetHide(true);return
@@ -19,7 +27,8 @@ local function refresh()
  end
  -- Decisions reopen from persisted pending state after a load. Never use UI
  -- closures as gameplay state. The runtime validates event and choice again.
- Controls.Panel:SetHide(not opened and pending==0)
+ Controls.Panel:SetHide(pending==0 and (not opened or not world))
+ Controls.Launcher:SetHide(not world or pending~=0)
  Controls.Close:SetHide(pending~=0)
  IconHookup(0,64,'VILTRUM_ICON_ATLAS',Controls.Emblem)
  local labels={'Momentum: '..V.Remaining(pid,'momentum')..' turns'}
@@ -45,7 +54,7 @@ local function refresh()
   bh='+10% Growth for '..V.Turns(20)..' turns; +1 Happiness/city for '..V.Turns(10)..' turns. Culture = round(75 × CulturePercent / 100 × (1 + 0.15 × current era index)).'
  elseif pending==2 then
   a='ENFORCE TOTAL QUARANTINE';b='CONTINUE THE CRUSADE'
-  ah='Lose 75% population and approximately 80% Bloodline units; two survivors if available. 25 HP and Scourge-Hardened. '..V.Turns(20)..' turns of quarantine, then '..V.Turns(20)..' turns of full recovery. Existing trade routes are recalled; new traders blocked. No Settlers, growth or conquest rewards.'
+  ah='Lose 75% population and approximately 80% Bloodline units; two survivors if available. 25 HP and Scourge-Hardened. '..V.Turns(20)..' turns of quarantine, then '..V.Turns(20)..' turns of full recovery. Existing routes are recalled. Training and purchasing new Settlers, Caravans and Cargo Ships are blocked. No population growth or conquest rewards; starvation remains possible.'
   bh='Lose 85% population and approximately 90% Bloodline units; one survivor if available. 10 HP and Last Pureblood. '..V.Turns(25)..' turns of Dying Empire, shortened by first foreign conquests; no voluntary peace for '..V.Turns(10)..' turns. Then '..V.Turns(15)..' turns of +15% Growth.'
  elseif pending==3 then
   local cost=V.GoldCost(p);a='MAINTAIN THE ILLUSION — '..cost..' GOLD';b='FEAR REQUIRES A DEMONSTRATION'
@@ -69,4 +78,14 @@ LuaEvents.ViltrumChanged.Add(refresh)
 Events.LoadScreenClose.Add(refresh)
 Events.GameplaySetActivePlayer.Add(function() opened=false;refresh() end)
 Events.ActivePlayerTurnStart.Add(refresh)
+Events.SerialEventEnterCityScreen.Add(function() cityView=true;refresh() end)
+Events.SerialEventExitCityScreen.Add(function() cityView=false;refresh() end)
+Events.AILeaderMessage.Add(function() leaderView=true;refresh() end)
+Events.LeavingLeaderViewMode.Add(function() leaderView=false;refresh() end)
+Events.SerialEventGameMessagePopupShown.Add(function(info)
+ if info and info.Type then popups[info.Type]=true;refresh() end
+end)
+Events.SerialEventGameMessagePopupProcessed.Add(function(typ)
+ popups[typ]=nil;refresh()
+end)
 refresh()

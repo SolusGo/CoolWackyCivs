@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="14">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="15">
   <Properties>
     <Name>Cool Wacky Civs</Name>
     <Teaser>Eleven strange leaders. Eleven stranger ways to rule.</Teaser>
@@ -400,12 +400,12 @@
     <File md5="627EC331504E89015C398D3FAB4224F7" import="1">ViltrumEmpire/Art/ViltrumObjects64.dds</File>
     <File md5="204B685E213EA8D19367090A415CBCB1" import="1">ViltrumEmpire/Art/ViltrumObjects80.dds</File>
     <File md5="1193FADC2F3A9717050489515A3A6649" import="1">ViltrumEmpire/Art/ViltrumUnitFlag32.dds</File>
-    <File md5="3D6106F57B2B955DCBE0ACEB164AC1B2" import="1">ViltrumEmpire/Lua/ViltrumRuntime.lua</File>
-    <File md5="DD13FE224B7F2B318847B2546BA65AA3" import="0">ViltrumEmpire/SQL/00_Viltrum_Core.sql</File>
-    <File md5="CD2726258A4A6C8F167BBBD138ADD1FC" import="0">ViltrumEmpire/SQL/01_Viltrum_Inheritance.sql</File>
-    <File md5="23C0CBF70DA21CB8B93554554B4F389A" import="0">ViltrumEmpire/SQL/02_Viltrum_Effects.sql</File>
-    <File md5="66A1A64188ED0CCF5493BE4238BE78C3" import="0">ViltrumEmpire/SQL/10_Viltrum_Text.sql</File>
-    <File md5="9E02B8D936F74BE83B0FACC87ECFEA87" import="1">ViltrumEmpire/UI/ViltrumPanel.lua</File>
+    <File md5="6F0BE4C33E67211A7F2D5FF24803375E" import="1">ViltrumEmpire/Lua/ViltrumRuntime.lua</File>
+    <File md5="255107AD55E96ABC877CC667F736D8EA" import="0">ViltrumEmpire/SQL/00_Viltrum_Core.sql</File>
+    <File md5="386C53ED5D192678FD47AEC38CF3250D" import="0">ViltrumEmpire/SQL/01_Viltrum_Inheritance.sql</File>
+    <File md5="E1543DD22D865072549BB8CA4C22DF23" import="0">ViltrumEmpire/SQL/02_Viltrum_Effects.sql</File>
+    <File md5="D03709B1D92197C3D32C159F5ABD3A6D" import="0">ViltrumEmpire/SQL/10_Viltrum_Text.sql</File>
+    <File md5="2A6504FC7381F8195813508ADD22CCCA" import="1">ViltrumEmpire/UI/ViltrumPanel.lua</File>
     <File md5="BE5DBBF3B43436ECCE16757B5546AA85" import="0">ViltrumEmpire/UI/ViltrumPanel.xml</File>
   </Files>
   <Actions>
