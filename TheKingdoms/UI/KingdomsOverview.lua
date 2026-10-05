@@ -83,12 +83,14 @@ local function succession(pid,s,parts)
   line(parts,K.Text('WAR_DETAIL',s.war.number,K.Now()-s.war.start,math.max(0,s.war.deadline-K.Now())))
   line(parts,K.Text('WAR_PENALTIES'))
   local fs=K.Factions(s);for _,f in ipairs(fs) do row(K.Text('FACTION_ROW',s.houses[f.house].name,number(f.percent)),f.id) end
+  local supported=s.war.supported and fs[s.war.supported]
+  local house=supported and s.houses[supported.house]
+  line(parts,house and K.Text('PLAYER_SUPPORT',house.name) or K.Text('PLAYER_SUPPORT_NEUTRAL',K.Text('NEUTRAL')))
   local f=fs[tonumber(chosen) or s.war.supported] or fs[1]
   if f then
    line(parts,K.Text('CLAIMANT',K.CharacterName(s,s.characters[f.claimant])))
    local members={};for _,id in ipairs(f.members) do members[#members+1]=s.houses[id].name end
    line(parts,K.Text('MEMBERS',table.concat(members,', ')))
-   line(parts,K.Text('PLAYER_SUPPORT',s.houses[fs[s.war.supported].house].name))
    for _,name in ipairs({'FUND','MILITARY','DENOUNCE','CONCESSION','TREASURY','ALLIANCE','NEUTRAL'}) do
     local key=name;local ok,help=K.CanSupport(pid,f.id,key)
     action(K.Text('WAR_ACTION_'..key),help,ok,function() local _,text=K.Support(pid,f.id,key);message=text end)
@@ -124,7 +126,7 @@ local function guards(pid,s,parts)
    if chosen==cid or g.oathPending then
     line(parts,K.Text('GUARD_DETAIL',K.CharacterName(s,c),K.Text('GUARD_TRAIT_'..g.trait:upper()),K.Date(g.appointed),g.kills,g.battles))
     line(parts,K.Text('GUARD_TRAIT_HELP_'..g.trait:upper()))
-    if g.oathPending then
+    if g.oathPending and K.GuardOpposes(s,g) then
      line(parts,K.Text('GUARD_OATH',K.CharacterName(s,c)))
      for _,name in ipairs({'KEEP','RETURN','OATH'}) do
       local key=name;local ok,help=K.CanOath(pid,cid,key)

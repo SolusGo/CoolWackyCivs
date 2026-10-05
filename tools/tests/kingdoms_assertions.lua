@@ -39,11 +39,11 @@ local ruler=s.characters[s.ruler];ruler.reignEnd=Turn;s.realm=80;K.RulerTick(s)
 assert(not ruler.alive and s.ruler~=ruler.id and not s.war)
 local claims=K.Claims(s);local sum=0;for _,c in ipairs(claims) do sum=sum+c.percent end;assert(math.abs(sum-100)<0.001)
 ruler=s.characters[s.ruler];ruler.reignEnd=Turn;s.realm=30;K.RulerTick(s)
-assert(s.war and not s.ruler and #s.war.factions>=2);K.RefreshRealm(s)
+assert(s.war and not s.ruler and #s.war.factions>=2 and s.war.supported==nil);K.RefreshRealm(s)
 assert(city:GetNumBuilding(GameInfoTypes.BUILDING_KINGDOMS_CIVILWAR)==1)
 assert(p.units[0]:IsHasPromotion(GameInfoTypes.PROMOTION_KINGDOMS_CIVILWAR))
 local other=s.war.factions[2];local opposite=s.houses[other.members[1]].loyalty
-assert(K.Support(0,1,'FUND'));assert(s.houses[other.members[1]].loyalty<=opposite)
+assert(K.Support(0,1,'FUND') and s.war.supported==1);assert(s.houses[other.members[1]].loyalty<=opposite)
 assert(not K.Support(0,1,'FUND'),'support cooldown')
 local pendingWar=s.war.number;K.Save(0);reload();K=MapModData.TheKingdoms;s=K.State(0);kingdom=s.kingdoms[key];h=s.houses[h.id]
 assert(s.war.number==pendingWar and city:GetNumBuilding(GameInfoTypes.BUILDING_KINGDOMS_CIVILWAR)==1)
@@ -69,7 +69,8 @@ assert(guard.alive and guard.house==affiliation and guard.unit==30 and K.GuardCo
 local fallback=K.GuardOf(s,p.units[12]);local upgradedWithoutHook=upgradeGuard(12,31,false)
 K.GuardTick(s);assert(fallback.alive and fallback.unit==31 and upgradedWithoutHook.script:find('KINGDOMS_GUARD') and K.GuardCount(s)==7)
 -- Oath decisions preserve player ownership even on failure; voluntary return frees a slot.
-K.BeginCivilWar(s);guard.oathPending=true;assert(K.Oath(0,cid,'OATH'));assert(p.units[30] and guard.alive and not guard.oathPending)
+K.BeginCivilWar(s);s.war.supported=K.FactionFor(s,guard.house).id==1 and 2 or 1
+guard.oathPending=true;assert(K.Oath(0,cid,'OATH'));assert(p.units[30] and guard.alive and not guard.oathPending)
 guard.oathPending=true;s.rng=2147483646;p.units[30].damage=90
 assert(K.Oath(0,cid,'OATH'));assert(p.units[30].damage==90 and p.units[30].moves==0 and guard.alive,'failed oaths must neither heal nor kill wounded Guards')
 guard.oathPending=true;p.gold=1000;assert(K.Oath(0,cid,'KEEP'));assert(guard.alive)

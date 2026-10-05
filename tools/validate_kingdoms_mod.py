@@ -19,7 +19,13 @@ def database(cp=None):
         if pred:
             try:d.execute('DELETE FROM '+quote(name)+' WHERE '+pred)
             except sqlite3.OperationalError:pass
+    events=('EVENTS_CITY','EVENTS_CITY_FOUNDING','EVENTS_UNIT_CREATED','EVENTS_UNIT_CONVERTS','EVENTS_UNIT_PREKILL','EVENTS_BARBARIANS','EVENTS_RED_COMBAT','EVENTS_RED_COMBAT_ENDED')
+    # Start with disabled options so the mod must enable them, independent of the cached state.
+    d.executemany('UPDATE CustomModOptions SET Value=0 WHERE Name=?',[(name,) for name in events])
     for f in sorted((V/'SQL').glob('*.sql')):d.executescript(f.read_text(encoding='utf-8'))
+    for name in events:
+        enabled=d.execute('SELECT Value FROM CustomModOptions WHERE Name=?',(name,)).fetchone()
+        assert enabled and enabled[0]==1,('Missing CP event enablement',name)
     row=lambda table,kind:d.execute('SELECT * FROM '+table+' WHERE Type=?',(kind,)).fetchone()
     assert tuple(d.execute("SELECT Playable,AIPlayable FROM Civilizations WHERE Type='CIVILIZATION_KINGDOMS'").fetchone())==(1,1)
     assert row('Units','UNIT_KINGDOMS_GUARD')['Combat']==28 and row('Units','UNIT_KINGDOMS_GUARD')['ObsoleteTech'] is None
@@ -76,6 +82,9 @@ def runtime(d):
         assert 'SetUpdate' not in f.read_text(),f
     for speed in [67,100,150,300]:
         lua=fixture(d,speed);lua.execute((R/'tools/tests/kingdoms_assertions.lua').read_text());print('PASS Kingdoms lifecycle at speed',speed)
+        for name in ['correctness','combat']:
+            lua=fixture(d,speed);lua.execute((R/f'tools/tests/kingdoms_{name}_assertions.lua').read_text())
+        print('PASS neutral/support/oath/save, unique rivalry, Farm baseline and CP combat edge cases at speed',speed)
     lua=fixture(d)
     lua.globals().uiControls(','.join(e.attrib['ID'] for e in ET.parse(V/'UI/KingdomsOverview.xml').iter() if 'ID' in e.attrib))
     lua.globals().UISource=(V/'UI/KingdomsOverview.lua').read_text()
@@ -101,7 +110,16 @@ def packaging():
     for p in (V/'Lua').glob('*.lua'):
         for name in re.findall(r"include\('([^']+)'\)",p.read_text()):assert 'Lua/'+name+'.lua' in names,name
     assert {p.relative_to(V).as_posix() for p in V.rglob('*') if p.is_file() and p.suffix in ['.lua','.sql','.xml','.dds']}==names
-    print('PASS standalone manifest, imports and all module include paths')
+    from build_mod import create_manifest
+    integrated=ET.parse(R/'Cool Wacky Civs (v 18).modinfo').getroot()
+    assert ET.tostring(integrated)==ET.tostring(create_manifest().getroot()),'Stale integrated manifest'
+    assert {'TheKingdoms/'+name for name in names}<={e.text for e in integrated.findall('Files/File')}
+    sql={p.relative_to(V).as_posix() for p in (V/'SQL').glob('*.sql')}
+    assert sql=={e.text for e in ET.parse(path).findall('Actions/OnModActivated/UpdateDatabase')}
+    assert {'TheKingdoms/'+name for name in sql}<={e.text for e in integrated.findall('Actions/OnModActivated/UpdateDatabase')}
+    for root,name in [(ET.parse(path).getroot(),'UI/KingdomsOverview.xml'),(integrated,'TheKingdoms/UI/KingdomsOverview.xml')]:
+        assert len([e for e in root.findall('EntryPoints/EntryPoint') if e.get('type')=='InGameUIAddin' and e.get('file')==name])==1
+    print('PASS standalone and integrated manifests, MD5s, database actions, UI entry points and module imports')
 
 def source_contracts():
     audit=R/'.tools/cp-v151-audit'
@@ -111,6 +129,11 @@ def source_contracts():
     assert 'setName(pUnit->getNameNoDesc())' in convert and 'setScriptData' not in convert
     assert convert.index('setHasPromotion')<convert.index('GAMEEVENT_UnitConverted')<convert.index('pUnit->kill(')
     assert 'GAMEEVENT_UnitConverted, pUnit->getOwner(),getOwner(), pUnit->GetID(), GetID(), bIsUpgrade' in convert
+    options=(audit/'CustomMods.h').read_text(encoding='utf-8')
+    assert re.search(r'#define MOD_EVENTS_RED_COMBAT_ENDED\s+\(MOD_EVENTS_RED_COMBAT && gCustomMods.isEVENTS_RED_COMBAT_ENDED\(\)\)',options)
+    combat=(audit/'CvUnitCombat.cpp').read_text(encoding='utf-8')
+    ended=combat[combat.index('if (MOD_EVENTS_RED_COMBAT_ENDED)'):combat.index('"CombatEnded"')]
+    assert re.findall(r'args->Push\((\w+)\);',ended)==['iAttackingPlayer','iAttackingUnit','attackerDamage','attackerFinalDamage','attackerMaxHP','iDefendingPlayer','iDefendingUnit','defenderDamage','defenderFinalDamage','defenderMaxHP','iInterceptingPlayer','iInterceptingUnit','interceptorDamage','plotX','plotY']
     player=(audit/'CvPlayer.cpp').read_text(encoding='utf-8');capture=player[player.index('"CityCaptureComplete"')-350:player.index('"CityCaptureComplete"')]
     for argument in ['eOldOwner','bCapital','iCityX','iCityY','GetID()','iPopulation','bConquest']:assert argument in capture
     city=(audit/'CvCity.cpp').read_text(encoding='utf-8');assert 'GAMEEVENT_CityTrained, getOwner(), GetID(), pUnit->GetID(), false, false' in city
@@ -120,7 +143,7 @@ def source_contracts():
         assert 'Method('+name+');' in (audit/'Lua_CvLuaCity.cpp').read_text(encoding='utf-8'),name
     for name in ['GetScriptData','SetScriptData','GetGameTurnCreated','SetName','FinishMoves']:
         assert 'Method('+name+');' in (audit/'Lua_CvLuaUnit.cpp').read_text(encoding='utf-8'),name
-    print('PASS CP native contracts: conversion copy/order, capture/training signatures and player/city/unit APIs')
+    print('PASS CP native contracts: CombatEnded parent/signature, conversion copy/order, capture/training and player/city/unit APIs')
 
 def main():
     d=database();print('PASS Kingdoms SQL against installed CP schema, inheritance, localization and DDS')

@@ -76,8 +76,14 @@ hook('BarbariansCampCleared',function(x,y,pid)
  if K.IsKingdoms(pid) then local s=K.State(pid);s.counters.camps=(s.counters.camps or 0)+1;K.Commit(pid) end
 end)
 hook('CombatEnded',function(ap,au,ad,af,am,dp,du,dd,df,dm)
+ -- CP v151: player, unit, inflicted damage, final damage, max HP for each side,
+ -- then interceptor player/unit/damage and plot X/Y (unused here). Cities use unit -1.
+ local function killed(pid,uid,damage,hp)
+  return type(pid)=='number' and pid>=0 and Players[pid]~=nil and type(uid)=='number' and uid>=0
+   and type(damage)=='number' and type(hp)=='number' and hp>0 and damage>=hp
+ end
  local function record(pid,uid,kill)
-  if not K.IsKingdoms(pid) then return end
+  if type(pid)~='number' or pid<0 or type(uid)~='number' or uid<0 or not K.IsKingdoms(pid) then return end
   local s=K.State(pid);local u=Players[pid]:GetUnitByID(uid);local g=u and K.GuardOf(s,u)
   if not g then for _,entry in pairs(s.guards) do if entry.unit==uid and (entry.alive or entry.died==K.Now()) and (not u or entry.birth==u:GetGameTurnCreated()) then g=entry;break end end end
   if g then
@@ -85,7 +91,7 @@ hook('CombatEnded',function(ap,au,ad,af,am,dp,du,dd,df,dm)
    local c=s.characters[g.character];c.stats.kills=g.kills;c.stats.battles=g.battles;K.Commit(pid)
   end
  end
- record(ap,au,du>=0 and df>=dm);record(dp,du,au>=0 and af>=am)
+ record(ap,au,killed(dp,du,df,dm));record(dp,du,killed(ap,au,af,am))
 end)
 hook('TeamTechResearched',function(team)
  for pid=0,GameDefines.MAX_MAJOR_CIVS-1 do if K.IsKingdoms(pid) and Players[pid]:GetTeam()==team then update(pid) end end

@@ -65,7 +65,8 @@ function K.RefreshRealm(s)
    local value,rivalry=0,0
    for _,h in ipairs(K.ActiveHouses(s,key)) do
     value=value+(50+h.loyalty*.4+K.TraitSum(h,'stability'))*K.Influence(s,h)/100
-    for rid,n in pairs(h.relations) do if n<-40 and s.houses[rid] and s.houses[rid].kingdom==key then rivalry=rivalry+1 end end
+    -- Relations are symmetric; each hostile pair contributes the existing two-point penalty once.
+    for rid,n in pairs(h.relations) do if h.id<rid and n<-40 and s.houses[rid] and s.houses[rid].kingdom==key then rivalry=rivalry+1 end end
    end
    local c=K.City(k)
    value=value+(ruler and (ruler.legitimacy-50)*.15+K.TraitSum(ruler,'stability',K.RulerTraits) or -10)

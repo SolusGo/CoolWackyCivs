@@ -6,6 +6,8 @@ Run `python tools/validate_kingdoms_mod.py` for Kingdoms SQL/inheritance/art, al
 
 The lifecycle suite covers gradual House formation and schisms, names/IDs/traits, real demand completion/expiry/refusal/invalidity, action costs, Wall Stability, peaceful and disputed succession, factions/support/penalty cleanup, pending and seven-Guard saves, upgrades/deaths/oaths, AI appointments, foreign capture/recapture, razing/refounding and damaged snapshot fallback. UI tests execute actual callbacks and hide the panel in city/diplomacy/popup/foreign/AI contexts.
 
+Focused regressions at all four speeds cover new-war neutrality, faction 2 support, neutral withdrawal/cooldowns with unchanged House and faction politics, neutral oath suppression, valid rival oath eligibility with the original Loyalty/RNG gates, aligned/invalid backing, stale prompt cleanup, neutral save/reload/continuation and older explicit commitments. UI tests render neutral/invalid backing, choose faction 2 and Neutral through actual callbacks, and reload a neutral war in a fresh UI context. Combat tests cover CP v151 argument order, unequal maximum HP, dead attackers/defenders, city sides, invalid IDs, reused IDs and persisted dead-Guard lookup. SQL tests disable all required CP event options before applying Kingdoms SQL and verify they are re-enabled, including the RED parent and CombatEnded child. Both generated manifests are checked for current MD5s, files, SQL actions and UI entry points. Unique rivalry and the retained Farm baseline have direct regressions.
+
 ## Live engine checklist (not yet run)
 
 Enable Brave New World and Community Patch with logging, select The Kingdoms, and start a fresh single-player game. First confirm Database.log, xml.log and Lua.log have no Kingdoms errors. Use ordinary play for the fresh-game path; debug-console staging is useful for later-era, war and reload scenarios.
@@ -62,3 +64,5 @@ Enable Brave New World and Community Patch with logging, select The Kingdoms, an
 - [ ] 50. City capture/recapture does not corrupt Kingdom data.
 
 Also test two cities finishing queued Guards on the same turn, Gold/faith purchases, the cap after upgrading every Guard, distant gifting, repeated load screen events, opening before the first city, capital loss with an active civil war, screenshots at 1366×768, and a long Chronicle with each filter. Native queue auto-upgrades, AI city orders and unit animation/art require engine inspection.
+
+For these fixes, confirm native `CombatEnded` delivery by checking Guard battle/kill totals after attacking, defending and dying. Start a civil war and verify Neutral backing causes no opposition prompt, fund faction 2, test a disloyal rival Guard, withdraw backing, and save/reload while neutral. Inspect neutral/support labels and action tooltips in the actual renderer. These DLL delivery and rendering checks remain engine-only; Lua doubles and SQL validation cannot certify them.

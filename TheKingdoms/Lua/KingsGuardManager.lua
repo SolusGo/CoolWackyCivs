@@ -139,6 +139,11 @@ function K.GuardConverted(oldPid,newPid,oldID,newID,upgrade)
  end
  K.Commit(oldPid)
 end
+function K.GuardOpposes(s,g)
+ local w=s.war;local supported=w and w.supported and w.factions[w.supported]
+ local f=supported and K.FactionFor(s,g.house)
+ return f and f.id~=supported.id or false
+end
 function K.GuardTick(s)
  local p=Players[s.pid]
  ensureSlots(s)
@@ -156,10 +161,12 @@ function K.GuardTick(s)
  end
  for _,g in pairs(s.guards) do
   if g.alive then
+   local opposed=K.GuardOpposes(s,g)
+   if not opposed then g.oathPending=nil end
    if not found[g.character] then K.GuardFallen(s,g)
-   elseif s.war and K.Now()>=g.oathNext and not g.oathPending then
-    local f=K.FactionFor(s,g.house);local h=s.houses[g.house]
-    if f and f.id~=s.war.supported and h.loyalty<20 and K.Rand(s,100)<15 then
+   elseif opposed and K.Now()>=g.oathNext and not g.oathPending then
+    local h=s.houses[g.house]
+    if h.loyalty<20 and K.Rand(s,100)<15 then
      g.oathPending=true;K.Notify(s.pid,'GUARD_OATH',K.CharacterName(s,s.characters[g.character]))
     end
     g.oathNext=K.Now()+K.Scale(8)
@@ -180,7 +187,7 @@ function K.GuardTick(s)
 end
 function K.CanOath(pid,cid,action)
  local s=K.State(pid);local g=s.guards[cid]
- if not K.IsKingdoms(pid) or not g or not g.alive or not g.oathPending or not s.war or not Players[pid]:GetUnitByID(g.unit) then return false,K.Text('UNAVAILABLE') end
+ if not K.IsKingdoms(pid) or not g or not g.alive or not g.oathPending or not K.GuardOpposes(s,g) or not Players[pid]:GetUnitByID(g.unit) then return false,K.Text('UNAVAILABLE') end
  if action~='KEEP' and action~='RETURN' and action~='OATH' then return false,K.Text('UNAVAILABLE') end
  local cost=action=='KEEP' and K.Scale(80) or 0
  if Players[pid]:GetGold()<cost then return false,K.Text('NEED_GOLD',cost) end

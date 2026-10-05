@@ -26,7 +26,7 @@ function K.BeginCivilWar(s,claims)
  s.civilWars=(s.civilWars or 0)+1
  local n=#claims>=8 and 3 or 2
  local w={number=s.civilWars,start=K.Now(),deadline=K.Now()+K.Scale(20),nextEvent=K.Now()+K.Scale(3),
-  factions={},supported=1,actionNext=0,rebelsSpawned=0,events={}}
+  factions={},supported=nil,actionNext=0,rebelsSpawned=0,events={}}
  s.war=w
  for i=1,n do
   local h=s.houses[claims[i].house];local c=K.Character(s,h.id,'claimant')
@@ -130,24 +130,29 @@ K.WarActions={FUND={gold=100,strength=15},MILITARY={gold=50,strength=25,producti
 function K.CanSupport(pid,fid,action)
  if not K.IsKingdoms(pid) then return false,K.Text('UNAVAILABLE') end
  local s=K.State(pid);local w=s.war;local a=K.WarActions[action]
- if not w or not w.factions[fid] or not a then return false,K.Text('UNAVAILABLE') end
+ if not w or not a or action~='NEUTRAL' and not w.factions[fid] then return false,K.Text('UNAVAILABLE') end
  if K.Now()<w.actionNext then return false,K.Text('COOLDOWN',w.actionNext-K.Now()) end
  local cost=a.gold==0 and 0 or K.Scale(a.gold*(1+Players[pid]:GetCurrentEra()*.2))
  if Players[pid]:GetGold()<cost then return false,K.Text('NEED_GOLD',cost) end
  if a.production and Players[pid]:GetNumMilitaryUnits()<2 then return false,K.Text('NEED_ARMY') end
- return true,K.Text('WAR_ACTION_HELP',cost,a.strength),cost
+ return true,K.Text(action=='NEUTRAL' and 'WAR_ACTION_HELP_NEUTRAL' or 'WAR_ACTION_HELP',cost,a.strength),cost
 end
 function K.Support(pid,fid,action)
  local ok,reason,cost=K.CanSupport(pid,fid,action);if not ok then return false,reason end
  local s=K.State(pid);local w=s.war;local f=w.factions[fid];local a=K.WarActions[action]
- Players[pid]:ChangeGold(-cost);f.strength=f.strength+a.strength;w.actionNext=K.Now()+K.Scale(4)
- if action~='NEUTRAL' then
-  w.supported=fid
+ Players[pid]:ChangeGold(-cost);w.actionNext=K.Now()+K.Scale(4)
+ if action=='NEUTRAL' then
+  w.supported=nil
+  K.History(s,'CIVILWARS','WAR_NEUTRAL',{})
+ else
+  w.supported=fid;f.strength=f.strength+a.strength
   for _,other in ipairs(w.factions) do for _,id in ipairs(other.members) do K.Loyalty(s.houses[id],other.id==fid and (a.loyalty or 4) or -(a.hostility or 4)) end end
+  if a.production then s.suppliesUntil=K.Now()+K.Scale(5) end
+  if a.concession then for _,id in ipairs(f.members) do local h=s.houses[id];h.influence=h.influence+2;s.kingdoms[h.kingdom].estatesUntil=K.Now()+K.Scale(8) end end
+  if a.alliance then for _,id in ipairs(f.members) do K.Relation(s,id,f.house,15) end end
+  K.History(s,'CIVILWARS','WAR_SUPPORTED',{s.houses[f.house].name,K.Text('WAR_ACTION_'..action)})
  end
- if a.production then s.suppliesUntil=K.Now()+K.Scale(5) end
- if a.concession then for _,id in ipairs(f.members) do local h=s.houses[id];h.influence=h.influence+2;s.kingdoms[h.kingdom].estatesUntil=K.Now()+K.Scale(8) end end
- if a.alliance then for _,id in ipairs(f.members) do K.Relation(s,id,f.house,15) end end
- K.History(s,'CIVILWARS','WAR_SUPPORTED',{s.houses[f.house].name,K.Text('WAR_ACTION_'..action)})
+ -- Withdrawing or changing backing also withdraws obsolete opposition prompts.
+ for _,g in pairs(s.guards) do if not K.GuardOpposes(s,g) then g.oathPending=nil end end
  K.Factions(s);K.RefreshRealm(s);K.Commit(pid);return true,K.Text('ACTION_DONE')
 end
