@@ -1,14 +1,58 @@
-# The Viltrum Empire — Grand Regent Thragg
+# The Viltrum Empire
 
-This civilization is human-only (`Playable = 1`, `AIPlayable = 0`): humans can select it, but AI players cannot.
+**CIVILIZATION FIELD GUIDE** · [Cool Wacky Civs](../README.md) · Brave New World + Community Patch
 
-An eleventh civilization in **Cool Wacky Civs**, for Brave New World and Community Patch v151 (5.4.2+). Start a **new single-player game** with the collection enabled, then select The Viltrum Empire. The collection remains multiplayer/hotseat-disabled.
+> *Conquer before the Scourge. Choose what survives it.*
 
-Viltrum conquers aggressively before a guaranteed biological collapse. Its 82-strength, three-move Viltrumite Warrior costs **1300 Production** and unlocks at Replaceable Parts. Conventional Auxiliary Infantry retains the active ruleset's Infantry statistics and technology; artillery, aircraft and other ordinary units remain available. Only Bloodline units suffer biological casualties.
+<img src="../art-source/ViltrumEmpire/Thragg.png" alt="The Viltrum Empire artwork" width="960">
 
-The top-center **Viltrum Imperial Status** button shows persisted timers in normal map view. City View, leader diplomacy and full-screen popup events hide the launcher and optional panel, then restore them on exit. Mandatory decisions remain queued at highest priority. No frame polling is used. The Great Purge, Scourge and extinction follow-up open two-choice popups. Hover the choices for effects. AI resolves the same runtime choices automatically.
+| At a glance | Details |
+| --- | --- |
+| **Leader** | Grand Regent Thragg |
+| **Signature system** | Blood of Conquest |
+| **Playstyle** | Aggressive conquest · elite Bloodline troops · guaranteed crisis · survival choices |
+| **Player access** | Human-only — `Playable = 1`, `AIPlayable = 0` |
+| **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
+| **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
 
-## Mechanics
+**Explore:** [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
+
+---
+
+## Civilization identity
+
+Thragg leads a conquest empire with a catastrophe built into its progression. Elite Warriors create extraordinary military opportunities, but the guaranteed Scourge forces the player to consider what will remain after biological collapse. Conventional forces, prepared cities and genuine survivors make the recovery as important as the early expansion.
+
+## Signature kit
+
+**The core loop:** Conquer and build Momentum → develop the Bloodline → face the Scourge → endure quarantine or a dying crusade → recover.
+
+| Element | Replaces / threshold | What it contributes |
+| --- | --- | --- |
+| Blood of Conquest | Qualifying land military kills | 15 HP healing normally, 10 during Dying Empire and none during quarantine. |
+| Imperial Momentum | First foreign-city conquest | +15% military Production, +3 training XP and +5% city attack during a bounded timer. |
+| Viltrumite Warrior | Replaceable Parts elite | 82 strength, 3 Movement, 1300 Production and native seven-tile deployment. |
+| Auxiliary Infantry | Conventional alternative | Active ruleset Infantry statistics and requirements; outside biological casualty selection. |
+| Breeding Complex | Military Academy replacement | Training support, once-per-original-city Population and a protected citizen in Scourge calculations. |
+
+Campaign advice explains how to use the implemented mechanics. Numeric worked examples use Standard speed unless stated otherwise. Inherited base-unit and base-building statistics follow the active ruleset.
+
+## Mechanics and reference
+
+### Crisis route card
+
+| Choice | Immediate Population retention | Bloodline casualties | Main crisis window, Standard | Recovery |
+| --- | --- | --- | --- | --- |
+| Quarantine | floor(25%), with capital/non-capital floors and Complex protection | Rounded 80%; at least two survivors if available | 20 turns: halted growth, -40% Production, additional -50% military Production, restricted Settler/trade-unit training and purchases | 20 turns of +25% Growth, +15% Production and +1 local Happiness per city |
+| Crusade | floor(15%), with capital/non-capital floors and Complex protection | Rounded 90%; at least one survivor | 25 turns: -75% Growth, -50% Production, -10 global Happiness; ten-turn voluntary peace restriction | 15 turns of +15% Growth |
+
+Quarantine survivors emerge at **25 HP** with Scourge-Hardened. Crusade survivors emerge at **10 HP** with Last Pureblood. First foreign conquests during Crusade shorten its crisis by one turn each. Timers scale with Game Speed; the detailed rules below record the survivor floors and exceptions.
+
+### Read the Imperial Status panel
+
+Use the top-center launcher to check countdowns and phases. Optional status controls hide in City View, diplomacy and full-screen popups; mandatory crisis decisions remain queued. A hidden optional launcher does not mean the countdown has stopped.
+
+### Mechanics
 
 | Mechanic | Implementation |
 |---|---|
@@ -35,7 +79,71 @@ The top-center **Viltrum Imperial Status** button shows persisted timers in norm
 | Crusade recovery | Remove crisis Happiness/Production penalties; +15% Growth for 15 turns. No quarantine Production/Happiness recovery. Only Warriors trained after Dying Empire ends get Hardened Genome. Existing true survivors keep their persistent survivor promotions through upgrades and reloads. |
 | Conceal the Extinction | Three speed-scaled turns after choice. Illusion costs max(speed-scaled 500, two turns of nonnegative net Gold income), granting 20 turns of +25% slower enemy tech theft and +10% city strength. Demonstration gives a capital Great General, genuine survivors +10 XP, at least five turns of Momentum, and up to two deterministic, valid-tile barbarian rebels near the weakest occupied city. Quarantine continues to suppress Momentum. No occupied city/valid space: rebels safely skip. |
 
-## Growth halt and event costs
+---
+
+## Campaign guide
+
+### Before the crisis — build more than elites
+
+Use conquest rewards and garrison benefits to build productive cities. Keep conventional troops, siege and an economy alongside Warriors. The Scourge selects Bloodline casualties; it does not delete ordinary support units. Replaceable Parts starts an unavoidable timetable even if you postpone producing a Warrior.
+
+### At the decision — count the surviving empire
+
+Read the mandatory choices and inspect Population, Complexes, treasury and ordinary forces. Quarantine preserves a larger share than Crusade but sharply limits growth, production and expansion. Crusade keeps conquest tools running through harsher losses and a peace restriction. Neither option erases the catastrophe.
+
+### After the crisis — protect genuine survivors
+
+Keep actual survivors alive to retain their unique promotions. Quarantine recovery supports rebuilding; Crusade recovery has a different package. Hardened Genome belongs to newly trained Warriors after the primary crisis ends, not to existing elites simply because time passed.
+
+## Worked example
+
+On Standard speed, Replaceable Parts with no Warrior starts the fallback countdown after **12 turns**; the outbreak follows **8 turns** later. Producing the first Warrior earlier begins that eight-turn countdown sooner. Refusing to build one does not avoid the Scourge. At Population **20**, quarantine retains **5** before Complex protection; Crusade retains **3**. A Complex adds one protected citizen, subject to the original Population cap.
+
+## Field notes
+
+### Can conventional Infantry avoid biological casualties?
+
+Yes. Scourge casualties select Bloodline combat units; Auxiliary Infantry and other conventional units remain outside that selection.
+
+### Does taking a city by peace deal trigger Momentum?
+
+No. Rewards require a matching melee conquest context. CP's conquest-like peace-cession flag alone does not qualify.
+
+### Does every new Warrior become a Scourge survivor?
+
+No. Survivor promotions identify actual casualties' survivors. Hardened Genome is a separate post-primary-crisis training bonus.
+
+---
+
+## Installation and validation
+
+This civilization ships with **all twelve civilizations in one Cool Wacky Civs package**. Install and enable the collection once; there is no separate per-civilization mod to enable.
+
+1. Install Civilization V with **Brave New World** and the required **Community Patch**.
+2. Put the collection's unpacked mod folder in the game's `MODS` directory, or import its `.civ5mod` package.
+3. Enable Community Patch and **one version** of Cool Wacky Civs through the Mods menu.
+4. Start a **new single-player game** and choose **The Viltrum Empire** for the human player. All collection civilizations are excluded from normal AI selection.
+
+To validate or rebuild from source, run these commands from the **collection root**, one directory above this README:
+
+```powershell
+python tools/validate_viltrum_mod.py
+python tools/validate_all.py
+python tools/build_mod.py
+```
+
+The first command focuses on this civilization; the second checks the complete collection. The builder writes an unpacked folder, ZIP and native LZMA `.civ5mod` under `dist/`, using the current version in [the project](../CoolWackyCivs.civ5proj). If development dependencies are missing, follow the [collection setup instructions](../README.md#build-and-validation).
+
+**Testing boundary:** automated checks cover the database, packaging and applicable Lua behavior. A running Civ V match is still needed to confirm executable timing, combat previews, UI transitions and save/load behavior.
+
+## Developer reference
+
+<details>
+<summary><strong>Expand implementation, artwork and detailed validation notes</strong></summary>
+
+Ordinary setup is human-only. Any AI routines described here are retained fallback implementation, rather than permission for Civ V to select this civilization as an AI opponent.
+
+### Growth halt and event costs
 
 Quarantine now uses a native **-100%** growth policy. CP sums other bonuses before clamping at -100%, so a lone -100% policy can be offset by religion, WLTKD, Purge or VP Happiness. Fourteen hidden binary policies provide bounded compensation; only the amount needed to make each city's actual positive food surplus zero is applied. This runs on phase refresh and city-info dirty events with a reentrancy guard, never a frame update. Existing compensation stays until crisis expiry and is then cleared. CP only applies growth modifiers to positive surplus, preserving normal starvation. Stored food below threshold is untouched; food already at/above the smaller post-Scourge threshold is trimmed just below it to prevent a phantom citizen.
 
@@ -43,11 +151,11 @@ Garrison movement updates inspect only the moving unit's previously tracked city
 
 Inheritance copies true `Unit_*` / `Building_*` companions and unit gameplay scripts. It does not duplicate foreign civilization overrides, promotion definitions or references granting free Infantry from another building. Warriors explicitly clear the scalar ResourceType and omit resource requirements/expenditure. Auxiliary Infantry preserves standard resource rules, scalar AI roles, companion AI roles and outgoing upgrades.
 
-## Save compatibility
+### Save compatibility
 
 Save keys remain `VILTRUM:v1`; timers, capture/Complex history, choices and persistent unit promotions are preserved. Already-granted Genome from a v14 save is retained because that save has no trustworthy training-date record; only future training is corrected. New growth-lock policy types require the updated database. Real v14-to-v15 save loading has not been tested: back up saves and prefer a new game, as the collection already recommends. No previously earned rewards are revoked.
 
-## Workarounds and limits
+### Workarounds and limits
 
 - **Healing percentages are approximations.** CP promotion columns are additive HP, not percentage multipliers. Warning: -5 friendly/-3 neutral/-3 enemy HP; quarantine: -10/-5/-5; Scourge-Hardened: +4/+2/+2; Conditioning: +1 friendly/neutral. These match or round ordinary CP field rates. Cities, medics, religions and VP's different rates can change the actual percentage. Combat/capture healing stays exact. No damage-monitoring UI event or frame polling is used.
 - **Optional diplomatic hostility** is omitted: no stable custom-opinion contract is assumed. The rest of the optional event works. Its spy defense is implemented as slower enemy technology theft, not a universal modifier to every VP espionage mission.
@@ -56,8 +164,10 @@ Save keys remain `VILTRUM:v1`; timers, capture/Complex history, choices and pers
 - **Single-player only.** A shared runtime validates popup choices and owns gameplay state, but the Lua UI choice dispatch is not a proven synchronized multiplayer transport. Deterministic casualty RNG alone does not make the mod multiplayer-safe.
 - Native movement, the popup's game layout, forced diplomacy scenarios, balance and AI behavior still need real Civ V playtesting. A permanent-war flag changed by another script while our temporary lock is active cannot be distinguished from our flag; avoid scenario scripts that mutate that same flag mid-crisis.
 
-## Validation
+### Validation
 
 Run `python tools/validate_viltrum_mod.py`, `python tools/validate_all.py`, then `python tools/build_mod.py` from the repo. The validators use an in-memory copy of the installed CP database; they never edit the live cache.
 
 Automated results and the remaining engine checklist are in [docs/Validation.md](docs/Validation.md). The supplied specification is preserved in [docs/OriginalDesign.md](docs/OriginalDesign.md). [docs/Files.md](docs/Files.md) lists every delivered file; [art-source/ViltrumEmpire](../art-source/ViltrumEmpire) preserves the concept, generated Thragg scene and preview.
+
+</details>

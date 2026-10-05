@@ -1,10 +1,45 @@
 # PaulsoaresJr — The First Night
 
-This civilization is human-only (`Playable = 1`, `AIPlayable = 0`): humans can select it, but AI players cannot.
+**CIVILIZATION FIELD GUIDE** · [Cool Wacky Civs](../README.md) · Brave New World + Community Patch
 
-A love letter to the generation who learned Minecraft while it was still mysterious, and to the patient guide who helped them survive their first nights. This is a fictional nostalgic civilization, not a claim of real historical nationhood.
+> *The first shelter becomes a memory. The first explorer becomes a veteran.*
 
-## How to Survive & Thrive
+<img src="../art-source/PaulsoaresJr/Dawn.png" alt="PaulsoaresJr — The First Night artwork" width="960">
+
+| At a glance | Details |
+| --- | --- |
+| **Leader** | PaulsoaresJr |
+| **Signature system** | How to Survive & Thrive |
+| **Playstyle** | First experiences · aging Memories · explorer lineages · a lasting Home |
+| **Player access** | Human-only — `Playable = 1`, `AIPlayable = 0` |
+| **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
+| **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
+
+**Explore:** [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
+
+---
+
+## Civilization identity
+
+A fictional, nostalgic civilization inspired by the patient guide who helped a generation learn to survive its first Minecraft nights. Small first experiences become permanent Memories, a Starter House becomes Home, and an explorer can remain with the player through the ages. Time gives these ordinary beginnings their value.
+
+## Signature kit
+
+**The core loop:** Discover a first experience → preserve its acquisition Era → collect stronger recall in later Eras.
+
+| Element | Replaces / threshold | What it contributes |
+| --- | --- | --- |
+| Ten Memories | One acquisition each per player | Immediate rewards and later Culture/Science recall according to age. |
+| Survivor | Scout replacement | Exploration XP, extra normal healing abroad and persistent same-owner upgrade history. |
+| Returning Home | Survivor lifetime reward | After ten consecutive turns abroad, return near the current capital for 15 speed-scaled Culture. |
+| Starter House | Monument replacement | +2 base Culture and the first shelter Memory. |
+| Home | Original-capital House identity | Culture and global Happiness tiers as its recorded shelter ages. |
+
+Campaign advice explains how to use the implemented mechanics. Numeric worked examples use Standard speed unless stated otherwise. Inherited base-unit and base-building statistics follow the active ruleset.
+
+## Mechanics and reference
+
+### How to Survive & Thrive
 
 Memories are permanent, cannot be spent, and can each be acquired once per player. They record their acquisition era. On entering a later era, each older Memory grants **3 Culture and 3 Science × its age in eras**. Ancient Memories grant 3 of each in Classical, 6 in Medieval, and so on. One consolidated Old Memories notification reports the recall total. Era narratives accompany Classical, Medieval, Renaissance and Industrial; Information concludes with **Do You Remember?**, without an extra arbitrary reward.
 
@@ -23,7 +58,7 @@ Memories are permanent, cannot be spent, and can each be acquired once per playe
 
 The journey threshold is `min(10, max(4, floor(min(map width, map height) / 3)))`, keeping it attainable on tiny maps. All instant yields use a single helper with the respective GameSpeed CulturePercent, ResearchPercent and GrowthPercent, rounded to the nearest whole yield. Science goes to current team research, or research overflow if none is selected. XP is not speed-scaled.
 
-## Survivor
+### Survivor
 
 Replaces the Scout, copying its active cost, strength, terrain promotions, prerequisites, AI roles, art model and upgrade class from BNW/CP/VP at activation. Movement is 2. Learning the World survives upgrades and grants:
 
@@ -37,13 +72,13 @@ A Survivor identified during Ancient that remains in the same player's service f
 
 After ten consecutive owner turns outside your territory, returning within two tiles of the current Capital grants **15 Culture**, speed-scaled, once in that unit's lifetime. Returning to your territory before ten turns resets the trip; completing ten turns preserves its qualification until it returns near the Capital. A unit cannot accumulate multiple trips or redeem on multiple turns. Returning Home remains available to that Survivor's upgraded descendants.
 
-## Starter House and Home
+### Starter House and Home
 
 Replaces Monument at its active cost, keeping the Monument building class and companion effects, with exactly +2 base Culture. The first Starter House in the **original Capital** records its era. Home I/II/III add 1/2/3 Culture and global Happiness at ages 2/4/6 eras. Only one hidden dummy tier exists at a time.
 
 Home is anchored to coordinates, original owner and foundation turn. Moving the Palace does not move it. Its bonus requires your ownership and a Starter House; losing the city suspends it, regaining it restores its age, and rebuilding the House never resets that age. Razing destroys Home; a new city on the same tile cannot inherit it. Dummies are hidden, unbuildable, never captured and never supplied to unrelated cities.
 
-## Strategy
+### Strategy
 
 Explore naturally, collect different first experiences, keep the original Survivor alive through upgrades, and establish a lasting Home. Avoid rushing through the early game: small early Memories gradually support strong Culture and Science development. Paul favors exploration, growth, friendly trade and defensive preparedness, with low war/deception and wonder competition.
 
@@ -51,7 +86,71 @@ Explore naturally, collect different first experiences, keep the original Surviv
 >
 > For now, enjoy not knowing what lies beyond the hill.
 
-## Implementation and compatibility
+---
+
+## Campaign guide
+
+### Opening — make the first experiences count
+
+Build the first shelter, explore, improve resources and meet neighbors. Memories earned early have more future Eras in which to age. Keep the Survivor away from fights that risk its lineage for a small immediate reward; the unit can become part of a much longer story.
+
+### Middle game — keep a real Home
+
+Protect the original capital and its Starter House. Relocating the Palace changes where a returning explorer must arrive, but does not move Home. Upgrade surviving explorers with the same owner so their discovery and Ancient-service history remain intact.
+
+### Late game — let the past contribute
+
+Each new Era recalls older Memories at their current ages. Home can reach its older tiers, and an Ancient Survivor lineage qualifies for Been Here Since the Beginning from Modern onward. The Information-era narrative closes the story without adding a separate arbitrary finale reward.
+
+## Worked example
+
+On Standard speed, a single **Ancient Memory** recalls **3 Culture and 3 Science** in Classical, **6 of each** in Medieval and **9 of each** in Renaissance. A Memory first earned in Classical recalls only **3 of each** in Medieval. Acquisition Era matters; all Memories do not share one age.
+
+## Field notes
+
+### Can I spend or reset Memories?
+
+No. Each is permanent and acquired once per player. Repeating its original action does not award it again.
+
+### Does an upgraded Survivor lose its story?
+
+Legitimate same-owner upgrades preserve its lineage. Capture, gifting or ownership transfer permanently strips the personal PSJ history, even between two Paul players.
+
+### What happens if the original capital is lost?
+
+Home pauses while you do not own the city or it lacks the House. Regaining it can restore the original age; razing and refounding cannot inherit it.
+
+---
+
+## Installation and validation
+
+This civilization ships with **all twelve civilizations in one Cool Wacky Civs package**. Install and enable the collection once; there is no separate per-civilization mod to enable.
+
+1. Install Civilization V with **Brave New World** and the required **Community Patch**.
+2. Put the collection's unpacked mod folder in the game's `MODS` directory, or import its `.civ5mod` package.
+3. Enable Community Patch and **one version** of Cool Wacky Civs through the Mods menu.
+4. Start a **new single-player game** and choose **PaulsoaresJr — The First Night** for the human player. All collection civilizations are excluded from normal AI selection.
+
+To validate or rebuild from source, run these commands from the **collection root**, one directory above this README:
+
+```powershell
+python tools/validate_psj_mod.py
+python tools/validate_all.py
+python tools/build_mod.py
+```
+
+The first command focuses on this civilization; the second checks the complete collection. The builder writes an unpacked folder, ZIP and native LZMA `.civ5mod` under `dist/`, using the current version in [the project](../CoolWackyCivs.civ5proj). If development dependencies are missing, follow the [collection setup instructions](../README.md#build-and-validation).
+
+**Testing boundary:** automated checks cover the database, packaging and applicable Lua behavior. A running Civ V match is still needed to confirm executable timing, combat previews, UI transitions and save/load behavior.
+
+## Developer reference
+
+<details>
+<summary><strong>Expand implementation, artwork and detailed validation notes</strong></summary>
+
+Ordinary setup is human-only. Any AI routines described here are retained fallback implementation, rather than permission for Civ V to select this civilization as an AI opponent.
+
+### Implementation and compatibility
 
 Requires BNW and Community Patch v151 or compatible APIs. Four ordered SQL files register, inherit, specialize and localize the civilization. `Lua/PSJRuntime.lua` is one InGameUIAddin in the collection manifest. Pure SQL/Lua/XML/DDS files are playable without ModBuddy; the project is maintained only to match the collection's existing build pipeline. Run `python tools/build_mod.py` for the deployable folder, ZIP and `.civ5mod` under `dist/`.
 
@@ -63,7 +162,7 @@ Late-era starts establish the current era as the baseline and receive no retroac
 
 The **collection** continues to disable multiplayer and hotseat pending synchronization testing of all its civilizations. This runtime avoids UI-dependent gameplay and uses deterministic state, but has not been certified for network multiplayer. The optional Memory panel is deferred; the Civilopedia Memories concept explains every trigger and notifications show rewards.
 
-## DLL event audit
+### DLL event audit
 
 Audited against pinned **Release-5.4.2** and **Release-5.4.6** (the installed CP mod metadata is v151 / 5.4.6), rather than relying on mock argument lists. Both releases agree on the callback ordering below. Lua safely ignores trailing arguments that a callback does not need.
 
@@ -92,7 +191,7 @@ Sources: [5.4.2 event definitions](https://github.com/LoneGazebo/Community-Patch
 
 UnitUpgraded still fires before `convert()`; UnitConverted fires after native promotion copying and before the old unit is killed. The existing snapshot-before-conversion implementation is retained.
 
-## Art and audio
+### Art and audio
 
 Finished art is in `Art/`; authored PNGs, reference provenance, prompts and preview are in `art-source/PaulsoaresJr/`. `python tools/make_psj_assets.py` recompiles real DDS files. No DDS headers/payloads are fabricated. DXT5 is used for dimensions divisible by four, legacy RGBA DDS for odd atlas sizes, matching the repository. Circular portraits have gold rims and transparent corners; alpha/flags are white silhouettes without rims.
 
@@ -109,7 +208,7 @@ The Learning torch/book symbol is also suitable for a future UA/Memory panel. Th
 
 No Paul or Minecraft audio is bundled. Dawn narration is localized text; DawnOfManAudio is empty. Legal base-game America soundtrack references are retained. Custom licensed peace/war tracks and an authorized narration could be supplied later, with audio XML and manifest hooks added then.
 
-## Validation and practical engine test checklist
+### Validation and practical engine test checklist
 
 `python tools/validate_psj_mod.py` checks SQL in a disposable clone of the BNW cache with installed CP schema; every populated Scout/Monument companion table; override/trait registration; yield totals; promotion healing/defense; dummy tiers; localization; duplicate IDs; atlas dimensions and alpha; Lua 5.1 behavior; all ten Memory triggers; replay prevention; era sums; unit upgrades/capture and actual Survivor transfer/reload regression; first-three landmass cap across upgrade/reload and older-marker migration; Home capture/regaining/rebuilding/Palace relocation/refounding; AI; late starts; save-backed context reload; and independent speed channels. `python tools/validate_all.py` additionally checks the whole collection, DDS decoding with DirectXTex, XML, load ordering and existing civ regressions.
 
@@ -125,3 +224,5 @@ Automated mocks are not a running Civ V match. Complete these in-engine smoke te
 - **Information:** see Do You Remember? once, followed by ordinary recall, without extra finale yields. Reload before/after the transition.
 - **Edge settings:** tiny map, Classical/Modern/Information start, advanced start, no Barbarians, no Ruins, OCC, pre-revealed Natural Wonder, multiple Paul players, and AI observer/autoplay. Compare Quick/Standard/Epic/Marathon reward scaling.
 - **Long game:** review Lua.log, database.log and xml.log through several eras; verify AI gains bonuses and no missing art, SQL failures or nil-reference crashes. Network/hotseat testing must precede enabling those collection flags.
+
+</details>

@@ -1,16 +1,51 @@
 # The Eternal Number Ten
 
-This civilization is human-only (`Playable = 1`, `AIPlayable = 0`): humans can select it, but AI players cannot.
+**CIVILIZATION FIELD GUIDE** · [Cool Wacky Civs](../README.md) · Brave New World + Community Patch
 
-The Eternal Number Ten is a Civilization V: Brave New World civilization led by Lionel Messi. It starts without an immediate numerical trait bonus and earns strength through a persistent Legacy career. The implementation requires the Community Patch and is shipped inside the combined Cool Wacky Civs package.
+> *From a first touch in Rosario to a career the world remembers.*
 
-## Unique ability — From Rosario to Immortality
+<img src="../art-source/EternalNumberTen/EternalDawn.png" alt="The Eternal Number Ten artwork" width="960">
+
+| At a glance | Details |
+| --- | --- |
+| **Leader** | Lionel Messi |
+| **Signature system** | From Rosario to Immortality |
+| **Playstyle** | Permanent Legacy · Great People · coordinated formations · Golden Ages |
+| **Player access** | Human-only — `Playable = 1`, `AIPlayable = 0` |
+| **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
+| **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
+
+**Explore:** [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
+
+---
+
+## Civilization identity
+
+The Eternal Number Ten turns a career into a campaign. Great People, Wonders, alliances and team play write a persistent Legacy, carrying the civilization from a modest opening through six permanent chapters. Formation bonuses and academies make the football theme part of economic development and battlefield coordination as well as the story.
+
+## Signature kit
+
+**The core loop:** Create defining moments → earn Legacy → cross threshold and Era gates → keep the chapter bonuses forever.
+
+| Element | Replaces / threshold | What it contributes |
+| --- | --- | --- |
+| Legacy | Permanent career progress | Great People, Wonders, first-per-era alliance/Golden Age moments and qualifying Assists. |
+| Six Career Chapters | 25 / 55 / 90 / 130 / 180 / 240 Legacy | Permanent unlocks, with Era gates after Chapter I. |
+| The Number Ten | Great General replacement | Mobile support, Vision aura, Citadel or Football Academy construction. |
+| La Masia | Garden replacement at Theology | Specialist Food, Great Person support and additional Legacy on a local Great Person birth. |
+| Football Academy | Alternative General improvement | Culture/Science, Flight Tourism and conditional working-city Gold. |
+
+Campaign advice explains how to use the implemented mechanics. Numeric worked examples use Standard speed unless stated otherwise. Inherited base-unit and base-building statistics follow the active ruleset.
+
+## Mechanics and reference
+
+### Unique ability — From Rosario to Immortality
 
 Legacy is stored per player through `Modding.OpenSaveData`. Great People grant 2, World Wonders grant 4, and the first City-State alliance and Golden Age in each Era grant 3. A qualifying Assist grants 1 Legacy, 15% of the defeated unit's base strength as Culture, and the same amount of Golden Age Points, with a 2–12 yield clamp and a two-reward player-turn cap.
 
 At the beginning of a turn, an eligible land combat unit beside at least two friendly combat units receives One-Two Football for that turn: +1 Movement, +5% Combat Strength, and +10% Flanking Bonus. Chapter III raises the strength bonus to +8% total.
 
-## Career Chapters
+### Career Chapters
 
 | Chapter | Requirement | Permanent result |
 | --- | --- | --- |
@@ -25,17 +60,81 @@ Legacy can accumulate before an Era gate. The runtime checks every unmet chapter
 
 Every 55 Legacy earned after Chapter VI actually unlocks grants a two-turn Golden Age and `15 × current Era number` Culture. Legacy banked before the Atomic Era gate does not count toward these repeats. The first six repeat rewards also grant +1% permanent Tourism each; later repeats retain the Golden Age and Culture without exceeding +6% Tourism.
 
-## Uniques
+### Uniques
 
 - **The Number Ten** replaces the Great General. It has 2 Movement, ignores terrain movement costs and enemy Zones of Control, retains Citadel construction, and can build a Football Academy. Adjacent combat units receive Vision Beyond the Defence for the turn: +1 Movement, ignored enemy Zones of Control, and +6% Flanking Bonus. An assisted killer with Vision heals 5 HP.
 - **La Masia** replaces the Garden at Theology. It costs 135 Production, requires no Fresh Water, supplies +15% Great Person generation and +1 Culture, and adds exactly `floor(Specialists / 2)` Food. A Great Person born there grants one WLTKD turn, one additional Legacy, and a refreshable six-turn +5% Production bonus.
 - **Football Academy** is an alternative Great General improvement. It culture-bombs one tile, supplies +1 Culture and +1 Science, adds +1 Tourism after Flight, gives a stationed unit +10% Defense, and deals no adjacent damage. Each Academy assigned to a working city contributes exactly +1 Gold to that city when it contains at least one specialist-slot building.
 
-## Legacy panel
+### Legacy panel
 
 The gameplay runtime and optional Legacy panel are registered as separate in-game add-ins. The panel shows current Legacy, the next threshold and Era gate, all six chapters, chapter story/effects, the Third Star, and Epilogue history. It waits safely for `MapModData.MessiLegacy` if its UI context loads first; closing or failing to load the panel does not disable gameplay.
 
-## Community Patch dependencies
+---
+
+## Campaign guide
+
+### Opening — earn the first moments
+
+The civilization starts without an immediate numerical trait bonus. Build an ordinary foundation, meet City-States and pursue sustainable Great Person generation. Chapter I arrives at 25 Legacy; pursuing every World Wonder at the expense of your economy can delay the whole career.
+
+### Middle game — build the academy and the formation
+
+Use La Masia and specialists to grow Great People and Legacy. Keep land combat units in useful supporting formations at turn start for One-Two Football. Position the Number Ten safely so Vision reaches troops that can convert the mobility into a real Assist.
+
+### Late game — close the career
+
+Track both Legacy and the next Era gate in the panel. A banked threshold waits for its Era. After the Third Star actually unlocks, begin building new 55-Legacy Epilogue cycles; the earlier bank does not generate retroactive repeats.
+
+## Worked example
+
+You reach **90 Legacy in Medieval**. Chapters I and II can be earned if their requirements are met, but Chapter III waits for **Renaissance**. The Legacy is not lost. Once that Era gate opens, the runtime can award the chapter without requiring you to earn the same 90 again.
+
+## Field notes
+
+### Is Legacy spent when a chapter unlocks?
+
+No. It is career progress; the threshold and Era gate determine whether a chapter can unlock.
+
+### Can I repeatedly break and regain one alliance for Legacy?
+
+The core alliance reward is the first qualifying alliance in each Era. Repeated transitions do not reset that per-Era reward.
+
+### Does closing the panel stop the career?
+
+No. The runtime and optional panel load independently. Legacy, chapters and timers continue through gameplay hooks.
+
+---
+
+## Installation and validation
+
+This civilization ships with **all twelve civilizations in one Cool Wacky Civs package**. Install and enable the collection once; there is no separate per-civilization mod to enable.
+
+1. Install Civilization V with **Brave New World** and the required **Community Patch**.
+2. Put the collection's unpacked mod folder in the game's `MODS` directory, or import its `.civ5mod` package.
+3. Enable Community Patch and **one version** of Cool Wacky Civs through the Mods menu.
+4. Start a **new single-player game** and choose **The Eternal Number Ten** for the human player. All collection civilizations are excluded from normal AI selection.
+
+To validate or rebuild from source, run these commands from the **collection root**, one directory above this README:
+
+```powershell
+python tools/validate_messi_mod.py
+python tools/validate_all.py
+python tools/build_mod.py
+```
+
+The first command focuses on this civilization; the second checks the complete collection. The builder writes an unpacked folder, ZIP and native LZMA `.civ5mod` under `dist/`, using the current version in [the project](../CoolWackyCivs.civ5proj). If development dependencies are missing, follow the [collection setup instructions](../README.md#build-and-validation).
+
+**Testing boundary:** automated checks cover the database, packaging and applicable Lua behavior. A running Civ V match is still needed to confirm executable timing, combat previews, UI transitions and save/load behavior.
+
+## Developer reference
+
+<details>
+<summary><strong>Expand implementation, artwork and detailed validation notes</strong></summary>
+
+Ordinary setup is human-only. Any AI routines described here are retained fallback implementation, rather than permission for Civ V to select this civilization as an AI opponent.
+
+### Community Patch dependencies
 
 - `UnitPrekill` plus battle membership hooks provide reliable victim position and killer attribution for Assists and military-death Resilience.
 - `PlayerGoldenAge(iPlayer, bStart, iTurns)` detects Golden Age starts and ends.
@@ -48,7 +147,7 @@ The Community Patch does not expose a dedicated quest-completed Lua hook. Chapte
 
 The promotion API cannot remove ignored Zone of Control after only the first movement action, so Vision grants it for the whole receiving turn. This is the closest stable event-driven equivalent and does not change the specified Movement or Flanking values.
 
-## Debugging
+### Debugging
 
 Set `DEBUG = true` near the top of `Lua/MessiRuntime.lua`, enable Civ V logging, and inspect `Lua.log` for chapter, La Masia, and Resilience messages. Persistent keys are namespaced as `Messi|<playerID>|...`; no state uses a global player assumption.
 
@@ -60,7 +159,7 @@ python tools/validate_all.py
 python tools/build_mod.py
 ```
 
-## In-game smoke checklist
+### In-game smoke checklist
 
 1. Start as The Eternal Number Ten and confirm Rosario is the Capital and the Legacy launcher appears.
 2. Use FireTuner or normal play to cross every threshold before and after its Era gate; confirm each chapter unlocks once.
@@ -74,6 +173,8 @@ python tools/build_mod.py
 10. Unlock Chapter VI, then trigger at least seven Epilogue rewards; confirm Tourism stops at +6% while Culture and Golden Ages continue.
 11. Save and reload during Resilience and La Masia Production; confirm remaining durations and chapter state survive.
 
-## Art
+### Art
 
 The leader, Dawn of Man, and Football Academy source PNGs were produced with the built-in image generator and compiled into Civ V DDS families by `tools/make_messi_assets.py`. The generator's public-figure safeguard rejected a direct Messi portrait, so the final leader scene intentionally uses an original, non-identifiable symbolic Number Ten figure. No team crests, sponsor marks, federation marks, or tournament branding are used.
+
+</details>

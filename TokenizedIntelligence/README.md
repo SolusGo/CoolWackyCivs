@@ -1,16 +1,45 @@
 # The Tokenized Intelligence
 
-A twelfth civilization in **Cool Wacky Civs**, led by **Axiom, Keeper of Context**.
-Requires Civilization V: Brave New World and Community Patch v151 (5.4.2+) like
-the rest of the collection. Human selection is enabled; AI selection is disabled (`Playable = 1`, `AIPlayable = 0`).
+**CIVILIZATION FIELD GUIDE** · [Cool Wacky Civs](../README.md) · Brave New World + Community Patch
 
-Build the collection with `python tools/build_mod.py`. Extract the generated
-`dist/Cool Wacky Civs (v 17)` directory into the game's `MODS` directory, or import
-the `.civ5mod`. Enable only one version of Cool Wacky Civs alongside Community
-Patch and BNW, then start a **new single-player game**. No ModBuddy step is needed.
-Do not add this civilization to an existing save: it adds database types and state.
+> *Attention is finite. A well-timed answer can change an empire.*
 
-## Context Window
+<img src="../art-source/TokenizedIntelligence/Dawn.png" alt="The Tokenized Intelligence artwork" width="960">
+
+| At a glance | Details |
+| --- | --- |
+| **Leader** | Axiom, Keeper of Context |
+| **Signature system** | Context Window and Prompt Console |
+| **Playstyle** | Finite Tokens · cached spending · specialists · temporary optimization |
+| **Player access** | Human-only — `Playable = 1`, `AIPlayable = 0` |
+| **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
+| **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
+
+**Explore:** [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
+
+---
+
+## Civilization identity
+
+Axiom's Network treats attention as a finite resource. Cities and specialists generate Tokens; the Prompt Console turns them into short-lived solutions for research, production, governance and warfare. The civilization rewards careful timing, repeated useful questions and a growing computational base, while congestion prevents every problem from being solved at once.
+
+## Signature kit
+
+**The core loop:** Generate Tokens → choose a Prompt and target → manage slots and saturation → rebuild capacity and cache.
+
+| Element | Replaces / threshold | What it contributes |
+| --- | --- | --- |
+| Context Window | Era-based storage and models | Capacity grows from 1000 to 10000 base Tokens on Standard; late models add slots and price reductions. |
+| Prompt Console | Economic / research / military / governance tools | Spend Tokens for instant grants or persistent effects with explicit requirements. |
+| Cached Responses | Repeated Prompt types | Consecutive repeats within the cache window lower prices toward a 50% floor. |
+| Inference Cluster / Data Centre | University / Research Lab replacements | Inherited infrastructure plus capacity and local Token generation. |
+| Inference Agent | Infantry replacement | Choose one paid, temporary Adaptive Inference mode per Agent. |
+
+Campaign advice explains how to use the implemented mechanics. Numeric worked examples use Standard speed unless stated otherwise. Inherited base-unit and base-building statistics follow the active ruleset.
+
+## Mechanics and reference
+
+### Context Window
 
 Each city produces 10 Tokens/turn plus 2 per citizen. Scientists add 15, Engineers
 10, Merchants 8, and Writers, Artists and Musicians 5. Begin with 250 Tokens on
@@ -35,7 +64,7 @@ when losing a city or building reduces storage. The Token button beneath the
 top panel shows current storage and income; its tooltip explains every source,
 modifiers, saturation, cache, active effects and Clear Context cooldown.
 
-## Prompt Console
+### Prompt Console
 
 Click the Token button, choose a category and Prompt, choose an owned city/unit
 when needed, then execute. Costs below are Standard-speed starting prices.
@@ -71,7 +100,7 @@ Refresh an already active Prompt at its new price without consuming another slot
 Targeted Prompts occupy a slot each; an Agent's Adaptive modes share one slot.
 Other Prompts can stack if slots permit (for example Tactical plus Simulation).
 
-## Cached Responses and Compute Saturation
+### Cached Responses and Compute Saturation
 
 Repeat the same Prompt within 10 scaled turns: normal price, then 75%, then
 approximately 58%. The minimum is 50% of the model-adjusted normal price.
@@ -83,8 +112,8 @@ Spending accumulates within your own turn relative to maximum Context capacity:
 | Spending | Generation penalty | Duration |
 |---|---:|---:|
 | Below 10% | None | — |
-| 10–30% | -10% | 2 turns |
-| 30–60% | -25% | 3 turns |
+| 10% to below 30% | -10% | 2 turns |
+| 30% to below 60% | -25% | 3 turns |
 | 60%+ | -40% | 4 turns |
 
 Atomic/Information reduce severity by one tier. A weaker saturation trigger
@@ -94,7 +123,7 @@ and Cached Responses, but Compute Saturation remains until natural expiry.
 It preserves this turn's cumulative spending and instant-action restrictions. Temporary effects expire at the beginning of the
 owner's turns, with a persisted per-player clock and duplicate-turn guard.
 
-## Unique infrastructure and military
+### Unique infrastructure and military
 
 **Inference Cluster** replaces University, preserving all installed BNW/CP
 properties and companion effects. Adds +75 Context, +15 Tokens/turn, and +5
@@ -115,7 +144,71 @@ upgrade, conversion and gifting invalidate targeted effects and release their
 slots immediately. Temporary promotions are lost on native gifting, including
 distant City-State delivery.
 
-## AI, compatibility and implementation
+---
+
+## Campaign guide
+
+### Opening — buy an effect you can use
+
+Begin with a limited reserve and one persistent slot. Compare a short tactical advantage against an economic effect before spending. Instant Production and Research grants stop short of completion, so keep normal city Production and team Science active to finish the item.
+
+### Middle game — grow the computation base
+
+Build Inference Clusters and employ specialists to raise income. Repeat useful Prompt types within the cache window, remembering that switching types resets the chain. Save capacity for future eligibility requirements as well as storage; reaching a Token price alone may not unlock an advanced Prompt.
+
+### Late game — plan the full turn's budget
+
+Additional slots let persistent effects coexist, but cumulative spending still triggers saturation. Frontier models soften it. Reserve Clear Context for a deliberate reset: it cancels active persistent Prompts/cache and refills 25% capacity, while leaving saturation, spending and instant-action limits intact.
+
+## Worked example
+
+On Standard, an Ancient one-city empire with **5 citizens**, no specialists and no Token infrastructure generates **10 + (2 × 5) = 20 Tokens per turn** before modifiers. With **1000 capacity**, spending **400** on Tactical Analysis is **40%** of capacity, placing the turn in the **-25% generation / three-turn** saturation band. Clear Context does not erase that penalty.
+
+## Field notes
+
+### Can Clear Context let me research-query again this turn?
+
+No. The one-per-owner-turn Query limit and cumulative spending remain. Route Optimization's per-unit turn limit also remains.
+
+### Why is a second persistent Prompt disabled with enough Tokens?
+
+Check available persistent slots, model tier, capacity gates and target validity. An affordable Prompt can still fail another requirement.
+
+### Does cheaper spending extend a stronger saturation penalty?
+
+A weaker tier cannot prolong a stronger active tier. Equal tiers can refresh and stronger tiers can upgrade; existing saturation expires naturally.
+
+---
+
+## Installation and validation
+
+This civilization ships with **all twelve civilizations in one Cool Wacky Civs package**. Install and enable the collection once; there is no separate per-civilization mod to enable.
+
+1. Install Civilization V with **Brave New World** and the required **Community Patch**.
+2. Put the collection's unpacked mod folder in the game's `MODS` directory, or import its `.civ5mod` package.
+3. Enable Community Patch and **one version** of Cool Wacky Civs through the Mods menu.
+4. Start a **new single-player game** and choose **The Tokenized Intelligence** for the human player. All collection civilizations are excluded from normal AI selection.
+
+To validate or rebuild from source, run these commands from the **collection root**, one directory above this README:
+
+```powershell
+python tools/validate_token_mod.py
+python tools/validate_all.py
+python tools/build_mod.py
+```
+
+The first command focuses on this civilization; the second checks the complete collection. The builder writes an unpacked folder, ZIP and native LZMA `.civ5mod` under `dist/`, using the current version in [the project](../CoolWackyCivs.civ5proj). If development dependencies are missing, follow the [collection setup instructions](../README.md#build-and-validation).
+
+**Testing boundary:** automated checks cover the database, packaging and applicable Lua behavior. A running Civ V match is still needed to confirm executable timing, combat previews, UI transitions and save/load behavior.
+
+## Developer reference
+
+<details>
+<summary><strong>Expand implementation, artwork and detailed validation notes</strong></summary>
+
+Ordinary setup is human-only. Any AI routines described here are retained fallback implementation, rather than permission for Civ V to select this civilization as an AI opponent.
+
+### Compatibility and retained AI fallback
 
 AI prioritizes Happiness while unhappy, defensive analysis for wounded forces
 at war, and spending near capacity on major research/production needs. It makes
@@ -150,3 +243,5 @@ stable Civ V conventions. UI text is English only.
 
 See [validation](docs/Validation.md) for automated evidence and remaining engine
 smoke tests. Passing mocks and database checks does not prove a live game session.
+
+</details>
