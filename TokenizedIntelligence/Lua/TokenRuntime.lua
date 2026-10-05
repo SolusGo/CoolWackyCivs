@@ -103,7 +103,8 @@ local function valid(pid,e)
     local p=Players[pid]
     local target
     if e.kind=='C' then target=p:GetCityByID(e.id) else target=p:GetUnitByID(e.id) end
-    return target and (e.kind=='C' and cityIdentity(target) or unitIdentity(target))==e.identity
+    return target and (e.kind~='U' or not (target:IsDead() or target:IsDelayedDeath()))
+        and (e.kind=='C' and cityIdentity(target) or unitIdentity(target))==e.identity
 end
 function T.Active(pid)
     local list={}
@@ -147,7 +148,8 @@ local function sync(pid)
     end
     for u in p:Units() do
         for _,name in ipairs(promotions) do
-            local active=(units[u:GetID()] and units[u:GetID()][name]) or ((name=='GRAND' or name=='FORECAST') and empire[name] and u:IsCombatUnit())
+            local active=not (u:IsDead() or u:IsDelayedDeath()) and
+                ((units[u:GetID()] and units[u:GetID()][name]) or ((name=='GRAND' or name=='FORECAST') and empire[name] and u:IsCombatUnit()))
             local id=GameInfoTypes['PROMOTION_TOKEN_'..name]
             if u:IsHasPromotion(id)~=(active and true or false) then u:SetHasPromotion(id,active and true or false) end
         end
@@ -173,7 +175,7 @@ local prompts={
  {id='DEFENSE',category='ADAPTIVE',name='Defensive Analysis',cost=250,era=4,duration=3,target='agent',icon=9,help='Inference Agent: +20% defense strength. Replaces its previous Adaptive mode.'},
  {id='MOBILITY',category='ADAPTIVE',name='Mobility Analysis',cost=250,era=4,duration=3,target='agent',icon=10,help='Inference Agent: +1 base Movement. Replaces its previous Adaptive mode; additional movement refreshes on the next unit turn.'},
  {id='TARGET',category='ADAPTIVE',name='Target Analysis',cost=300,era=4,duration=3,target='agent',icon=11,help='Inference Agent: +25% strength against land units. Replaces its previous Adaptive mode.'},
- {id='CLEAR',category='CONTEXT',name='Clear Context',cost=0,era=0,icon=12,help='Restore 25% Context capacity. Remove all active Prompts, cache and congestion. 15-turn cooldown. Instant grants and per-turn restrictions stay in place.'}
+ {id='CLEAR',category='CONTEXT',name='Clear Context',cost=0,era=0,icon=12,help='Restore 25% Context capacity. Remove all active persistent Prompts and Cached Responses. Compute Saturation remains until natural expiry. 15-turn speed-scaled cooldown; spending totals and instant-action restrictions stay in place.'}
 }
 T.Prompts=prompts
 local byID={}
@@ -216,6 +218,7 @@ function T.Check(pid,id,target)
         local u
         if spec.target=='city' then u=p:GetCityByID(target or -1) else u=p:GetUnitByID(target or -1) end
         if not u or u:GetOwner()~=pid then return false,'Choose an owned '..(spec.target=='city' and 'city' or 'unit')..'.' end
+        if spec.target~='city' and (u:IsDead() or u:IsDelayedDeath()) then return false,'Choose a surviving unit.' end
         if spec.target=='combat' and not u:IsCombatUnit() then return false,'Choose a combat unit.' end
         if spec.target=='agent' and u:GetUnitType()~=AGENT then return false,'Choose an Inference Agent.' end
         if id=='PRODUCTION' and (u:GetProductionProcess()>=0 or u:GetProductionNeeded()-u:GetProduction()<=1) then return false,'No unfinished production item can receive this grant.' end
@@ -244,9 +247,13 @@ local function saturate(pid,cost)
     if T.Era(pid)>=6 then level=max(0,level-1) end
     if level>0 then
         local old=T.Get(pid,'satExpiry')>clock(pid) and T.Get(pid,'satLevel') or 0
-        put(pid,'satLevel',max(old,level))
-        put(pid,'satExpiry',max(T.Get(pid,'satExpiry'),clock(pid)+T.Scale(({2,3,4})[level])))
-        log('Player '..pid..' Saturation '..max(old,level))
+        -- A lighter load cannot keep a stronger penalty running. Preserve the
+        -- v1 level/expiry pair; equal tiers may refresh and stronger tiers upgrade.
+        if level>=old then
+            put(pid,'satLevel',level)
+            put(pid,'satExpiry',max(T.Get(pid,'satExpiry'),clock(pid)+T.Scale(({2,3,4})[level])))
+        end
+        log('Player '..pid..' Saturation '..T.Get(pid,'satLevel'))
     end
 end
 function T.Use(pid,id,target)
@@ -257,9 +264,8 @@ function T.Use(pid,id,target)
     if id=='CLEAR' then
         writeEffects(pid,{})
         put(pid,'lastPrompt','');put(pid,'cacheUses',0);put(pid,'cacheTurn',-1000)
-        put(pid,'satLevel',0);put(pid,'satExpiry',0)
-        T.Invalidate(pid)
-        -- Keep cumulative spend and instant-action limits: clearing is no exploit reset.
+        -- Context clearing does not cool hardware, reset cumulative spend or
+        -- remove instant-action limits. Saturation keeps its original expiry.
         put(pid,'clearExpiry',clock(pid)+T.Scale(15))
         setTokens(pid,T.Tokens(pid)+floor(T.Stats(pid).capacity*0.25))
     else
@@ -323,6 +329,7 @@ function T.Tooltip(pid)
     end
     for _,e in ipairs(T.Active(pid)) do lines[#lines+1]=byID[e.name].name..': '..(e.expiry-clock(pid))..' turns' end
     lines[#lines+1]='Clear Context cooldown: '..max(0,T.Get(pid,'clearExpiry')-clock(pid))..' turns'
+    lines[#lines+1]='Clear Context removes persistent Prompts and cache; Compute Saturation expires naturally.'
     lines[#lines+1]='Overflow is discarded. At maximum Context, all incoming Tokens are lost.'
     return table.concat(lines,'[NEWLINE]')
 end
@@ -385,10 +392,31 @@ local function capture(oldOwner,capital,x,y,newOwner)
     if c then for _,name in ipairs(buildings) do setBuilding(c,GameInfoTypes['BUILDING_TOKEN_'..name],0) end end
     refreshPlayer(oldOwner);refreshPlayer(newOwner)
 end
-local function converted(oldOwner,newOwner,oldID,newID)
+local function releaseUnit(pid,id)
+    if not T.IsToken(pid) then return end
+    local keep={}
+    for _,e in ipairs(readEffects(pid)) do
+        if e.kind~='U' or e.id~=id then keep[#keep+1]=e end
+    end
+    writeEffects(pid,keep)
+end
+local function converted(oldOwner,newOwner,oldID,newID,isUpgrade)
+    -- CP copies promotions before this hook but deletes the source afterward.
+    -- Remove its record explicitly while the old object still exists.
+    releaseUnit(oldOwner,oldID)
     local p=Players[newOwner];local u=p and p:GetUnitByID(newID)
     if u then for _,name in ipairs(promotions) do u:SetHasPromotion(GameInfoTypes['PROMOTION_TOKEN_'..name],false) end end
     refreshPlayer(oldOwner);refreshPlayer(newOwner)
+end
+local function prekill(pid,id,unitType,x,y,delay,killer)
+    -- Distant City-State gifts snapshot promotions, then kill the source without
+    -- UnitConverted. LostOnGifting protects delivery; release the slot now.
+    -- Do not sync here: native deletion has not happened and may be delayed.
+    if not T.IsToken(pid) then return end
+    releaseUnit(pid,id)
+    local u=Players[pid]:GetUnitByID(id)
+    if u then for _,name in ipairs(promotions) do u:SetHasPromotion(GameInfoTypes['PROMOTION_TOKEN_'..name],false) end end
+    changed(pid)
 end
 local function initialize()
     for pid=0,GameDefines.MAX_CIV_PLAYERS-1 do
@@ -406,6 +434,7 @@ GameEvents.PlayerCityFounded.Add(refreshPlayer)
 GameEvents.CityCaptureComplete.Add(capture)
 GameEvents.UnitCreated.Add(refreshPlayer)
 GameEvents.UnitConverted.Add(converted)
+GameEvents.UnitPrekill.Add(prekill)
 GameEvents.SetPopulation.Add(function(x,y)
     local plot=Map.GetPlot(x,y);local city=plot and plot:GetPlotCity()
     if city then refreshPlayer(city:GetOwner()) end
@@ -415,7 +444,6 @@ GameEvents.TeamTechResearched.Add(function(teamID)
         if T.IsToken(pid) and Players[pid]:GetTeam()==teamID then refreshPlayer(pid) end
     end
 end)
--- Cleanup after native conversion copied promotions. UnitPrekill is intentionally
--- not used to reconcile: it occurs before deletion and upgrade conversion.
+-- Conversion reconciles after copying; prekill only invalidates the source.
 if Events and Events.LoadScreenClose then Events.LoadScreenClose.Add(initialize) end
 initialize()

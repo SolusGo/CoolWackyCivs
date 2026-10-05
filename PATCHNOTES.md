@@ -1,5 +1,13 @@
 # Patch Notes
 
+## Version 17 — Tokenized Intelligence hardening — 2026-10-05
+
+- Weaker spending no longer prolongs stronger Compute Saturation. Equal tiers may refresh and stronger tiers upgrade; the v1 saturation save keys are unchanged.
+- Clear Context still refills 25% capacity and clears persistent effects/cache, but preserves saturation, cumulative spending, Query/Route limits and its scaled cooldown.
+- Conversion cleanup now releases source records before native deletion. A narrow prekill invalidation handles deaths and distant City-State gifts; all eight temporary promotions use native LostOnGifting.
+- Confirmed existing specialist dirty listeners and local Data Centre calculations. Added all-speed regressions for tiers/expiry/reload, Clear invariants, cache expiry, every era's capacity, two-city modifiers, source-live transfers, identity reuse, UI updates and AI priorities.
+- Preserved artwork, balance, dynamic CP inheritance and event-driven UI. Refreshed help/Civilopedia and live-engine smoke tests. Automated checks do not replace Civ V playtesting.
+
 ## Version 16 — The Tokenized Intelligence — 2026-10-05
 
 - Added AI-playable Axiom, Keeper of Context, with a persistent Token economy, eight Context capacities and six model stages.

@@ -5,7 +5,7 @@ Requires Civilization V: Brave New World and Community Patch v151 (5.4.2+) like
 the rest of the collection. AI selection and automated Token spending are enabled.
 
 Build the collection with `python tools/build_mod.py`. Extract the generated
-`dist/Cool Wacky Civs (v 16)` directory into the game's `MODS` directory, or import
+`dist/Cool Wacky Civs (v 17)` directory into the game's `MODS` directory, or import
 the `.civ5mod`. Enable only one version of Cool Wacky Civs alongside Community
 Patch and BNW, then start a **new single-player game**. No ModBuddy step is needed.
 Do not add this civilization to an existing save: it adds database types and state.
@@ -57,7 +57,7 @@ Unavailable Prompts stay visible and disabled with requirement tooltips.
 | Emergency Administration | 1,500 | +8 Happiness, all cities +10% Production | 5 | Reasoning |
 | Strategic Forecast | 3,000 | All owned combat units +6 Sight; needs 5,000 capacity | 2 | Reasoning |
 | Grand Strategy Simulation | 5,000 | All cities +15% Science/Production/Gold, combat units +10% strength; needs 8,000 capacity | 5 | Reasoning |
-| Clear Context | 0 | Restore 25% capacity, cancel every persistent Prompt/cache/saturation | Instant | Small |
+| Clear Context | 0 | Restore 25% capacity, cancel persistent Prompts/cache; saturation remains | Instant | Small |
 
 Instant grants are capped **one point short of current item/technology
 completion**, so the normal turn completes them and no mod-created overflow
@@ -87,10 +87,11 @@ Spending accumulates within your own turn relative to maximum Context capacity:
 | 30–60% | -25% | 3 turns |
 | 60%+ | -40% | 4 turns |
 
-Atomic/Information reduce severity by one tier. Saturation replaces/extends an
-existing level rather than adding penalties. Clear Context removes congestion
-but retains this turn's spending total: immediately spending again can congest
-the freshly cleared Context. Temporary effects expire at the beginning of the
+Atomic/Information reduce severity by one tier. A weaker saturation trigger
+cannot extend a stronger active tier; equal tiers can refresh and stronger tiers
+upgrade. Clear Context restores Tokens and removes persistent Prompt effects
+and Cached Responses, but Compute Saturation remains until natural expiry.
+It preserves this turn's cumulative spending and instant-action restrictions. Temporary effects expire at the beginning of the
 owner's turns, with a persisted per-player clock and duplicate-turn guard.
 
 ## Unique infrastructure and military
@@ -110,7 +111,9 @@ Movement (250), or Target +25% against land units (300). Only one per Agent;
 switching replaces it and spends Tokens. Mobility changes base movement while
 active; the extra point becomes available at the next unit movement refresh.
 Expiry does not reclaim movement already granted that turn. Death, capture and
-upgrade invalidate targeted effects and release their slots.
+upgrade, conversion and gifting invalidate targeted effects and release their
+slots immediately. Temporary promotions are lost on native gifting, including
+distant City-State delivery.
 
 ## AI, compatibility and implementation
 
@@ -120,6 +123,8 @@ at most one successful decision per own turn and saves when below 25% storage.
 There is no AI UI dependency or random selection. Axiom's database flavors favor
 Science, specialists and infrastructure, with selective warfare.
 
+Version 17 retains version 16 Token save records, including the unchanged
+`TOKEN_V1_P<id>_satLevel` / `satExpiry` pair; no migration is required.
 All state uses `Modding.OpenSaveData()` under versioned per-player keys. City
 identities include owner, original owner, founding turn and coordinates; unit
 identities include owner, ID, creation turn and type. Capacity/income are derived

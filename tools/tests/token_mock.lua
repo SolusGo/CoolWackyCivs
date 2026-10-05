@@ -5,7 +5,7 @@ function event()
 end
 function resetEvents()
     GameEvents={};Events={LoadScreenClose=event()}
-    for _,name in ipairs({'PlayerDoTurn','CityConstructed','PlayerCityFounded','CityCaptureComplete','UnitCreated','UnitConverted','SetPopulation','TeamTechResearched'}) do GameEvents[name]=event() end
+    for _,name in ipairs({'PlayerDoTurn','CityConstructed','PlayerCityFounded','CityCaptureComplete','UnitCreated','UnitConverted','UnitPrekill','SetPopulation','TeamTechResearched'}) do GameEvents[name]=event() end
     LuaEvents={TokenStateChanged=setmetatable({Add=function() end},{__call=function() end})}
 end
 resetEvents()
@@ -49,6 +49,8 @@ function newUnit(owner,id,kind)
     function u:GetUnitType() return self.kind end
     function u:GetGameTurnCreated() return self.birth end
     function u:IsCombatUnit() return self.combat end
+    function u:IsDead() return self.dead or false end
+    function u:IsDelayedDeath() return self.delayed or false end
     function u:IsTrade() return self.trade end
     function u:GetName() return 'Inference Agent' end
     function u:GetX() return 0 end

@@ -64,4 +64,24 @@ ActivePlayer=1;Events.GameplaySetActivePlayer.Fire();assert(not Controls.Launche
 Network=true;Events.ActivePlayerTurnStart.Fire();assert(Controls.Launcher.hidden and Controls.Panel.hidden)
 Network=false;ActivePlayer=0;Events.GameplaySetActivePlayer.Fire();Controls.Status.click()
 Events.ActivePlayerTurnEnd.Fire();assert(Controls.Panel.hidden)
+-- City dirty events invalidate display/tooltip, including edits while hidden.
+local city=Players[0].cities[0]
+Saved.TOKEN_V1_P0_satExpiry=0;T.Invalidate(0)
+Events.SerialEventGameDataDirty.Fire();local base=T.Stats(0).income
+city.spec[11]=1;Events.SerialEventCityInfoDirty.Fire()
+assert(T.Stats(0).income==base+15 and Controls.Status.text:find('(+'..(base+15)..')',1,true))
+assert(Controls.Status.tooltip:find('Specialists: +15',1,true))
+city.b[2]=1;Events.SerialEventGameDataDirty.Fire();local clusterBase=T.Stats(0).income
+Events.SerialEventEnterCityScreen.Fire();city.spec[11]=2;Events.SerialEventCityInfoDirty.Fire()
+assert(Controls.Launcher.hidden);Events.SerialEventExitCityScreen.Fire()
+assert(T.Stats(0).income==clusterBase+20 and Controls.Status.text:find('(+'..(clusterBase+20)..')',1,true))
+city.spec[11]=0;Events.SerialEventGameDataDirty.Fire()
+assert(T.Stats(0).income==clusterBase-20 and Controls.Status.tooltip:find('Specialists: +0',1,true))
+for _,screen in ipairs({'Culture Overview','Civilopedia','Tech Tree','Espionage','Trade','Victory'}) do
+    Controls.Status.click();Events.SerialEventGameMessagePopupShown.Fire({Type=screen})
+    assert(Controls.Launcher.hidden and Controls.Panel.hidden,screen)
+    Events.SerialEventGameMessagePopupProcessed.Fire(screen)
+    assert(not Controls.Launcher.hidden and Controls.Panel.hidden,screen)
+end
 print('PASS Token UI: own-player visibility, costs/target validation, dispatch, full-slot refresh, city/diplomacy/nested popups, Escape and multiplayer hide')
+print('PASS Token UI hardening: Scientist assignment/removal, Cluster +5, hidden city edits, six major popup transitions')

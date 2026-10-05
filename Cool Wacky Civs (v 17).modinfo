@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="16">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="17">
   <Properties>
     <Name>Cool Wacky Civs</Name>
     <Teaser>Twelve strange leaders. Twelve stranger ways to rule.</Teaser>
@@ -400,11 +400,11 @@
     <File md5="0CB7C697100CBA23770D938AFF7DDA98" import="1">TokenizedIntelligence/Art/TokenObjects64.dds</File>
     <File md5="E7F158FE651F04A434836A2A1BAE17E8" import="1">TokenizedIntelligence/Art/TokenObjects80.dds</File>
     <File md5="8EC804D77262D0D67F3B2CE9100FC5C8" import="1">TokenizedIntelligence/Art/TokenUnitFlag32.dds</File>
-    <File md5="B9C4DD41AB4C00F8C9209BB3CB55BCD7" import="1">TokenizedIntelligence/Lua/TokenRuntime.lua</File>
+    <File md5="9A689CF56037DA7085193C44E42F2314" import="1">TokenizedIntelligence/Lua/TokenRuntime.lua</File>
     <File md5="4E95B7E49794194234009FFF347C0ADF" import="0">TokenizedIntelligence/SQL/00_Token_Core.sql</File>
     <File md5="0E82CAF66D90BB82B97AAE820D0FE889" import="0">TokenizedIntelligence/SQL/01_Token_Inheritance.sql</File>
-    <File md5="638BE2C0AFA6E725A6D0DAEEA5D7539F" import="0">TokenizedIntelligence/SQL/02_Token_Effects.sql</File>
-    <File md5="C55B7C39A15DAB3DC6DFFFFBC32435E1" import="0">TokenizedIntelligence/SQL/10_Token_Text.sql</File>
+    <File md5="D7E3A10ABED77003569B82035934C639" import="0">TokenizedIntelligence/SQL/02_Token_Effects.sql</File>
+    <File md5="936CD1B1537BC8039C31D663C5CE9EBF" import="0">TokenizedIntelligence/SQL/10_Token_Text.sql</File>
     <File md5="2D83BE95D300438DCDD6F5FD2FEC5D7E" import="1">TokenizedIntelligence/UI/TokenPanel.lua</File>
     <File md5="297B48C43F0B4BF8DF91A6A759DCA559" import="0">TokenizedIntelligence/UI/TokenPanel.xml</File>
     <File md5="B18AE897AF1608F57D34357319525D89" import="1">ViltrumEmpire/Art/ViltrumAlpha128.dds</File>

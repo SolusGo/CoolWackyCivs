@@ -44,6 +44,9 @@ def database(cp_root=None):
     assert row('UnitPromotions','PROMOTION_TOKEN_TACTICAL')['VisibilityChange']==1
     assert row('UnitPromotions','PROMOTION_TOKEN_FORECAST')['VisibilityChange']==6
     assert row('UnitPromotions','PROMOTION_TOKEN_MOBILITY')['MovesChange']==1
+    for name in ('TACTICAL','SIMULATION','GRAND','FORECAST','OFFENSE','DEFENSE','MOBILITY','TARGET'):
+        promotion=row('UnitPromotions','PROMOTION_TOKEN_'+name)
+        assert promotion['LostOnGifting']==1 and promotion['LostWithUpgrade']==1
     assert d.execute("SELECT Modifier FROM UnitPromotions_Domains WHERE PromotionType='PROMOTION_TOKEN_TARGET'").fetchone()[0]==25
     assert dict(d.execute("SELECT BuildingClassType,BuildingType FROM Civilization_BuildingClassOverrides WHERE CivilizationType='CIVILIZATION_TOKEN_INTELLIGENCE'"))=={'BUILDINGCLASS_UNIVERSITY':'BUILDING_TOKEN_CLUSTER','BUILDINGCLASS_LABORATORY':'BUILDING_TOKEN_CENTRE'}
     assert dict(d.execute("SELECT UnitClassType,UnitType FROM Civilization_UnitClassOverrides WHERE CivilizationType='CIVILIZATION_TOKEN_INTELLIGENCE'"))=={'UNITCLASS_INFANTRY':'UNIT_TOKEN_AGENT'}
@@ -75,6 +78,7 @@ def runtime():
         ok,error=lua.eval('function(s,n) local f,e=loadstring(s,n);return f~=nil,e end')(f.read_text(encoding='utf-8'),str(f));assert ok,error
     for percent in (67,100,150,300):
         fixture(percent).execute((R/'tools/tests/token_assertions.lua').read_text(encoding='utf-8'))
+        fixture(percent).execute((R/'tools/tests/token_hardening_assertions.lua').read_text(encoding='utf-8'))
         # Count actual reduced income ticks, including the expiry boundary.
         saturation=fixture(percent)
         saturation.execute("""
@@ -115,7 +119,23 @@ assert(p.units[0]:IsHasPromotion(GameInfoTypes.PROMOTION_TOKEN_DEFENSE))
         city=(audit/'CvCity.cpp').read_text(encoding='utf-8');section=city[city.index('LuaSupport::CallHook(pkScriptSystem, "SetPopulation"')-230:]
         assert 'args->Push(getX())' in section and 'args->Push(getY())' in section
         unit=(audit/'CvUnit.cpp').read_text(encoding='utf-8');assert 'GAMEEVENT_UnitConverted, pUnit->getOwner(),getOwner(), pUnit->GetID(), GetID(), bIsUpgrade' in unit
-        print('PASS CP source contracts: TeamTech research API, SetPopulation coordinates, UnitConverted after copy')
+        convert=unit[unit.index('void CvUnit::convert('):unit.index('void CvUnit::kill(')]
+        assert convert.index('setHasPromotion')<convert.index('GAMEEVENT_UnitConverted')<convert.index('pUnit->kill(')
+        gift=unit[unit.index('void CvUnit::gift('):]
+        assert 'pGiftUnit->convert(this, false, true)' in gift
+        assert 'GAMEEVENT_UnitPrekill, eUnitOwner, GetID(), getUnitType(), getX(), getY(), bDelay, ePlayer' in unit
+        minor=(audit/'CvMinorCivAI.cpp').read_text(encoding='utf-8')
+        apply=minor[minor.index('void CvMinorCivIncomingUnitGift::applyToUnit'):minor.index('void CvMinorCivIncomingUnitGift::applyToUnit')+3500]
+        assert '(bReturn || !pkPromotionInfo->IsLostOnGifting())' in apply
+        player=(audit/'CvPlayer.cpp').read_text(encoding='utf-8')
+        incoming=player[player.index('void CvPlayer::AddIncomingUnit('):player.index('void CvPlayer::AddIncomingUnit(')+2500]
+        assert incoming.index('unitGift.init(')<incoming.index('pUnit->kill(') and 'UnitConverted' not in incoming
+        citizens=(audit/'CvCityCitizens.cpp').read_text(encoding='utf-8')
+        for function in ('DoAddSpecialistToBuilding','DoRemoveSpecialistFromBuilding'):
+            section=citizens[citizens.index('void CvCityCitizens::'+function):]
+            section=section[:section.index('\n}\n')]
+            assert 'setDirty(GameData_DIRTY_BIT, true)' in section and 'setDirty(CityInfo_DIRTY_BIT, true)' in section
+        print('PASS CP source contracts: research, population, conversion copy/hook/kill order, direct/distant gifts, prekill, specialist dirty events')
     assert 'SetUpdate' not in (V/'UI/TokenPanel.lua').read_text(encoding='utf-8')
     assert 'Map.GetNumPlots' not in (V/'Lua/TokenRuntime.lua').read_text(encoding='utf-8')
     print('PASS Lua 5.1 runtime, all-speed adversarial lifecycle and 500-turn endurance')

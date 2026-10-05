@@ -17,6 +17,8 @@ Cool Wacky Civs is one Civilization V: Brave New World mod containing twelve civ
 - [The Viltrum Empire](ViltrumEmpire/README.md) — Grand Regent Thragg conquers through Imperial Momentum and elite Viltrumites before a guaranteed Scourge forces quarantine or a desperate crusade.
 - [The Tokenized Intelligence](TokenizedIntelligence/README.md) — Axiom, Keeper of Context, spends finite Tokens on cached Prompts, manages congestion, and grows its Context Window through eras and inference infrastructure.
 
+Token hardening in version 17 preserves version 16 Token save keys. Clear Context restores Tokens and clears persistent Prompts/cache while Compute Saturation expires naturally; weaker saturation cannot prolong a stronger tier.
+
 All twelve civilizations are installed and enabled together. Rou'ls and Luna are human-only; Terra, Capano, Filthy Frank, Grandmaster Severin, Lachlan, Lionel Messi, Masaya Hinata, PaulsoaresJr, Thragg, and Axiom also support AI selection with design-specific flavors and automated mechanics. The collection supports single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
 
 ## Requirements

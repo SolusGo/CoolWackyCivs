@@ -15,7 +15,8 @@ rich();use('PRODUCTION',0);assert(T.Cost(0,'PRODUCTION')==math.floor(T.Scale(500
 assert(T.Stats(0).penalty>=25)
 c.production=c.needed-2;rich();use('PRODUCTION',0);assert(c.production==c.needed-1)
 assert(not T.Use(0,'PRODUCTION',0))
-use('CLEAR');assert(T.Stats(0).penalty==0 and #T.Active(0)==0)
+local penalty,expiry=T.Stats(0).penalty,T.Get(0,'satExpiry')
+use('CLEAR');assert(T.Stats(0).penalty==penalty and T.Get(0,'satExpiry')==expiry and #T.Active(0)==0)
 assert(not T.Use(0,'CLEAR'))
 rich();use('QUERY');assert(Teams[0].techs.progress==50)
 p.tech=1;rich();assert(not T.Use(0,'QUERY')) -- switching tech cannot reset query limit
