@@ -15,17 +15,16 @@
 | **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
 | **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
 
-
 ## UA, UU and UBs
 
 **UA** = Unique Ability · **UU** = Unique Unit · **UB** = Unique Building · **UI** = Unique Improvement.
 
-| Type | Name | Replaces / role |
-| --- | --- | --- |
-| **UA** | **From Rosario to Immortality** | Civilization trait: Legacy and Career Chapters |
-| **UU** | **The Number Ten** | Great General |
-| **UB** | **La Masia** | Garden |
-| **UI** | **Football Academy** | Alternative improvement built by The Number Ten; Citadel remains available |
+| Type | Name | Replaces / role | What it does |
+| --- | --- | --- | --- |
+| **UA** | **From Rosario to Immortality** | Civilization trait | Legacy and Career Chapters. |
+| **UU** | **The Number Ten** | Great General | Retains Citadel construction; has 2 Movement and ignores terrain costs/Zone of Control. Adjacent combat units receive turn-long Vision: +1 Movement, ignored Zone of Control and +6% flanking. Can build a Football Academy; assisted killers with Vision heal 5 HP. |
+| **UB** | **La Masia** | Garden | At Theology, costs 135 Production without a Fresh Water requirement. Provides +15% Great Person generation, +1 Culture and floor(Specialists / 2) Food. A local Great Person birth adds 1 Legacy, one WLTKD turn and a refreshable six-turn +5% Production bonus. |
+| **UI** | **Football Academy** | Alternative improvement built by The Number Ten; Citadel remains available | Culture-bombs one tile and provides +1 Culture/+1 Science, plus +1 Tourism after Flight. A stationed unit gains +10% Defense. Adds +1 Gold to its assigned working city if that city has a specialist-slot building. |
 
 The UI is a tile improvement; it is separate from the UB.
 

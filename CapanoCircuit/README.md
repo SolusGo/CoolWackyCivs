@@ -15,17 +15,16 @@
 | **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
 | **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
 
-
 ## UA, UU and UBs
 
 **UA** = Unique Ability · **UU** = Unique Unit · **UB** = Unique Building · **UI** = Unique Improvement.
 
-| Type | Name | Replaces / role |
-| --- | --- | --- |
-| **UA** | **Impossible Until It's Possible** | Civilization trait: Projects, Beta and SENDs |
-| **UU** | **Route Setter** | Worker |
-| **UB** | **Competition Coaching Centre** | Armory |
-| **UI** | **Boulder Sector** | New improvement; built by the Route Setter |
+| Type | Name | Replaces / role | What it does |
+| --- | --- | --- | --- |
+| **UA** | **Impossible Until It's Possible** | Civilization trait | Projects, Beta and SENDs. |
+| **UU** | **Route Setter** | Worker | Retains Worker actions, has 3 Movement, ignores Hill movement cost and works 25% faster while building on a Hill. Can construct Boulder Sectors. |
+| **UB** | **Competition Coaching Centre** | Armory | Retains Armory effects and adds +2 Science/+2 Culture. Normally trained land combat units gain Competition Movement: moving at least two adjacent tiles grants +15% attack for the rest of that turn. |
+| **UI** | **Boulder Sector** | New improvement; built by the Route Setter | Starts with +1 Science/+1 Culture/+1 Production and improves with technologies. Eligible land units train once per era for 5 XP and ten turns of +10% rough-terrain strength; post-Plastics training gives +15% SEND rewards. |
 
 The UI is a tile improvement; it is separate from the UB.
 

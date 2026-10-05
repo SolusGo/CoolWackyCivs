@@ -15,16 +15,15 @@
 | **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
 | **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
 
-
 ## UA, UU and UBs
 
 **UA** = Unique Ability · **UU** = Unique Unit · **UB** = Unique Building · **UI** = Unique Improvement.
 
-| Type | Name | Replaces / role |
-| --- | --- | --- |
-| **UA** | **I'll Be the First to Fly Beyond the Sky** | Civilization trait: Joy of Flight and Beyond the Sky |
-| **UU** | **Junior FC Prodigy** | Horseman |
-| **UB** | **Grav-Shoe Practice Room** | Barracks |
+| Type | Name | Replaces / role | What it does |
+| --- | --- | --- | --- |
+| **UA** | **I'll Be the First to Fly Beyond the Sky** | Civilization trait | Joy of Flight and Beyond the Sky. |
+| **UU** | **Junior FC Prodigy** | Horseman | 12 strength and 5 Movement, ignores terrain costs, moves after attacking and ignores river attack penalties, but has -33% city attack. Against a unit with more XP, gains +15% strength, plus another +10% if that opponent is at least one level higher. Survived combats grant 1 XP; the first three also grant 2 Joy each. |
+| **UB** | **Grav-Shoe Practice Room** | Barracks | Retains Barracks training XP and adds +1 Culture/+1 Science. Every third garrisoned owner turn grants 1 Joy. Trained military units gain +1 Movement for ten owner turns, limited exploration XP and a one-time combat-Joy reward. |
 
 **Explore:** [UA / UU / UBs](#ua-uu-and-ubs) · [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
 

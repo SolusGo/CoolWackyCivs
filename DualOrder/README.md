@@ -15,16 +15,15 @@
 | **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
 | **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
 
-
 ## UA, UU and UBs
 
 **UA** = Unique Ability · **UU** = Unique Unit · **UB** = Unique Building · **UI** = Unique Improvement.
 
-| Type | Name | Replaces / role |
-| --- | --- | --- |
-| **UA** | **Twin Mandates** | Civilization trait: paired infrastructure, Zeal and Balance Pressure |
-| **UU** | **Divided Templar** | Longswordsman |
-| **UB** | **Hall of Concordance** | Armory |
+| Type | Name | Replaces / role | What it does |
+| --- | --- | --- | --- |
+| **UA** | **Twin Mandates** | Civilization trait | Paired infrastructure, Zeal and Balance Pressure. |
+| **UU** | **Divided Templar** | Longswordsman | 23 strength at +10% Production cost, with Cover I and Schism Strike. Attacks against units below half HP gain +20%; adjacency to a friendly Prophet, Missionary or Inquisitor grants +10% strength. |
+| **UB** | **Hall of Concordance** | Armory | Retains Armory effects and adds +3 Faith/+2 Production/+5 training XP. Grants +1 Happiness when the city follows your founded religion and +1 Great General Point per turn. Its class also receives the separate Twin Mandates yields. |
 
 **Explore:** [UA / UU / UBs](#ua-uu-and-ubs) · [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
 

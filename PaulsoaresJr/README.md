@@ -15,16 +15,15 @@
 | **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
 | **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
 
-
 ## UA, UU and UBs
 
 **UA** = Unique Ability · **UU** = Unique Unit · **UB** = Unique Building · **UI** = Unique Improvement.
 
-| Type | Name | Replaces / role |
-| --- | --- | --- |
-| **UA** | **How to Survive & Thrive** | Civilization trait: first-experience Memories and era recall |
-| **UU** | **Survivor** | Scout |
-| **UB** | **Starter House** | Monument |
+| Type | Name | Replaces / role | What it does |
+| --- | --- | --- | --- |
+| **UA** | **How to Survive & Thrive** | Civilization trait | First-experience Memories and era recall. |
+| **UU** | **Survivor** | Scout | A 2-Movement explorer earning XP from ruins, attributed Natural Wonders, its first three non-starting landmasses and First Journey. Has +5 normal healing abroad, a once-per-lifetime Returning Home reward and an Ancient-lineage Modern-era sight/defense bonus. |
+| **UB** | **Starter House** | Monument | Provides +2 base Culture and triggers the first-shelter Memory. The original capital's first House anchors Home, which gains +1/+2/+3 Culture and global Happiness at ages 2/4/6 eras. |
 
 **Explore:** [UA / UU / UBs](#ua-uu-and-ubs) · [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
 

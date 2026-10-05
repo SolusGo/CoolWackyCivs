@@ -15,16 +15,15 @@
 | **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
 | **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
 
-
 ## UA, UU and UBs
 
 **UA** = Unique Ability · **UU** = Unique Unit · **UB** = Unique Building · **UI** = Unique Improvement.
 
-| Type | Name | Replaces / role |
-| --- | --- | --- |
-| **UA** | **Low Latency** | Civilization trait: Production refunds and Rapid Response |
-| **UU** | **Packet Settler** | Settler |
-| **UB** | **Cache Node** | Library |
+| Type | Name | Replaces / role | What it does |
+| --- | --- | --- | --- |
+| **UA** | **Low Latency** | Civilization trait | Production refunds and Rapid Response. |
+| **UU** | **Packet Settler** | Settler | Costs 90% of the active Settler Production cost, rounded down, and has +1 Movement over the active Settler. Retains normal settlement behavior. |
+| **UB** | **Cache Node** | Library | Costs 85% of the active Library Production cost, rounded down. Retains Library effects and adds +1 Production. |
 
 **Explore:** [UA / UU / UBs](#ua-uu-and-ubs) · [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
 

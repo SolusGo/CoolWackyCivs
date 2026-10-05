@@ -15,17 +15,16 @@
 | **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
 | **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
 
-
 ## UA, UU and UBs
 
 **UA** = Unique Ability · **UU** = Unique Unit · **UB** = Unique Building · **UI** = Unique Improvement.
 
-| Type | Name | Replaces / role |
-| --- | --- | --- |
-| **UA** | **Context Window** | Civilization trait: Tokens, Prompt Console, cache and saturation |
-| **UU** | **Inference Agent** | Infantry |
-| **UB** | **Inference Cluster** | University |
-| **UB** | **Data Centre** | Research Lab |
+| Type | Name | Replaces / role | What it does |
+| --- | --- | --- | --- |
+| **UA** | **Context Window** | Civilization trait | Tokens, Prompt Console, cache and saturation. |
+| **UU** | **Inference Agent** | Infantry | Retains Infantry baseline statistics. Spend Tokens for one three-scaled-turn mode: +20% attack, +20% defense, +1 Movement, or +25% strength against land units. The mode uses a persistent slot; switching replaces it and costs Tokens. |
+| **UB** | **Inference Cluster** | University | Retains University effects. Adds 75 Context capacity, 15 Tokens per turn and 5 Tokens per Scientist in its city. Capacity scales with Game Speed. |
+| **UB** | **Data Centre** | Research Lab | Retains Research Lab effects. Adds 500 Context capacity, 50 Tokens per turn and +10% total local Token generation. Capacity scales with Game Speed. |
 
 **Explore:** [UA / UU / UBs](#ua-uu-and-ubs) · [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
 

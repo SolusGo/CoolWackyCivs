@@ -15,17 +15,16 @@
 | **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
 | **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
 
-
 ## UA, UU and UBs
 
 **UA** = Unique Ability · **UU** = Unique Unit · **UB** = Unique Building · **UI** = Unique Improvement.
 
-| Type | Name | Replaces / role |
-| --- | --- | --- |
-| **UA** | **Blood of Conquest** | Civilization trait: conquest rewards, Momentum and the Scourge crisis |
-| **UU** | **Viltrumite Warrior** | Infantry |
-| **Additional unit** | **Auxiliary Infantry** | Separate conventional Infantry option; retains the active Infantry baseline |
-| **UB** | **Viltrumite Breeding Complex** | Military Academy |
+| Type | Name | Replaces / role | What it does |
+| --- | --- | --- | --- |
+| **UA** | **Blood of Conquest** | Civilization trait | Conquest rewards, Momentum and the Scourge crisis. |
+| **UU** | **Viltrumite Warrior** | Infantry | 82 strength, 3 Movement, 1300 Production at Replaceable Parts. Ignores terrain costs, crosses mountains/coasts and deploys seven tiles. Gains conditional +15% attack against units below 50 HP and +20% city attack below half HP; personal city captures heal 35 HP. |
+| **Additional unit** | **Auxiliary Infantry** | Separate conventional Infantry option; retains the active Infantry baseline | Retains conventional Infantry statistics, resources, upgrades and model. Provides an ordinary army option excluded from the Scourge's Bloodline casualty selection. |
+| **UB** | **Viltrumite Breeding Complex** | Military Academy | Retains Military Academy effects; adds +15 training XP, +2 Production, +1 Food and +5% military Production. First construction adds 1 Population once per original city; protects one citizen during the Scourge and gives trained land troops Imperial Conditioning. |
 
 The Warrior occupies the Infantry replacement slot. Auxiliary Infantry is a separate conventional option with its own unit class.
 

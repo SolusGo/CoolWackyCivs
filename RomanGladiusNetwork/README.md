@@ -15,16 +15,15 @@
 | **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
 | **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
 
-
 ## UA, UU and UBs
 
 **UA** = Unique Ability · **UU** = Unique Unit · **UB** = Unique Building · **UI** = Unique Improvement.
 
-| Type | Name | Replaces / role |
-| --- | --- | --- |
-| **UA** | **The Server Network** | Civilization trait: population yields, Reputation and Server management |
-| **UU** | **Server Owner** | Settler |
-| **UB** | **Server Console** | Monument |
+| Type | Name | Replaces / role | What it does |
+| --- | --- | --- | --- |
+| **UA** | **The Server Network** | Civilization trait | Population yields, Reputation and Server management. |
+| **UU** | **Server Owner** | Settler | Costs 60% more Production and consumes 2 Population on creation, including purchases. Founding installs a free Console, starts the Server at 60 Reputation and grants ten turns of +50% Food. Later launches charge escalating Gold fees. |
+| **UB** | **Server Console** | Monument | Provides +2 Culture/+1 Gold and enables Server Management: Reputation, staffing, incidents, roster and chat. Every newly founded Server receives one free. |
 
 **Explore:** [UA / UU / UBs](#ua-uu-and-ubs) · [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
 

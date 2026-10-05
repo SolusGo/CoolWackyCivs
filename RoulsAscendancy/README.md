@@ -15,19 +15,18 @@
 | **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
 | **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
 
-
 ## UA, UU and UBs
 
 **UA** = Unique Ability · **UU** = Unique Unit · **UB** = Unique Building · **UI** = Unique Improvement.
 
-| Type | Name | Replaces / role |
-| --- | --- | --- |
-| **UA** | **The Flesh Is a Coat** | Civilization trait: Anima, reconstruction and active abilities |
-| **UU** | **Hollowhound** | Rifleman |
-| **UU** | **Matriarch of the Choir** | Great General |
-| **UU** | **Buddy, Everlasting** | Standalone Biology-era naval unit |
-| **UB** | **Somatic Lattice** | Hospital |
-| **UB / Unique National Wonder** | **The Choir Eternal** | Heroic Epic |
+| Type | Name | Replaces / role | What it does |
+| --- | --- | --- | --- |
+| **UA** | **The Flesh Is a Coat** | Civilization trait | Anima, reconstruction and active abilities. |
+| **UU** | **Hollowhound** | Rifleman | Retains Rifleman strength and 2 Movement at +10% Production cost. Second Skin allows a free eligible reconstruction every 15 turns; adjacent friendly military units grant +3% strength each, capped at +15%. |
+| **UU** | **Matriarch of the Choir** | Great General | Retains Great General command and Citadel functions. Within two tiles of either endpoint, reduces TRANSMIGRATION from 2 Anima to 1. |
+| **UU** | **Buddy, Everlasting** | Standalone Biology-era naval unit | 45 strength, 5 Movement and 3 Sight. Friendly units within two tiles gain +10% strength and +5 healing in friendly territory; adjacent enemy naval units lose 10% strength. A separate return costs 3 Anima and restores Buddy after three turns at 50% health. |
+| **UB** | **Somatic Lattice** | Hospital | Retains Hospital effects and adds +2 Science/+2 Production. Normally produced military completions have a 25% chance to generate 1 Anima; at zero reserve, a Lattice supplies the empire a 1-Anima fallback every ten turns. |
+| **UB / Unique National Wonder** | **The Choir Eternal** | Heroic Epic | Retains Heroic Epic effects, adds +5 training XP and raises Anima capacity from 5 to 7. An enemy death within three tiles can trigger its 20% per-turn Anima roll. |
 
 The Choir Eternal is a unique **National Wonder**, listed with the building uniques. Buddy is an additional unique unit with its own class rather than a replacement for a standard ship.
 

@@ -15,17 +15,16 @@
 | **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
 | **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
 
-
 ## UA, UU and UBs
 
 **UA** = Unique Ability · **UU** = Unique Unit · **UB** = Unique Building · **UI** = Unique Improvement.
 
-| Type | Name | Replaces / role |
-| --- | --- | --- |
-| **UA** | **Welcome to the Rice Fields** | Civilization trait: Filth and Filthy Points |
-| **UU** | **Peace Lord** | Great War Infantry |
-| **UB** | **Filthy Kitchen** | Broadcast Tower |
-| **Additional summoned unit** | **Salamander Man** | Temporary support unit summoned through the UA; no replacement |
+| Type | Name | Replaces / role | What it does |
+| --- | --- | --- | --- |
+| **UA** | **Welcome to the Rice Fields** | Civilization trait | Filth and Filthy Points. |
+| **UU** | **Peace Lord** | Great War Infantry | 52 Combat Strength. Kills grant 5 extra Filthy Points and a one-turn -10% strength debuff to adjacent enemies. Once per unit, Filthy Intervention can force an adjacent enemy below 30 HP to a legal retreat tile and award 10 FP. |
+| **UB** | **Filthy Kitchen** | Broadcast Tower | Retains Broadcast Tower effects and adds +2 Tourism. A new Great Work in its city grants 25 Food and the normal 10 FP. Every five turns, its Great Works generate FP, capped at 3 per city. |
+| **Additional summoned unit** | **Salamander Man** | Temporary support unit summoned through the UA; no replacement | For 25 FP, summons a five-turn non-combat unit with 5 Movement. Adjacent enemies suffer -10% strength/-1 Movement; adjacent friendly military units gain +1 Movement. |
 
 Salamander Man is an ability summon; Peace Lord is the normal unit replacement.
 
