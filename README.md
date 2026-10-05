@@ -21,6 +21,27 @@ Token hardening in version 17 preserves version 16 Token save keys. Clear Contex
 
 All twelve civilizations are installed and enabled together and are human-only (`Playable = 1`, `AIPlayable = 0`): humans can select them, but AI players cannot. The collection supports single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
 
+## UA, UU and UB roster
+
+**UA** = Unique Ability · **UU** = Unique Unit · **UB** = Unique Building. Each civilization guide also identifies additional units and unique improvements (**UI**).
+
+| Civilization | UA | UU(s) | UB(s) |
+| --- | --- | --- | --- |
+| [The Rou'ls Ascendancy](RoulsAscendancy/README.md#ua-uu-and-ubs) | The Flesh Is a Coat | Hollowhound (Rifleman); Matriarch of the Choir (Great General); Buddy, Everlasting (Standalone Biology-era naval unit) | Somatic Lattice (Hospital); The Choir Eternal (Heroic Epic) |
+| [The Luna Network](LunaNetwork/README.md#ua-uu-and-ubs) | Low Latency | Packet Settler (Settler) | Cache Node (Library) |
+| [The Terra Framework](TerraFramework/README.md#ua-uu-and-ubs) | Adaptive Intelligence | Adaptive Operative (Musketman) | Multimodal Hub (Market) |
+| [The Capano Circuit](CapanoCircuit/README.md#ua-uu-and-ubs) | Impossible Until It's Possible | Route Setter (Worker) | Competition Coaching Centre (Armory) |
+| [The Filthy Realm](FilthyRealm/README.md#ua-uu-and-ubs) | Welcome to the Rice Fields | Peace Lord (Great War Infantry) | Filthy Kitchen (Broadcast Tower) |
+| [The Dual Order](DualOrder/README.md#ua-uu-and-ubs) | Twin Mandates | Divided Templar (Longswordsman) | Hall of Concordance (Armory) |
+| [The RomanGladius Network](RomanGladiusNetwork/README.md#ua-uu-and-ubs) | The Server Network | Server Owner (Settler) | Server Console (Monument) |
+| [The Eternal Number Ten](EternalNumberTen/README.md#ua-uu-and-ubs) | From Rosario to Immortality | The Number Ten (Great General) | La Masia (Garden) |
+| [The Boy Beyond the Sky](MasayaBeyondSky/README.md#ua-uu-and-ubs) | I'll Be the First to Fly Beyond the Sky | Junior FC Prodigy (Horseman) | Grav-Shoe Practice Room (Barracks) |
+| [The First Night](PaulsoaresJr/README.md#ua-uu-and-ubs) | How to Survive & Thrive | Survivor (Scout) | Starter House (Monument) |
+| [The Viltrum Empire](ViltrumEmpire/README.md#ua-uu-and-ubs) | Blood of Conquest | Viltrumite Warrior (Infantry) | Viltrumite Breeding Complex (Military Academy) |
+| [The Tokenized Intelligence](TokenizedIntelligence/README.md#ua-uu-and-ubs) | Context Window | Inference Agent (Infantry) | Inference Cluster (University); Data Centre (Research Lab) |
+
+**Additional uniques:** Capano has the **Boulder Sector UI**; Messi has the **Football Academy UI**. Frank can summon **Salamander Man** through his UA. Viltrum retains **Auxiliary Infantry** as a separate conventional option. Rou'ls' **The Choir Eternal** is a unique National Wonder, replacing the Heroic Epic.
+
 ## Requirements
 
 - Civilization V with Brave New World.

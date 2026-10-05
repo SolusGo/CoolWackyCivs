@@ -15,7 +15,23 @@
 | **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
 | **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
 
-**Explore:** [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
+
+## UA, UU and UBs
+
+**UA** = Unique Ability · **UU** = Unique Unit · **UB** = Unique Building · **UI** = Unique Improvement.
+
+| Type | Name | Replaces / role |
+| --- | --- | --- |
+| **UA** | **The Flesh Is a Coat** | Civilization trait: Anima, reconstruction and active abilities |
+| **UU** | **Hollowhound** | Rifleman |
+| **UU** | **Matriarch of the Choir** | Great General |
+| **UU** | **Buddy, Everlasting** | Standalone Biology-era naval unit |
+| **UB** | **Somatic Lattice** | Hospital |
+| **UB / Unique National Wonder** | **The Choir Eternal** | Heroic Epic |
+
+The Choir Eternal is a unique **National Wonder**, listed with the building uniques. Buddy is an additional unique unit with its own class rather than a replacement for a standard ship.
+
+**Explore:** [UA / UU / UBs](#ua-uu-and-ubs) · [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
 
 ---
 

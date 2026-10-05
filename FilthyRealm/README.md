@@ -15,7 +15,21 @@
 | **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
 | **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
 
-**Explore:** [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
+
+## UA, UU and UBs
+
+**UA** = Unique Ability · **UU** = Unique Unit · **UB** = Unique Building · **UI** = Unique Improvement.
+
+| Type | Name | Replaces / role |
+| --- | --- | --- |
+| **UA** | **Welcome to the Rice Fields** | Civilization trait: Filth and Filthy Points |
+| **UU** | **Peace Lord** | Great War Infantry |
+| **UB** | **Filthy Kitchen** | Broadcast Tower |
+| **Additional summoned unit** | **Salamander Man** | Temporary support unit summoned through the UA; no replacement |
+
+Salamander Man is an ability summon; Peace Lord is the normal unit replacement.
+
+**Explore:** [UA / UU / UBs](#ua-uu-and-ubs) · [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
 
 ---
 

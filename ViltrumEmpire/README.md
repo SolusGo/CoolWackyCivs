@@ -15,7 +15,21 @@
 | **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
 | **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
 
-**Explore:** [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
+
+## UA, UU and UBs
+
+**UA** = Unique Ability · **UU** = Unique Unit · **UB** = Unique Building · **UI** = Unique Improvement.
+
+| Type | Name | Replaces / role |
+| --- | --- | --- |
+| **UA** | **Blood of Conquest** | Civilization trait: conquest rewards, Momentum and the Scourge crisis |
+| **UU** | **Viltrumite Warrior** | Infantry |
+| **Additional unit** | **Auxiliary Infantry** | Separate conventional Infantry option; retains the active Infantry baseline |
+| **UB** | **Viltrumite Breeding Complex** | Military Academy |
+
+The Warrior occupies the Infantry replacement slot. Auxiliary Infantry is a separate conventional option with its own unit class.
+
+**Explore:** [UA / UU / UBs](#ua-uu-and-ubs) · [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
 
 ---
 

@@ -15,7 +15,21 @@
 | **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
 | **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
 
-**Explore:** [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
+
+## UA, UU and UBs
+
+**UA** = Unique Ability · **UU** = Unique Unit · **UB** = Unique Building · **UI** = Unique Improvement.
+
+| Type | Name | Replaces / role |
+| --- | --- | --- |
+| **UA** | **From Rosario to Immortality** | Civilization trait: Legacy and Career Chapters |
+| **UU** | **The Number Ten** | Great General |
+| **UB** | **La Masia** | Garden |
+| **UI** | **Football Academy** | Alternative improvement built by The Number Ten; Citadel remains available |
+
+The UI is a tile improvement; it is separate from the UB.
+
+**Explore:** [UA / UU / UBs](#ua-uu-and-ubs) · [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
 
 ---
 

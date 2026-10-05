@@ -15,7 +15,18 @@
 | **Requirements** | Civilization V: Brave New World; Community Patch v151 / 5.4.2+ |
 | **Supported mode** | New single-player campaign; collection multiplayer/hotseat disabled |
 
-**Explore:** [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
+
+## UA, UU and UBs
+
+**UA** = Unique Ability · **UU** = Unique Unit · **UB** = Unique Building · **UI** = Unique Improvement.
+
+| Type | Name | Replaces / role |
+| --- | --- | --- |
+| **UA** | **Twin Mandates** | Civilization trait: paired infrastructure, Zeal and Balance Pressure |
+| **UU** | **Divided Templar** | Longswordsman |
+| **UB** | **Hall of Concordance** | Armory |
+
+**Explore:** [UA / UU / UBs](#ua-uu-and-ubs) · [Signature kit](#signature-kit) · [Mechanics](#mechanics-and-reference) · [Campaign guide](#campaign-guide) · [Worked example](#worked-example) · [Field notes](#field-notes) · [Install](#installation-and-validation) · [Developer reference](#developer-reference)
 
 ---
 
