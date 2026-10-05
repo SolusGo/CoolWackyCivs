@@ -43,13 +43,15 @@ def directxtex_checks(paths: list[Path]) -> None:
         print("SKIP DirectXTex: texdiag is not installed")
         return
     for command in ("info", "analyze"):
-        result = subprocess.run(
-            [str(texdiag), command, *map(str, paths)], cwd=REPO,
-            text=True, capture_output=True, check=False,
-        )
-        assert result.returncode == 0, (
-            f"DirectXTex {command} failed:\n{result.stdout}\n{result.stderr}"
-        )
+        # A growing collection can exceed Windows' 32K command-line limit.
+        for start in range(0, len(paths), 64):
+            result = subprocess.run(
+                [str(texdiag), command, *map(str, paths[start:start + 64])], cwd=REPO,
+                text=True, capture_output=True, check=False,
+            )
+            assert result.returncode == 0, (
+                f"DirectXTex {command} failed:\n{result.stdout}\n{result.stderr}"
+            )
     print(f"PASS DirectXTex: headers and decoded pixels for all {len(paths)} DDS files")
 
 
@@ -61,7 +63,7 @@ def check_packaging():
     civ_roots = (
         "RoulsAscendancy", "LunaNetwork", "TerraFramework", "CapanoCircuit",
         "FilthyRealm", "DualOrder", "RomanGladiusNetwork", "EternalNumberTen",
-        "MasayaBeyondSky", "PaulsoaresJr", "ViltrumEmpire",
+        "MasayaBeyondSky", "PaulsoaresJr", "ViltrumEmpire", "TokenizedIntelligence",
     )
     actual = {
         p.relative_to(ROOT).as_posix()
@@ -77,6 +79,7 @@ def check_packaging():
             "EternalNumberTen/UI/MessiLegacyPanel.xml",
             "MasayaBeyondSky/UI/MasayaJoyPanel.xml",
             "ViltrumEmpire/UI/ViltrumPanel.xml",
+            "TokenizedIntelligence/UI/TokenPanel.xml",
         }:
             assert not imported, f"Database SQL must not import into VFS: {name}"
         else:
@@ -104,6 +107,7 @@ def check_packaging():
         "MasayaBeyondSky/UI/MasayaJoyPanel.xml",
         "PaulsoaresJr/Lua/PSJRuntime.lua",
         "ViltrumEmpire/UI/ViltrumPanel.xml",
+        "TokenizedIntelligence/UI/TokenPanel.xml",
     ], "Combined runtime entry points are incomplete or out of order"
     assert values["SupportsMultiplayer"] == "false", "Unvalidated multiplayer must remain disabled"
     dependencies = props.findall("m:ModDependencies/m:Association/m:Id", NS)
@@ -309,7 +313,7 @@ def check_database(path: Path, cp_root: Path):
     namespace_markers = (
         "ROULS", "GPT_LUNA", "LUNA_", "GPT_TERRA", "TERRA_", "CAPANO", "FILTHY",
         "DUAL_ORDER", "SEVERIN", "ROMAN_GLADIUS", "MESSI", "ETERNAL_NUMBER_TEN",
-        "MASAYA_KID", "PSJ_", "VILTRUM",
+        "MASAYA_KID", "PSJ_", "VILTRUM", "TOKEN_",
     )
     for table in tables:
         columns = [r[1] for r in database.execute(f"PRAGMA table_info({quote(table)})")]
@@ -340,6 +344,7 @@ def check_database(path: Path, cp_root: Path):
         "CIVILIZATION_MASAYA_KID",
         "CIVILIZATION_PSJ_FIRST_NIGHT",
         "CIVILIZATION_VILTRUM",
+        "CIVILIZATION_TOKEN_INTELLIGENCE",
     ):
         assert database.execute(
             "SELECT COUNT(*) FROM Civilizations WHERE Type=?", (civilization,)

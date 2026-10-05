@@ -6,8 +6,8 @@
     <Name>Cool Wacky Civs</Name>
     <SafeName>Cool Wacky Civs</SafeName>
     <Guid>4c02158d-ad52-4b73-bf2a-555ce58a1e60</Guid>
-    <Teaser>Eleven strange leaders. Eleven stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, and The Viltrum Empire. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Twelve strange leaders. Twelve stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, The Viltrum Empire, and The Tokenized Intelligence. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -27,7 +27,7 @@
     <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <HideSetupGame>false</HideSetupGame>
-    <ModVersion>15</ModVersion>
+    <ModVersion>16</ModVersion>
     <Stability>Alpha</Stability>
     <ModActions>
       <Action>
@@ -250,6 +250,26 @@
         <Type>UpdateDatabase</Type>
         <FileName>ViltrumEmpire/SQL/10_Viltrum_Text.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TokenizedIntelligence/SQL/00_Token_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TokenizedIntelligence/SQL/01_Token_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TokenizedIntelligence/SQL/02_Token_Effects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TokenizedIntelligence/SQL/10_Token_Text.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -329,6 +349,12 @@
         <Name>The Viltrum Empire</Name>
         <Description>Imperial status, Great Purge, Scourge and survivor gameplay.</Description>
         <FileName>ViltrumEmpire/UI/ViltrumPanel.xml</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>The Tokenized Intelligence</Name>
+        <Description>Persistent Token economy, AI spending and event-driven Prompt Console.</Description>
+        <FileName>TokenizedIntelligence/UI/TokenPanel.xml</FileName>
       </Content>
     </ModContent>
     <ModDependencies>
@@ -1284,6 +1310,162 @@
     <Content Include="MasayaBeyondSky/SQL/10_Masaya_Text.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
     <Content Include="MasayaBeyondSky/UI/MasayaJoyPanel.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
     <Content Include="MasayaBeyondSky/UI/MasayaJoyPanel.xml"><SubType>XML</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="TokenizedIntelligence\Art\TokenAlpha128.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenAlpha16.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenAlpha24.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenAlpha256.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenAlpha32.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenAlpha45.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenAlpha48.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenAlpha64.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenAlpha80.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenDawn.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenIcon128.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenIcon16.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenIcon24.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenIcon256.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenIcon32.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenIcon45.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenIcon48.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenIcon64.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenIcon80.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenLeader.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenLeaderScene.xml">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenMap.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenObjects128.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenObjects16.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenObjects24.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenObjects256.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenObjects32.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenObjects45.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenObjects48.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenObjects64.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenObjects80.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Art\TokenUnitFlag32.dds">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\Lua\TokenRuntime.lua">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\SQL\00_Token_Core.sql">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\SQL\01_Token_Inheritance.sql">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\SQL\02_Token_Effects.sql">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\SQL\10_Token_Text.sql">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\UI\TokenPanel.lua">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TokenizedIntelligence\UI\TokenPanel.xml">
+      <SubType>Code</SubType>
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CapanoCircuit\Art\" />

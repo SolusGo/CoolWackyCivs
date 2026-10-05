@@ -177,6 +177,7 @@ def assert_vfs_flags(files: dict[str, tuple[bool, str]], context: str) -> None:
             "EternalNumberTen/UI/MessiLegacyPanel.xml",
             "MasayaBeyondSky/UI/MasayaJoyPanel.xml",
             "ViltrumEmpire/UI/ViltrumPanel.xml",
+            "TokenizedIntelligence/UI/TokenPanel.xml",
         }
         assert imported == should_import, (
             f"{context}: {name} has import={int(imported)}, expected {int(should_import)}"

@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="15">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="16">
   <Properties>
     <Name>Cool Wacky Civs</Name>
-    <Teaser>Eleven strange leaders. Eleven stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, and The Viltrum Empire. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Twelve strange leaders. Twelve stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, The Viltrum Empire, and The Tokenized Intelligence. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -368,6 +368,45 @@
     <File md5="ED5C95FC1EFE65AC5EB79E4C83E63927" import="0">MasayaBeyondSky/SQL/10_Masaya_Text.sql</File>
     <File md5="48177AC2761DACB92E2093DEC1101AE2" import="1">MasayaBeyondSky/UI/MasayaJoyPanel.lua</File>
     <File md5="0037635CC8E2CFAD4FD90A6B20827437" import="0">MasayaBeyondSky/UI/MasayaJoyPanel.xml</File>
+    <File md5="B0723D1D4448D0B505A52A6C25AED2EE" import="1">TokenizedIntelligence/Art/TokenAlpha128.dds</File>
+    <File md5="8EE62F5D64E77A59FF43F4EA1CAB8BA0" import="1">TokenizedIntelligence/Art/TokenAlpha16.dds</File>
+    <File md5="5E5C5EF0D0D3941058D3E6399F5657F9" import="1">TokenizedIntelligence/Art/TokenAlpha24.dds</File>
+    <File md5="BFE168E5DF9B732CCA13632B19AF5C8B" import="1">TokenizedIntelligence/Art/TokenAlpha256.dds</File>
+    <File md5="8EC804D77262D0D67F3B2CE9100FC5C8" import="1">TokenizedIntelligence/Art/TokenAlpha32.dds</File>
+    <File md5="807D08A833DBC59A7AC6E40F85407068" import="1">TokenizedIntelligence/Art/TokenAlpha45.dds</File>
+    <File md5="D92D6FA114C8AF5EE63F8C5A13EF0156" import="1">TokenizedIntelligence/Art/TokenAlpha48.dds</File>
+    <File md5="89BCBBFD3596D5A3FEEDBA70C6526FDC" import="1">TokenizedIntelligence/Art/TokenAlpha64.dds</File>
+    <File md5="671CD6E14958B62EE43E7E785D1C5F1A" import="1">TokenizedIntelligence/Art/TokenAlpha80.dds</File>
+    <File md5="DF39CC34CDAEF3924308C1CC1B3661C7" import="1">TokenizedIntelligence/Art/TokenDawn.dds</File>
+    <File md5="CBF264686E63FCD73084D58E73B8CDF9" import="1">TokenizedIntelligence/Art/TokenIcon128.dds</File>
+    <File md5="EDFB306099BA163BB5288A3E8976587E" import="1">TokenizedIntelligence/Art/TokenIcon16.dds</File>
+    <File md5="F1A28A6DA048FAACEFA1F7356CA3113F" import="1">TokenizedIntelligence/Art/TokenIcon24.dds</File>
+    <File md5="663AFCC3A3B47345B2E942C565557D01" import="1">TokenizedIntelligence/Art/TokenIcon256.dds</File>
+    <File md5="D5F39C62AA390D43766C5BCE70BF495D" import="1">TokenizedIntelligence/Art/TokenIcon32.dds</File>
+    <File md5="CA37C51A1A13F20F7AED196080ABADA3" import="1">TokenizedIntelligence/Art/TokenIcon45.dds</File>
+    <File md5="98623B6523E0CCE668A113B0CE5CE611" import="1">TokenizedIntelligence/Art/TokenIcon48.dds</File>
+    <File md5="D74DC093A0383B4E1D0A147079C54ABC" import="1">TokenizedIntelligence/Art/TokenIcon64.dds</File>
+    <File md5="24A9AD6453C06ECD8489ED0E544D3A8B" import="1">TokenizedIntelligence/Art/TokenIcon80.dds</File>
+    <File md5="E1C9B3FB9E78A02DEDFE95ADFD648CFF" import="1">TokenizedIntelligence/Art/TokenLeader.dds</File>
+    <File md5="142E61D7AC2DE3E76FFBF2E4C033B569" import="1">TokenizedIntelligence/Art/TokenLeaderScene.xml</File>
+    <File md5="F9AA9513764CB3276274D91F8920F5D5" import="1">TokenizedIntelligence/Art/TokenMap.dds</File>
+    <File md5="0A256B6028408E04C03607B984526D02" import="1">TokenizedIntelligence/Art/TokenObjects128.dds</File>
+    <File md5="B9F1DC072D4AA3465C126882930C2767" import="1">TokenizedIntelligence/Art/TokenObjects16.dds</File>
+    <File md5="4C2999C94656C4CA223BBF715714ADB5" import="1">TokenizedIntelligence/Art/TokenObjects24.dds</File>
+    <File md5="E88E81149EB301CE82D82F49736B8768" import="1">TokenizedIntelligence/Art/TokenObjects256.dds</File>
+    <File md5="E44C13A92FF0189C6484D5BBDEF114A1" import="1">TokenizedIntelligence/Art/TokenObjects32.dds</File>
+    <File md5="9F7661611B31CD3A9D44AC0644AE772F" import="1">TokenizedIntelligence/Art/TokenObjects45.dds</File>
+    <File md5="9D1852581882A08D2EA839946937388B" import="1">TokenizedIntelligence/Art/TokenObjects48.dds</File>
+    <File md5="0CB7C697100CBA23770D938AFF7DDA98" import="1">TokenizedIntelligence/Art/TokenObjects64.dds</File>
+    <File md5="E7F158FE651F04A434836A2A1BAE17E8" import="1">TokenizedIntelligence/Art/TokenObjects80.dds</File>
+    <File md5="8EC804D77262D0D67F3B2CE9100FC5C8" import="1">TokenizedIntelligence/Art/TokenUnitFlag32.dds</File>
+    <File md5="B9C4DD41AB4C00F8C9209BB3CB55BCD7" import="1">TokenizedIntelligence/Lua/TokenRuntime.lua</File>
+    <File md5="4E95B7E49794194234009FFF347C0ADF" import="0">TokenizedIntelligence/SQL/00_Token_Core.sql</File>
+    <File md5="0E82CAF66D90BB82B97AAE820D0FE889" import="0">TokenizedIntelligence/SQL/01_Token_Inheritance.sql</File>
+    <File md5="638BE2C0AFA6E725A6D0DAEEA5D7539F" import="0">TokenizedIntelligence/SQL/02_Token_Effects.sql</File>
+    <File md5="C55B7C39A15DAB3DC6DFFFFBC32435E1" import="0">TokenizedIntelligence/SQL/10_Token_Text.sql</File>
+    <File md5="2D83BE95D300438DCDD6F5FD2FEC5D7E" import="1">TokenizedIntelligence/UI/TokenPanel.lua</File>
+    <File md5="297B48C43F0B4BF8DF91A6A759DCA559" import="0">TokenizedIntelligence/UI/TokenPanel.xml</File>
     <File md5="B18AE897AF1608F57D34357319525D89" import="1">ViltrumEmpire/Art/ViltrumAlpha128.dds</File>
     <File md5="4000B57E5E400A227D6C01215F7B89CD" import="1">ViltrumEmpire/Art/ViltrumAlpha16.dds</File>
     <File md5="54A88EA91969698BD75BD04E6DE5F0BB" import="1">ViltrumEmpire/Art/ViltrumAlpha24.dds</File>
@@ -454,6 +493,10 @@
       <UpdateDatabase>ViltrumEmpire/SQL/01_Viltrum_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>ViltrumEmpire/SQL/02_Viltrum_Effects.sql</UpdateDatabase>
       <UpdateDatabase>ViltrumEmpire/SQL/10_Viltrum_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TokenizedIntelligence/SQL/00_Token_Core.sql</UpdateDatabase>
+      <UpdateDatabase>TokenizedIntelligence/SQL/01_Token_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>TokenizedIntelligence/SQL/02_Token_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>TokenizedIntelligence/SQL/10_Token_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -508,6 +551,10 @@
     <EntryPoint type="InGameUIAddin" file="ViltrumEmpire/UI/ViltrumPanel.xml">
       <Name>The Viltrum Empire</Name>
       <Description>Imperial status, Great Purge, Scourge and survivor gameplay.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="TokenizedIntelligence/UI/TokenPanel.xml">
+      <Name>The Tokenized Intelligence</Name>
+      <Description>Persistent Token economy, AI spending and event-driven Prompt Console.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

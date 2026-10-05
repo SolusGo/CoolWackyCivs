@@ -1,5 +1,14 @@
 # Patch Notes
 
+## Version 16 — The Tokenized Intelligence — 2026-10-05
+
+- Added AI-playable Axiom, Keeper of Context, with a persistent Token economy, eight Context capacities and six model stages.
+- Added the full Prompt Console: economic, research, military, governance, advanced, Adaptive Inference and Clear Context actions; cached discounts, cumulative Compute Saturation, saved temporary effects and model slot limits.
+- Added Inference Cluster/University and Data Centre/Research Lab replacements with inherited BNW/CP effects, plus an Infantry-based Inference Agent with four temporary specializations.
+- Added original oracle leader, Dawn and map illustrations, original bronze/teal glyphs, 31 DDS textures, atlases, flags, diplomacy and Civilopedia concepts.
+- Added real-CP schema/API checks, all-speed Lua 5.1 exploit/lifecycle tests, event-driven UI tests and AI endurance checks. Chunked DirectXTex validation to stay within Windows command limits as the collection grows.
+- Documented live reconnaissance and origin-city trade approximations, gross-Food growth, instant-grant completion guards and multiplayer limitations. Engine playtesting remains outstanding.
+
 ## Version 15 — Viltrum correctness audit — 2026-10-05
 
 - Delayed Hardened Genome until primary crisis recovery, including native training-before-PlayerDoTurn at expiry; preserved existing markers and save keys.
