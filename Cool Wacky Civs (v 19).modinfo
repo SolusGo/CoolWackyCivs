@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="18">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="19">
   <Properties>
     <Name>Cool Wacky Civs</Name>
-    <Teaser>Thirteen civilizations. Thirteen stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, The Viltrum Empire, The Tokenized Intelligence, and The Kingdoms. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Fourteen civilizations. Fourteen stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, The Viltrum Empire, The Tokenized Intelligence, The Kingdoms, and The Sol Intellect. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -491,6 +491,38 @@
     <File md5="C7209159E7956DD52590C204A8D3C343" import="0">TheKingdoms/SQL/10_Kingdoms_Text.sql</File>
     <File md5="9ADED50335B0ACC02A17C522EC7CDD08" import="1">TheKingdoms/UI/KingdomsOverview.lua</File>
     <File md5="E8D3805C95A63E037B2C3F0BA4938E93" import="0">TheKingdoms/UI/KingdomsOverview.xml</File>
+    <File md5="198E85DF0C509FF510EC969CDC65009E" import="1">SolIntellect/Art/SolAlpha128.dds</File>
+    <File md5="C72F39047CD2E211C8DC4CA21FF5283A" import="1">SolIntellect/Art/SolAlpha16.dds</File>
+    <File md5="585316FE2909C7C94873A22AFC81A589" import="1">SolIntellect/Art/SolAlpha24.dds</File>
+    <File md5="5E4B92DCEC68946DD116116AEEBA7E7D" import="1">SolIntellect/Art/SolAlpha32.dds</File>
+    <File md5="83B1D5793DA1BC55AFE67A69BF00B0B7" import="1">SolIntellect/Art/SolAlpha48.dds</File>
+    <File md5="7A6DEAF4A9268E2ED1D10D29EDC2D731" import="1">SolIntellect/Art/SolAlpha64.dds</File>
+    <File md5="33667EB0BE311380B78E5A5F4E07990F" import="1">SolIntellect/Art/SolArchive128.dds</File>
+    <File md5="186F035687064FA8D268352D248C570E" import="1">SolIntellect/Art/SolArchive256.dds</File>
+    <File md5="4483116D2D0EC716A500B295FE51B6D7" import="1">SolIntellect/Art/SolArchive45.dds</File>
+    <File md5="28F4318E2CC251D10C57CE0DC73D2733" import="1">SolIntellect/Art/SolArchive64.dds</File>
+    <File md5="1C4054F4164C9A6D50EC192C755D40FC" import="1">SolIntellect/Art/SolDawn.dds</File>
+    <File md5="72314E81055BD11EAF6EFCC509AEBCC4" import="1">SolIntellect/Art/SolIcon128.dds</File>
+    <File md5="D7DEA3BE55492E1F00EB0093AB7FA327" import="1">SolIntellect/Art/SolIcon256.dds</File>
+    <File md5="101E884E5F7310CC7F808BC06C0FD027" import="1">SolIntellect/Art/SolIcon32.dds</File>
+    <File md5="EC62232B55EE37DF5CD155A023003E15" import="1">SolIntellect/Art/SolIcon45.dds</File>
+    <File md5="ECE3560DF39F40A17D136E2933CBF1D1" import="1">SolIntellect/Art/SolIcon64.dds</File>
+    <File md5="0B85D4B5A7C0BC2FECC7B1AA818E75A6" import="1">SolIntellect/Art/SolIcon80.dds</File>
+    <File md5="C58FD9A993C5BB9504AC00D7C763974A" import="1">SolIntellect/Art/SolInstitute128.dds</File>
+    <File md5="D439382849944B9B822B518B8CE5CF3A" import="1">SolIntellect/Art/SolInstitute256.dds</File>
+    <File md5="E01BA9B8A36CBF85496C9F122560DC95" import="1">SolIntellect/Art/SolInstitute45.dds</File>
+    <File md5="B6B1CA40E8DFAF2F7A1D2803B47C8C18" import="1">SolIntellect/Art/SolInstitute64.dds</File>
+    <File md5="D1AEBA6113310C1A2ABF2FFA5969C1A6" import="1">SolIntellect/Art/SolLeader.dds</File>
+    <File md5="8ED3A929C8F14FD7BAD9D12CEE8B94D6" import="1">SolIntellect/Art/SolLeader128.dds</File>
+    <File md5="8B094D4F5C4EA9481475E68F9A78C8B3" import="1">SolIntellect/Art/SolLeader256.dds</File>
+    <File md5="7CAE1675DB1660E83A38F87B4F36A165" import="1">SolIntellect/Art/SolLeader64.dds</File>
+    <File md5="8DAE514D3BD752D5D0D617CD90B00F7A" import="1">SolIntellect/Art/SolLeaderScene.xml</File>
+    <File md5="33036F6411A9149B08E50A44C8ABC9B6" import="1">SolIntellect/Art/SolMap.dds</File>
+    <File md5="0C4C0C89F9B2FD567FF9F41BAF156848" import="1">SolIntellect/Lua/SolRuntime.lua</File>
+    <File md5="09667E9D71331A64B430399559D93675" import="0">SolIntellect/SQL/00_Sol_Core.sql</File>
+    <File md5="C7AAF0559CA472068BC687C61A83A0D0" import="0">SolIntellect/SQL/01_Sol_Inheritance.sql</File>
+    <File md5="F21160BC422638F7999E10C59E596A41" import="0">SolIntellect/SQL/02_Sol_Effects.sql</File>
+    <File md5="01BB361D2CA9EBBB9EA56B61E8C22E51" import="0">SolIntellect/SQL/10_Sol_Text.sql</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -546,6 +578,10 @@
       <UpdateDatabase>TheKingdoms/SQL/01_Kingdoms_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheKingdoms/SQL/02_Kingdoms_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheKingdoms/SQL/10_Kingdoms_Text.sql</UpdateDatabase>
+      <UpdateDatabase>SolIntellect/SQL/00_Sol_Core.sql</UpdateDatabase>
+      <UpdateDatabase>SolIntellect/SQL/01_Sol_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>SolIntellect/SQL/02_Sol_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>SolIntellect/SQL/10_Sol_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -608,6 +644,10 @@
     <EntryPoint type="InGameUIAddin" file="TheKingdoms/UI/KingdomsOverview.xml">
       <Name>The Kingdoms Overview</Name>
       <Description>Persistent politics, AI and realm UI.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="SolIntellect/Lua/SolRuntime.lua">
+      <Name>The Sol Intellect</Name>
+      <Description>Deep Deliberation, Insight and specialist development.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

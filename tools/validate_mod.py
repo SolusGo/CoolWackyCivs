@@ -63,7 +63,7 @@ def check_packaging():
     civ_roots = (
         "RoulsAscendancy", "LunaNetwork", "TerraFramework", "CapanoCircuit",
         "FilthyRealm", "DualOrder", "RomanGladiusNetwork", "EternalNumberTen",
-        "MasayaBeyondSky", "PaulsoaresJr", "ViltrumEmpire", "TokenizedIntelligence", "TheKingdoms",
+        "MasayaBeyondSky", "PaulsoaresJr", "ViltrumEmpire", "TokenizedIntelligence", "TheKingdoms", "SolIntellect",
     )
     actual = {
         p.relative_to(ROOT).as_posix()
@@ -110,6 +110,7 @@ def check_packaging():
         "ViltrumEmpire/UI/ViltrumPanel.xml",
         "TokenizedIntelligence/UI/TokenPanel.xml",
         "TheKingdoms/UI/KingdomsOverview.xml",
+        "SolIntellect/Lua/SolRuntime.lua",
     ], "Combined runtime entry points are incomplete or out of order"
     assert values["SupportsMultiplayer"] == "false", "Unvalidated multiplayer must remain disabled"
     dependencies = props.findall("m:ModDependencies/m:Association/m:Id", NS)
@@ -315,7 +316,7 @@ def check_database(path: Path, cp_root: Path):
     namespace_markers = (
         "ROULS", "GPT_LUNA", "LUNA_", "GPT_TERRA", "TERRA_", "CAPANO", "FILTHY",
         "DUAL_ORDER", "SEVERIN", "ROMAN_GLADIUS", "MESSI", "ETERNAL_NUMBER_TEN",
-        "MASAYA_KID", "PSJ_", "VILTRUM", "TOKEN_", "KINGDOMS", "THE_THRONE",
+        "MASAYA_KID", "PSJ_", "VILTRUM", "TOKEN_", "KINGDOMS", "THE_THRONE", "GPT_SOL", "SOL_",
     )
     for table in tables:
         columns = [r[1] for r in database.execute(f"PRAGMA table_info({quote(table)})")]

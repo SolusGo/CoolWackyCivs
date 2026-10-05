@@ -1,5 +1,14 @@
 # Patch Notes
 
+## Version 19 — The Sol Intellect — 2026-10-06
+
+- Added GPT-5.6 Sol, Deep Deliberation, Context Archive/University and Reasoning Institute/Public School replacements; no unique unit or start bias.
+- Added exact 4-turn/12% construction rewards, +2 percentage points per extra turn capped at 24%, production-cost scaling, and a saved research bank for temporarily unselected technologies.
+- Added city-specific 0–5 Wonder Insight with +2% Science/+2% civilian Great Person generation per point, permanent capture loss, native specialist Science, Culture per three worked Specialists, and Institute Science per two Insight.
+- Preserved activation-time Community Patch scalar and companion building effects. Added save-backed queue/turn/completion guards, event-driven specialist updates, purchase/free-grant rejection, capture/destruction cleanup and AI flavors.
+- Added original contemplative Sol leader, two painted building portraits, gold/navy neural-sun emblem, alpha icons, Dawn artwork, setup map and 26 legacy DDS textures.
+- Added real CP database checks, native-order Lua 5.1 gameplay/save tests and DDS/package checks. Engine smoke tests and balance playtesting remain outstanding in SolIntellect/docs/Validation.md.
+
 ## Version 18 — The Kingdoms — 2026-10-05
 
 - Added The Kingdoms, Kings Throne, The Kingdoms United, seven persistent King's Guards, and The Kingdom's Wall.

@@ -110,8 +110,8 @@ def packaging():
     for p in (V/'Lua').glob('*.lua'):
         for name in re.findall(r"include\('([^']+)'\)",p.read_text()):assert 'Lua/'+name+'.lua' in names,name
     assert {p.relative_to(V).as_posix() for p in V.rglob('*') if p.is_file() and p.suffix in ['.lua','.sql','.xml','.dds']}==names
-    from build_mod import create_manifest
-    integrated=ET.parse(R/'Cool Wacky Civs (v 18).modinfo').getroot()
+    from build_mod import create_manifest,package_name
+    integrated=ET.parse(R/(package_name()+'.modinfo')).getroot()
     assert ET.tostring(integrated)==ET.tostring(create_manifest().getroot()),'Stale integrated manifest'
     assert {'TheKingdoms/'+name for name in names}<={e.text for e in integrated.findall('Files/File')}
     sql={p.relative_to(V).as_posix() for p in (V/'SQL').glob('*.sql')}
