@@ -1,6 +1,6 @@
 # Cool Wacky Civs
 
-Cool Wacky Civs is one Civilization V: Brave New World mod containing fourteen civilizations built for the Community Patch. The collection has one ModBuddy solution, one project and one combined deployable package; each civilization keeps its own gameplay and implementation README. The Kingdoms also includes a pure-file standalone build.
+Cool Wacky Civs is one Civilization V: Brave New World mod containing fifteen civilizations built for the Community Patch. The collection has one ModBuddy solution, one project and one combined deployable package; each civilization keeps its own gameplay and implementation README. The Kingdoms and The Shattered Empire also include pure-file standalone builds.
 
 ## Civilizations
 
@@ -18,10 +18,11 @@ Cool Wacky Civs is one Civilization V: Brave New World mod containing fourteen c
 - [The Tokenized Intelligence](TokenizedIntelligence/README.md) — Axiom, Keeper of Context, spends finite Tokens on cached Prompts, manages congestion, and grows its Context Window through eras and inference infrastructure.
 - [The Sol Intellect](SolIntellect/README.md) — GPT-5.6 Sol turns uninterrupted construction into Science, develops permanent Wonder Insight, and rewards specialists through Context Archives and Reasoning Institutes.
 - [The Kingdoms](TheKingdoms/README.md) — generated kings and queens rule persistent noble Houses, face demands and civil wars, and appoint seven named King's Guards.
+- [The Shattered Empire](TheShatteredEmpire/README.md) — The Last Emperor governs three starting cities, procedural Governors, provincial Loyalty, military Oaths, geographic civil wars, succession and Imperial Restoration.
 
 Token hardening in version 17 preserves version 16 Token save keys. Clear Context restores Tokens and clears persistent Prompts/cache while Compute Saturation expires naturally; weaker saturation cannot prolong a stronger tier.
 
-All fourteen civilizations are installed and enabled together. The original twelve remain human-only (`Playable = 1`, `AIPlayable = 0`). The Kingdoms and The Sol Intellect are AI-playable; The Kingdoms makes automatic political decisions, while Sol favors tall scientific development. The collection supports single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
+All fifteen civilizations are installed and enabled together. The original twelve remain human-only (`Playable = 1`, `AIPlayable = 0`). The Kingdoms, The Sol Intellect and The Shattered Empire are AI-playable. The political civilizations make automatic decisions, while Sol favors tall scientific development. The collection supports single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
 
 ## UA, UU and UB roster
 
@@ -43,6 +44,7 @@ All fourteen civilizations are installed and enabled together. The original twel
 | [The Tokenized Intelligence](TokenizedIntelligence/README.md#ua-uu-and-ubs) | Context Window | Inference Agent (Infantry) | Inference Cluster (University); Data Centre (Research Lab) |
 | [The Sol Intellect](SolIntellect/README.md) | Deep Deliberation | None | Context Archive (University); Reasoning Institute (Public School) |
 | [The Kingdoms](TheKingdoms/README.md) | The Kingdoms United | The King's Guards (Longswordsman; seven living identities) | The Kingdom's Wall (Walls) |
+| [The Shattered Empire](TheShatteredEmpire/README.md) | The Weight of an Empire | Imperial Legion (Warrior) | Provincial Governor's Palace (Monument) |
 
 **Additional uniques:** Capano has the **Boulder Sector UI**; Messi has the **Football Academy UI**. Frank can summon **Salamander Man** through his UA. Viltrum retains **Auxiliary Infantry** as a separate conventional option. Rou'ls' **The Choir Eternal** is a unique National Wonder, replacing the Heroic Epic.
 
@@ -203,7 +205,7 @@ Install the repository-local development dependencies:
 python -m pip install --target .tools/python -r requirements-dev.txt
 ```
 
-Validate all fourteen civilizations and build the collection package:
+Validate all fifteen civilizations and build the collection package:
 
 ```powershell
 python tools/validate_all.py
@@ -214,4 +216,4 @@ Outputs are written under `dist/` as one unpacked directory, one ZIP archive, an
 
 Open [CoolWackyCivs.civ5sln](CoolWackyCivs.civ5sln) in ModBuddy. It is the only solution and builds [CoolWackyCivs.civ5proj](CoolWackyCivs.civ5proj).
 
-The standalone Kingdoms package needs no ModBuddy project: `python tools/build_kingdoms_mod.py` builds its checked-in `.modinfo` and pure mod files into ZIP/`.civ5mod` outputs under `dist/`. Enable either the standalone Kingdoms package or the v19 collection that contains it.
+The standalone Kingdoms package needs no ModBuddy project: `python tools/build_kingdoms_mod.py` builds its checked-in `.modinfo` and pure mod files into ZIP/`.civ5mod` outputs under `dist/`. The Shattered Empire has the same workflow through `python tools/build_shattered_mod.py`. Enable either a standalone package or the v20 collection containing that civilization.

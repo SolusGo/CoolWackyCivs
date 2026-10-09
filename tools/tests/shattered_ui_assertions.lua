@@ -1,0 +1,17 @@
+local I=MapModData.TheShatteredEmpire
+assert(not Controls.ImperialLauncher.hidden and Controls.ImperialPanel.hidden)
+Controls.ImperialStatus.click();assert(not Controls.ImperialPanel.hidden and #Instances.ImperialTabs==7)
+for n=1,7 do Instances.ImperialTabs[n].TabChoice.click();assert(Controls.ImperialDetailText.text~=nil) end
+Instances.ImperialTabs[3].TabChoice.click();assert(#Instances.ImperialActions>0)
+local gold=Players[0].gold;Instances.ImperialActions[1].ActionChoice.click();assert(Players[0].gold<gold)
+Events.SerialEventEnterCityScreen.Fire();assert(Controls.ImperialLauncher.hidden and Controls.ImperialPanel.hidden)
+Events.SerialEventExitCityScreen.Fire();assert(not Controls.ImperialLauncher.hidden)
+Events.AILeaderMessage.Fire();assert(Controls.ImperialLauncher.hidden);Events.LeavingLeaderViewMode.Fire();assert(not Controls.ImperialLauncher.hidden)
+Events.SerialEventGameMessagePopupShown.Fire({Type=12});assert(Controls.ImperialLauncher.hidden)
+Events.SerialEventGameMessagePopupProcessed.Fire(12);assert(not Controls.ImperialLauncher.hidden)
+Controls.ImperialStatus.click();assert(Escape(KeyEvents.KeyDown,Keys.VK_ESCAPE));assert(Controls.ImperialPanel.hidden)
+Active=1;Events.GameplaySetActivePlayer.Fire();assert(Controls.ImperialLauncher.hidden)
+Active=0;Events.GameplaySetActivePlayer.Fire();Controls.ImperialStatus.click()
+Players[0].era=1;local s=I.State(0);Turn=s.successionNext;I.SuccessionTick(s);LuaEvents.ImperialChanged(0)
+Instances.ImperialTabs[6].TabChoice.click();assert(#Instances.ImperialActions==3)
+Instances.ImperialActions[1].ActionChoice.click();assert(not s.succession and #s.dynasty==2)

@@ -1,5 +1,14 @@
 # Patch Notes
 
+## Version 20 — The Shattered Empire — 2026-10-10
+
+- Added The Last Emperor, Aeternum, The Weight of an Empire, Imperial Legion/Warrior and Provincial Governor's Palace/Monument replacements, with human and AI selection.
+- Added safe two-province founding entitlements/Settler fallback, bounded Authority, procedural Governors, explained Loyalty, Prestige, provincial petitions and validated political decisions.
+- Added staged unrest, finite era-appropriate tracked rebel factions, geographic Wars of the Crowns, persistent military Oaths and bounded safe replacement defections.
+- Added mutually exclusive reforms, persistent succession candidates, dynasty records, reversible Imperial Restoration bonuses and a bounded Chronicle with dual-bank save recovery.
+- Added seven-tab event-driven Imperial Administration, AI decisions/garrison orders, original generated paintings and 22 DDS assets, complete English text and standalone pure-file packaging.
+- Added real CP SQL/inheritance checks and all-speed Lua 5.1 lifecycle, conflict, progression, UI and AI/save simulations. Civ V engine and balance testing remain outstanding in TheShatteredEmpire/docs/Validation.md.
+
 ## Version 19 — The Sol Intellect — 2026-10-06
 
 - Added GPT-5.6 Sol, Deep Deliberation, Context Archive/University and Reasoning Institute/Public School replacements; no unique unit or start bias.

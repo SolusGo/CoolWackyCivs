@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="19">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="20">
   <Properties>
     <Name>Cool Wacky Civs</Name>
-    <Teaser>Fourteen civilizations. Fourteen stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, The Viltrum Empire, The Tokenized Intelligence, The Kingdoms, and The Sol Intellect. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Fifteen civilizations. Fifteen stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, The Viltrum Empire, The Tokenized Intelligence, The Kingdoms, The Sol Intellect, and The Shattered Empire. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -523,6 +523,47 @@
     <File md5="C7AAF0559CA472068BC687C61A83A0D0" import="0">SolIntellect/SQL/01_Sol_Inheritance.sql</File>
     <File md5="F21160BC422638F7999E10C59E596A41" import="0">SolIntellect/SQL/02_Sol_Effects.sql</File>
     <File md5="01BB361D2CA9EBBB9EA56B61E8C22E51" import="0">SolIntellect/SQL/10_Sol_Text.sql</File>
+    <File md5="2EE50CF95BD56A9288E61498EC6D3508" import="1">TheShatteredEmpire/Art/ImperialAlpha128.dds</File>
+    <File md5="07C63A01FAC17B72A6D4F5FA0F9280B1" import="1">TheShatteredEmpire/Art/ImperialAlpha16.dds</File>
+    <File md5="24AFB3463CAFB3C9D0CBFB2860AB7EAC" import="1">TheShatteredEmpire/Art/ImperialAlpha24.dds</File>
+    <File md5="4E7A904C73AC856281D17FCB401D92A5" import="1">TheShatteredEmpire/Art/ImperialAlpha256.dds</File>
+    <File md5="5DAB679B29C3EEF4237FA180384D540F" import="1">TheShatteredEmpire/Art/ImperialAlpha32.dds</File>
+    <File md5="3BDE80560CA7EDE663D90FF2F11D733D" import="1">TheShatteredEmpire/Art/ImperialAlpha45.dds</File>
+    <File md5="A663B23BAFE0390135D9E636BE00FA99" import="1">TheShatteredEmpire/Art/ImperialAlpha48.dds</File>
+    <File md5="633DFE8D485D1284730BF4B459F5E023" import="1">TheShatteredEmpire/Art/ImperialAlpha64.dds</File>
+    <File md5="7C41940DB95CDA53AD09C252F185FC39" import="1">TheShatteredEmpire/Art/ImperialAlpha80.dds</File>
+    <File md5="38FB962CAD292BB238B9912DDF40A1C4" import="1">TheShatteredEmpire/Art/ImperialDawn.dds</File>
+    <File md5="EFC4B28F861A811CFCBDDE706F4245F3" import="1">TheShatteredEmpire/Art/ImperialLeader.dds</File>
+    <File md5="4F1CA25FBAC518AD1EA10D06534983BF" import="1">TheShatteredEmpire/Art/ImperialLeaderScene.xml</File>
+    <File md5="2B731349AB6113331B485A698DD416BC" import="1">TheShatteredEmpire/Art/ImperialMap.dds</File>
+    <File md5="6CDD11C8B38A6939DD0FF860CD24601E" import="1">TheShatteredEmpire/Art/ImperialObjects128.dds</File>
+    <File md5="898400272671B12D99C37EFEAD5DAB33" import="1">TheShatteredEmpire/Art/ImperialObjects16.dds</File>
+    <File md5="AFF5D58C96188B39410F5DA59F219F83" import="1">TheShatteredEmpire/Art/ImperialObjects24.dds</File>
+    <File md5="99656FF148FCD6089B7A3045B5B2E37F" import="1">TheShatteredEmpire/Art/ImperialObjects256.dds</File>
+    <File md5="A93A0980C4063F14C7EA9594F3FE5E33" import="1">TheShatteredEmpire/Art/ImperialObjects32.dds</File>
+    <File md5="89CE992A8E4362D2616B7A0861A2CF50" import="1">TheShatteredEmpire/Art/ImperialObjects45.dds</File>
+    <File md5="5CD3796934329D76A4888AE94CC26824" import="1">TheShatteredEmpire/Art/ImperialObjects48.dds</File>
+    <File md5="BD75137BCB55BB0C4D08C017D813EA82" import="1">TheShatteredEmpire/Art/ImperialObjects64.dds</File>
+    <File md5="CF0AA05DAD60FBF1C5CF463E236DB208" import="1">TheShatteredEmpire/Art/ImperialObjects80.dds</File>
+    <File md5="5DAB679B29C3EEF4237FA180384D540F" import="1">TheShatteredEmpire/Art/ImperialUnitFlag32.dds</File>
+    <File md5="ADA7564E31DCDBBC7892B3D8160E32C0" import="1">TheShatteredEmpire/Lua/ImperialAI.lua</File>
+    <File md5="C1FA98CBA1B35B1995C40813FFAE0BF6" import="1">TheShatteredEmpire/Lua/ImperialChronicle.lua</File>
+    <File md5="DB604C0C2E47C133C9A749DEB04DCDDE" import="1">TheShatteredEmpire/Lua/ImperialCore.lua</File>
+    <File md5="70D6D39121EEBCE588BD808291435026" import="1">TheShatteredEmpire/Lua/ImperialEvents.lua</File>
+    <File md5="EBBBCA0825E493D2111571874887FE57" import="1">TheShatteredEmpire/Lua/ImperialGovernors.lua</File>
+    <File md5="68555317EB9737F5C77932CC143F75AB" import="1">TheShatteredEmpire/Lua/ImperialLegions.lua</File>
+    <File md5="8B848788682E136F6589E1441C98E81E" import="1">TheShatteredEmpire/Lua/ImperialLoyalty.lua</File>
+    <File md5="FF81828E14170108352C2D9137EEE32E" import="1">TheShatteredEmpire/Lua/ImperialPersistence.lua</File>
+    <File md5="A8DB49D15EC7D61EA391858D9DA9CE7C" import="1">TheShatteredEmpire/Lua/ImperialRebellions.lua</File>
+    <File md5="20BA6EEA3A6D7A4E772EC212D8867B5C" import="1">TheShatteredEmpire/Lua/ImperialReforms.lua</File>
+    <File md5="46BA30295E1C7ABCECA13E388EB7BD88" import="1">TheShatteredEmpire/Lua/ImperialStartingCities.lua</File>
+    <File md5="F6F04F5379E1AFAB0438817CAA093CA0" import="1">TheShatteredEmpire/Lua/ImperialSuccession.lua</File>
+    <File md5="7FC29C8E184FB7133855CC1F91C84B07" import="0">TheShatteredEmpire/SQL/00_Imperial_Core.sql</File>
+    <File md5="F75FB15FAF9B28523602D67E0C9B6289" import="0">TheShatteredEmpire/SQL/01_Imperial_Inheritance.sql</File>
+    <File md5="FCB8A09D699D744C45DF2F9B1227C360" import="0">TheShatteredEmpire/SQL/02_Imperial_Effects.sql</File>
+    <File md5="FFEE85C9EE120892D012D9DE281BFF5E" import="0">TheShatteredEmpire/SQL/10_Imperial_Text.sql</File>
+    <File md5="F9B755593051C70269BB57BE1D3B94A8" import="1">TheShatteredEmpire/UI/ImperialAdministration.lua</File>
+    <File md5="82892DA1D86AD47460DDB652DC283CD3" import="0">TheShatteredEmpire/UI/ImperialAdministration.xml</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -582,6 +623,10 @@
       <UpdateDatabase>SolIntellect/SQL/01_Sol_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>SolIntellect/SQL/02_Sol_Effects.sql</UpdateDatabase>
       <UpdateDatabase>SolIntellect/SQL/10_Sol_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheShatteredEmpire/SQL/00_Imperial_Core.sql</UpdateDatabase>
+      <UpdateDatabase>TheShatteredEmpire/SQL/01_Imperial_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>TheShatteredEmpire/SQL/02_Imperial_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>TheShatteredEmpire/SQL/10_Imperial_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -648,6 +693,10 @@
     <EntryPoint type="InGameUIAddin" file="SolIntellect/Lua/SolRuntime.lua">
       <Name>The Sol Intellect</Name>
       <Description>Deep Deliberation, Insight and specialist development.</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="TheShatteredEmpire/UI/ImperialAdministration.xml">
+      <Name>Imperial Administration</Name>
+      <Description>Persistent imperial gameplay, AI and administration UI.</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

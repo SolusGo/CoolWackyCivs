@@ -6,8 +6,8 @@
     <Name>Cool Wacky Civs</Name>
     <SafeName>Cool Wacky Civs</SafeName>
     <Guid>4c02158d-ad52-4b73-bf2a-555ce58a1e60</Guid>
-    <Teaser>Fourteen civilizations. Fourteen stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, The Viltrum Empire, The Tokenized Intelligence, The Kingdoms, and The Sol Intellect. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Fifteen civilizations. Fifteen stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, The Viltrum Empire, The Tokenized Intelligence, The Kingdoms, The Sol Intellect, and The Shattered Empire. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -27,7 +27,7 @@
     <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <HideSetupGame>false</HideSetupGame>
-    <ModVersion>19</ModVersion>
+    <ModVersion>20</ModVersion>
     <Stability>Alpha</Stability>
     <ModActions>
       <Action>
@@ -310,6 +310,26 @@
         <Type>UpdateDatabase</Type>
         <FileName>SolIntellect/SQL/10_Sol_Text.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheShatteredEmpire/SQL/00_Imperial_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheShatteredEmpire/SQL/01_Imperial_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheShatteredEmpire/SQL/02_Imperial_Effects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheShatteredEmpire/SQL/10_Imperial_Text.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -407,6 +427,12 @@
         <Name>The Sol Intellect</Name>
         <Description>Deep Deliberation, Insight and specialist development.</Description>
         <FileName>SolIntellect/Lua/SolRuntime.lua</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>Imperial Administration</Name>
+        <Description>Persistent imperial gameplay, AI and administration UI.</Description>
+        <FileName>TheShatteredEmpire/UI/ImperialAdministration.xml</FileName>
       </Content>
     </ModContent>
     <ModDependencies>
@@ -1947,6 +1973,129 @@
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
     <Content Include="SolIntellect/SQL/10_Sol_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialAlpha128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialAlpha16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialAlpha24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialAlpha256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialAlpha32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialAlpha45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialAlpha48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialAlpha64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialAlpha80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialDawn.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialLeader.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialLeaderScene.xml">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialMap.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialObjects128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialObjects16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialObjects24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialObjects256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialObjects32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialObjects45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialObjects48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialObjects64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialObjects80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Art/ImperialUnitFlag32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Lua/ImperialAI.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Lua/ImperialChronicle.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Lua/ImperialCore.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Lua/ImperialEvents.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Lua/ImperialGovernors.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Lua/ImperialLegions.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Lua/ImperialLoyalty.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Lua/ImperialPersistence.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Lua/ImperialRebellions.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Lua/ImperialReforms.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Lua/ImperialStartingCities.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/Lua/ImperialSuccession.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/SQL/00_Imperial_Core.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/SQL/01_Imperial_Inheritance.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/SQL/02_Imperial_Effects.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/SQL/10_Imperial_Text.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/UI/ImperialAdministration.lua">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="TheShatteredEmpire/UI/ImperialAdministration.xml">
       <ImportIntoVFS>False</ImportIntoVFS>
     </Content>
   </ItemGroup>
