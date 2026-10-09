@@ -1,5 +1,11 @@
 # Patch Notes
 
+## Version 20 — Shattered Empire founding and war outcomes — 2026-10-10
+
+- Starting provinces now handle normal fog through guarded native founding on connected local land; rejected tiles return to fog, wonders are excluded, and interrupted grants remain recoverable.
+- Civil wars distinguish military, negotiated, mixed, exhausted and failed outcomes. Military-only completion gives +10 Authority; clean mixed completion gives the rounded-down military share of +10. Diplomatic Restoration remains available.
+- Preserved existing hardening, save identities and completed historical rewards; added limited-sight maps, temporary-reveal recovery and four-speed reward/migration/AI regressions. In-game verification remains outstanding.
+
 ## Version 20 — Shattered Empire hardening — 2026-10-10
 
 - Added costly wartime autonomy and lasting hereditary privileges; peacetime charters and AI decisions use the same validated costs displayed in Administration.

@@ -54,10 +54,10 @@ TEXT = {
  'REFORM_HELP_DICTATORSHIP':'+15 effective Oath to disciplined Legion lineages while active. +10% Combat Strength against barbarian units, including rebels. Militarist Governor Ambition grows faster.',
  'REFORM_COST':'Costs 10 Authority; changes have a 30 Standard-speed turn cooldown. Unlocks in the Classical Era.',
  'REPLACE_COST':'Costs 8 Authority. Replacement creates one turn of resistance and reduces local military Oaths by 5.',
- 'CHARTER_COST':'+15 Loyalty and +12 Ambition; negotiates any local revolt. Requires a Palace.',
+ 'CHARTER_COST':'Peacetime: 50% provincial Gold cost and 5 Authority; +15 Loyalty, +12 Ambition and permanent autonomy. Requires a Palace and loyal or discontented administration.',
  'RECONCILE_COST':'Costs 15 Authority; ends the local revolt and rebuilds loyalty.',
  'REBELLION_REQUIRED':'An active provincial rebellion is required.','AUTHORITY_REQUIRED':'Insufficient Imperial Authority.','GOLD_REQUIRED':'Insufficient Gold.','ERA_REQUIRED':'Reforms unlock in the Classical Era.','COOLDOWN':'This decision is on cooldown.','PALACE_REQUIRED':'A Palace and an unchartered province are required.','INVALID':'This decision is no longer available.','READY':'Decision available.','ACTION_DONE':'The court has enacted the decision.','REPLACED':'Dismissed from office.',
- 'ACTION_BRIBE':'Compensate Governor: +12 Loyalty','ACTION_CHARTER':'Grant autonomy: +15 Loyalty, +12 Ambition','ACTION_REPLACE':'Replace Governor: 8 Authority','ACTION_FUND':'Fund the petition: fulfill demand','ACTION_REFUSE':'Refuse the petition: -12 Loyalty','ACTION_CONCESSION':'Negotiate financial concessions','ACTION_RECONCILE':'Political reconciliation: 15 Authority',
+ 'ACTION_BRIBE':'Compensate Governor: +12 Loyalty','ACTION_CHARTER':'Grant peacetime autonomy','ACTION_REPLACE':'Replace Governor: 8 Authority','ACTION_FUND':'Fund the petition: fulfill demand','ACTION_REFUSE':'Refuse the petition: -12 Loyalty','ACTION_CONCESSION':'Negotiate financial concessions','ACTION_RECONCILE':'Political reconciliation: 15 Authority',
  'PROMO_DISCIPLINE':'Imperial Discipline','PROMO_HELP_DISCIPLINE':'Persistent Legion lineage. +15% friendly territory strength while Authority is at least 60.',
  'PROMO_DISCIPLINE_ACTIVE':'Imperial Discipline: active','PROMO_HELP_DISCIPLINE_ACTIVE':'+15% Combat Strength in friendly territory.',
  'PROMO_REBEL_COMBAT':'Imperial counterinsurgency','PROMO_HELP_REBEL_COMBAT':'+10% Combat Strength against barbarians, including political rebel armies.',
@@ -86,6 +86,27 @@ TEXT = {
  'ADOPT_REFORM':'Adopt {1_Reform}','SELECT_HEIR':'Crown {1_Name}','TURN':'Turn {1_Turn}','UI_HINT':'Decisions are validated by the gameplay manager. Escape closes administration.',
  'YES':'Yes','NO':'No','ACTIVE':'Active','DORMANT':'Dormant','LOCKED':'Not yet restored','UNKNOWN_CITY':'an imperial city',
 }
+# Settlement hardening and civil-war outcome text.
+TEXT.update({
+ 'SETTLEMENT_COST':'Wartime: 200% provincial Gold cost and 10 Authority. Ends this faction only, guarantees at least 70 Loyalty, adds 20 Ambition and permanent autonomy. Hereditary privileges add 0.5 Ambition each political interval, including after Governor replacement.',
+ 'AUTHORITY_LABEL':'Authority',
+ 'ACTION_SETTLEMENT':'Negotiate wartime autonomy',
+ 'HISTORY_DEMAND_CANCELLED':'The petition of {1_Name} was withdrawn because it was no longer feasible: {2_Demand}. No political penalty applied.',
+ 'RESULT_MILITARY':'military restoration',
+ 'RESULT_NEGOTIATED':'negotiated peace and imperial reunification',
+ 'RESULT_MIXED':'mixed military and negotiated restoration',
+ 'RESULT_FAILED':'failed restoration or incomplete historical outcome',
+ 'HISTORY_REBEL_SUPPRESSED':'The Imperial Legions crushed the rebellion of Governor {1_Name}, restoring the Throne through force.',
+ 'HISTORY_REBEL_AUTONOMY':'Governor {1_Name} accepted an Imperial Charter, ending hostilities in exchange for lasting provincial autonomy.',
+ 'HISTORY_REBEL_CONCESSION':'Governor {1_Name} accepted financial concessions and ended the rebellion through negotiation.',
+ 'HISTORY_REBEL_RECONCILED':'Governor {1_Name} reconciled with the Emperor, ending the rebellion through political compromise.',
+ 'HISTORY_REBEL_EXHAUSTED':'The rebellion of Governor {1_Name} exhausted itself; autonomy replaced a decisive imperial victory.',
+ 'HISTORY_REBEL_LOST':'The Throne lost the province of Governor {1_Name}; its rebellion ended without imperial victory.',
+ 'WAR_PROGRESS':'Faction outcomes: military {1_Military}, negotiated {2_Negotiated}, exhausted {3_Exhausted}, lost {4_Lost}, undocumented {5_Unknown}.',
+ 'WAR_OUTCOMES':'Faction outcomes: military {1_Military}, negotiated {2_Negotiated}, exhausted {3_Exhausted}, lost {4_Lost}, undocumented {5_Unknown}. Completion Authority gained: {6_Bonus}.',
+ 'WAR_LEGACY':'Historical record from an earlier court: the military and negotiated breakdown was not recorded. Previous rewards remain unchanged.',
+})
+
 REASONS = {'GARRISON':'Military garrison','UNGARRISONED':'No military garrison','CONNECTION':'Capital connection','PALACE':"Governor's Palace",'AUTONOMY':'Autonomy charter','FEDERATION':'Federation charter','DISTANCE':'Distance from capital','MONARCHY':'Centralized government','AMBITION':'Ambition above 70','UNHAPPINESS':'Negative imperial Happiness','WAR':'Prolonged warfare','STRAIN':'Administrative overextension','AUTHORITY':'Imperial Authority','LOYALIST':'Loyalist administration','MERCHANT':'Economic restrictions','POPULIST':'Prosperous population','RELATIONSHIP':'Relationship with Emperor','NEARBY_REVOLT':'Nearby rebel support'}
 TEXT.update({'REASON_' + k:v for k,v in REASONS.items()})
 DIALOGUE = {

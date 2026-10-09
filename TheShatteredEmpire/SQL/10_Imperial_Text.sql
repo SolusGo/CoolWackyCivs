@@ -270,3 +270,16 @@ DELETE FROM Diplomacy_Responses WHERE LeaderType='LEADER_LAST_EMPEROR' AND Respo
 INSERT INTO Diplomacy_Responses VALUES ('LEADER_LAST_EMPEROR','RESPONSE_TRADE_ACCEPT_ACCEPTABLE','TXT_KEY_IMPERIAL_DIPLO_TRADE_ACCEPT_ACCEPTABLE',1);
 DELETE FROM Diplomacy_Responses WHERE LeaderType='LEADER_LAST_EMPEROR' AND ResponseType='RESPONSE_TRADE_REJECT_UNACCEPTABLE';
 INSERT INTO Diplomacy_Responses VALUES ('LEADER_LAST_EMPEROR','RESPONSE_TRADE_REJECT_UNACCEPTABLE','TXT_KEY_IMPERIAL_DIPLO_TRADE_REJECT_UNACCEPTABLE',1);
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_RESULT_MILITARY','military restoration');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_RESULT_NEGOTIATED','negotiated peace and imperial reunification');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_RESULT_MIXED','mixed military and negotiated restoration');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_RESULT_FAILED','failed restoration or incomplete historical outcome');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_HISTORY_REBEL_SUPPRESSED','The Imperial Legions crushed the rebellion of Governor {1_Name}, restoring the Throne through force.');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_HISTORY_REBEL_AUTONOMY','Governor {1_Name} accepted an Imperial Charter, ending hostilities in exchange for lasting provincial autonomy.');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_HISTORY_REBEL_CONCESSION','Governor {1_Name} accepted financial concessions and ended the rebellion through negotiation.');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_HISTORY_REBEL_RECONCILED','Governor {1_Name} reconciled with the Emperor, ending the rebellion through political compromise.');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_HISTORY_REBEL_EXHAUSTED','The rebellion of Governor {1_Name} exhausted itself; autonomy replaced a decisive imperial victory.');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_HISTORY_REBEL_LOST','The Throne lost the province of Governor {1_Name}; its rebellion ended without imperial victory.');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_WAR_PROGRESS','Faction outcomes: military {1_Military}, negotiated {2_Negotiated}, exhausted {3_Exhausted}, lost {4_Lost}, undocumented {5_Unknown}.');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_WAR_OUTCOMES','Faction outcomes: military {1_Military}, negotiated {2_Negotiated}, exhausted {3_Exhausted}, lost {4_Lost}, undocumented {5_Unknown}. Completion Authority gained: {6_Bonus}.');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_WAR_LEGACY','Historical record from an earlier court: the military and negotiated breakdown was not recorded. Previous rewards remain unchanged.');

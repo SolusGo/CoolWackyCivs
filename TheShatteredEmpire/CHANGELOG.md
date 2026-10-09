@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0 founding and civil-war corrections — 2026-10-10
+
+- Fixed normal limited sight blocking otherwise legal starting provinces. Ranked connected local candidates now use a guarded terrain-only reveal around native founding; failed probes restore fog and pending grants recover interrupted revelation. Wonders cannot be discovered by probing, and hidden resources do not improve site ranking.
+- Separated military, negotiated, exhausted, lost and undocumented war outcomes. Retained 5/7 suppression rewards and the military-only +10; clean mixed victories earn a rounded-down military share of +10, while negotiated/exhausted/failed wars earn no completion bonus. Peaceful reunification retains Restoration eligibility.
+- Added persistent outcome-specific faction Chronicle prose and war/UI breakdowns. Older active wars reconstruct provable outcomes once; completed records/rewards, Governors, Oaths, version-1 keys and package IDs/versions remain intact.
+- Marked factions resolved before native unit cleanup to prevent callback reentrancy; stale or lost Governor/city identities cannot award military credit. Synchronized editable localization with the previous hardening text.
+- Replaced fully revealed mock starts with limited team sight; added native rejection/rollback/wonder/interruption cases and four-speed war reward, migration, AI and idempotence regressions. Real Civ V playtesting remains outstanding.
+
 ## 1.0 hardening — 2026-10-10
 
 - Separated peacetime charters (50% Gold +5 Authority) from wartime autonomy (200% Gold +10 Authority), with lasting hereditary Ambition pressure, shared AI checks and explicit UI costs/consequences.

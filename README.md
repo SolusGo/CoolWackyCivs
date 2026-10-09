@@ -18,7 +18,7 @@ Cool Wacky Civs is one Civilization V: Brave New World mod containing fifteen ci
 - [The Tokenized Intelligence](TokenizedIntelligence/README.md) — Axiom, Keeper of Context, spends finite Tokens on cached Prompts, manages congestion, and grows its Context Window through eras and inference infrastructure.
 - [The Sol Intellect](SolIntellect/README.md) — GPT-5.6 Sol turns uninterrupted construction into Science, develops permanent Wonder Insight, and rewards specialists through Context Archives and Reasoning Institutes.
 - [The Kingdoms](TheKingdoms/README.md) — generated kings and queens rule persistent noble Houses, face demands and civil wars, and appoint seven named King's Guards.
-- [The Shattered Empire](TheShatteredEmpire/README.md) — The Last Emperor governs three starting cities, procedural Governors, provincial Loyalty, military Oaths, geographic civil wars, succession and Imperial Restoration.
+- [The Shattered Empire](TheShatteredEmpire/README.md) — The Last Emperor governs three starting cities, procedural Governors, provincial Loyalty, military Oaths, geographic civil wars, succession and Imperial Restoration. Starting provinces handle normal fog safely; civil wars distinguish military victories from negotiated reunification.
 
 Token hardening in version 17 preserves version 16 Token save keys. Clear Context restores Tokens and clears persistent Prompts/cache while Compute Saturation expires naturally; weaker saturation cannot prolong a stronger tier.
 

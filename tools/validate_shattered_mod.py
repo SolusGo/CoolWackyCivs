@@ -38,6 +38,10 @@ def database(cp_root=None):
             fetch=lambda key:sorted(tuple(r) for r in d.execute('SELECT '+','.join(map(quote,fields))+' FROM '+quote(name)+' WHERE '+col+'=?',(key,)))
             assert fetch(original)==fetch(new),(name,new)
     translated={r[0] for r in d.execute('SELECT Tag FROM Language_en_US')}
+    from shattered_localization import TEXT
+    for key,text in TEXT.items():assert d.execute('SELECT Text FROM Language_en_US WHERE Tag=?',('TXT_KEY_IMPERIAL_'+key,)).fetchone()[0]==text,('Localization source drift',key)
+    assert all(row('Units',unit)['BaseSightRange']==2 for unit in ['UNIT_WARRIOR','UNIT_SETTLER'])
+    assert d.execute("SELECT Value FROM Defines WHERE Name='MIN_CITY_RANGE'").fetchone()[0]==3
     for table in ['Civilizations','Leaders','Units','Buildings','Traits','UnitPromotions']:
         for r in d.execute('SELECT * FROM '+table):
             for v in r:
@@ -54,7 +58,7 @@ def fixture(d,speed=100,fallback=False,before_core=None,source=None):
     lua.globals().Translations=lua.table_from(dict(d.execute('SELECT Tag,Text FROM Language_en_US')))
     lua.execute((R/'tools/tests/shattered_mock.lua').read_text())
     types={};info=lua.table()
-    for table in ['Civilizations','Units','Buildings','UnitPromotions','Resources','Builds','Improvement_ResourceTypes']:
+    for table in ['Civilizations','Units','Buildings','UnitPromotions','Resources','Features','Builds','Improvement_ResourceTypes']:
         entries=d.execute('SELECT * FROM '+table).fetchall();info[table]=lua.globals().databaseTable(lua.table_from([lua.table_from(dict(r)) for r in entries]))
         for r in entries:
             if 'Type' in r.keys() and 'ID' in r.keys():types[r['Type']]=r['ID']
@@ -75,8 +79,21 @@ def runtime(d):
         lua=LuaRuntime(unpack_returned_tuples=True);ok,error=lua.eval('function(s,n) local f,e=loadstring(s,n);return f~=nil,e end')(p.read_text(),str(p));assert ok,error
         assert 'SetUpdate' not in p.read_text(),p
     for speed in [67,100,150,300]:
-        for suite in ['lifecycle','conflict','progression','hardening','defection']:
-            lua=fixture(d,speed);lua.execute((R/f'tools/tests/shattered_{suite}_assertions.lua').read_text())
+        for suite in ['lifecycle','conflict','progression','hardening','defection','war_outcomes']:
+            lua=fixture(d,speed)
+            try:lua.execute((R/f'tools/tests/shattered_{suite}_assertions.lua').read_text())
+            except Exception as error:raise RuntimeError(f'{suite}, speed {speed}: {error}') from error
+            if suite=='war_outcomes':
+                lua.globals().uiControls(','.join(e.attrib['ID'] for e in ET.parse(V/'UI/ImperialAdministration.xml').iter() if 'ID' in e.attrib))
+                lua.execute((V/'UI/ImperialAdministration.lua').read_text())
+                lua.execute("""
+Controls.ImperialStatus.click();local I=MapModData.TheShatteredEmpire;local s=I.State(0)
+for n,row in ipairs(Instances.ImperialList) do
+ row.RowChoice.click();local w=s.wars[n];local text=Controls.ImperialDetailText.text
+ assert(text:find(I.Text('RESULT_'..w.result),1,true))
+ assert(text:find(w.outcomesVersion and I.Text('WAR_OUTCOMES',w.suppressed,w.negotiated,w.exhausted,w.lost,w.unknown,w.victoryBonus) or I.Text('WAR_LEGACY'),1,true))
+end
+""")
         lua=fixture(d,speed,True);lua.execute("local I=MapModData.TheShatteredEmpire;assert(Players[0]:GetNumCities()==1);assert(I.State(0).entitlements[1].kind=='settler');local n=0;for u in Players[0]:Units() do if u:GetUnitType()==GameInfoTypes.UNIT_SETTLER then n=n+1 end end;assert(n==2);reload();local m=0;for u in Players[0]:Units() do if u:GetUnitType()==GameInfoTypes.UNIT_SETTLER then m=m+1 end end;assert(m==2)")
         print('PASS starting cities/fallback, political lifecycle, conflict and restoration at speed',speed)
     lua=fixture(d);lua.globals().uiControls(','.join(e.attrib['ID'] for e in ET.parse(V/'UI/ImperialAdministration.xml').iter() if 'ID' in e.attrib));lua.execute((V/'UI/ImperialAdministration.lua').read_text());lua.execute((R/'tools/tests/shattered_ui_assertions.lua').read_text())
@@ -110,32 +127,40 @@ I.Authority(s,1);LuaEvents.ImperialChanged(0);assert(refreshes==1)
 def starting_maps(d):
     common="""
 for pid=1,21 do Players[pid].alive=false;Players[pid].cities={};Players[pid].units={} end
-local p=Players[0];local native=p.CanFound
-p.CanFound=function(self,x,y) local plot=Map.GetPlot(x,y);if not plot then return false end;local reveal=plot.revealed;plot.revealed=true;local result=native(self,x,y);plot.revealed=reveal;return result end
 """
     profiles={
         'pangaea':('',3),
         'continents':("for y=0,30 do Map.GetPlot(12,y).water=true end",3),
-        'terra':("for y=0,30 do for x=12,18 do Map.GetPlot(x,y).water=true end end",3),
-        'islands':("for x=7,13 do for y=7,13 do if x==7 or x==13 or y==7 or y==13 then Map.GetPlot(x,y).water=true end end end",1),
+        'small continents':("for y=0,30 do for x=12,18 do Map.GetPlot(x,y).water=true end end",3),
+        'archipelago':("for x=4,16 do for y=4,16 do if x==4 or x==16 or y==4 or y==16 then Map.GetPlot(x,y).water=true end end end",3),
+        'tiny islands':("for x=7,13 do for y=7,13 do if x==7 or x==13 or y==7 or y==13 then Map.GetPlot(x,y).water=true end end end",1),
         'mountain basin':("for x=7,13 do for y=7,13 do if x==7 or x==13 or y==7 or y==13 then Map.GetPlot(x,y).mountain=true end end end",1),
-        'unrevealed':("for x=2,18 do for y=2,18 do Map.GetPlot(x,y).revealed=false end end",1),
+        'coastal start':("for y=0,30 do for x=0,9 do Map.GetPlot(x,y).water=true end end",3),
         'foreign ownership':("for x=2,18 do for y=2,18 do Map.GetPlot(x,y).owner=2 end end",1),
         'occupied':("for x=2,18 do for y=2,18 do if Map.PlotDistance(10,10,x,y)>3 then local u=newUnit(2,x*20+y,GameInfoTypes.UNIT_WARRIOR);u.x=x;u.y=y;Players[2].units[u.id]=u end end end",1),
-        'rival start':("Players[2].alive=true;Players[2].GetStartingPlot=function() return Map.GetPlot(10,10) end",3),
+        'rival start':("Players[2].alive=true;Players[2].GetStartingPlot=function() return Map.GetPlot(15,10) end",3),
         'no valid plots':("Players[0].noFound=true",1),
         'wrapped boundary':("WrapX=true;Players[0].cities[0].x=1",3),
         'small torus':("WrapX=true;WrapY=true;MapWidth=7;MapHeight=7;Players[0].cities[0].x=3;Players[0].cities[0].y=3;Players[0].units[0].x=3;Players[0].units[0].y=3",1),
     }
     for name,(setup,cities) in profiles.items():
-        lua=fixture(d,before_core=common+setup)
+        lua=fixture(d,before_core=common+setup+"""
+resetStartingSight();InitialRevealed={}
+for _,plot in pairs(Plots) do if plot:IsRevealed(0) then InitialRevealed[plot.x..':'..plot.y]=true;assert(Map.PlotDistance(Players[0].cities[0].x,Players[0].cities[0].y,plot.x,plot.y)<=2) end end
+assert(not Players[0]:CanFound(Players[0].cities[0].x+4,Players[0].cities[0].y),'Native CP rejects an unexplored plot')
+""")
         lua.globals().ExpectedCities=cities
         lua.globals().CheckRival=name=='rival start'
         lua.execute("""
 local I=MapModData.TheShatteredEmpire;local s=I.State(0);assert(Players[0]:GetNumCities()==ExpectedCities)
-if CheckRival then for c in Players[0]:Cities() do if not c:IsCapital() then assert(Map.PlotDistance(10,10,c.x,c.y)>6) end end end
+if CheckRival then for c in Players[0]:Cities() do if not c:IsCapital() then assert(Map.PlotDistance(15,10,c.x,c.y)>6) end end end
 assert(s.startComplete and s.entitlements[1] and s.entitlements[2]);local keys={}
-for slot=1,2 do local e=s.entitlements[slot];if e.kind=='city' then assert(not keys[e.key]);keys[e.key]=true end end
+local cityGrants,settlerGrants=0,0
+for slot=1,2 do local e=s.entitlements[slot];if e.kind=='city' then cityGrants=cityGrants+1;assert(not keys[e.key]);keys[e.key]=true else assert(e.kind=='settler');settlerGrants=settlerGrants+1 end end
+assert(cityGrants==ExpectedCities-1 and cityGrants+settlerGrants==2)
+local capitals,settlers=0,0;for c in Players[0]:Cities() do if c:IsCapital() then capitals=capitals+1;assert(c.pop==2) else assert(c.pop==1) end end
+for u in Players[0]:Units() do if u.kind==GameInfoTypes.UNIT_SETTLER then settlers=settlers+1 end end;assert(capitals==1 and settlers==settlerGrants)
+for key,plot in pairs(Plots) do if plot:IsRevealed(0) and not InitialRevealed[key] then assert(plot:GetVisibilityCount(0)>0,'Unrelated terrain left revealed') end end
 local units=0;for _ in pairs(Players[0].units) do units=units+1 end
 reload();I=MapModData.TheShatteredEmpire;local after=0;for _ in pairs(Players[0].units) do after=after+1 end
 assert(after==units and Players[0]:GetNumCities()==ExpectedCities)
@@ -163,7 +188,72 @@ end)
         lua.execute('assert(Players[0]:GetNumCities()==1 and Players[0].cities[0].pop==1);assert(MapModData.TheShatteredEmpire.State(0).startComplete);reload();assert(Players[0]:GetNumCities()==1)')
     lua=fixture(d,100,True,before_core=common+"local p=Players[0];local init=p.InitUnit;local failed=false;p.InitUnit=function(self,kind,...) if kind==GameInfoTypes.UNIT_SETTLER and not failed then failed=true;return nil end;return init(self,kind,...) end")
     lua.execute("assert(not MapModData.TheShatteredEmpire.State(0).startComplete);reload();local n=0;for u in Players[0]:Units() do if u.kind==GameInfoTypes.UNIT_SETTLER then n=n+1 end end;assert(n==2 and MapModData.TheShatteredEmpire.State(0).startComplete);reload();n=0;for u in Players[0]:Units() do if u.kind==GameInfoTypes.UNIT_SETTLER then n=n+1 end end;assert(n==2)")
-    print('PASS twelve local map profiles, wrapping, fog, barriers, rival starts, occupancy, interrupted/failed grants and old-save exclusions')
+    starting_visibility(d,common)
+    print('PASS thirteen limited-sight map profiles, native fog checks, city/Settler entitlements, interrupted/failed grants and old-save exclusions')
+
+
+def starting_visibility(d,common):
+    for setup in [
+        # Per-plot engine vetoes and a silent native failure must try other sites.
+        """local p=Players[0];local native=p.CanFound;p.CanFound=function(self,x,y) if x<9 then return false end;return native(self,x,y) end""",
+        """local p=Players[0];local native=p.Found;p.Found=function(self,x,y) if not RejectedPlot then RejectedPlot=Map.GetPlot(x,y);return end;return native(self,x,y) end""",
+    ]:
+        lua=fixture(d,before_core=common+setup)
+        lua.execute("""
+assert(Players[0]:GetNumCities()==3 and MapModData.TheShatteredEmpire.State(0).startComplete)
+if RejectedPlot and RejectedPlot:GetVisibilityCount(0)==0 then assert(not RejectedPlot:IsRevealed(0)) end
+for _,plot in pairs(Plots) do if plot:IsRevealed(0) then assert(plot:GetVisibilityCount(0)>0) end end
+assert(Players[0].gold==2000)
+""")
+    # Hidden resource information must not change the first province's rank.
+    plain=fixture(d,before_core=common)
+    rich=fixture(d,before_core=common+"for x=2,18 do for y=2,18 do local plot=Map.GetPlot(x,y);if not plot:IsRevealed(0) then plot.resource=GameInfoTypes.RESOURCE_IRON end end end")
+    assert plain.eval('MapModData.TheShatteredEmpire.State(0).entitlements[1].key')==rich.eval('MapModData.TheShatteredEmpire.State(0).entitlements[1].key')
+    # No candidate reveal may discover a natural or pseudo-natural wonder.
+    for field in ['NaturalWonder','PseudoNaturalWonder']:
+        lua=fixture(d,before_core=common+f"""
+local feature;for row in GameInfo.Features() do if row.{field}==1 then feature=row.ID;break end end
+if not feature and '{field}'=='PseudoNaturalWonder' then
+ -- The BNW cache/CP DDL fixture has the verified column but may contain no
+ -- pseudo-wonder data. Exercise that modded feature using a real-row clone.
+ for row in GameInfo.Features() do if row.NaturalWonder==1 then local clone={{}};for k,v in pairs(row) do clone[k]=v end;clone.ID=9001;clone.NaturalWonder=0;clone.PseudoNaturalWonder=1;GameInfo.Features=databaseTable({{clone}});feature=9001;break end end
+end
+assert(feature,'Missing real CP wonder feature')
+for x=2,18 do for y=2,18 do if Map.PlotDistance(10,10,x,y)>3 then Map.GetPlot(x,y).feature=feature end end end
+""")
+        lua.execute("assert(Players[0]:GetNumCities()==1 and MapModData.TheShatteredEmpire.State(0).startComplete);assert((WonderDiscoveries or 0)==0 and (RevealCalls or 0)==0 and Players[0].gold==2000)")
+    # Save after the temporary bit is set, before CanFound/Found. Restore the
+    # matching native world state, then recover without retaining that fog bit.
+    lua=fixture(d,before_core=common+"""
+RevealCallback=function(plot,team,value)
+ if team==0 and value and not Interrupted then
+  local I=MapModData.TheShatteredEmpire;I.Save(0);Interrupted={};for k,v in pairs(Saved) do Interrupted[k]=v end
+  RevealedX=plot.x;RevealedY=plot.y
+ end
+end
+""")
+    lua.execute("""
+assert(Interrupted);local p=Players[0];for id in pairs(p.cities) do if id~=0 then p.cities[id]=nil end end
+resetStartingSight();local plot=Map.GetPlot(RevealedX,RevealedY);plot.revealedTeams[0]=true;assert(plot:GetVisibilityCount(0)==0)
+RevealCallback=function(candidate,team,value) if candidate==plot and team==0 and not value then RestoredTemporaryFog=true end end
+Saved=Interrupted;reload();assert(RestoredTemporaryFog and p:GetNumCities()==3 and MapModData.TheShatteredEmpire.State(0).startComplete)
+reload();assert(p:GetNumCities()==3)
+""")
+    # An engine callback error must restore fog and release the runtime lock.
+    lua=fixture(d,before_core=common)
+    lua.execute("""
+local p=Players[0];local I=MapModData.TheShatteredEmpire;local s=I.State(0)
+for id in pairs(p.cities) do if id~=0 then p.cities[id]=nil end end;resetStartingSight()
+s.startComplete=false;s.entitlements={};local native=p.CanFound
+p.CanFound=function(self,x,y)
+ if not FailedPlot then FailedPlot=Map.GetPlot(x,y);I.Save(0);error('interrupted native check') end
+ return native(self,x,y)
+end
+local ok,err=pcall(I.Initialize,0);assert(not ok and tostring(err):find('interrupted native check',1,true))
+assert(not s.startBusy and not FailedPlot:IsRevealed(0));reload()
+assert(p:GetNumCities()==3 and MapModData.TheShatteredEmpire.State(0).startComplete);reload();assert(p:GetNumCities()==3)
+""")
+    print('PASS rejected native candidates, terrain-only fog rollback, wonder exclusion and reload during temporary revelation')
 
 
 def source_contracts():
@@ -184,6 +274,20 @@ def source_contracts():
     for file,names in [('Lua_CvLuaPlayer.cpp',['CanFound','Found','CanBuild','GetStartingPlot','IsCapitalConnectedToCity','GetExcessHappiness','GetHandicapType','InitUnit']),('Lua_CvLuaCity.cpp',['CanConstruct','SetPopulation','SetName','GetGameTurnFounded','ChangeResistanceTurns','GetGarrisonedUnit','IsHasBuilding']),('Lua_CvLuaUnit.cpp',['IsCargo','IsEmbarked','SetExperience','GetExperience','PushMission','GetDomainType','GetGameTurnCreated','JumpToNearestValidPlot'])]:
         source=(audit/file).read_text(encoding='utf-8')
         for name in names:assert 'Method('+name+');' in source,(file,name)
+    founding=player[player.index('bool CvPlayer::canFoundCityExt('):player.index('void CvPlayer::foundCity(')]
+    assert '!pPlot->isRevealed(getTeam())' in founding
+    assert '!bForce && !canFoundCity(iX, iY)' in player
+    if (audit/'CvLuaPlot.cpp').exists() and (audit/'CvPlot.cpp').exists() and (audit/'CvSiteEvaluationClasses.cpp').exists():
+        binding=(audit/'CvLuaPlot.cpp').read_text(encoding='utf-8')
+        for name in ['SetRevealed','GetVisibilityCount','GetFeatureType']:assert 'Method('+name+');' in binding
+        reveal=binding[binding.index('int CvLuaPlot::lSetRevealed('):binding.index('int CvLuaPlot::lSetRevealed(')+950]
+        assert 'bTerrainOnly = luaL_optint(L, 4, 0)' in reveal and 'pkPlot->setRevealed(eTeam, bNewValue, NULL, bTerrainOnly, eFromTeam)' in reveal
+        plot=(audit/'CvPlot.cpp').read_text(encoding='utf-8');reveal=plot[plot.index('bool CvPlot::setRevealed('):plot.index('bool CvPlot::isAdjacentRevealed(')]
+        assert reveal.index('ChangeNumNaturalWondersDiscovered(1)')<reveal.index('if(!bTerrainOnly)')
+        assert 'changeNumRevealedTiles(eTeam, (bNewValue ? 1 : -1))' in reveal and 'if (pUnit &&' in reveal
+        site=(audit/'CvSiteEvaluationClasses.cpp').read_text(encoding='utf-8')
+        assert 'getMinDistanceCities()' in site and 'iDistanceToExisting <= iMinDist' in site
+        print('PASS CP native fog gate, integer terrain-only reveal/rollback, wonder side effects and minimum-city spacing contracts')
     print('PASS native CP founding, conversion, capture, RED combat and Lua binding contracts')
 
 

@@ -32,13 +32,22 @@ function databaseTable(rows)
 end
 function cityAt(x,y) for _,p in pairs(Players or {}) do for _,c in pairs(p.cities) do if c.x==x and c.y==y then return c end end end end
 function newPlot(x,y)
- local plot={x=x,y=y,improvement=-1,resource=-1,owner=-1,revealed=true}
+ local plot={x=x,y=y,improvement=-1,resource=-1,feature=-1,owner=-1,revealed=false,revealedTeams={},sight={}}
  function plot:GetX() return self.x end;function plot:GetY() return self.y end
  function plot:GetOwner() local c=cityAt(self.x,self.y);return c and c.owner or self.owner end
  function plot:GetPlotCity() return cityAt(self.x,self.y) end
  function plot:GetImprovementType() return self.improvement end;function plot:GetResourceType(team) return self.resource end
  function plot:IsImprovementPillaged() return self.pillaged or false end
- function plot:IsRevealed(team) return self.revealed end
+ function plot:IsRevealed(team) return self.revealed or self.revealedTeams[team] or false end
+ function plot:GetVisibilityCount(team) return self.sight[team] or 0 end
+ function plot:GetFeatureType() return self.feature end
+ function plot:SetRevealed(team,value,terrainOnly,fromTeam)
+  assert(terrainOnly==1 and fromTeam==-1,'CP reveal flags must be integers')
+  local f=GameInfo.Features[self.feature]
+  if value and not self:IsRevealed(team) and f and (f.NaturalWonder==1 or f.PseudoNaturalWonder==1) then WonderDiscoveries=(WonderDiscoveries or 0)+1 end
+  self.revealedTeams[team]=value;RevealCalls=(RevealCalls or 0)+1
+  if RevealCallback then RevealCallback(self,team,value) end
+ end
  function plot:IsWater() return self.water or false end;function plot:IsMountain() return self.mountain or false end
  function plot:IsImpassable() return self.impassable or false end;function plot:IsCity() return self:GetPlotCity()~=nil end
  function plot:GetNumUnits() local n=0;for _,p in pairs(Players or {}) do for _,u in pairs(p.units) do if u.x==self.x and u.y==self.y then n=n+1 end end end;return n end
@@ -47,6 +56,17 @@ end
 Map={PlotDistance=function(x,y,a,b) local dx,dy=math.abs(x-a),math.abs(y-b);if WrapX then dx=math.min(dx,(MapWidth or 121)-dx) end;if WrapY then dy=math.min(dy,(MapHeight or 121)-dy) end;return math.max(dx,dy) end}
 function Map.GetPlot(x,y) local width,height=MapWidth or 121,MapHeight or 121;if WrapX then x=x%width end;if WrapY then y=y%height end;if x<0 or y<0 or x>=width or y>=height then return nil end;local key=x..':'..y;if not Plots[key] then Plots[key]=newPlot(x,y) end;return Plots[key] end
 function Map.PlotXYWithRangeCheck(x,y,dx,dy,r) if Map.PlotDistance(x,y,x+dx,y+dy)<=r then return Map.GetPlot(x+dx,y+dy) end end
+-- Stock units see two tiles. The capital's owned ring plus one-tile border
+-- sight also reaches two; blockers/handicaps are configured by individual maps.
+function revealCity(c)
+ for dx=-2,2 do for dy=-2,2 do local plot=Map.PlotXYWithRangeCheck(c.x,c.y,dx,dy,2)
+  if plot then plot.revealedTeams[c.owner]=true;plot.sight[c.owner]=1 end
+ end end
+end
+function resetStartingSight()
+ for _,plot in pairs(Plots) do plot.revealed=false;plot.revealedTeams={};plot.sight={} end
+ for _,p in pairs(Players) do if p.alive then for c in p:Cities() do revealCity(c) end end end
+end
 function newCity(owner,id,x,y)
  local c={owner=owner,id=id,x=x or 10+id*5,y=y or 10+owner*35,pop=1,b={},founded=Turn,name=id==0 and 'Aeternum' or 'Valoria',food=3,resistance=0}
  function c:GetOwner() return self.owner end;function c:GetID() return self.id end
@@ -101,12 +121,14 @@ function newPlayer(pid,civ)
  end
  function p:AddNotification(kind,body,title) assert(kind==1 and type(body)=='string' and type(title)=='string');self.notices=self.notices+1 end
  function p:CanFound(x,y)
-  local plot=Map.GetPlot(x,y);if not plot or not plot.revealed or plot:IsWater() or plot:IsMountain() or plot:IsImpassable() or plot:IsCity() or self.noFound then return false end
+  local plot=Map.GetPlot(x,y);if not plot or not plot:IsRevealed(self:GetTeam()) or plot:IsWater() or plot:IsMountain() or plot:IsImpassable() or plot:IsCity() or self.noFound then return false end
+  if plot:GetOwner()~=-1 and plot:GetOwner()~=self.id then return false end
+  local feature=GameInfo.Features[plot.feature];if feature and (feature.NaturalWonder==1 or feature.PseudoNaturalWonder==1 or feature.NoCity==1) then return false end
   for _,other in pairs(Players) do for _,c in pairs(other.cities) do if Map.PlotDistance(x,y,c.x,c.y)<=3 then return false end end end;return true
  end
  function p:Found(x,y)
   assert(self:CanFound(x,y),'Unsafe founding');local id=1;while self.cities[id] do id=id+1 end
-  self.cities[id]=newCity(self.id,id,x,y);GameEvents.PlayerCityFounded.Fire(self.id,x,y)
+  self.cities[id]=newCity(self.id,id,x,y);revealCity(self.cities[id]);GameEvents.PlayerCityFounded.Fire(self.id,x,y)
  end
  function p:InitUnit(kind,x,y,ai)
   local id=100;while self.units[id] do id=id+1 end;local u=newUnit(self.id,id,kind);u.x=x;u.y=y
@@ -126,6 +148,7 @@ function setupPlayers(fallback)
   function t:IsHasTech(id) assert(id);return self.tech[id] or false end;Teams[pid]=t
  end
  Players[1].human=false;Players[63]=newPlayer(63,GameInfoTypes.CIVILIZATION_BARBARIAN)
+ resetStartingSight()
 end
 function nextTurn(pid) Turn=Turn+1;GameEvents.PlayerDoTurn.Fire(pid or 0) end
 function reload() __IMPERIAL_CONTEXT_LOADED=nil;resetEvents();MapModData={};include('ImperialCore') end

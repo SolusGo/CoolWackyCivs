@@ -62,7 +62,7 @@ local war=s.war;local participant=I.Provinces(s)[1];s.authority=100;p.gold=10000
 assert(I.Action(0,'CHARTER',participant.key,participant.id));assert(s.war==war and s.authority==90)
 local active=0;for _,faction in pairs(s.factions) do if faction.active and faction.war==war.id then active=active+1 end end;assert(active==2)
 for _,prov in ipairs(I.Provinces(s)) do if prov.faction then prov.actionNext=0;assert(I.Action(0,'CHARTER',prov.key,prov.id)) end end
-I.RebellionTick(s);assert(not s.war and s.authority==80,'Three settlements cost 30 Authority before the existing 10-point war reward')
+I.RebellionTick(s);assert(not s.war and s.authority==70,'Three settlements cost 30 Authority and receive no military completion reward')
 -- AI falls back to an affordable option and pays the same price as a human.
 local ai=I.State(1);local player=Players[1];local prov=I.Provinces(ai)[1];local city=I.City(prov,1)
 city.b[GameInfoTypes.BUILDING_IMPERIAL_PALACE]=1;prov.loyalty=10;prov.actionNext=0;I.BeginRevolt(ai,prov)

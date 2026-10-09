@@ -44,13 +44,13 @@ Dummy buildings apply boolean state, never increment counts. Switching reforms, 
 
 ## Hardening report — 2026-10-10
 
-Peacetime `CHARTER` pays the half-scale provincial Gold price and 5 Authority; wartime `CHARTER` pays the double-scale price and 10 Authority, even for a previously autonomous province. Both require a Palace. The peacetime branch accepts loyal/discontented provinces, adds 15 Loyalty and 12 Ambition, and cannot be repeated. The wartime branch resolves only the matching active Governor faction, guarantees at least 70 Loyalty, adds 20 Ambition and stores hereditary privileges. Those privileges add 0.5 Ambition each political interval and survive administrative replacement. Existing +2 petition and +10 completed-war rewards are preserved. Reconciliation still costs 15 Authority. AI selects the first affordable settlement through the same action validator.
+Peacetime `CHARTER` pays the half-scale provincial Gold price and 5 Authority; wartime `CHARTER` pays the double-scale price and 10 Authority, even for a previously autonomous province. Both require a Palace. The peacetime branch accepts loyal/discontented provinces, adds 15 Loyalty and 12 Ambition, and cannot be repeated. The wartime branch resolves only the matching active Governor faction, guarantees at least 70 Loyalty, adds 20 Ambition and stores hereditary privileges. Those privileges add 0.5 Ambition each political interval and survive administrative replacement. The +2 petition reward remains; completed-war rewards now follow the outcome rules below. Reconciliation still costs 15 Authority. AI selects the first affordable settlement through the same action validator.
 
 Faction recruitment budgets are unchanged. `defectionLimit` persists independently of the budget and defaults to two. Each successful defection reserves its allowance before native death callbacks, creates a safe replacement first, transfers experience/permanent non-imperial promotions and then kills the original. Imperial Legion free promotions are explicitly stripped from the rebel. Two-per-faction, six-across-active-factions and 24-live-rebel limits still apply. Legacy factions that already spent more than two slots retain their historical count and receive no reopened slots.
 
 Petitions now exclude chartered Governors and verify current technology, build legality, territory, strategic resource/improvement matching and target validity. Pillaged Farms count only when repair is feasible. Impossible requests are cancelled without Loyalty/Ambition penalties, while valid expiry retains the existing penalty. Completion clears the petition before rewards; deadlines remain saved. Construction checks only that city's request, and turn generation records the last request turn to enforce the notification limit. Replacing a Governor clears the old request.
 
-Starting placement explicitly checks team visibility independently of `CanFound`. A bounded local flood visits passable land only within eight tiles, including canonical wrapping coordinates; sea/mountain barriers cannot be crossed. Normal spacing, rival starts, ownership and occupancy remain checked. Each entitlement records an intention before `Found`/`InitUnit`; callbacks complete it, and load recovery recognizes the previously created city or Settler. Existing Settler IDs are excluded when recovering an interrupted grant. A completed entitlement remains spent if its city/unit later disappears. Freshly introduced state in an established game cannot grant free cities, including a newly founded late-game capital. Saves already recording a legitimate starting operation can resume it.
+The initial hardening required revealed starting plots; the founding correction below supersedes that visibility restriction. A bounded local flood visits passable land only within eight tiles, including canonical wrapping coordinates; sea/mountain barriers cannot be crossed. Normal spacing, rival starts, ownership and occupancy remain checked. Each entitlement records an intention before `Found`/`InitUnit`; callbacks complete it, and load recovery recognizes the previously created city or Settler. Existing Settler IDs are excluded when recovering an interrupted grant. A completed entitlement remains spent if its city/unit later disappears. Freshly introduced state in an established game cannot grant free cities, including a newly founded late-game capital. Saves already recording a legitimate starting operation can resume it.
 
 `I.Commit` queues work in the existing Lua owner. A synchronous transaction depth coalesces nested city/unit callbacks, AI actions and parent turn commits into one final snapshot per affected player. Outermost completion flushes immediately; there are no timers or delayed player-action saves. City caches compare effect signatures only for dirty cities, or across the empire when reform/council/restoration conditions change. Unit creation/conversion marks individual promotions dirty; Authority crossing 60 or Dictatorship changes refresh the army, folded into the turn's existing unit pass when possible. Caches are transient and rebuilt on reload. Combat records still save because battles/Oaths/Chronicle are meaningful state changes. A closed Administration screen refreshes its status only when displayed Authority changes.
 
@@ -98,4 +98,62 @@ tools/tests/shattered_mock.lua
 tools/tests/shattered_hardening_assertions.lua
 tools/tests/shattered_defection_assertions.lua
 tools/tests/shattered_stress_assertions.lua
+```
+
+## Final founding and civil-war correction — 2026-10-10
+
+The founding defect combined limited normal sight with a requirement to choose an already revealed site. The old mock exposed the entire map and then overrode native fog checks in map tests, masking the ordinary start failure. The reward defect counted autonomy, concessions and reconciliation as `victories`, granting the military completion reward for peaceful wars.
+
+### Founding investigation and implementation
+
+The pinned [CP Release-5.4.2 player source](https://github.com/LoneGazebo/Community-Patch-DLL/blob/Release-5.4.2/CvGameCoreDLL_Expansion2/CvPlayer.cpp) rejects unrevealed plots in `canFoundCityExt`; `foundCity` calls that validator. The [player Lua binding](https://github.com/LoneGazebo/Community-Patch-DLL/blob/Release-5.4.2/CvGameCoreDLL_Expansion2/Lua/CvLuaPlayer.cpp) exposes no force parameter. Removing our fog predicate alone therefore cannot fix founding. `PlayerCityFounded` runs after native creation, so the existing pending intent must precede `Found`.
+
+The retained CP v151 `CoreWorldChanges.sql` sets `MinDistanceCities` to 3 for every world; `MIN_CITY_RANGE=3` is the fallback. The [native site evaluator](https://github.com/LoneGazebo/Community-Patch-DLL/blob/Release-5.4.2/CvGameCoreDLL_Expansion2/CvSiteEvaluationClasses.cpp) rejects distance **≤3**, requiring city centers at least four plots apart. It also handles terrain, features, ownership, neighboring foreign territory, happiness through the player validator, and other native restrictions. These checks remain authoritative.
+
+Stock Warrior/Settler `BaseSightRange` is 2 in the read-only BNW database. [Native unit visibility](https://github.com/LoneGazebo/Community-Patch-DLL/blob/Release-5.4.2/CvGameCoreDLL_Expansion2/CvUnit.cpp) adds promotion/handicap/AI modifiers; terrain affects actual sight. Owned plots supply one-tile border sight, so a normal capital's initial ring commonly exposes only about two tiles from its center. That can reveal no legally spaced province.
+
+The local eight-tile flood and deterministic ranking now consider connected unseen land. Water, mountains, impassable terrain, city/unit occupancy, rival territory, rival starts within six plots and existing major-city spacing are prefiltered. Natural/pseudo-natural wonders and no-city features are excluded. Resource scoring uses only revealed tiles. Each selected candidate records `pendingCity` with `revealWasHidden` before native callbacks; the native validator still decides whether to found. Rejected candidates try the next local choice; only exhausted legal choices fall back to a Settler. Search bounds, 2/1/1 populations, the sole capital, Legion override and two-entitlement identity rules remain unchanged.
+
+The [plot Lua binding](https://github.com/LoneGazebo/Community-Patch-DLL/blob/Release-5.4.2/CvGameCoreDLL_Expansion2/Lua/CvLuaPlot.cpp) verifies `SetRevealed(team,value,1,-1)`, `GetVisibilityCount(team)` and `GetFeatureType()`. The terrain-only flag is an integer. Only the candidate tile is exposed, with no scouting unit. Failed probes clear that terrain bit unless native sight or a city now exists; successful founding retains normal city sight. Pending recovery also cleans an interrupted temporary reveal. Callback errors release the starting lock and restore failed-probe fog before propagating.
+
+[Native plot revelation](https://github.com/LoneGazebo/Community-Patch-DLL/blob/Release-5.4.2/CvGameCoreDLL_Expansion2/CvPlot.cpp) adjusts the team's area reveal count in both directions. Terrain-only mode avoids owner/improvement/route discovery; passing no unit avoids scouting XP/yields. However, wonder discovery occurs outside that guard, so wonders must never be probed. The DLL also updates tactical/exploration bookkeeping and an ever-revealed-major marker; Lua cannot roll every side effect back. CP v151 defaults `EVENTS_TILE_REVEALED` off, and this collection does not enable it. Other mods enabling that hook could observe temporary probes and need an engine compatibility check. Native city sight can legitimately discover nearby wonders, including through the collection's existing discovery hook.
+
+These source checks use the repository's pinned CP release, plus the retained v151 schema/configuration. They do not establish that every v151-distributed DLL or map-script variant behaves identically. Pangaea, Continents and island scripts retain native terrain/spacing validation without script-specific overrides; synthetic local fixtures cover their geographic patterns. Generated maps, native line of sight, AI caches and UI rendering still require a real CP game.
+
+### Civil-war outcomes, balance and saves
+
+New active wars store suppressed, negotiated, exhausted, lost and undocumented counters. Only `SUPPRESSED` is military; `AUTONOMY`, `CONCESSION` and `RECONCILED` are negotiated. Factions become inactive before native troop cleanup, preventing reentrant reward duplication. A missing, retired, replaced or lost Governor/city cannot earn suppression credit. Per-faction Chronicle prose and final war records distinguish force, compromise, exhaustion and territorial loss; Overview shows the stored breakdown and actual completion Authority gained.
+
+| Final outcome | Completion Authority |
+|---|---:|
+| Every faction militarily suppressed | +10 |
+| Every faction negotiated | 0 |
+| Clean mixture of military and negotiated results | `floor(10 × suppressed / total)` |
+| Any exhausted, lost or undocumented resolution | 0 |
+
+Suppression still gives +5 per faction, or +7 under Monarchy. One suppression among three clean participants adds +3 at completion; two add +6. Individual settlement prices, autonomy, hereditary Ambition, reconciliation, faction exhaustion consequences and cooldowns retain their prior values. Authority remains clamped to 0–100; history/UI report the amount actually gained after clamping. Peaceful reunification and surviving provinces retain the existing collapse-resolution and stability-based Restoration progression.
+
+Version-1 keys, dual-bank encoding, mod IDs and package versions remain unchanged. Older active wars reconstruct outcomes once from retained matching faction records. Resolved records already pruned are marked undocumented, never inferred military from the ambiguous legacy `victories` counter. Subsequent faction resolution increments exactly once; `victories` now mirrors military suppression. Completed historical war records and their already-paid rewards are untouched and labelled legacy in the UI. Governors, Oaths, dynasty, pending grants and Restoration records persist without resetting or regranting rewards. Editable localization now matches the previous hardening SQL and includes the new outcome text.
+
+Exact modified/added files for this correction:
+
+```text
+Cool Wacky Civs (v 20).modinfo
+README.md
+PATCHNOTES.md
+TheShatteredEmpire/CHANGELOG.md
+TheShatteredEmpire/README.md
+TheShatteredEmpire/docs/Implementation.md
+TheShatteredEmpire/docs/Validation.md
+TheShatteredEmpire/Lua/ImperialPersistence.lua
+TheShatteredEmpire/Lua/ImperialRebellions.lua
+TheShatteredEmpire/Lua/ImperialStartingCities.lua
+TheShatteredEmpire/SQL/10_Imperial_Text.sql
+TheShatteredEmpire/The Shattered Empire (v 1).modinfo
+TheShatteredEmpire/UI/ImperialAdministration.lua
+tools/shattered_localization.py
+tools/validate_shattered_mod.py
+tools/tests/shattered_hardening_assertions.lua
+tools/tests/shattered_mock.lua
+tools/tests/shattered_war_outcomes_assertions.lua
 ```

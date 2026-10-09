@@ -2,7 +2,9 @@ local I=MapModData.TheShatteredEmpire
 local function valid(s,plot)
  if not plot or plot:IsWater() or plot:IsMountain() or plot:IsImpassable() or plot:IsCity() or plot:GetNumUnits()>0 then return false end
  if plot:GetOwner()~=-1 and plot:GetOwner()~=s.pid then return false end
- local p=Players[s.pid];if not plot:IsRevealed(p:GetTeam()) or not p:CanFound(plot:GetX(),plot:GetY()) then return false end
+ -- setRevealed triggers wonder discovery even with terrain-only visibility.
+ local feature=GameInfo.Features[plot:GetFeatureType()]
+ if feature and (feature.NaturalWonder==true or feature.NaturalWonder==1 or feature.PseudoNaturalWonder==true or feature.PseudoNaturalWonder==1 or feature.NoCity==true or feature.NoCity==1) then return false end
  local range=GameDefines.MIN_CITY_RANGE or 3
  for pid=0,GameDefines.MAX_MAJOR_CIVS-1 do local other=Players[pid]
   if other and other:IsAlive() then
@@ -12,6 +14,11 @@ local function valid(s,plot)
   end
  end
  return true
+end
+local function restoreFog(plot,e,team)
+ -- A successfully founded city (or legitimate sight gained in a callback)
+ -- keeps its native visibility. Failed probes restore only our terrain bit.
+ if e.revealWasHidden and plot and not plot:IsCity() and plot:GetVisibilityCount(team)==0 then plot:SetRevealed(team,false,1,-1) end
 end
 local function land(plot) return plot and not plot:IsWater() and not plot:IsMountain() and not plot:IsImpassable() end
 -- Flood only the local search radius. A sea or mountain barrier cannot be crossed.
@@ -44,7 +51,7 @@ function I.StartSettler(s,u)
 end
 function I.Start(s)
  if s.startComplete or s.startBusy then return end
- local p=Players[s.pid];local cap=p:GetCapitalCity();if not cap then return end
+ local p=Players[s.pid];local cap=p and p:GetCapitalCity();if not cap then return end
  -- Existing saves receive politics, never a mid-campaign free empire.
  if not s.startBegun and (not s.startEligible or cap:GetGameTurnFounded()~=I.Now()) then s.startComplete=true;return end
  s.startBusy=true
@@ -58,7 +65,7 @@ function I.Start(s)
   if e and e.kind=='pendingCity' then local plot=Map.GetPlot(e.x,e.y);local c=plot and plot:GetPlotCity()
    if c and c:GetGameTurnFounded()==e.turn then
     if c:GetOwner()==s.pid then I.StartCity(s,c) else s.entitlements[slot]={kind='city',key=I.CityKey(c)} end
-   else s.entitlements[slot]=nil end
+   else restoreFog(plot,e,p:GetTeam());s.entitlements[slot]=nil end
   elseif e and e.kind=='pendingSettler' then
    for u in p:Units() do if I.StartSettler(s,u) then break end end
    if s.entitlements[slot].kind=='pendingSettler' then s.entitlements[slot]=nil end
@@ -67,20 +74,32 @@ function I.Start(s)
   local choices={}
   I.Near(cap:GetX(),cap:GetY(),8,function(plot)
    if reachable[I.CityKey(plot)] and valid(s,plot) then
-    local food=0;I.Near(plot:GetX(),plot:GetY(),1,function(adj) if not adj:IsWater() and not adj:IsMountain() then food=food+1 end;if adj:GetResourceType(p:GetTeam())>=0 then food=food+2 end end)
+    local food=0;I.Near(plot:GetX(),plot:GetY(),1,function(adj) if not adj:IsWater() and not adj:IsMountain() then food=food+1 end;if adj:IsRevealed(p:GetTeam()) and adj:GetResourceType(p:GetTeam())>=0 then food=food+2 end end)
     choices[#choices+1]={plot=plot,score=food-Map.PlotDistance(cap:GetX(),cap:GetY(),plot:GetX(),plot:GetY())}
    end
   end)
   table.sort(choices,function(a,b) if a.score~=b.score then return a.score>b.score end;if a.plot:GetX()~=b.plot:GetX() then return a.plot:GetX()<b.plot:GetX() end;return a.plot:GetY()<b.plot:GetY() end)
   local c
-  if choices[1] then
-   local plot=choices[1].plot
-   s.entitlements[slot]={kind='pendingCity',x=plot:GetX(),y=plot:GetY(),turn=I.Now()}
-   -- Found performs the normal founding pipeline; InitCity alone bypasses it.
-   p:Found(plot:GetX(),plot:GetY());c=plot:GetPlotCity()
+  for _,choice in ipairs(choices) do
+   local plot=choice.plot;local team=p:GetTeam()
+   local pending={kind='pendingCity',x=plot:GetX(),y=plot:GetY(),turn=I.Now(),revealWasHidden=not plot:IsRevealed(team)}
+   s.entitlements[slot]=pending -- Persist intent before any native callback.
+   local ok,err=pcall(function()
+    -- CP CanFound and Found both require revelation. Only this candidate is
+    -- exposed; integer 1 suppresses owner/improvement/route discovery, and no
+    -- scouting unit is supplied. Native founding still validates every rule.
+    if pending.revealWasHidden then plot:SetRevealed(team,true,1,-1) end
+    if p:CanFound(plot:GetX(),plot:GetY()) then p:Found(plot:GetX(),plot:GetY()) end
+   end)
+   c=plot:GetPlotCity();restoreFog(plot,pending,team)
+   if c then
+    if c:GetOwner()==s.pid then I.StartCity(s,c) else s.entitlements[slot]={kind='city',key=I.CityKey(c)} end
+   else s.entitlements[slot]=nil end
+   if not ok then s.startBusy=nil;error(err,0) end
+   if c then break end
   end
-  if c and c:GetOwner()==s.pid then
-   I.StartCity(s,c)
+  if c then
+   if c:GetOwner()==s.pid then I.StartCity(s,c) end
   else
    local existing={};for u in p:Units() do existing[u:GetID()]=true end
    s.entitlements[slot]={kind='pendingSettler',x=cap:GetX(),y=cap:GetY(),turn=I.Now(),existing=existing}

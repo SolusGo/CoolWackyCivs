@@ -65,6 +65,7 @@ function I.Migrate(s,pid)
  for _,e in ipairs(s.history) do s.nextHistory=math.max(s.nextHistory,(e.id or 0)+1) end
  if s.war then
   for _,field in ipairs({'authorityLost','authorityRecovered','troops','defections','restored'}) do s.war[field]=s.war[field] or 0 end
+  I.WarOutcomes(s,s.war)
  end
  return s
 end

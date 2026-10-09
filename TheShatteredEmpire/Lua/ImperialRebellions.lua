@@ -1,4 +1,24 @@
 local I=MapModData.TheShatteredEmpire
+local function outcome(result)
+ if result=='SUPPRESSED' then return 'suppressed' end
+ if result=='AUTONOMY' or result=='CONCESSION' or result=='RECONCILED' then return 'negotiated' end
+ if result=='EXHAUSTED' then return 'exhausted' end
+ return 'lost'
+end
+function I.WarOutcomes(s,w)
+ if not w.outcomesVersion then
+  w.suppressed=0;w.negotiated=0;w.exhausted=0;w.lost=0
+  local known,active=0,0
+  for _,f in pairs(s.factions) do if f.war==w.id then
+   if f.active then active=active+1 elseif f.result then local key=outcome(f.result);w[key]=w[key]+1;known=known+1 end
+  end end
+  -- Older active wars may have had resolved factions pruned. Their ambiguous
+  -- legacy victories cannot safely be credited as military achievements.
+  w.unknown=math.max(0,#w.provinces-known-active);w.outcomesVersion=1
+ end
+ for _,key in ipairs({'suppressed','negotiated','exhausted','lost','unknown'}) do w[key]=w[key] or 0 end
+ w.victories=w.suppressed
+end
 function I.RebelCount(s)
  local n=0;local barb=Players[GameDefines.BARBARIAN_PLAYER or 63]
  for _,f in pairs(s.factions) do if f.active then for uid,r in pairs(f.units) do
@@ -54,7 +74,10 @@ function I.ClearFactionUnits(f)
 end
 function I.ResolveFaction(s,f,result)
  if not f or not f.active then return end
- local g=s.governors[f.origin];I.ClearFactionUnits(f);f.active=false;f.ended=I.Now();f.result=result
+ local g=s.governors[f.origin]
+ if not g or g.id~=f.governor or not g.active or not I.City(g,s.pid) then result='LOST' end
+ if s.war and f.war==s.war.id then I.WarOutcomes(s,s.war) end
+ f.active=false;f.ended=I.Now();f.result=result;I.ClearFactionUnits(f)
  if g and g.id==f.governor then
   g.faction=nil;g.rebel=false;g.stage=0;g.critical=0;g.rebelNext=I.Now()+I.Scale(40);g.demandNext=I.Now()+I.Scale(20)
   if result=='SUPPRESSED' then g.loyalty=math.max(60,g.loyalty);g.ambition=math.max(0,g.ambition-15);I.Authority(s,s.reform=='MONARCHY' and 7 or 5)
@@ -64,11 +87,11 @@ function I.ResolveFaction(s,f,result)
   elseif result=='EXHAUSTED' then g.autonomy=true;g.loyalty=55;I.Authority(s,-5) end
   I.DirtyCity(s,g.key)
  end
- if result~='LOST' and s.war and f.war==s.war.id then
-  s.war.restored=s.war.restored+1
-  if result~='EXHAUSTED' then s.war.victories=(s.war.victories or 0)+1 end
+ if s.war and f.war==s.war.id then
+  local w=s.war;local key=outcome(result);w[key]=w[key]+1;w.victories=w.suppressed
+  if result~='LOST' then w.restored=w.restored+1 end
  end
- I.History(s,'REBELLION',I.Text('HISTORY_REBEL_END',f.name,I.Text('RESULT_'..result)))
+ I.History(s,'REBELLION',I.Text('HISTORY_REBEL_'..result,f.name))
 end
 function I.BeginCivilWar(s)
  if s.war or s.authority>=30 or I.Now()<s.nextWar then return end
@@ -84,7 +107,7 @@ function I.BeginCivilWar(s)
  for _,f in pairs(s.factions) do if f.active then active=active+1 end end
  for _,g in ipairs(supporters) do if g.faction then existing=existing+1 end end
  if existing+math.min(#supporters-existing,math.max(0,6-active))<3 then return end
- local w={id=s.nextWarID,name=I.Text('WAR_NAME',#supporters),leader=claimant.name,claimant=claimant.id,start=I.Now(),provinces={},troops=0,defections=0,restored=0,authorityBefore=s.authority,authorityLost=0,authorityRecovered=0}
+ local w={id=s.nextWarID,name=I.Text('WAR_NAME',#supporters),leader=claimant.name,claimant=claimant.id,start=I.Now(),provinces={},troops=0,defections=0,restored=0,authorityBefore=s.authority,authorityLost=0,authorityRecovered=0,outcomesVersion=1,suppressed=0,negotiated=0,exhausted=0,lost=0,unknown=0,victories=0}
  s.nextWarID=s.nextWarID+1;s.war=w;s.nextWar=I.Now()+I.Scale(60);I.Authority(s,-10);s.collapseSeen=true;s.collapseResolved=false
  I.Reign(s).wars=I.Reign(s).wars+1
  for _,g in ipairs(supporters) do
@@ -118,13 +141,14 @@ function I.RebellionTick(s)
  if s.war then
   local active=0;for _,f in pairs(s.factions) do if f.active and f.war==s.war.id then active=active+1 end end
   if active==0 then
-   local w=s.war;w.finish=I.Now();w.result=w.restored>0 and 'RESTORED' or 'LOST'
-   if w.restored>0 then
-    if (w.victories or 0)>0 then I.Authority(s,10) end
-    s.collapseResolved=true
-   end
+   local w=s.war;I.WarOutcomes(s,w);w.finish=I.Now()
+   local total=w.suppressed+w.negotiated+w.exhausted+w.lost+w.unknown
+   w.result=(total==0 or w.lost>0 or w.unknown>0) and 'FAILED' or w.exhausted>0 and 'EXHAUSTED' or w.negotiated==0 and 'MILITARY' or w.suppressed==0 and 'NEGOTIATED' or 'MIXED'
+   local bonus=w.result=='MILITARY' and 10 or w.result=='MIXED' and math.floor(10*w.suppressed/total) or 0
+   local before=s.authority;I.Authority(s,bonus);w.victoryBonus=s.authority-before
+   if w.restored>0 then s.collapseResolved=true end
    s.wars[#s.wars+1]=w;if #s.wars>30 then table.remove(s.wars,1) end
-   I.History(s,'CIVILWAR',I.Text('HISTORY_WAR_END',w.name,I.Text('RESULT_'..w.result)));s.war=nil;s.nextWar=I.Now()+I.Scale(50)
+   I.History(s,'CIVILWAR',I.Text('HISTORY_WAR_END',w.name,I.Text('RESULT_'..w.result))..' '..I.Text('WAR_OUTCOMES',w.suppressed,w.negotiated,w.exhausted,w.lost,w.unknown,w.victoryBonus));s.war=nil;s.nextWar=I.Now()+I.Scale(50)
   end
  end
  local inactive={};for fid,f in pairs(s.factions) do if not f.active then inactive[#inactive+1]=fid end end;table.sort(inactive)

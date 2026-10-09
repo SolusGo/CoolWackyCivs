@@ -24,7 +24,7 @@ The collection's `python tools/validate_all.py` also runs every existing civiliz
 
 The focused suite adds charter/settlement affordability and repeat/stale identity checks, lasting privileges after replacement/reload, partial civil-war settlement, shared AI prices, redundant/infeasible petitions, saved deadlines and single completion rewards. Four-speed defection tests cover zero recruitment, several Legions, upgraded veteran lineage, effective Dictatorship Oaths, XP/permanent promotion transfer, garrison/civilian/unique/cargo/embarked protection, faction/empire/live-army caps, dead rebel cleanup, failed spawns, active-faction reloads and repeated calls.
 
-Twelve local fixtures model Pangaea, continents, Terra, islands, a mountain basin, unrevealed terrain, foreign ownership, occupied plots, nearby rival starts, no legal plots, an X-wrapped boundary and a cramped torus. Native `CanFound` is deliberately allowed to ignore visibility so explicit fog checks are exercised independently. Saves taken inside city and Settler creation callbacks recover pending grants without multiplication; failed Settler creation resumes safely, and established saves at turns 1 and 20 receive no new starting bonus. These are synthetic map scenarios, not generated Civ V maps.
+The initial hardening used twelve local map fixtures with a visibility override. That mock limitation is corrected by the final founding validation below. Saves taken inside city and Settler creation callbacks recover pending grants without multiplication; failed Settler creation resumes safely, and established saves at turns 1 and 20 receive no new starting bonus. These are synthetic map scenarios, not generated Civ V maps.
 
 The stress suite runs 100+ provinces and 650+ units through consecutive combat, mass creation, local charters, Authority promotion thresholds, active wars, expiring requests, repeated decisions, 100 turns, five reloads, restoration and AI decisions. It asserts that ordinary combat/creation performs zero full army passes and zero dummy-building checks, a local charter updates at most one city's effects, and nested AI actions/defections save once. UI checks verify the displayed Gold/Authority costs, both consequence tooltips and closed-screen refresh filtering. Existing 500-turn/22-player and all-collection regression coverage remains.
 
@@ -45,11 +45,32 @@ Both `python tools/validate_shattered_mod.py` and `python tools/validate_all.py`
 
 Focused manual CP v151 checks:
 
-1. Start island/cramped/wrapped games; verify connected revealed founding, population 2/1, exactly two grants and reload safety before/after each founding.
+1. Start spacious/island/cramped/wrapped games with normal fog; verify connected legal founding, population 2/1, exactly two grants and reload safety before/after each founding.
 2. Test both autonomy decisions with insufficient and sufficient resources, repeat/stale clicks and a previously autonomous rebel. Check UI prices, permanent Ambition pressure and a three-faction war continuing after one settlement.
 3. Upgrade a veteran Legion, exhaust recruitment, then lower its effective Oath. Verify safe defection, XP, protected units, two/six/24 caps and reload behavior.
 4. Lose a petition resource/city, repair Farms, replace a Governor and reload near deadlines. Verify withdrawal without unfair penalty and no duplicate reward.
 5. Use a large AI empire through combat, repeated wars, restoration and saving; inspect Lua.log, city modifiers and conditional promotions, and measure actual turn times.
+
+## Final founding and civil-war validation — 2026-10-10
+
+The default Lua fixture now starts with team-specific sight only within two tiles of each capital, rather than revealing every plot. Native `CanFound` rejects unexplored sites, and successful `Found` reveals the new city's normal local sight before firing the creation event. Terrain-only reveal flags and visibility counts are checked against the pinned CP bindings; source assertions cover the native fog gate, wonder side effects and spacing. The synthetic distance model remains a simplified wrapped grid, so it cannot establish generated hex-map or line-of-sight behavior.
+
+Thirteen local profiles cover spacious Pangaea, Continents, Small Continents, Archipelago, Tiny Islands, mountain barriers, coastal starts, foreign ownership, occupied plots, nearby rival starts, no legal sites, an X-wrapped boundary and a cramped torus. Spacious connected land must produce three cities, zero fallback Settlers, one capital and populations 2/1/1. Restricted land must deliver the remaining entitlements as Settlers. Every profile checks exactly two distinct grants, normal native sight only, and repeated reload identity.
+
+Additional cases cover per-plot native vetoes, a silent failed `Found`, natural and pseudo-natural wonder exclusion, unchanged hidden-resource ranking, restoration of rejected tiles to fog, a save after temporary revelation but before founding, callback errors, saves during city/Settler creation, failed Settler initialization and established-save exclusion. The pseudo-wonder test clones a real feature row because the retained BNW cache plus CP DDL may contain no pseudo-wonder content.
+
+At speed multipliers 67/100/150/300, outcome scenarios check military-only (+10), negotiated-only (+0), clean mixed (+3/+6 for one/two military factions of three), partial and total exhaustion (+0), territorial failure (+0), unchanged per-faction 5/7 suppression, Authority clamping, peaceful Empire Reborn progression, active-war reload, one-time legacy reconstruction, pruned ambiguous resolutions, preserved completed legacy records, Governor/Oath persistence, stale identities, native cleanup reentrancy, repeated calls and AI-paid negotiation. UI checks inspect every stored outcome and legacy label through the real Overview callbacks.
+
+The earlier petition, costly autonomy, veteran defection, reform, succession, capture, dirty-effect/save-coalescing and UI scenarios remain. Existing 500-turn/22-player, 80+ province/500+ unit and 100+ province/650+ unit stress fixtures remain in the focused suite.
+
+Final execution results:
+
+- `python tools/validate_shattered_mod.py` passed all four speeds, thirteen limited-sight profiles, interrupted/rejected founding, war outcome/migration/AI/UI cases and every earlier endurance regression.
+- `python tools/validate_all.py` passed all fifteen civilization suites. Collection checks verified 538 gameplay/art files, 60 SQL actions, all 401 DDS files and 52 shipped Lua scripts.
+- `python tools/build_mod.py` and `python tools/build_shattered_mod.py` built both ZIP and native `.civ5mod` packages and passed native archive integrity checks. Both manifests retain their original IDs/versions and match the changed gameplay hashes. Documentation was included in refreshed final packages.
+- `git diff --check` passed. No Civ V game was launched; the engine-specific checks below remain outstanding.
+
+Remaining engine checks: generated standard maps and actual hex wrapping; native terrain sight and temporary fog rendering; tactical/exploration cache updates; discovery hooks enabled by other mods; saves made through Civ V inside callbacks; final UI text/layout; AI tactics and numeric balance. The collection enables natural-wonder discovery for PaulsoaresJr, so verify that only genuine city sight discovers adjacent wonders and that rejected candidate probes never do. CP v151's tile-revealed hook is disabled by default and this collection does not enable it; third-party hooks may introduce non-reversible observer effects. No Civ V game was launched.
 
 ## Required in-game checklist
 

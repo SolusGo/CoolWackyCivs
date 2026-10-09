@@ -53,11 +53,13 @@ local function overview(s,parts)
  for _,g in ipairs(I.Provinces(s)) do if g.faction then rebels=rebels+1 elseif g.loyalty<45 then unrest=unrest+1 else loyal=loyal+1 end end
  line(parts,I.Text('OVERVIEW_DETAIL',loyal,unrest,rebels,s.strain,rounded(s.averageLoyalty),s.warTurns))
  line(parts,I.Text('OVERVIEW_HELP'))
- if s.war then line(parts,I.Text('WAR_DETAIL',s.war.name,s.war.leader,s.war.start,#s.war.provinces,s.war.troops,s.war.defections)) end
+ if s.war then line(parts,I.Text('WAR_DETAIL',s.war.name,s.war.leader,s.war.start,#s.war.provinces,s.war.troops,s.war.defections));line(parts,I.Text('WAR_PROGRESS',s.war.suppressed,s.war.negotiated,s.war.exhausted,s.war.lost,s.war.unknown)) end
  if s.succession then line(parts,I.Text('SUCCESSION_PENDING',s.succession.deadline)) end
  line(parts,I.Text('RESTORATION_DETAIL',s.restorationActive and I.Text('ACTIVE') or s.restored and I.Text('DORMANT') or I.Text('LOCKED'),s.restorationSince and I.Now()-s.restorationSince or 0,I.Scale(20)))
  for _,w in ipairs(s.wars) do row(w.name..'[NEWLINE]'..I.Text('TURN',w.start),w.id)
-  if selected==w.id then line(parts,I.Text('WAR_RECORD',w.name,w.leader,w.start,w.finish,I.Text('RESULT_'..w.result),w.restored,w.troops,w.authorityLost,w.authorityRecovered)) end
+  if selected==w.id then line(parts,I.Text('WAR_RECORD',w.name,w.leader,w.start,w.finish,I.Text('RESULT_'..w.result),w.restored,w.troops,w.authorityLost,w.authorityRecovered))
+   if w.outcomesVersion then line(parts,I.Text('WAR_OUTCOMES',w.suppressed,w.negotiated,w.exhausted,w.lost,w.unknown,w.victoryBonus)) else line(parts,I.Text('WAR_LEGACY')) end
+  end
  end
 end
 local function military(s,parts)
