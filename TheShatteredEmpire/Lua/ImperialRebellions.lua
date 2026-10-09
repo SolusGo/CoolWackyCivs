@@ -1,6 +1,10 @@
 local I=MapModData.TheShatteredEmpire
 function I.RebelCount(s)
- local n=0;for _,f in pairs(s.factions) do if f.active then for _ in pairs(f.units) do n=n+1 end end end;return n
+ local n=0;local barb=Players[GameDefines.BARBARIAN_PLAYER or 63]
+ for _,f in pairs(s.factions) do if f.active then for uid,r in pairs(f.units) do
+  local u=barb and barb:GetUnitByID(uid)
+  if u and u:GetGameTurnCreated()==r.birth and (not r.name or u:GetNameNoDesc()==r.name) then n=n+1 else f.units[uid]=nil end
+ end end end;return n
 end
 function I.RebelType(s)
  local team=Teams[Players[s.pid]:GetTeam()];local selected=I.ID('UNIT_WARRIOR')
@@ -10,8 +14,8 @@ function I.RebelType(s)
  end
  return selected
 end
-function I.SpawnRebel(s,f,kind,x,y)
- if not f.active or f.budget<=0 or I.RebelCount(s)>=24 then return end
+function I.SpawnRebel(s,f,kind,x,y,defection)
+ if not f or not f.active or (not defection and f.budget<=0) or I.RebelCount(s)>=24 then return end
  local barb=Players[GameDefines.BARBARIAN_PLAYER or 63];if not barb then return end
  local choices={}
  I.Near(x,y,3,function(plot)
@@ -23,7 +27,7 @@ function I.SpawnRebel(s,f,kind,x,y)
  if not u then return end
  local name=I.Text('REBEL_UNIT',f.name)..' ['..f.id..':'..(f.spawned+1)..']'
  u:SetName(name);u:FinishMoves()
- f.units[u:GetID()]={birth=u:GetGameTurnCreated(),kind=kind,name=name};f.budget=f.budget-1;f.spawned=f.spawned+1
+ f.units[u:GetID()]={birth=u:GetGameTurnCreated(),kind=kind,name=name};if not defection then f.budget=f.budget-1 end;f.spawned=f.spawned+1
  if s.war and f.war==s.war.id then s.war.troops=s.war.troops+1 end
  return u
 end
@@ -32,13 +36,14 @@ function I.BeginRevolt(s,g)
  local active=0;for _,f in pairs(s.factions) do if f.active then active=active+1 end end;if active>=6 then return end
  local c=I.City(g,s.pid);if not c then return end
  local strength=math.min(8,3+math.floor(c:GetPopulation()/5)+math.floor(g.prestige/35)+(c:IsHasBuilding(I.ID('BUILDING_BARRACKS')) and 1 or 0)+(s.reform=='MONARCHY' and 1 or 0)+(Players[s.pid]:GetHandicapType()>=5 and 1 or 0))
- local f={id=s.nextFaction,name=g.name,governor=g.id,origin=g.key,active=true,started=I.Now(),budget=strength,spawned=0,units={},nextReinforce=I.Now()+I.Scale(10),defections=0}
+ local f={id=s.nextFaction,name=g.name,governor=g.id,origin=g.key,active=true,started=I.Now(),budget=strength,spawned=0,units={},nextReinforce=I.Now()+I.Scale(10),defections=0,defectionLimit=2}
  s.nextFaction=s.nextFaction+1;s.factions[f.id]=f;g.faction=f.id;g.stage=3;g.rebel=true;g.demand=nil
  I.Authority(s,-6);I.Reign(s).rebellions=I.Reign(s).rebellions+1
  I.History(s,'REBELLION',I.Text('HISTORY_REBEL',g.name,c:GetName()))
  I.Notify(s,I.Text('REVOLT_TITLE'),I.Text('REVOLT_NOTICE',g.name,c:GetName()),g)
  for _=1,math.min(3,strength) do I.SpawnRebel(s,f,I.RebelType(s),g.x,g.y) end
  I.Defections(s,g,f)
+ I.DirtyCity(s,g.key)
 end
 function I.ClearFactionUnits(f)
  local barb=Players[GameDefines.BARBARIAN_PLAYER or 63]
@@ -53,10 +58,11 @@ function I.ResolveFaction(s,f,result)
  if g and g.id==f.governor then
   g.faction=nil;g.rebel=false;g.stage=0;g.critical=0;g.rebelNext=I.Now()+I.Scale(40);g.demandNext=I.Now()+I.Scale(20)
   if result=='SUPPRESSED' then g.loyalty=math.max(60,g.loyalty);g.ambition=math.max(0,g.ambition-15);I.Authority(s,s.reform=='MONARCHY' and 7 or 5)
-  elseif result=='AUTONOMY' then g.autonomy=true;g.loyalty=math.max(70,g.loyalty);g.ambition=I.Clamp(g.ambition+12,0,100)
+  elseif result=='AUTONOMY' then g.autonomy=true;g.settlement=true;g.loyalty=math.max(70,g.loyalty);g.ambition=I.Clamp(g.ambition+20,0,100)
   elseif result=='CONCESSION' then g.loyalty=math.max(65,g.loyalty)
   elseif result=='RECONCILED' then g.loyalty=math.max(75,g.loyalty);g.relationship=I.Clamp(g.relationship+20,-100,100)
   elseif result=='EXHAUSTED' then g.autonomy=true;g.loyalty=55;I.Authority(s,-5) end
+  I.DirtyCity(s,g.key)
  end
  if result~='LOST' and s.war and f.war==s.war.id then
   s.war.restored=s.war.restored+1
@@ -87,7 +93,7 @@ function I.BeginCivilWar(s)
  end
  -- Nearby undecided governors join only when personally estranged or militarist.
  for _,g in ipairs(provinces) do if not g.faction and g.loyalty<45 and g.ambition>50 and (g.relationship<0 or g.archetype==claimant.archetype) and Map.PlotDistance(claimant.x,claimant.y,g.x,g.y)<=8 then
-  I.BeginRevolt(s,g);if g.faction then local f=s.factions[g.faction];f.war=w.id;w.provinces[#w.provinces+1]={key=g.key,name=g.cityName,governor=g.name};w.troops=w.troops+f.spawned end
+  I.BeginRevolt(s,g);if g.faction then local f=s.factions[g.faction];f.war=w.id;w.provinces[#w.provinces+1]={key=g.key,name=g.cityName,governor=g.name};w.troops=w.troops+f.spawned;w.defections=w.defections+f.defections end
  end end
  I.History(s,'CIVILWAR',I.Text('HISTORY_WAR',w.name,w.leader,#w.provinces));I.Notify(s,w.name,I.Text('WAR_NOTICE',w.leader,#w.provinces),claimant)
 end
@@ -103,7 +109,7 @@ function I.RebellionTick(s)
    elseif I.Now()>=f.started+I.Scale(100) then I.ResolveFaction(s,f,'EXHAUSTED')
    elseif count==0 and I.Now()>=f.started+I.Scale(5) then I.ResolveFaction(s,f,f.spawned>0 and 'SUPPRESSED' or 'EXHAUSTED')
    elseif I.Now()>=f.nextReinforce then
-    f.nextReinforce=I.Now()+I.Scale(10);g.stage=4
+    f.nextReinforce=I.Now()+I.Scale(10);g.stage=4;I.DirtyCity(s,g.key)
     if count<4 then I.SpawnRebel(s,f,I.RebelType(s),g.x,g.y) end
    end
   end

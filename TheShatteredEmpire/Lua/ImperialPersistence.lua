@@ -49,6 +49,7 @@ function I.Migrate(s,pid)
  s.successionNext=s.successionNext or I.Now()+I.Scale(40);s.eraSeen=s.eraSeen or Players[pid]:GetCurrentEra()
  s.warTurns=s.warTurns or 0;s.strain=s.strain or 0;s.averageLoyalty=s.averageLoyalty or 75
  s.startBusy=nil;s.actionBusy=nil
+ if s.startEligible==nil then s.startEligible=s.startBegun or I.Now()<=1 end
  if #s.dynasty==0 then s.dynasty[1]={name='Aurelius I',archetype='FOUNDER',trait=I.Text('HEIR_TRAIT_FOUNDER'),start=I.Now(),wars=0,rebellions=0,acquired=0,lost=0,reforms=0,circumstance='FOUNDING'} end
  for _,g in pairs(s.governors) do
   g.history=g.history or {};g.relationship=g.relationship or 0;g.stage=g.stage or 0;g.critical=g.critical or 0;g.actionNext=g.actionNext or 0
@@ -57,7 +58,10 @@ function I.Migrate(s,pid)
   s.nextGovernor=math.max(s.nextGovernor,(g.id or 0)+1)
  end
  for _,r in pairs(s.units) do s.nextUnit=math.max(s.nextUnit,(r.id or 0)+1) end
- for _,f in pairs(s.factions) do s.nextFaction=math.max(s.nextFaction,(f.id or 0)+1);f.units=f.units or {} end
+ for _,f in pairs(s.factions) do
+  s.nextFaction=math.max(s.nextFaction,(f.id or 0)+1);f.units=f.units or {};f.defections=f.defections or 0
+  f.defectionLimit=f.defectionLimit or math.max(2,f.defections);f.defectionBusy=nil
+ end
  for _,e in ipairs(s.history) do s.nextHistory=math.max(s.nextHistory,(e.id or 0)+1) end
  if s.war then
   for _,field in ipairs({'authorityLost','authorityRecovered','troops','defections','restored'}) do s.war[field]=s.war[field] or 0 end

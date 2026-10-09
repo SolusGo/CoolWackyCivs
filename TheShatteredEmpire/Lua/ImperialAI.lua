@@ -6,14 +6,14 @@ function I.AITick(s)
   local wanted=(s.averageLoyalty<65 or p:GetNumCities()>8) and 'FEDERATION' or I.Wars(s.pid)>0 and 'DICTATORSHIP' or 'MONARCHY'
   if wanted~=s.reform then I.Action(s.pid,'REFORM',wanted) end
  end
- local decisions=0
+ local decisions=0;local soldiers
  for _,g in ipairs(I.Provinces(s)) do
   if decisions<2 and I.Now()>=g.actionNext then
    local action
    if g.faction then
-    if not g.autonomy and I.City(g,s.pid):IsHasBuilding(I.ID('BUILDING_IMPERIAL_PALACE')) then action='CHARTER'
-    elseif p:GetGold()>I.GoldCost(s,g,2)+50 then action='CONCESSION'
-    elseif s.authority>=40 then action='RECONCILE' end
+    for _,candidate in ipairs({'CHARTER','CONCESSION','RECONCILE'}) do
+     if not action and I.CanAction(s.pid,candidate,g.key,g.id) then action=candidate end
+    end
    elseif g.loyalty<40 and g.ambition>70 and s.authority>=35 then action='REPLACE'
    elseif g.loyalty<60 and p:GetGold()>I.GoldCost(s,g)+100 then action='BRIBE'
    elseif g.demand and (g.demand.kind=='FUNDS' or g.demand.deadline-I.Now()<=I.Scale(5)) and p:GetGold()>g.demand.cost+75 then action='FUND'
@@ -24,7 +24,8 @@ function I.AITick(s)
   local c=I.City(g,s.pid)
   if c and not c:GetGarrisonedUnit() and I.Wars(s.pid)==0 and I.Now()%I.Scale(5)==0 then
    local soldier,distance
-   for u in p:Units() do if I.LandCombat(u) and not u:IsEmbarked() and not u:IsCargo() and u:MovesLeft()>0 and not u:GetPlot():IsCity() then
+   if not soldiers then soldiers={};for u in p:Units() do if I.LandCombat(u) and not u:IsEmbarked() and not u:IsCargo() and u:MovesLeft()>0 and u:GetPlot() and not u:GetPlot():IsCity() then soldiers[#soldiers+1]=u end end end
+   for _,u in ipairs(soldiers) do if u:MovesLeft()>0 then
     local d=Map.PlotDistance(g.x,g.y,u:GetX(),u:GetY());if d<=6 and (not distance or d<distance) then soldier=u;distance=d end
    end end
    if soldier and MissionTypes and MissionTypes.MISSION_MOVE_TO then soldier:PushMission(MissionTypes.MISSION_MOVE_TO,g.x,g.y,0,0,1) end

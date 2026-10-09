@@ -32,17 +32,21 @@ function I.LoyaltyTick(s)
  if cap and cap:IsHasBuilding(I.ID('BUILDING_IMPERIAL_PALACE')) and I.Now()>=s.nextPalace then I.Authority(s,1);s.nextPalace=I.Now()+I.Scale(10) end
  for _,g in ipairs(I.Provinces(s)) do
   local c=I.City(g,s.pid);local delta,parts=I.LoyaltyDelta(s,g);g.delta=delta;g.reasons=parts
+  if c then
   g.loyalty=I.Clamp(g.loyalty+delta,0,100)
   local growth=c:GetPopulation()>g.population
   g.prestige=I.Clamp(g.prestige+(growth and 2 or .2)+(g.archetype=='AMBITIOUS' and .5 or 0),0,100);g.population=c:GetPopulation()
   local ambition=g.archetype=='LOYALIST' and 0 or g.archetype=='AMBITIOUS' and 1 or .25
   if s.reform=='DICTATORSHIP' and g.archetype=='MILITARIST' then ambition=ambition+1 end
+  if g.settlement then ambition=ambition+.5 end
   g.ambition=I.Clamp(g.ambition+ambition,0,100)
   if not g.faction then
    local stage=g.loyalty<25 and 2 or g.loyalty<45 and 1 or 0
    if stage>g.stage then I.Notify(s,I.Text('UNREST_TITLE'),I.Text('UNREST_NOTICE',g.name,c:GetName(),I.Text('STAGE_'..stage)),g) end
+   if g.stage~=stage then I.DirtyCity(s,g.key) end
    g.stage=stage;g.critical=g.loyalty<25 and g.critical+1 or 0
    if g.critical>=2 and I.Now()>=(g.rebelNext or 0) then I.BeginRevolt(s,g) end
+  end
   end
  end
 end

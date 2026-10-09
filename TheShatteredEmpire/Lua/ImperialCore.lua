@@ -1,7 +1,7 @@
 -- Sole simulation owner, loaded once by ImperialAdministration for all players.
 if __IMPERIAL_CONTEXT_LOADED then return end
 __IMPERIAL_CONTEXT_LOADED=true
-MapModData.TheShatteredEmpire={States={}}
+MapModData.TheShatteredEmpire={States={},Work={},Depth=0}
 local I=MapModData.TheShatteredEmpire
 I.ID=function(name) return GameInfoTypes[name] end
 I.Now=function() return Game.GetGameTurn() end
@@ -26,6 +26,7 @@ function I.Near(x,y,r,fn)
 end
 function I.CityKey(c) return c:GetX()..':'..c:GetY() end
 function I.City(g,pid)
+ if not g then return end
  local plot=Map.GetPlot(g.x,g.y);local c=plot and plot:GetPlotCity()
  if c and c:GetOwner()==pid and c:GetGameTurnFounded()==g.founded then return c end
 end
@@ -46,6 +47,31 @@ function I.Authority(s,delta)
  end
 end
 function I.Condition(n) return I.Text(n>=80 and 'GOLDEN' or n>=60 and 'STABLE' or n>=40 and 'STRAINED' or n>=20 and 'FRACTURED' or 'COLLAPSE') end
+-- Runtime caches never enter a save. Nested native callbacks share one transaction.
+function I.Pending(pid)
+ local w=I.Work[pid]
+ if not w then w={cities={},units={},cityCache={},allCities=true};I.Work[pid]=w end
+ return w
+end
+function I.DirtyCity(s,key) local w=I.Pending(s.pid);if key then w.cities[key]=true else w.allCities=true end end
+function I.DirtyUnit(s,uid) I.Pending(s.pid).units[uid]=true end
+function I.Flush()
+ if I.Flushing then return end;I.Flushing=true
+ for _,pid in ipairs(I.Keys(I.Work)) do local w=I.Work[pid]
+  if w.pending then
+   local s=I.State(pid);I.ApplyEffects(s,w);I.ApplyUnitEffects(s,w);w.pending=nil
+   I.Save(pid)
+   if LuaEvents.ImperialChanged then LuaEvents.ImperialChanged(pid) end
+  end
+ end
+ I.Flushing=nil
+end
+function I.Atomic(fn,...)
+ I.Depth=I.Depth+1;local result={pcall(fn,...)};I.Depth=I.Depth-1
+ if I.Depth==0 then I.Flush() end
+ if not result[1] then error(result[2],0) end
+ return unpack(result,2)
+end
 include('ImperialPersistence')
 include('ImperialChronicle')
 include('ImperialStartingCities')
@@ -57,12 +83,13 @@ include('ImperialReforms')
 include('ImperialSuccession')
 include('ImperialAI')
 function I.Commit(pid)
- I.ApplyEffects(I.State(pid));I.Save(pid)
- if LuaEvents.ImperialChanged then LuaEvents.ImperialChanged(pid) end
+ I.Pending(pid).pending=true
+ if I.Depth==0 then I.Flush() end
 end
 function I.Initialize(pid)
  if not I.IsEmpire(pid) then return end
- local s=I.State(pid);I.Start(s);I.Reconcile(s);I.UnitTick(s,false);I.Commit(pid);return s
+ local s=I.State(pid);if s.startBusy then return s end
+ I.Start(s);I.Reconcile(s);I.UnitTick(s,false);I.Commit(pid);return s
 end
 function I.Turn(pid)
  if not I.IsEmpire(pid) then return end
@@ -77,6 +104,9 @@ function I.Turn(pid)
   s.nextPolitical=I.Now()+I.Scale(5);I.LoyaltyTick(s);I.UnitTick(s,true)
  else I.UnitTick(s,false) end
  I.DemandTick(s);I.RebellionTick(s);I.AITick(s);I.RestorationTick(s);I.Commit(pid)
+end
+for _,name in ipairs({'Initialize','Turn','Action','Converted','BeginRevolt','ResolveFaction','Defections'}) do
+ local fn=I[name];I[name]=function(...) return I.Atomic(fn,...) end
 end
 include('ImperialEvents')
 for pid=0,GameDefines.MAX_MAJOR_CIVS-1 do if I.IsEmpire(pid) then I.Initialize(pid) end end

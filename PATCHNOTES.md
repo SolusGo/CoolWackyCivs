@@ -1,5 +1,12 @@
 # Patch Notes
 
+## Version 20 — Shattered Empire hardening — 2026-10-10
+
+- Added costly wartime autonomy and lasting hereditary privileges; peacetime charters and AI decisions use the same validated costs displayed in Administration.
+- Separated defection allowances from recruitment, hardened petitions and connected/revealed starting placement, and made interrupted grants safe to resume.
+- Added dirty city/unit effects and synchronous save coalescing, plus fixes for upgrade bonuses, stale/captured Governors, duplicate capture losses and war defection totals.
+- Expanded all-speed regression, map/reload and large-empire simulation coverage. Existing save keys and package versions are retained; actual Civ V playtesting remains required.
+
 ## Version 20 — The Shattered Empire — 2026-10-10
 
 - Added The Last Emperor, Aeternum, The Weight of an Empire, Imperial Legion/Warrior and Provincial Governor's Palace/Monument replacements, with human and AI selection.

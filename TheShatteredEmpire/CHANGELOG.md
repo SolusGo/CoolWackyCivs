@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0 hardening — 2026-10-10
+
+- Separated peacetime charters (50% Gold +5 Authority) from wartime autonomy (200% Gold +10 Authority), with lasting hereditary Ambition pressure, shared AI checks and explicit UI costs/consequences.
+- Separated recruitment from persistent two-per-faction defection allowances; preserved six active defections and 24 live rebels. Added veteran/upgrade, safe spawn, repetition and reload checks.
+- Excluded redundant autonomy petitions, validated technology/resource/farm/plot feasibility and withdrew impossible petitions without penalties. Retained deadlines and prevented duplicate completion/generation.
+- Required explicit revealed, connected starting land with bounded terrain traversal and wrapping checks. Added pending grant recovery for interrupted city/Settler creation and stricter established-save exclusions.
+- Cached city/unit effects, refreshed only dirty objects or changed global conditions, coalesced nested callback saves and reduced closed-screen refreshes. Retained immediate saving after actions.
+- Fixed immediate upgrade/ownership promotion refresh, rebel Legion imperial bonuses, privileges lost on Governor replacement, stale battle Governor identities, duplicate loss penalties, captured Governor reactivation and missing optional civil-war joiner defection totals.
+- Added four-speed hardening/defection tests, twelve map profiles, interrupted/failed-grant tests, 100+ province/650+ unit endurance coverage and a reproducible before/after benchmark. Save keys and package versions remain compatible; in-game CP v151 verification remains outstanding.
+
 ## 1.0 — 2026-10-10
 
 - Added The Last Emperor, Aeternum, Imperial Legion, Governor's Palace, original artwork and full English text.

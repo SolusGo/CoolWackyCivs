@@ -20,7 +20,7 @@ local function action(s,label,kind,key,expected)
  if not ok then return end
  local item=actions:GetInstance();item.ActionChoice:SetText(label);item.ActionChoice:SetToolTipString(I.Text(reason))
  item.ActionChoice:RegisterCallback(Mouse.eLClick,function()
-  if world() and Game.GetActivePlayer()==s.pid then LuaEvents.ImperialRequest(s.pid,kind,key,expected);refresh() end
+  if world() and Game.GetActivePlayer()==s.pid then LuaEvents.ImperialRequest(s.pid,kind,key,expected) end
  end)
 end
 local function governors(s,parts,decisions)
@@ -41,6 +41,7 @@ local function governors(s,parts,decisions)
    local cost=kind=='FUND' and g.demand and g.demand.cost or I.GoldCost(s,g,kind=='CONCESSION' and 2 or 1)
    local label=I.Text('ACTION_'..kind)
    if kind=='BRIBE' or kind=='FUND' or kind=='CONCESSION' then label=label..' ('..cost..' [ICON_GOLD])' end
+   if kind=='CHARTER' then local gold,authority=I.CharterCost(s,g);label=I.Text(g.faction and 'ACTION_SETTLEMENT' or 'ACTION_CHARTER')..' ('..gold..' [ICON_GOLD], '..authority..' '..I.Text('AUTHORITY_LABEL')..')' end
    action(s,label,kind,g.key,g.id)
   end
   line(parts,I.Text('DECISION_HELP'))
@@ -118,7 +119,12 @@ end
 Controls.ImperialStatus:RegisterCallback(Mouse.eLClick,function() opened=not opened;refresh() end)
 Controls.ImperialClose:RegisterCallback(Mouse.eLClick,function() opened=false;refresh() end)
 ContextPtr:SetInputHandler(function(msg,key) if opened and msg==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then opened=false;refresh();return true end;return false end)
-LuaEvents.ImperialChanged.Add(function(pid) if pid==Game.GetActivePlayer() then refresh() end end)
+local lastStatus
+LuaEvents.ImperialChanged.Add(function(pid)
+ if pid==Game.GetActivePlayer() then local value=rounded(I.State(pid).authority)
+  if opened or value~=lastStatus then lastStatus=value;refresh() end
+ end
+end)
 LuaEvents.ImperialResponse.Add(function(pid,ok,text) if pid==Game.GetActivePlayer() then message=text;refresh() end end)
 Events.LoadScreenClose.Add(refresh)
 Events.GameplaySetActivePlayer.Add(function() opened=false;selected=nil;refresh() end)

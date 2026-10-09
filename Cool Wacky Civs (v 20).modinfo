@@ -546,23 +546,23 @@
     <File md5="BD75137BCB55BB0C4D08C017D813EA82" import="1">TheShatteredEmpire/Art/ImperialObjects64.dds</File>
     <File md5="CF0AA05DAD60FBF1C5CF463E236DB208" import="1">TheShatteredEmpire/Art/ImperialObjects80.dds</File>
     <File md5="5DAB679B29C3EEF4237FA180384D540F" import="1">TheShatteredEmpire/Art/ImperialUnitFlag32.dds</File>
-    <File md5="ADA7564E31DCDBBC7892B3D8160E32C0" import="1">TheShatteredEmpire/Lua/ImperialAI.lua</File>
+    <File md5="7F300833A8BE03E73124F0C95A8643EC" import="1">TheShatteredEmpire/Lua/ImperialAI.lua</File>
     <File md5="C1FA98CBA1B35B1995C40813FFAE0BF6" import="1">TheShatteredEmpire/Lua/ImperialChronicle.lua</File>
-    <File md5="DB604C0C2E47C133C9A749DEB04DCDDE" import="1">TheShatteredEmpire/Lua/ImperialCore.lua</File>
-    <File md5="70D6D39121EEBCE588BD808291435026" import="1">TheShatteredEmpire/Lua/ImperialEvents.lua</File>
-    <File md5="EBBBCA0825E493D2111571874887FE57" import="1">TheShatteredEmpire/Lua/ImperialGovernors.lua</File>
-    <File md5="68555317EB9737F5C77932CC143F75AB" import="1">TheShatteredEmpire/Lua/ImperialLegions.lua</File>
-    <File md5="8B848788682E136F6589E1441C98E81E" import="1">TheShatteredEmpire/Lua/ImperialLoyalty.lua</File>
-    <File md5="FF81828E14170108352C2D9137EEE32E" import="1">TheShatteredEmpire/Lua/ImperialPersistence.lua</File>
-    <File md5="A8DB49D15EC7D61EA391858D9DA9CE7C" import="1">TheShatteredEmpire/Lua/ImperialRebellions.lua</File>
-    <File md5="20BA6EEA3A6D7A4E772EC212D8867B5C" import="1">TheShatteredEmpire/Lua/ImperialReforms.lua</File>
-    <File md5="46BA30295E1C7ABCECA13E388EB7BD88" import="1">TheShatteredEmpire/Lua/ImperialStartingCities.lua</File>
+    <File md5="FBB89F0E69D87033F5C94818660824D6" import="1">TheShatteredEmpire/Lua/ImperialCore.lua</File>
+    <File md5="D8BA8E45D3D4052663E5B9E611BADD2B" import="1">TheShatteredEmpire/Lua/ImperialEvents.lua</File>
+    <File md5="6736EBB0D7058F185EFE6B7BFAFAE957" import="1">TheShatteredEmpire/Lua/ImperialGovernors.lua</File>
+    <File md5="E6F68F151A4854EDBF35E79689F13C09" import="1">TheShatteredEmpire/Lua/ImperialLegions.lua</File>
+    <File md5="F4ABFE99A6246494B88F47B751FE0C42" import="1">TheShatteredEmpire/Lua/ImperialLoyalty.lua</File>
+    <File md5="EC643F791B592EC06A2C629BD24A6037" import="1">TheShatteredEmpire/Lua/ImperialPersistence.lua</File>
+    <File md5="F933227B658BBC8FFED554373AE2B844" import="1">TheShatteredEmpire/Lua/ImperialRebellions.lua</File>
+    <File md5="991624A114B9D471B9EC09E8E8FE042B" import="1">TheShatteredEmpire/Lua/ImperialReforms.lua</File>
+    <File md5="7862B75D4BEAFFC8C3C6E9177B11CBE6" import="1">TheShatteredEmpire/Lua/ImperialStartingCities.lua</File>
     <File md5="F6F04F5379E1AFAB0438817CAA093CA0" import="1">TheShatteredEmpire/Lua/ImperialSuccession.lua</File>
     <File md5="7FC29C8E184FB7133855CC1F91C84B07" import="0">TheShatteredEmpire/SQL/00_Imperial_Core.sql</File>
     <File md5="F75FB15FAF9B28523602D67E0C9B6289" import="0">TheShatteredEmpire/SQL/01_Imperial_Inheritance.sql</File>
     <File md5="FCB8A09D699D744C45DF2F9B1227C360" import="0">TheShatteredEmpire/SQL/02_Imperial_Effects.sql</File>
-    <File md5="FFEE85C9EE120892D012D9DE281BFF5E" import="0">TheShatteredEmpire/SQL/10_Imperial_Text.sql</File>
-    <File md5="F9B755593051C70269BB57BE1D3B94A8" import="1">TheShatteredEmpire/UI/ImperialAdministration.lua</File>
+    <File md5="5EC5116EFCBCE993F1C673695BFD574B" import="0">TheShatteredEmpire/SQL/10_Imperial_Text.sql</File>
+    <File md5="C48CAE489B1695AAA22BC8741711F518" import="1">TheShatteredEmpire/UI/ImperialAdministration.lua</File>
     <File md5="82892DA1D86AD47460DDB652DC283CD3" import="0">TheShatteredEmpire/UI/ImperialAdministration.xml</File>
   </Files>
   <Actions>

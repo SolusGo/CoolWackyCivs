@@ -21,7 +21,7 @@ Enable Community Patch and **one** package in the game's Mods menu, continue thr
 
 ## Rule the Empire
 
-The first capital is raised to at least 2 population. Two population-1 provinces are founded on revealed, valid land within eight tiles when the normal CP `CanFound` and `Found` pipeline permits it. Occupied plots, minimum city spacing, terrain and rival starting sites are respected. Each unavailable provincial entitlement grants one Settler instead. Reloads never grant the advantage twice. Loading into an existing campaign with an old capital does not grant a new starting empire.
+The first capital is raised to at least 2 population. Two population-1 provinces are founded on explicitly revealed, connected land within eight tiles when the normal CP `CanFound` and `Found` pipeline permits it. A bounded local flood checks accessible terrain; provinces cannot cross sea or mountain barriers. Occupied plots, minimum city spacing, terrain, wrapping and rival starting sites are respected. Each unavailable provincial entitlement grants one Settler instead. Saved pending grants recover interrupted founding/unit callbacks without duplication. Loading into an established campaign does not grant a new starting empire.
 
 Authority starts at 82 and remains between 0 and 100. Golden (80+), Stable (60+), Strained (40+), Fractured (20+) and Collapse affect provincial Loyalty. Conquests reward 4 Authority once per plot, defensive victories reward 1 with a cap of 2 per turn, demands reward 2, suppression rewards 5, and resolving a civil war with surviving provinces rewards 10. City loss costs 8; capital loss costs 20. Each province costs 1 Gold in administrative maintenance.
 
@@ -31,11 +31,17 @@ Political updates occur every five Standard-speed turns. Garrisoning, capital co
 
 Governors request garrisons, connections, Walls, growth, additional Farms, feasible strategic improvements, nearby camp removal, peace, financial assistance or autonomy. Only one new petition per player turn generates a notification. Pay, fulfill, refuse, replace or grant a charter through the Decisions tab. Each payment scales with population, income and speed. Changes have cooldowns and ownership/identity/affordability checks.
 
+Peacetime charters require a Palace and a loyal or discontented province: pay 50% of its normal Gold price and 5 Authority for +15 Loyalty, +12 Ambition and ongoing autonomy. Wartime autonomy requires the Palace, 200% Gold and 10 Authority, including when an already autonomous province rebels again. It ends that faction, raises Loyalty to at least 70 and adds 20 Ambition. Permanent hereditary privileges add another 0.5 Ambition each political interval and survive replacing the Governor. Other civil-war participants keep fighting until separately resolved. Reconciliation remains 15 Authority, and existing petition/war completion rewards remain. AI uses the same affordability checks. Decisions show actual costs and consequence tooltips.
+
+Autonomous Governors cannot request another charter. Technology, resources, build legality, ownership and targets are checked when petitions are issued and while they remain active. A petition that becomes impossible is withdrawn without a Loyalty/Ambition penalty; completion and deadlines remain persistent. A financial request supplies the reliable fallback.
+
 Below 45 Loyalty, a province suffers discontent; below 25, defiance. Two consecutive critical political checks permit armed revolt. Rebels are tracked barbarian military units associated with a Governor and province, with era-appropriate strength, safe spawning, finite recruitment and clear resolution. Destroy the tracked army or negotiate autonomy, compensation or reconciliation. An inaccessible revolt eventually exhausts its support and accepts autonomy, costing Authority.
 
 A War of the Crowns can begin below 30 Authority when at least three severely disloyal provinces are geographically close to an ambitious claimant. It records the claimant, provinces, armies, defections, dates, resolution and restoration. Other estranged nearby Governors can join. Only one major war can be active; a cooldown follows resolution.
 
 Land combat units have persistent lineage identities, home provinces and Oaths. A recruiting Governor's disloyalty erodes Oaths; victories improve them. Eligible standard units with Oaths below 40 can defect only during an active rebellion. Garrisoned troops, civilians, cargo, embarked units and other mods' unique units are protected. Defection creates a valid rebel replacement before removing the imperial unit, retaining experience and safe permanent promotions. CP conversion hooks preserve Oaths and lineage through upgrades.
+
+Ordinary recruitment stays capped at eight per faction. Defections have a separate persistent allowance of two per faction, six across active factions and the shared cap of 24 tracked live rebels. Exhausting recruitment cannot protect a disloyal veteran. Repeat calls/reloads cannot replenish spent allowances. Rebels retain eligible experience/promotions but lose imperial bonuses; upgrades and ownership changes immediately refresh conditional promotions.
 
 The Legion has strength 10 and costs 15% more than the active Warrior, rounded up. Its persistent Discipline grants +15% strength in friendly territory when Authority is at least 60, for attack and defense through the native promotion. The Palace inherits the active Monument exactly once, adds 1 Gold, supports provincial Loyalty and enables charters. In the capital it awards 1 Authority per ten Standard-speed turns.
 
@@ -48,6 +54,8 @@ Open **Imperial Administration** near the top panel for Overview, Governors, Dec
 ## Validation and limits
 
 Run `python tools/validate_shattered_mod.py` or `python tools/validate_all.py`. Automated tests use real BNW/CP SQL definitions and Lua 5.1 mocks; they do **not** execute Civ V. See [Validation.md](docs/Validation.md) for confirmed checks and the required in-game checklist, and [Implementation.md](docs/Implementation.md) for engine contracts and compromises.
+
+The hardening update retains version-1 save keys, fills missing defection/start fields and rebuilds transient effect caches on reload. High-frequency commits update dirty cities/units and combine nested synchronous callbacks into one final snapshot; completed player actions are still saved immediately. See the implementation report for the exact changed files and additional confirmed defects.
 
 Custom armies use the stock Warrior model and inherited upgrades. The leader is an original static painting. Rebel factions share the barbarian slot and cannot conduct independent diplomatic negotiations; political negotiations are explicit Administration actions. Dictatorship's native +10% modifier also applies to ordinary barbarians. Demands do not force declarations of foreign war. Full Huge-map engine testing, AI tactical behavior and balance remain unverified.
 

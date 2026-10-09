@@ -105,7 +105,11 @@ INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_REFORM_HELP_FEDER
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_REFORM_HELP_DICTATORSHIP','+15 effective Oath to disciplined Legion lineages while active. +10% Combat Strength against barbarian units, including rebels. Militarist Governor Ambition grows faster.');
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_REFORM_COST','Costs 10 Authority; changes have a 30 Standard-speed turn cooldown. Unlocks in the Classical Era.');
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_REPLACE_COST','Costs 8 Authority. Replacement creates one turn of resistance and reduces local military Oaths by 5.');
-INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_CHARTER_COST','+15 Loyalty and +12 Ambition; negotiates any local revolt. Requires a Palace.');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_CHARTER_COST','Peacetime: 50% provincial Gold cost and 5 Authority; +15 Loyalty, +12 Ambition and permanent autonomy. Requires a Palace and loyal or discontented administration.');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_SETTLEMENT_COST','Wartime: 200% provincial Gold cost and 10 Authority. Ends this faction only, guarantees at least 70 Loyalty, adds 20 Ambition and permanent autonomy. Hereditary privileges add 0.5 Ambition each political interval, including after Governor replacement.');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_AUTHORITY_LABEL','Authority');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_ACTION_SETTLEMENT','Negotiate wartime autonomy');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_HISTORY_DEMAND_CANCELLED','The petition of {1_Name} was withdrawn because it was no longer feasible: {2_Demand}. No political penalty applied.');
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_RECONCILE_COST','Costs 15 Authority; ends the local revolt and rebuilds loyalty.');
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_REBELLION_REQUIRED','An active provincial rebellion is required.');
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_AUTHORITY_REQUIRED','Insufficient Imperial Authority.');
@@ -118,7 +122,7 @@ INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_READY','Decision 
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_ACTION_DONE','The court has enacted the decision.');
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_REPLACED','Dismissed from office.');
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_ACTION_BRIBE','Compensate Governor: +12 Loyalty');
-INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_ACTION_CHARTER','Grant autonomy: +15 Loyalty, +12 Ambition');
+INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_ACTION_CHARTER','Grant peacetime autonomy');
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_ACTION_REPLACE','Replace Governor: 8 Authority');
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_ACTION_FUND','Fund the petition: fulfill demand');
 INSERT INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_IMPERIAL_ACTION_REFUSE','Refuse the petition: -12 Loyalty');

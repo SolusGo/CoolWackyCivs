@@ -19,7 +19,7 @@ Locale={ConvertTextKey=function(key,...)
  local text=Translations[key];assert(text or not key:find('TXT_KEY_IMPERIAL_'),'Missing localization: '..key);text=text or key
  local args={...};return (text:gsub('{(%d+)_[^}]+}',function(i) return tostring(args[tonumber(i)] or '') end))
 end}
-Modding={OpenSaveData=function() return {GetValue=function(key) return Saved[key] end,SetValue=function(key,value) Saved[key]=value end} end}
+Modding={OpenSaveData=function() return {GetValue=function(key) return Saved[key] end,SetValue=function(key,value) SaveWriteCount=(SaveWriteCount or 0)+1;Saved[key]=value end} end}
 function iter(t) local keys={};for k in pairs(t) do keys[#keys+1]=k end;table.sort(keys);local i=0;return function() i=i+1;return t[keys[i]] end end
 function databaseTable(rows)
  local t={};for _,r in ipairs(rows) do if r.ID then t[r.ID]=r end;if r.Type then t[r.Type]=r end end
@@ -44,8 +44,8 @@ function newPlot(x,y)
  function plot:GetNumUnits() local n=0;for _,p in pairs(Players or {}) do for _,u in pairs(p.units) do if u.x==self.x and u.y==self.y then n=n+1 end end end;return n end
  return plot
 end
-Map={PlotDistance=function(x,y,a,b) return math.max(math.abs(x-a),math.abs(y-b)) end}
-function Map.GetPlot(x,y) if x<0 or y<0 or x>120 or y>120 then return nil end;local key=x..':'..y;if not Plots[key] then Plots[key]=newPlot(x,y) end;return Plots[key] end
+Map={PlotDistance=function(x,y,a,b) local dx,dy=math.abs(x-a),math.abs(y-b);if WrapX then dx=math.min(dx,(MapWidth or 121)-dx) end;if WrapY then dy=math.min(dy,(MapHeight or 121)-dy) end;return math.max(dx,dy) end}
+function Map.GetPlot(x,y) local width,height=MapWidth or 121,MapHeight or 121;if WrapX then x=x%width end;if WrapY then y=y%height end;if x<0 or y<0 or x>=width or y>=height then return nil end;local key=x..':'..y;if not Plots[key] then Plots[key]=newPlot(x,y) end;return Plots[key] end
 function Map.PlotXYWithRangeCheck(x,y,dx,dy,r) if Map.PlotDistance(x,y,x+dx,y+dy)<=r then return Map.GetPlot(x+dx,y+dy) end end
 function newCity(owner,id,x,y)
  local c={owner=owner,id=id,x=x or 10+id*5,y=y or 10+owner*35,pop=1,b={},founded=Turn,name=id==0 and 'Aeternum' or 'Valoria',food=3,resistance=0}
@@ -57,7 +57,7 @@ function newCity(owner,id,x,y)
  function c:GetNumRealBuilding(id) assert(id);return self.b[id] or 0 end
  function c:SetNumRealBuilding(id,n) assert(id);self.b[id]=n end
  function c:IsHasBuilding(id) assert(id);return self:GetNumRealBuilding(id)>0 end
- function c:CanConstruct(id,cont,visible,cost) assert(id and type(cont)=='number' and type(visible)=='number' and type(cost)=='number','CP construction flags are integers');return not self.blockConstruction and not self:IsHasBuilding(id) end
+ function c:CanConstruct(id,cont,visible,cost) assert(id and type(cont)=='number' and type(visible)=='number' and type(cost)=='number','CP construction flags are integers');return not self.blockConstruction and not (self.queuedWalls and id==GameInfoTypes.BUILDING_WALLS and cont==0) and not self:IsHasBuilding(id) end
  function c:ChangeResistanceTurns(n) self.resistance=self.resistance+n end
  function c:GetGarrisonedUnit() for _,u in pairs(Players[self.owner].units) do if u.x==self.x and u.y==self.y and u:IsCombatUnit() then return u end end end
  return c
@@ -93,7 +93,12 @@ function newPlayer(pid,civ)
  function p:CalculateGoldRate() return self.income end;function p:GetExcessHappiness() return self.happiness end
  function p:IsCapitalConnectedToCity(c) return c.connected or false end
  function p:GetStartingPlot() return Map.GetPlot(self.id<2 and 10 or 60+(self.id%6)*8,self.id<2 and 10+self.id*35 or 60+math.floor(self.id/6)*8) end
- function p:CanBuild(plot,build,testEra,visible) assert(type(testEra)=='number' and type(visible)=='number','CP CanBuild uses optional integers');return not plot:IsCity() and plot:GetImprovementType()<0 and plot:GetOwner()==self.id and not plot:IsWater() end
+ function p:CanBuild(plot,build,testEra,visible)
+  assert(type(testEra)=='number' and type(visible)=='number','CP CanBuild uses optional integers');local row=GameInfo.Builds[build]
+  if not row or (row.PrereqTech and not Teams[self.id]:IsHasTech(GameInfoTypes[row.PrereqTech])) or plot.blockBuild then return false end
+  if build==GameInfoTypes.BUILD_REPAIR then return plot.pillaged and plot:GetOwner()==self.id end
+  return not plot:IsCity() and plot:GetImprovementType()<0 and plot:GetOwner()==self.id and not plot:IsWater() and not plot:IsMountain() and not plot:IsImpassable()
+ end
  function p:AddNotification(kind,body,title) assert(kind==1 and type(body)=='string' and type(title)=='string');self.notices=self.notices+1 end
  function p:CanFound(x,y)
   local plot=Map.GetPlot(x,y);if not plot or not plot.revealed or plot:IsWater() or plot:IsMountain() or plot:IsImpassable() or plot:IsCity() or self.noFound then return false end
@@ -126,8 +131,9 @@ function nextTurn(pid) Turn=Turn+1;GameEvents.PlayerDoTurn.Fire(pid or 0) end
 function reload() __IMPERIAL_CONTEXT_LOADED=nil;resetEvents();MapModData={};include('ImperialCore') end
 function upgrade(uid,newID)
  local old=Players[0].units[uid];local u=newUnit(0,newID,GameInfoTypes.UNIT_SWORDSMAN);u.name=old.name;u.x=old.x;u.y=old.y;u.xp=old.xp
- for id,v in pairs(old.p) do u.p[id]=v end
- Players[0].units[newID]=u;GameEvents.UnitCreated.Fire(0,newID,u.kind);GameEvents.UnitConverted.Fire(0,0,uid,newID,true);old:Kill(false,-1);return u
+ Players[0].units[newID]=u;GameEvents.UnitCreated.Fire(0,newID,u.kind)
+ for id,v in pairs(old.p) do if GameInfo.UnitPromotions[id].LostWithUpgrade==0 then u.p[id]=v else u.p[id]=false end end
+ GameEvents.UnitConverted.Fire(0,0,uid,newID,true);old:Kill(false,-1);return u
 end
 UI={IsCityScreenUp=function() return false end}
 function uiControls(names)
