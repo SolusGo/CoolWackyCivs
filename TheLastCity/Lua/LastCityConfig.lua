@@ -2,12 +2,14 @@
 -- narrative modules; SQL-backed percentages are fixed in 02_LC_Effects.sql.
 -- Time and lump costs scale; income does not.
 local L=MapModData.TheLastCity
-L.Config={Version=1,StartProvisions=45,Storage=200,StartMorale=65,Housing=12,
+L.Config={Version=2,StartProvisions=45,Storage=200,StartMorale=65,Housing=12,
  BaseIncome=4,DistrictIncome=2,DistrictHousing=6,PopulationConsumption=.6,MilitaryConsumption=.4,
  ExpertCap=5,FarmerIncome=2,RefugeeMin=8,RefugeeMax=14,
  QuarantineTurns=3,RefugeeExpiry=6,PolicyCooldown=5,CrisisMin=9,CrisisMax=16,
  FirstWave=24,WaveMin=20,WaveMax=24,Warning=3,WaveTimeout=18,SpawnMin=4,SpawnMax=8,
  MaxEnemies=18,MajorEvery=5,MaxDefense=30,MaxVeteran=5,
+ SpawnExpanded=16,CollapseTurns=3,CollapseDamage=.85,PressureTurns=6,
+ InfectionMaxTurns=8,InfectionCooldown=4,
  StarvePopulationAfter=4,HistoryLimit=90,Debug=false}
 L.Skills={'ENGINEERS','SCIENTISTS','PHYSICIANS','VETERANS','FARMERS','SCHOLARS'}
 L.Rations={

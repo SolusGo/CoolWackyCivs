@@ -8,8 +8,10 @@ local opened,cityView,leaderView,refreshing=false,false,false,false
 local blocked={};local category='OVERVIEW';local selected,message=nil,''
 local tabOrder={'OVERVIEW','REFUGEES','EXPERTS','RATIONS','BUILDINGS','CRISES','HISTORY'}
 local achievementShown=false
+local interfaceMode=UI.GetInterfaceMode and UI.GetInterfaceMode() or InterfaceModeTypes.INTERFACEMODE_SELECTION
+local tabInstances={}
 local function worldView()
- return not cityView and not leaderView and next(blocked)==nil and not (UI.IsCityScreenUp and UI.IsCityScreenUp())
+ return not cityView and not leaderView and next(blocked)==nil and interfaceMode==InterfaceModeTypes.INTERFACEMODE_SELECTION and not (UI.IsCityScreenUp and UI.IsCityScreenUp())
 end
 local refresh
 local function row(text,button,callback,enabled,tooltip)
@@ -28,17 +30,19 @@ refresh=function()
  Controls.Launcher:SetHide(not visible);Controls.Panel:SetHide(not visible or not opened)
  if not visible then refreshing=false;return end
  local s=L.State(pid)
+ if s.fallen then Controls.Launcher:SetHide(true);Controls.Panel:SetHide(true);refreshing=false;return end
  if s.incompatible then Controls.Open:SetText(L.Text('SAVE_UNSUPPORTED'));Controls.Panel:SetHide(true);refreshing=false;return end
  local c=L.City(s)
  if not c then Controls.Open:SetText(L.Text('FOUND_FIRST'));Controls.Panel:SetHide(true);refreshing=false;return end
  local stats=L.Stats(s)
  Controls.Open:SetText(L.Text('STATUS',math.floor(s.provisions),math.floor(s.morale))..' | '..L.Text('COUNCIL'))
  if not opened then refreshing=false;return end
- local invasion=s.wave and L.Text('WAVE_ACTIVE',s.wave.number,s.wave.spawned-s.wave.defeated) or L.Text('NEXT_WAVE',math.max(0,(s.nextWave or L.Now())-L.Now()))
+ local invasion=s.pressure and L.Text('PRESSURE_STATUS',math.max(0,s.pressure.expiry-L.Now())) or s.wave and L.Text('WAVE_ACTIVE',s.wave.number,s.wave.spawned-s.wave.defeated) or L.Text('NEXT_WAVE',math.max(0,(s.nextWave or L.Now())-L.Now()))
  Controls.Summary:SetText(L.Text('DASHBOARD',stats.population,stats.housing,math.floor(s.provisions),stats.capacity,stats.income,stats.consumption,stats.net)..'[NEWLINE]'..L.Text('MORALE_STATUS',math.floor(s.morale*10)/10,L.Text(L.Condition(s)),L.Text(s.ration))..' | '..invasion)
- tabs:ResetInstances()
- for _,key in ipairs(tabOrder) do local value=key;local r=tabs:GetInstance()
-  r.TabButton:SetText((value==category and '[ICON_CHECKBOX] ' or '')..L.Text(value));r.TabButton:RegisterCallback(Mouse.eLClick,function() category=value;selected=nil;message='';refresh() end)
+ for _,key in ipairs(tabOrder) do local value=key;local r=tabInstances[value]
+  -- Tab instances/callbacks are constant. Reuse them across dashboard updates.
+  if not r then r=tabs:GetInstance();tabInstances[value]=r;r.TabButton:RegisterCallback(Mouse.eLClick,function() category=value;selected=nil;message='';refresh() end) end
+  r.TabButton:SetText((value==category and '[ICON_CHECKBOX] ' or '')..L.Text(value))
  end
  Controls.Tabs:CalculateSize();Controls.Tabs:ReprocessAnchoring();rows:ResetInstances();experts:ResetInstances()
  if category=='OVERVIEW' then
@@ -46,6 +50,8 @@ refresh=function()
   row(L.Text('LEGACY_STATUS',s.wavesSurvived,s.majorSieges,s.bosses,math.min(30,s.majorSieges*2),s.losses))
   row(L.Text('EXPERT_OVERVIEW',s.accepted,s.refused,s.starvation))
   row(L.Text('DAWN_'..s.dawn))
+  if s.infection then row(L.Text('INFECTION_STATUS',s.infection.severity,math.max(0,s.infection.untilTurn-L.Now()),stats.infection,L.Medical(s))) end
+  if (s.collapse or 0)>0 then row(L.Text('COLLAPSE_STATUS',s.collapse,L.Scale(L.Config.CollapseTurns))) end
   if s.refugee then row(L.Text('REFUGEES_WAITING'),L.Text('REFUGEES'),function() category='REFUGEES';refresh() end) end
   if s.crisis then row(L.Text('CRISIS_WAITING'),L.Text('CRISES'),function() category='CRISES';refresh() end) end
  elseif category=='REFUGEES' then local r=s.refugee
@@ -71,7 +77,8 @@ refresh=function()
  elseif category=='RATIONS' then
   row(L.Text('RATION_HELP',math.max(0,s.rationNext-L.Now())))
   for _,key in ipairs(L.RationOrder) do local value=key;local r=L.Rations[value]
-   local preview=L.Text('RATION_PREVIEW',L.Text(value),math.ceil(stats.base*r.consumption),stats.income-math.ceil(stats.base*r.consumption),r.morale,r.growth)
+   local consumption=math.ceil(stats.base*r.consumption)+(stats.infection or 0)+(stats.blockade or 0)
+   local preview=L.Text('RATION_PREVIEW',L.Text(value),consumption,stats.income-consumption,r.morale/L.Speed,r.growth)
    local ok=s.ration~=value and L.Now()>=s.rationNext
    row(preview,L.Text('SELECT'),function() choose('RATION',value,nil,preview,ok) end,ok and p:IsTurnActive(),preview)
   end
@@ -111,12 +118,17 @@ ContextPtr:SetInputHandler(function(msg,key)
 end)
 LuaEvents.LastCityChanged.Add(function(pid)
  if pid==Game.GetActivePlayer() then
+  selected=nil
   local s=L.State(pid)
   if not s.incompatible and s.dawn=='ENDURES' and not achievementShown and worldView() then opened=true;category='OVERVIEW';achievementShown=true end
   refresh()
  end
 end)
-Events.LoadScreenClose.Add(refresh)
+Events.LoadScreenClose.Add(function()
+ opened=false;selected=nil;message='';category='OVERVIEW';cityView=false;leaderView=false;blocked={};achievementShown=false
+ interfaceMode=UI.GetInterfaceMode and UI.GetInterfaceMode() or InterfaceModeTypes.INTERFACEMODE_SELECTION
+ refresh()
+end)
 Events.GameplaySetActivePlayer.Add(function() opened=false;selected=nil;refresh() end)
 Events.ActivePlayerTurnStart.Add(function() selected=nil;refresh() end)
 Events.ActivePlayerTurnEnd.Add(function() opened=false;selected=nil;refresh() end)
@@ -124,7 +136,8 @@ Events.SerialEventEnterCityScreen.Add(function() cityView=true;opened=false;refr
 Events.SerialEventExitCityScreen.Add(function() cityView=false;refresh() end)
 Events.AILeaderMessage.Add(function() leaderView=true;opened=false;refresh() end)
 Events.LeavingLeaderViewMode.Add(function() leaderView=false;refresh() end)
-Events.SerialEventGameMessagePopupShown.Add(function(info) if info and info.Type then blocked[info.Type]=true;opened=false;refresh() end end)
-Events.SerialEventGameMessagePopupProcessed.Add(function(typ) blocked[typ]=nil;refresh() end)
+Events.SerialEventGameMessagePopupShown.Add(function(info) if info and info.Type then blocked[info.Type]=(blocked[info.Type] or 0)+1;opened=false;selected=nil;refresh() end end)
+Events.SerialEventGameMessagePopupProcessed.Add(function(typ) if blocked[typ] then blocked[typ]=blocked[typ]>1 and blocked[typ]-1 or nil end;refresh() end)
+Events.InterfaceModeChanged.Add(function(_,mode) interfaceMode=mode;if mode~=InterfaceModeTypes.INTERFACEMODE_SELECTION then opened=false;selected=nil end;refresh() end)
 Events.SerialEventCityInfoDirty.Add(function() if opened then refresh() end end)
 refresh()

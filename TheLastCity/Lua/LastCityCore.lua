@@ -10,8 +10,13 @@ L.Text=function(k,...) return Locale.ConvertTextKey('TXT_KEY_LC_'..k,...) end
 L.Clamp=function(v,a,b) return math.max(a,math.min(b,v)) end
 L.Founds=function(row) return row and (row.Found==true or row.Found==1 or row.FoundAbroad==true or row.FoundAbroad==1) end
 local speed=GameInfo.GameSpeeds[Game.GetGameSpeedType()]
-L.Speed=(speed and speed.TrainPercent or 100)/100
+function L.ConfigureSpeed()
+ speed=GameInfo.GameSpeeds[Game.GetGameSpeedType()]
+ L.Speed=(speed and (speed.GrowthPercent or speed.TrainPercent) or 100)/100
+end
+L.ConfigureSpeed()
 L.Scale=function(n) return math.max(1,math.floor(n*L.Speed+.5)) end
+L.ProductionScale=function(n) return math.max(1,math.floor(n*(speed and (speed.ConstructPercent or speed.TrainPercent) or 100)/100+.5)) end
 L.Log=function(msg) if L.Config.Debug then print('[LastCity] '..msg) end end
 function L.IsCity(pid)
  local p=Players[pid]
@@ -57,7 +62,11 @@ function L.Morale(s,delta) s.morale=L.Clamp(s.morale+delta,0,100) end
 function L.Provisions(s,delta) s.provisions=L.Clamp(s.provisions+delta,0,s.capacity) end
 function L.Changed(s)
  if L.Depth>0 then s.dirty=true;return end
- L.ApplyEffects(s);L.RefreshUnits(s);L.Save(s.pid)
+ local cache=L.Caches[s.pid] or {};L.Caches[s.pid]=cache
+ local signature=tostring(s.morale>=80)..':'..s.assigned.VETERANS..':'..tostring(L.City(s)~=nil)
+ L.ApplyEffects(s)
+ if s.unitDirty or cache.defense~=signature then L.RefreshUnits(s);cache.defense=signature end
+ s.unitDirty=nil;L.Save(s.pid)
  if LuaEvents.LastCityChanged then LuaEvents.LastCityChanged(s.pid) end
 end
 function L.Atomic(s,fn,...)
@@ -79,7 +88,7 @@ include('LastCityAI')
 function L.Initialize(pid)
  if not L.IsCity(pid) then return end
  local s=L.State(pid);local c=Players[pid]:GetCapitalCity()
- if s.incompatible then return s end
+ if s.incompatible or s.fallen then return s end
  if not s.capital and c then
   s.capital={x=c:GetX(),y=c:GetY(),founded=c:GetGameTurnFounded()}
   c:SetName(L.Text('CAPITAL'),false)
@@ -88,27 +97,30 @@ function L.Initialize(pid)
   s.nextWave=L.Now()+L.Scale(L.Config.FirstWave)
   L.History(s,'FOUNDED');L.Notify(s,'FOUNDED')
  end
- L.ReturnExtraCities(s);L.Changed(s);return s
+ L.Changed(s);return s
 end
 function L.Turn(pid)
  if not L.IsCity(pid) then return end
  local s=L.State(pid)
  if s.incompatible then return end
+ if s.fallen then L.FinishFall(s);return end
  if s.lastTurn==L.Now() then return end
  if not s.capital then L.Initialize(pid) end
  L.Atomic(s,function()
   s.lastTurn=L.Now();L.ReturnExtraCities(s)
-  if not L.City(s) then L.RetireWave(s);return end
+  if not L.City(s) then if s.capital then L.Fall(s) end;return end
   local settlers={}
   for u in Players[pid]:Units() do local def=GameInfo.Units[u:GetUnitType()]
    if L.Founds(def) then settlers[#settlers+1]=u end
   end
   for _,u in ipairs(settlers) do u:Kill(false,-1) end
-  if (s.dawn=='AWAITING_SUPPLIES' or (s.dawn=='LOCKED' and L.Has(L.City(s),'DAWN'))) and s.provisions>=150 and s.morale>=55 and s.wavesSurvived>=12 then
+  if (s.dawn=='AWAITING_SUPPLIES' or (s.dawn=='LOCKED' and L.Has(L.City(s),'DAWN'))) and L.DawnReady(s) then
    L.Provisions(s,-150);s.dawn='FINAL_PENDING';L.History(s,'DAWN_LAUNCHED');L.Notify(s,'DAWN_LAUNCHED')
    if not s.wave then s.nextWave=L.Now()+L.Scale(L.Config.Warning);s.warning=nil end
   end
-  L.EconomyTurn(s);L.RefugeeTurn(s);L.CrisisTurn(s);L.InvasionTurn(s)
+  L.EconomyTurn(s);L.InvasionTurn(s)
+  if s.fallen then return end
+  L.RefugeeTurn(s);L.CrisisTurn(s)
   if not Players[pid]:IsHuman() then L.AITurn(s) end
  end)
 end
@@ -116,7 +128,7 @@ end
 function L.Action(pid,kind,id,value)
  if not L.IsCity(pid) or not Players[pid]:IsHuman() or Game.GetActivePlayer()~=pid then return false,L.Text('UNAVAILABLE') end
  local s=L.State(pid)
- if s.incompatible then return false,L.Text('UNAVAILABLE') end
+ if s.incompatible or s.fallen then return false,L.Text('UNAVAILABLE') end
  if not L.City(s) or not Players[pid]:IsTurnActive() then return false,L.Text('UNAVAILABLE') end
  return L.Atomic(s,function()
   if kind=='REFUGEE' then return L.ResolveRefugee(s,id,value)

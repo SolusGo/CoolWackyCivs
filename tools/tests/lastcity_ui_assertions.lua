@@ -12,7 +12,8 @@ function InstanceManager:new(name)
  Managers[name]=m;return m
 end
 Mouse={eLClick=1};KeyEvents={KeyDown=1};Keys={VK_ESCAPE=27}
-UI={IsCityScreenUp=function() return false end};ContextPtr={SetInputHandler=function(self,fn) self.input=fn end}
+InterfaceModeTypes={INTERFACEMODE_SELECTION=1}
+UI={IsCityScreenUp=function() return false end,GetInterfaceMode=function() return 1 end};ContextPtr={SetInputHandler=function(self,fn) self.input=fn end}
 local originalInclude=include;include=function(name) if name~='InstanceManager' then originalInclude(name) end end
 assert(loadstring(UISource))()
 assert(not Controls.Launcher.hidden and Controls.Panel.hidden)
@@ -34,3 +35,20 @@ Events.SerialEventGameMessagePopupProcessed.Fire(99);assert(not Controls.Launche
 ACTIVE=1;Events.GameplaySetActivePlayer.Fire();assert(Controls.Launcher.hidden and Controls.Panel.hidden)
 ACTIVE=0;Events.GameplaySetActivePlayer.Fire();Controls.Open.click()
 assert(ContextPtr.input(KeyEvents.KeyDown,Keys.VK_ESCAPE));assert(Controls.Panel.hidden)
+assert(#Managers.LastCityTab.rows==7,'Refreshing must reuse tab instances')
+Events.InterfaceModeChanged.Fire(1,2);assert(Controls.Launcher.hidden)
+Events.InterfaceModeChanged.Fire(2,1);assert(not Controls.Launcher.hidden and Controls.Panel.hidden)
+Events.SerialEventGameMessagePopupShown.Fire({Type=9})
+Events.SerialEventGameMessagePopupShown.Fire({Type=9})
+Events.SerialEventGameMessagePopupProcessed.Fire(9);assert(Controls.Launcher.hidden)
+Events.SerialEventGameMessagePopupProcessed.Fire(9);assert(not Controls.Launcher.hidden)
+Controls.Open.click();Managers.LastCityTab.rows[4].TabButton.click()
+TURN=S.rationNext;LuaEvents.LastCityChanged(0)
+Managers.LastCityRow.rows[2].RowButton.click();LuaEvents.LastCityChanged(0);assert(Controls.Confirm.disabled)
+S.infection={severity=4,untilTurn=TURN+8,lastTurn=-1};LuaEvents.LastCityChanged(0)
+local expected=math.ceil(L.Stats(S).base*L.Rations.GENEROUS.consumption)+L.Stats(S).infection
+assert(Managers.LastCityRow.rows[2].RowText.text:find(tostring(expected),1,true))
+S.fallen=true;LuaEvents.LastCityChanged(0);assert(Controls.Launcher.hidden and Controls.Panel.hidden)
+S.fallen=nil;L.Save(0);Events.AILeaderMessage.Fire();Events.SerialEventGameMessagePopupShown.Fire({Type=88})
+Events.LoadScreenClose.Fire();S=L.State(0)
+assert(not Controls.Launcher.hidden and Controls.Panel.hidden and #Managers.LastCityTab.rows==7)

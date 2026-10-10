@@ -13,7 +13,12 @@ L.Caravans={
  {key='CROWDED',skill='SCIENTISTS',population=3,cost=12,risk='OVERCROWDING'},
  {key='SILENT',skill='VETERANS',population=1,cost=6,risk='INFILTRATION'}}
 function L.NewRefugee(s)
- local template=L.Caravans[L.Rand(s,#L.Caravans)]
+ -- A saved shuffled bag covers every narrative before repeating, including
+ -- long Marathon games, without changing population/cost distributions.
+ if not s.caravanBag or #s.caravanBag==0 then
+  s.caravanBag={};for i=1,#L.Caravans do s.caravanBag[i]=i end
+ end
+ local index=L.Rand(s,#s.caravanBag);local template=L.Caravans[table.remove(s.caravanBag,index)]
  s.refugee={id=s.nextEvent,key=template.key,skill=template.skill,population=template.population,
   cost=L.Scale(template.cost),risk=template.risk,arrived=L.Now(),expiry=L.Now()+L.Scale(L.Config.RefugeeExpiry),
   status='GATES',survivors=L.Range(s,18,65),riskRoll=L.Rand(s,100)}
@@ -22,7 +27,7 @@ function L.NewRefugee(s)
 end
 function L.RefugeeCheck(s,id,choice)
  local r=s.refugee
- if not r or id~=r.id then return false,L.Text('EVENT_EXPIRED') end
+ if not r or id~=r.id or L.Now()>r.expiry then return false,L.Text('EVENT_EXPIRED') end
  if r.status=='QUARANTINE' then return false,L.Text('QUARANTINE_WAIT',math.max(0,r.due-L.Now())) end
  if choice=='ACCEPT' then
   if s.provisions<r.cost-(r.paid or 0) then return false,L.Text('SUPPLIES_REQUIRED',r.cost-(r.paid or 0)) end
@@ -30,14 +35,16 @@ function L.RefugeeCheck(s,id,choice)
   if r.quarantined then return false,L.Text('ALREADY_QUARANTINED') end
   if s.provisions<math.ceil(r.cost/2) then return false,L.Text('SUPPLIES_REQUIRED',math.ceil(r.cost/2)) end
   local c=L.City(s)
-  if c:GetPopulation()+r.population>s.housing+4 or not (L.Has(c,'DISTRICT') or L.Has(c,'BARRACKS')) then return false,L.Text('QUARANTINE_HOUSING') end
+  if c:GetPopulation()+r.population>L.Stats(s).housing+4 or not (L.Has(c,'DISTRICT') or L.Has(c,'BARRACKS')) then return false,L.Text('QUARANTINE_HOUSING') end
  elseif choice~='REFUSE' then return false,L.Text('UNAVAILABLE') end
  return true,L.Text('REFUGEE_'..choice,r.population,L.Text(r.skill),choice=='QUARANTINE' and math.ceil(r.cost/2) or r.cost-(r.paid or 0))
 end
 local function complication(s,r)
- local c=L.City(s);local pressure=math.min(15,math.max(0,c:GetPopulation()-s.housing)*3)
+ local c=L.City(s);local pressure=math.min(15,math.max(0,c:GetPopulation()-L.Stats(s).housing)*3)
  local chance=math.max(4,25+pressure+math.min(8,s.refused)-L.Medical(s)*3)
- if r.quarantined then chance=math.max(2,math.floor(chance/3)) end
+ local positive=r.risk=='LEADERSHIP' or r.risk=='MEDICAL' or r.risk=='BRILLIANT' or r.risk=='COMMANDER' or r.risk=='SUPPLIES'
+ if positive then chance=25
+ elseif r.quarantined then chance=math.max(2,math.floor(chance/3)) end
  if r.riskRoll>chance then return end
  local risk=r.risk
  if risk=='DISEASE' then

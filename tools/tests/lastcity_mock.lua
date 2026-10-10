@@ -65,6 +65,7 @@ end
 function newPlayer(pid,civ,human)
  local p={id=pid,civ=civ,human=human~=false,alive=true,units={},cities={},nextUnit=0,era=0,handicap=3,notifications={},wars={}}
  function p:GetCivilizationType() return self.civ end;function p:IsHuman() return self.human end
+ function p:GetScriptData() return self.data or '' end;function p:SetScriptData(v) self.data=v end
  function p:IsAlive() return self.alive end;function p:IsBarbarian() return self.id==63 end
  function p:IsTurnActive() return true end;function p:GetCurrentEra() return self.era end
  function p:GetTeam() return self.id end;function p:GetHandicapType() return self.handicap end
@@ -72,6 +73,8 @@ function newPlayer(pid,civ,human)
  function p:GetCapitalCity() return self.cities[0] end;function p:GetCityByID(id) return self.cities[id] end
  function p:GetUnitByID(id) return self.units[id] end;function p:GetNumCities() local n=0;for _ in pairs(self.cities) do n=n+1 end;return n end
  function p:AddNotification(...) self.notifications[#self.notifications+1]={...} end
+ function p:KillCities() local cities={};for c in self:Cities() do cities[#cities+1]=c end;for _,c in ipairs(cities) do c:Kill() end end
+ function p:KillUnits() local units={};for u in self:Units() do units[#units+1]=u end;for _,u in ipairs(units) do u:Kill(false,-1) end end
  function p:InitUnit(kind,x,y,ai,direction)
   if FAIL_UNITS then return end
   assert(kind and GameInfo.Units[kind],'Invalid unit type')
@@ -91,7 +94,7 @@ function newUnit(owner,id,kind,x,y)
  function u:GetUnitType() return self.kind end;function u:GetX() return self.x end;function u:GetY() return self.y end
  function u:GetGameTurnCreated() return self.created end;function u:GetScriptData() return self.data end
  function u:SetScriptData(v) self.data=v end;function u:SetName(v) self.name=v end
- function u:IsCombatUnit() return (def.Combat or 0)>0 or (def.RangedCombat or 0)>0 end
+ function u:IsCombatUnit() return (def.Combat or 0)>0 end
  function u:IsHasPromotion(id) return self.promos[id] or false end
  function u:SetHasPromotion(id,v) assert(id,'Invalid promotion');self.promos[id]=v end
  function u:Kill(delay,killer)
@@ -117,9 +120,13 @@ function newCity(owner,id,x,y)
  function c:SetNumRealBuilding(id,n) assert(id and n>=0);self.buildings[id]=n end
  function c:GetNumCityPlots() return #self.plots end;function c:GetCityIndexPlot(i) return self.plots[i+1] end
  function c:FoodDifference() return self.surplus end;function c:GetFood() return self.food end
+ function c:FoodDifferenceTimes100() return math.floor(self.surplus*100+.5) end
  function c:ChangeFood(v) self.food=self.food+v;assert(self.food>=0) end
  function c:GetDamage() return self.damage end;function c:SetDamage(v) self.damage=v end
+ function c:GetMaxHitPoints() return 200 end
+ function c:Kill() Players[self.owner].cities[self.id]=nil;plot(self.x,self.y).city=nil;self.killed=true end
  function c:GetProduction() return self.production end;function c:ChangeProduction(v) self.production=self.production+v;assert(self.production>=0) end
+ function c:GetBuildingProductionNeeded(id) return math.floor(GameInfo.Buildings[id].Cost*(GameInfo.GameSpeeds[0].ConstructPercent or GameInfo.GameSpeeds[0].TrainPercent)/100+.5) end
  function c:GetProductionUnit() return self.productionUnit end;function c:GetProductionBuilding() return self.productionBuilding end
  function c:GetProductionProject() return self.productionProject end;function c:GetProductionProcess() return self.productionProcess end
  function c:CanConstruct(id) return self:GetNumRealBuilding(id)==0 and GameEvents.CityCanConstruct.Test(self.owner,self.id,id) end

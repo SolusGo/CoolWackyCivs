@@ -564,21 +564,22 @@
     <File md5="2E2E24C8C87BC7CE13FE41FFA6F62DBF" import="0">TheShatteredEmpire/SQL/10_Imperial_Text.sql</File>
     <File md5="D61D01E95069041CAD18EE3EC0798C8A" import="1">TheShatteredEmpire/UI/ImperialAdministration.lua</File>
     <File md5="82892DA1D86AD47460DDB652DC283CD3" import="0">TheShatteredEmpire/UI/ImperialAdministration.xml</File>
-    <File md5="E430E1C2EFE4F1153067987F6FC9907E" import="1">TheLastCity/Lua/LastCityAI.lua</File>
-    <File md5="0EC9019AE648E152353C69C48BF684C8" import="1">TheLastCity/Lua/LastCityConfig.lua</File>
-    <File md5="B7112D89FCF0B01DA73D35ADCCDC43B6" import="1">TheLastCity/Lua/LastCityCore.lua</File>
-    <File md5="0D416D4621244298924688B3500CD599" import="1">TheLastCity/Lua/LastCityCrises.lua</File>
-    <File md5="F35AD46D524455E81112F069CA8AF744" import="1">TheLastCity/Lua/LastCityEconomy.lua</File>
-    <File md5="BA34AA1C66EB34AE184C024FB0A09328" import="1">TheLastCity/Lua/LastCityEvents.lua</File>
-    <File md5="979DAF475F3C1A6F6F8036F9C49A5520" import="1">TheLastCity/Lua/LastCityInvasions.lua</File>
-    <File md5="34CE9130E82130A612F90B47F5600954" import="1">TheLastCity/Lua/LastCityPersistence.lua</File>
-    <File md5="D1B7A9C90F3C7144905754691350D46B" import="1">TheLastCity/Lua/LastCityRefugees.lua</File>
-    <File md5="A0ACF17D5C72BF4B8B1B078BF2D5BD1B" import="0">TheLastCity/SQL/00_LC_Core.sql</File>
+    <File md5="F2BFA10B1191A89D6204B9DE02A96FBB" import="1">TheLastCity/Lua/LastCityAI.lua</File>
+    <File md5="425B65F8CCA85C7E7C892934A802AC01" import="1">TheLastCity/Lua/LastCityConfig.lua</File>
+    <File md5="B5D083BB9B4BC1689F86970026217F0E" import="1">TheLastCity/Lua/LastCityCore.lua</File>
+    <File md5="BE6076F7DE5DA68203468CC5CC298C01" import="1">TheLastCity/Lua/LastCityCrises.lua</File>
+    <File md5="0586D2F292BE03B3AB12E381D50E6B41" import="1">TheLastCity/Lua/LastCityEconomy.lua</File>
+    <File md5="7D737B42F8D8AF7C891266D0EE8304F0" import="1">TheLastCity/Lua/LastCityEvents.lua</File>
+    <File md5="5358C0E182327C8AB71B7E0628328D42" import="1">TheLastCity/Lua/LastCityInvasions.lua</File>
+    <File md5="BAFF63BDC72E68DA5337167760A9B7E3" import="1">TheLastCity/Lua/LastCityPersistence.lua</File>
+    <File md5="BE7922264E8C6473F23B813E9B842151" import="1">TheLastCity/Lua/LastCityRefugees.lua</File>
+    <File md5="63E542B2F245DC22CFE12C4E06AA2356" import="0">TheLastCity/SQL/00_LC_Core.sql</File>
     <File md5="98F33A9BADEE3F49D274268172525C88" import="0">TheLastCity/SQL/01_LC_Inheritance.sql</File>
     <File md5="937A3DC3DEA6A0459A00BAFFFCDF4E09" import="0">TheLastCity/SQL/02_LC_Effects.sql</File>
-    <File md5="079A407F97E1A15373C5956A55C1D1DA" import="0">TheLastCity/SQL/10_LC_Text.sql</File>
-    <File md5="1DC3485DD58750F718427C43E2304BB0" import="1">TheLastCity/UI/SanctuaryCouncil.lua</File>
+    <File md5="0A4EF9B88C57C8DC0E5026F9EAE202EB" import="0">TheLastCity/SQL/10_LC_Text.sql</File>
+    <File md5="AA0E26820AF7BD02ED3647088151523D" import="1">TheLastCity/UI/SanctuaryCouncil.lua</File>
     <File md5="F686887BCCF66F6B95888548E337FB7A" import="0">TheLastCity/UI/SanctuaryCouncil.xml</File>
+    <File md5="4AFD262CDB0A9F35455785EB65AE89CB" import="1">TheLastCity/Art/LastLight.dds</File>
   </Files>
   <Actions>
     <OnModActivated>

@@ -4,7 +4,13 @@ import sys
 R=Path(__file__).resolve().parents[1]
 
 def integrate(text):
-    if 'TheLastCity/UI/SanctuaryCouncil.xml' in text:return text
+    if 'TheLastCity/UI/SanctuaryCouncil.xml' in text:
+        for p in sorted((R/'TheLastCity/Art').glob('*.dds')):
+            relative=p.relative_to(R).as_posix()
+            if relative not in text:
+                entry=f'  <ItemGroup>\n    <Content Include="{relative}"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>\n  </ItemGroup>\n'
+                text=text.replace('</Project>',entry+'</Project>')
+        return text
     text=text.replace('<ModVersion>20</ModVersion>','<ModVersion>21</ModVersion>')
     text=text.replace('Fifteen civilizations. Fifteen stranger ways to rule.','Sixteen civilizations. Sixteen stranger ways to rule.')
     text=text.replace('The Sol Intellect, and The Shattered Empire. Requires','The Sol Intellect, The Shattered Empire, and The Last City. Requires')

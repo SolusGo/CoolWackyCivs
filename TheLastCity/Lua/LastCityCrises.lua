@@ -3,7 +3,7 @@ L.Crises={'OUTBREAK','GATES','THEFT','DESERTION','PROTESTS','SCIENTIST','WATER_F
  'LAST_HOSPITAL','CONSPIRACY','HERO','SUPPLY_CACHE','EXPERT_ACCIDENT','REBUILD','SIEGE_CHILD'}
 function L.CrisisWeight(s,key)
  local c=L.City(s);local crowd=math.max(0,c:GetPopulation()-s.housing)
- if key=='OUTBREAK' then return math.max(1,2+math.min(10,crowd*2+s.starvation)+(s.wave and s.wave.era>=3 and 3 or 0)+math.min(3,s.lastPillaged)+math.min(2,math.max(0,Players[s.pid]:GetHandicapType()-3))-math.min(8,L.Medical(s)))
+ if key=='OUTBREAK' then return math.max(1,2+math.min(10,crowd*2+s.starvation/L.Speed)+(s.infection and 5 or s.wave and s.wave.era>=3 and 3 or 0)+math.min(3,s.lastPillaged)+math.min(2,math.max(0,Players[s.pid]:GetHandicapType()-3))-math.min(8,L.Medical(s)))
  elseif key=='GATES' then return (s.wave or c:GetDamage()>30) and 7 or 0
  elseif key=='THEFT' then return s.provisions<30 and 7 or 1
  elseif key=='DESERTION' then return s.morale<40 and L.Military(s.pid)>0 and 6 or 0
@@ -40,7 +40,7 @@ function L.CrisisCost(s,choice)
  local cost=(key=='GATES' and 20 or key=='OUTBREAK' and math.max(6,18-L.Medical(s)*2) or key=='SUPPLY_CACHE' and 8 or key=='HERO' and 6 or key=='SIEGE_CHILD' and 4 or 12)
  if key=='GATES' and s.survivors.ASH then cost=10 end
  if key=='WATER_FAILURE' and s.survivors.ASH then cost=6 end
- return L.Scale(cost),key=='GATES' and L.Scale(20) or 0
+ return L.Scale(cost),key=='GATES' and L.ProductionScale(20) or 0
 end
 function L.CrisisCheck(s,id,choice)
  if not s.crisis or id~=s.crisis.id then return false,L.Text('EVENT_EXPIRED') end
@@ -61,7 +61,7 @@ function L.ResolveCrisis(s,id,choice)
  local key=r.key
  if key=='OUTBREAK' then
   s.medicalCases=s.medicalCases+1
-  if choice==1 then L.Morale(s,3);s.starvation=math.max(0,s.starvation-2)
+  if choice==1 then L.Morale(s,3);s.starvation=math.max(0,s.starvation-2);s.infection=nil;s.infectionNext=L.Now()+L.Scale(L.Config.InfectionCooldown)
   elseif choice==2 then L.Morale(s,-4);L.Provisions(s,-L.Scale(4))
   else L.Morale(s,-math.max(3,12-L.Medical(s)));if L.Medical(s)<3 then losePopulation(c,1) end end
  elseif key=='GATES' then

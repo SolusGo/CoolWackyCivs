@@ -186,7 +186,7 @@ PROMOS={
  'RESOLVE':('United Resolve','+5% Defense within three plots of Last Light while Morale is at least 80.'),
  'INVADER':('Endless Siege','+10% Attack.'),'BOSS':('The Harrower','+25% Combat Strength, +35% City Attack; nearby tagged invasion troops receive +10% Combat Strength.'),
  'COMMAND':('Under the Harrower','+10% Combat Strength within two plots of the living wave commander; refreshed on turns.'),
- 'PLAGUE':('The Plaguebound','Invasion identity. Pillaged infrastructure and overcrowding increase medical pressure.'),
+ 'PLAGUE':('The Plaguebound','Remaining within two plots of Last Light can spread a bounded infection. Physicians and the Hospital resist infection, reduce supply drain and shorten treatment.'),
  'ELITE':('Final Night Elite','+15% Combat Strength.')}
 for n in range(1,6):
  PROMOS['VETERAN_'+str(n)]=(f'Watch Veteran {n}',f'Persistent record of {n} Major Sieges survived near Last Light. Grants +{3*n}% Defense locally through an active promotion.')
@@ -203,3 +203,22 @@ TEXT.update({
  'DIPLO_DECLAREWAR':'We fight so our people may live to see another morning.',
  'DIPLO_ATTACKED':'You have brought the long night to our gates. We will meet it.',
  'DIPLO_DEFEATED':'Remember the people who lived here. Let their light reach someone.'})
+TEXT.update({
+ 'LAST_LIGHT_FALLEN':'THE LAST LIGHT HAS FALLEN[NEWLINE]The walls have been breached. The defenders are gone. The final sanctuary of humanity has fallen silent.',
+ 'WALLS_BREACHED':'THE WALLS ARE BREACHED[NEWLINE]Multiple invaders surround Last Light, the walls are near collapse and no defenders remain nearby. Restore a defender within two plots or repair the walls before the sanctuary falls.',
+ 'COLLAPSE_STATUS':'Military collapse: {1_Num} / {2_Num} consecutive turns. Repair the walls or return a combat defender within two plots immediately.',
+ 'SPAWN_BLOCKED':'No safe approach for a physical army. A siege blockade now drains Provisions and Morale and may damage shelter. Physical spawning will be retried; this encounter grants no military victory.',
+ 'PRESSURE_STATUS':'Siege blockade: {1_Num} turns remaining',
+ 'PRESSURE_ENDED':'The blockade lifts. Another physical invasion will be attempted shortly.',
+ 'BLOCKADE':'Saboteurs struck the sanctuary supply routes.',
+ 'ORPHAN_RELEASED':'An extra city with no living previous owner was released to a living custodian, or dismantled when no custodian existed. Last Light remains the only sanctuary.',
+ 'INFECTION':'PLAGUE AT THE GATES[NEWLINE]Plaguebound siege troops have infected the sanctuary. Assign Physicians or build the Hospital; emergency outbreak treatment can clear the infection.',
+ 'INFECTION_STATUS':'Infection severity {1_Num} / 4 | {2_Num} turns remaining[NEWLINE]Additional consumption {3_Num}/turn | Medical protection {4_Num}',
+ 'INFECTION_RECOVERED':'The sanctuary infection has ended. A short immunity period follows.',
+ 'INFECTION_DEATH':'An untreated severe infection claimed a civilian.',
+ 'HARROWER_DEFEATED':'THE HARROWER HAS FALLEN[NEWLINE]The invasion commander is dead. Morale +6. His command bonus ends; surviving attackers still threaten Last Light.',
+ 'OUTSKIRTS_RAID':'Enemies infiltrated the sanctuary outskirts. A smaller physical raid has appeared on empty owned plots at least three tiles from Last Light. The Final Night still requires its full-strength eligibility check.',
+ 'SKILL_PHYSICIANS':'Reduces refugee disease and starvation mortality. Resists Plaguebound infection, reduces severity and supply drain, and shortens treatment. Three medical protection speeds recovery. Maximum five assigned Physicians.',
+ 'REFUGEE_REFUSE':'Refuse the caravan. No Provisions cost; Morale -10. Previous quarantine costs are not refunded.',
+ 'BUILD_HELP':'Request this building through the native production queue. Current engine Production requirement: {1_Num}. The request replaces the existing queue.',
+})

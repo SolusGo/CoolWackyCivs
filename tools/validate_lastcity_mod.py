@@ -55,7 +55,7 @@ def database():
     print('PASS actual BNW/CP SQL: complete inheritance, stock art atlases, localization, AI, production costs and effect schema')
     return d
 
-def fixture(d,speed=100):
+def fixture(d,speed=100,growth=None,construct=None):
     lua=LuaRuntime(unpack_returned_tuples=True)
     lua.globals().Translations=lua.table_from({'TXT_KEY_LC_'+k:v for k,v in TEXT.items()})
     lua.execute((R/'tools/tests/lastcity_mock.lua').read_text(encoding='utf-8'))
@@ -65,7 +65,7 @@ def fixture(d,speed=100):
         info[table]=lua.globals().dbTable(lua.table_from([lua.table_from(r) for r in rows]))
         for row in rows:
             if 'Type' in row and 'ID' in row:types[row['Type']]=row['ID']
-    info.GameSpeeds=lua.table_from({0:lua.table_from({'TrainPercent':speed})})
+    info.GameSpeeds=lua.table_from({0:lua.table_from({'TrainPercent':speed,'GrowthPercent':growth or speed,'ConstructPercent':construct or speed})})
     lua.globals().GameInfo=info;lua.globals().GameInfoTypes=lua.table_from(types)
     def include(name):
         p=V/'Lua'/(name+'.lua')
@@ -88,7 +88,7 @@ def simulations(d):
       local gift=newCity(0,2,12,0);gift.original=1;gift.previous=1;Players[0].cities[2]=gift
       L.ReturnExtraCities(S);assert(gift.owner==1 and Players[0]:GetNumCities()==1)
       local orphan=newCity(0,3,20,0);orphan.original=2;orphan.previous=2;Players[2].alive=false;Players[0].cities[3]=orphan
-      L.ReturnExtraCities(S);assert(orphan.owner==0 and orphan.puppet)
+      L.ReturnExtraCities(S);assert(orphan.killed and Players[0]:GetNumCities()==1)
     """)
     scenario(d,'supply accounting, pillage, civilian exclusion, assignments and cooldowns',"""
       C.population=10;L.Building(C,'DISTRICT',1)
@@ -151,8 +151,8 @@ def simulations(d):
       FAIL_UNITS=true;assert(not L.BeginWave(S));assert(not S.wave and S.wavesSurvived==0 and S.waveNumber==0)
       FAIL_UNITS=false;assert(L.BeginWave(S));defeatWave();assert(S.wavesSurvived==1)
       assert(L.BeginWave(S));local w=S.wave;TURN=w.expiry;L.InvasionTurn(S);assert(not S.wave and S.wavesSurvived==1)
-      L.Near(0,0,8,function(p) if dist(0,0,p.x,p.y)>=4 then p.owner=1 end end)
-      assert(not L.BeginWave(S));assert(S.wavesSurvived==1)
+      L.Near(0,0,16,function(p) if not p:IsCity() then p.owner=1 end end)
+      assert(not L.BeginWave(S));assert(S.wavesSurvived==1 and S.pressure)
     """)
     scenario(d,'island naval domains, foreign terrain exclusion and bounded local work',"""
       L.Near(0,0,8,function(p) if dist(0,0,p.x,p.y)>1 then p.water=true end end)
@@ -210,6 +210,8 @@ def simulations(d):
       L.States={};S=L.State(0);assert(S.refugee.id==id and S.wave.number==wave and S.morale==63.7 and S.assigned.ENGINEERS==2)
       TURN=1;L.Turn(0);local provisions=S.provisions;L.Turn(0);assert(S.provisions==provisions)
       local active=SAVE_DATA.LASTCITY_P0_active;SAVE_DATA['LASTCITY_P0_'..active..'_sum']=-1
+      L.States={};S=L.State(0);assert(S.incompatible,'Older bank must not replay rewards against newer native state')
+      SAVE_DATA['LASTCITY_P0_'..active..'_sum']=tonumber(Players[0]:GetScriptData():match('|LCSTATE2_0_(%d+)|'))
       L.States={};S=L.State(0);assert(not S.incompatible and S.refugee.id==id)
       resetEvents();__LAST_CITY_LOADED=nil;MapModData={};include('LastCityCore')
       assert(#GameEvents.PlayerDoTurn.handlers==1);include('LastCityCore');assert(#GameEvents.PlayerDoTurn.handlers==1)
@@ -247,7 +249,7 @@ def packaging():
     print('PASS standalone manifest hashes, VFS/SQL order, sole runtime owner, Lua 5.1 syntax and Council controls')
 
 def main():
-    d=database();packaging();simulations(d);ui_simulation(d);d.close()
+    d=database();packaging();simulations(d);regressions(d);ui_simulation(d);d.close()
     print('Last City automated validation passed. Native in-game smoke tests remain outstanding.')
 
 def ui_simulation(d):
@@ -256,5 +258,30 @@ def ui_simulation(d):
     lua.globals().UISource=(V/'UI/SanctuaryCouncil.lua').read_text(encoding='utf-8')
     lua.execute((R/'tools/tests/lastcity_ui_assertions.lua').read_text(encoding='utf-8'))
     print('PASS Council open/close, seven tabs, real commands, preview/confirmation, stale events and modal visibility')
+
+def regressions(d):
+    source=(R/'tools/tests/lastcity_regressions.lua').read_text(encoding='utf-8')
+    discovery=fixture(d);discovery.execute(source)
+    for name in sorted(discovery.globals().RegressionCases.keys()):
+        lua=fixture(d);lua.execute(source);lua.globals().RegressionCases[name]()
+        print('PASS regression: '+name)
+    lua=fixture(d,100,growth=300,construct=150)
+    lua.execute("""
+      assert(L.Speed==3 and L.Scale(10)==30 and L.ProductionScale(20)==30)
+      S.crisis={id=5,key='GATES'};local food,production=L.CrisisCost(S,1);assert(food==60 and production==30)
+    """)
+    for speed in [67,100,150,300]:
+        lua=fixture(d,speed)
+        lua.execute("""
+          S.nextWave=99999;S.nextCrisis=99999;S.nextRefugee=99999
+          C.population=10;S.ration='STRICT';S.provisions=200;L.Building(C,'DISTRICT',1)
+          local morale=S.morale;advance(L.Scale(30))
+          assert(math.abs(S.morale-(morale-.05*L.Scale(30)/L.Speed))<.01)
+          assert(S.starvation==0 and C.population==10)
+        """)
+        print(f'PASS proportional attrition and economy at speed {speed}%')
+    from PIL import Image
+    with Image.open(V/'Art/LastLight.dds') as im:assert im.size==(1024,512)
+    print('PASS custom speed fields and original Dawn of Man DDS dimensions')
 
 if __name__=='__main__':main()

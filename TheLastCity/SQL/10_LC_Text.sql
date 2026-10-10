@@ -7,6 +7,7 @@ INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_ANXIOUS','An
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_ASH_SOLUTION','The accepted Engineers of Ash remember the old gateworks. Their expertise halves the supply cost of repairs.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_ASSAULT','The gates are under assault.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_ASSIGNMENT_CHANGED','Council assignment changed.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_BLOCKADE','Saboteurs struck the sanctuary supply routes.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_BREAKING','Breaking Point (-30% Production)');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_BUILDINGS','Works');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_BUILDINGS_HELP','These are unique, one-time infrastructure investments built through the normal Production queue. Confirming replaces the current queue; stored progress uses normal Civ V rules.');
@@ -26,7 +27,7 @@ INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_BUILDING_RES
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_BUILDING_SHELTER','Underground Shelter');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_BUILDING_STORAGE','Protected Storehouses');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_BUILDING_WATER','Reclaimed Waterworks');
-INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_BUILD_HELP','Base Production cost: {1_Num}. Native game-speed Production scaling applies.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_BUILD_HELP','Request this building through the native production queue. Current engine Production requirement: {1_Num}. The request replaces the existing queue.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_BUILT','Completed');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_BUSY','The Council is already processing a decision.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_CAPITAL','Last Light');
@@ -94,6 +95,7 @@ INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_CHOICE_WATER
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_CITY_RETURNED','An additional city was returned.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_CIV','The Last City — Humanity''s Final Refuge');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_CIV_PEDIA','When the world fell, one city refused to die. Last Light shelters the remnants of humanity behind walls built from the ruins of vanished kingdoms. Its strength comes from the people it saves, and every new arrival must share its finite supplies. Its chronicles remember every siege and every difficult choice.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_COLLAPSE_STATUS','Military collapse: {1_Num} / {2_Num} consecutive turns. Repair the walls or return a combat defender within two plots immediately.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_COMPLICATION','Survivor consequence');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_CONCEPT_ECONOMY','Provisions, Housing and Morale');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_CONCEPT_HELP_ECONOMY','Provisions start at 45 with capacity 200. Base income is 4 per turn, plus 2 from the District, 1 per owned unpillaged Farm/Fishing Boats in the city radius, and 2 per assigned Farmer. Consumption is ceil(ceil(Population*0.6+combat units*0.4)*ration multiplier). Housing starts at 12; the District adds 6. Morale changes Production and local Defense.');
@@ -181,9 +183,15 @@ INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_FOUND_FIRST'
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_GENEROUS','Generous');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_HARBINGERS','The Harbingers');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_HARROWER','The Harrower');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_HARROWER_DEFEATED','THE HARROWER HAS FALLEN[NEWLINE]The invasion commander is dead. Morale +6. His command bonus ends; surviving attackers still threaten Last Light.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_HISTORY','Chronicle');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_HISTORY_ROW','Turn {1_Num}: {2_Name}[NEWLINE]{3_Name}');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_HUMANITY_ENDURES','HUMANITY ENDURES — Humanity has survived. Now it must learn to live again. Endless Survival continues; ordinary victory conditions remain available.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_INFECTION','PLAGUE AT THE GATES[NEWLINE]Plaguebound siege troops have infected the sanctuary. Assign Physicians or build the Hospital; emergency outbreak treatment can clear the infection.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_INFECTION_DEATH','An untreated severe infection claimed a civilian.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_INFECTION_RECOVERED','The sanctuary infection has ended. A short immunity period follows.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_INFECTION_STATUS','Infection severity {1_Num} / 4 | {2_Num} turns remaining[NEWLINE]Additional consumption {3_Num}/turn | Medical protection {4_Num}');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_LAST_LIGHT_FALLEN','THE LAST LIGHT HAS FALLEN[NEWLINE]The walls have been breached. The defenders are gone. The final sanctuary of humanity has fallen silent.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_LEADER','The Warden');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_LEADER_PEDIA','The Warden holds no crown. The office exists to keep the gates standing, the wells clean and the last fires alight. Compassion and necessity contend at every council meeting. The Warden must protect Last Light without forgetting why it deserves to survive.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_LEGACY_STATUS','Victories {1_Num} | Major Sieges {2_Num} | Bosses {3_Num}[NEWLINE]Permanent City Defense +{4_Num}% | Military losses {5_Num}');
@@ -194,11 +202,15 @@ INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_MORALE_STATU
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_NEXT_WAVE','Invasion in {1_Num} turns');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_NO_CRISIS','No active crisis. The city has a moment to breathe.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_NO_REFUGEES','No caravan waiting. Estimated next arrival in {1_Num} turns.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_ORPHAN_RELEASED','An extra city with no living previous owner was released to a living custodian, or dismantled when no custodian existed. Last Light remains the only sanctuary.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_OUTSKIRTS_RAID','Enemies infiltrated the sanctuary outskirts. A smaller physical raid has appeared on empty owned plots at least three tiles from Last Light. The Final Night still requires its full-strength eligibility check.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_OVERVIEW','City');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_OVERVIEW_HELP','The city survives through people, supplies and defenders. Completed Farms and Fishing Boats in its owned city radius yield Provisions. Combat units consume supplies even when exempt from Gold maintenance. The Chronicle records choices and consequences.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_PHYSICIANS','Physicians');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_PILLAGED','Infrastructure was pillaged.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_PLAGUEBOUND','The Plaguebound');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_PRESSURE_ENDED','The blockade lifts. Another physical invasion will be attempted shortly.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_PRESSURE_STATUS','Siege blockade: {1_Num} turns remaining');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_PRODUCTION_REQUIRED','Requires {1_Num} stored Production in the current build order.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_PROMO_BOSS','The Harrower');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_PROMO_COMMAND','Under the Harrower');
@@ -208,7 +220,7 @@ INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_PROMO_HELP_C
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_PROMO_HELP_ELITE','+15% Combat Strength.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_PROMO_HELP_INVADER','+10% Attack.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_PROMO_HELP_NO_CONQUEST','Cannot enter or capture enemy cities. The Last City may keep one permanent city.');
-INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_PROMO_HELP_PLAGUE','Invasion identity. Pillaged infrastructure and overcrowding increase medical pressure.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_PROMO_HELP_PLAGUE','Remaining within two plots of Last Light can spread a bounded infection. Physicians and the Hospital resist infection, reduce supply drain and shorten treatment.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_PROMO_HELP_RESOLVE','+5% Defense within three plots of Last Light while Morale is at least 80.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_PROMO_HELP_SANCTUARY','+15% Defense while within three plots of Last Light. Refreshed on movement and turns.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_PROMO_HELP_TRAINING_1','+2% Defense within three plots of Last Light from assigned refugee Veterans.');
@@ -265,7 +277,7 @@ INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_REFUGEES','R
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_REFUGEES_WAITING','A refugee caravan waits at the gates.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_REFUGEE_ACCEPT','Accept: +{1_Num} Population, +1 available {2_Name}, pay {3_Num} Provisions. Full risk unless already quarantined.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_REFUGEE_QUARANTINE','Quarantine: pay {3_Num} Provisions now, delay processing, and reduce infectious risk. The remaining cost is due on acceptance.');
-INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_REFUGEE_REFUSE','Refuse: no Population or expertise. Preserve supplies and lose 10 Morale. Earlier refusals can fuel later unrest.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_REFUGEE_REFUSE','Refuse the caravan. No Provisions cost; Morale -10. Previous quarantine costs are not refunded.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_REFUSE','Refuse');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_REFUSED','Refugees refused.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_REMNANTS','The Remnants');
@@ -291,12 +303,12 @@ INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_SHORT','The 
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_SIEGE_VICTORY','The invasion was defeated. Last Light endures.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_SKILL_ENGINEERS','+3% Production per assigned Engineer; maximum +15%.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_SKILL_FARMERS','+2 Provisions per turn per assigned Farmer; maximum +10.');
-INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_SKILL_PHYSICIANS','Each assigned Physician reduces caravan disease risk, shortage mortality risk and outbreak treatment cost/severity. Maximum five.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_SKILL_PHYSICIANS','Reduces refugee disease and starvation mortality. Resists Plaguebound infection, reduces severity and supply drain, and shortens treatment. Three medical protection speeds recovery. Maximum five assigned Physicians.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_SKILL_SCHOLARS','+3% Culture per assigned Scholar, and +0.08 Morale recovery per turn under safe, adequately supplied conditions; maximum five.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_SKILL_SCIENTISTS','+3% Science per assigned Scientist; maximum +15%.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_SKILL_VETERANS','+2% Defense per assigned Veteran to combat units within three plots of Last Light; maximum +10%.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_SOLDIER_LOST','A defender fell.');
-INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_SPAWN_BLOCKED','The approach is blocked. The invasion has been postponed; no survival reward was granted.');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_SPAWN_BLOCKED','No safe approach for a physical army. A siege blockade now drains Provisions and Morale and may damage shelter. Physical spawning will be retried; this encounter grants no military victory.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_SPY_1','Ember');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_SPY_10','Dawn');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_SPY_2','Greycloak');
@@ -334,6 +346,7 @@ INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_UNAVAILABLE'
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_UNITED','United (+10% Production, +5% local Defense)');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_UNREST','Unrest (-15% Production)');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_VETERANS','Veterans');
+INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_WALLS_BREACHED','THE WALLS ARE BREACHED[NEWLINE]Multiple invaders surround Last Light, the walls are near collapse and no defenders remain nearby. Restore a defender within two plots or repair the walls before the sanctuary falls.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_WARNING','An invasion approaches. Prepare the walls.');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_WATCH','Last Watch');
 INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_WATCH_HELP','Replaces Spearman and retains its normal abilities. Shares the civilization''s +15% local Defense bonus, without a duplicate bonus. Surviving Major Sieges while present within three plots of Last Light grants +3% local Defense per siege, up to +15%. Last Watch identity and veteran ranks persist through upgrades.');

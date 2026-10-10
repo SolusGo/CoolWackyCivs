@@ -2126,4 +2126,7 @@
     <Content Include="TheLastCity/UI/SanctuaryCouncil.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
     <Content Include="TheLastCity/UI/SanctuaryCouncil.xml"><SubType>XML</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastLight.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
 </Project>
