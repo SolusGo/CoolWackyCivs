@@ -1,5 +1,13 @@
 # Patch Notes
 
+## Version 21 — The Last City — 2026-10-10
+
+- Added The Warden of Last Light: a one-city survival civilization with the Last Watch and Sanctuary District, available to human and AI players.
+- Added persistent Provisions, Housing, Morale, rationing, six refugee expertise categories, twelve caravans, quarantine and fifteen state-driven crises.
+- Added escalating land/naval invasions, Major Sieges, the Harrower, survivor veteran ranks, infrastructure investments and the Dawn Initiative/Final Night narrative endgame.
+- Added the event-driven Sanctuary Council, standalone pure-file packaging, English localization, stock-art fallbacks, automated validation and an explicit native testing/engine-limitations guide.
+- Preserved native defeat handling. CP-only barbarians ransom cities; existing hostile AI majors can supply city-capturing invasions. Native gameplay and balance testing remain outstanding.
+
 ## Version 20 — Legalism and CP inheritance correction — 2026-10-10
 
 - Fixed the Governor's Palace missing its inherited Culture and additional Gold after inheritance SQL aborted on a temporary CP migration table. Legalism can now grant it through the normal four-city policy rules.

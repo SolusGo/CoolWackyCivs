@@ -6,8 +6,8 @@
     <Name>Cool Wacky Civs</Name>
     <SafeName>Cool Wacky Civs</SafeName>
     <Guid>4c02158d-ad52-4b73-bf2a-555ce58a1e60</Guid>
-    <Teaser>Fifteen civilizations. Fifteen stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, The Viltrum Empire, The Tokenized Intelligence, The Kingdoms, The Sol Intellect, and The Shattered Empire. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Sixteen civilizations. Sixteen stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, The Viltrum Empire, The Tokenized Intelligence, The Kingdoms, The Sol Intellect, The Shattered Empire, and The Last City. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -27,7 +27,7 @@
     <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <HideSetupGame>false</HideSetupGame>
-    <ModVersion>20</ModVersion>
+    <ModVersion>21</ModVersion>
     <Stability>Alpha</Stability>
     <ModActions>
       <Action>
@@ -330,6 +330,10 @@
         <Type>UpdateDatabase</Type>
         <FileName>TheShatteredEmpire/SQL/10_Imperial_Text.sql</FileName>
       </Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TheLastCity/SQL/00_LC_Core.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TheLastCity/SQL/01_LC_Inheritance.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TheLastCity/SQL/02_LC_Effects.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TheLastCity/SQL/10_LC_Text.sql</FileName></Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -434,6 +438,7 @@
         <Description>Persistent imperial gameplay, AI and administration UI.</Description>
         <FileName>TheShatteredEmpire/UI/ImperialAdministration.xml</FileName>
       </Content>
+      <Content><Type>InGameUIAddin</Type><FileName>TheLastCity/UI/SanctuaryCouncil.xml</FileName><Name>Sanctuary Council</Name><Description>Last City survival and management interface</Description></Content>
     </ModContent>
     <ModDependencies>
       <Association>
@@ -2104,4 +2109,21 @@
     <BuildDir>$(MSBuildProjectDirectory)\Build\$(SafeName)\</BuildDir>
     <PackageDir>$(MSBuildProjectDirectory)\Packages\</PackageDir>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Lua/LastCityAI.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/Lua/LastCityConfig.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/Lua/LastCityCore.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/Lua/LastCityCrises.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/Lua/LastCityEconomy.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/Lua/LastCityEvents.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/Lua/LastCityInvasions.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/Lua/LastCityPersistence.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/Lua/LastCityRefugees.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/SQL/00_LC_Core.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/SQL/01_LC_Inheritance.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/SQL/02_LC_Effects.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/SQL/10_LC_Text.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/UI/SanctuaryCouncil.lua"><SubType>Lua</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/UI/SanctuaryCouncil.xml"><SubType>XML</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+  </ItemGroup>
 </Project>

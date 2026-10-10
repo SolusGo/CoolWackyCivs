@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Context ID="LastCityCouncil">
+ <Grid ID="Launcher" Anchor="C,T" Offset="0,56" Size="570,36" Style="GridBlackIndent8" Hidden="1">
+  <GridButton ID="Open" Anchor="C,C" Size="558,30" Style="BaseButton" String="TXT_KEY_LC_COUNCIL" />
+ </Grid>
+ <Grid ID="Panel" Anchor="C,C" Size="920,680" Style="Grid9DetailFive140" ConsumeMouse="1" Hidden="1">
+  <Label ID="Title" Anchor="L,T" Offset="24,20" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="TXT_KEY_LC_COUNCIL" />
+  <GridButton ID="Close" Anchor="R,T" Offset="20,18" Size="42,32" Style="BaseButton" String="X" />
+  <Label ID="Summary" Anchor="L,T" Offset="24,58" Size="868,65" WrapWidth="868" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+  <Stack ID="Tabs" Anchor="L,T" Offset="24,132" StackGrowth="Right" Padding="4" />
+  <ScrollPanel ID="Scroll" Anchor="L,T" Offset="24,178" Size="870,342" Vertical="1">
+   <Stack ID="Rows" Anchor="L,T" StackGrowth="Bottom" Padding="6" />
+  </ScrollPanel>
+  <Label ID="Preview" Anchor="L,T" Offset="24,534" Size="868,78" WrapWidth="868" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+  <GridButton ID="Confirm" Anchor="C,B" Offset="0,22" Size="868,42" Style="BaseButton" String="TXT_KEY_LC_CONFIRM" />
+ </Grid>
+ <Instance Name="LastCityTab">
+  <GridButton ID="TabButton" Size="120,34" Style="BaseButton" />
+ </Instance>
+ <Instance Name="LastCityRow">
+  <Grid ID="RowRoot" Size="848,128" Style="GridBlackIndent8">
+   <Label ID="RowText" Anchor="L,T" Offset="10,8" Size="632,110" WrapWidth="632" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+   <GridButton ID="RowButton" Anchor="R,C" Offset="10,0" Size="188,38" Style="BaseButton" />
+  </Grid>
+ </Instance>
+ <Instance Name="LastCityExpert">
+  <Grid ID="ExpertRoot" Size="848,48" Style="GridBlackIndent8">
+   <Label ID="ExpertText" Anchor="L,C" Offset="12,0" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+   <GridButton ID="ExpertMinus" Anchor="R,C" Offset="74,0" Size="50,34" Style="BaseButton" String="-" />
+   <GridButton ID="ExpertPlus" Anchor="R,C" Offset="14,0" Size="50,34" Style="BaseButton" String="+" />
+  </Grid>
+ </Instance>
+</Context>

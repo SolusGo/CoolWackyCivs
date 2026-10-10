@@ -63,7 +63,7 @@ def check_packaging():
     civ_roots = (
         "RoulsAscendancy", "LunaNetwork", "TerraFramework", "CapanoCircuit",
         "FilthyRealm", "DualOrder", "RomanGladiusNetwork", "EternalNumberTen",
-        "MasayaBeyondSky", "PaulsoaresJr", "ViltrumEmpire", "TokenizedIntelligence", "TheKingdoms", "SolIntellect", "TheShatteredEmpire",
+        "MasayaBeyondSky", "PaulsoaresJr", "ViltrumEmpire", "TokenizedIntelligence", "TheKingdoms", "SolIntellect", "TheShatteredEmpire", "TheLastCity",
     )
     actual = {
         p.relative_to(ROOT).as_posix()
@@ -82,6 +82,7 @@ def check_packaging():
             "TokenizedIntelligence/UI/TokenPanel.xml",
             "TheKingdoms/UI/KingdomsOverview.xml",
             "TheShatteredEmpire/UI/ImperialAdministration.xml",
+            "TheLastCity/UI/SanctuaryCouncil.xml",
         }:
             assert not imported, f"Database SQL must not import into VFS: {name}"
         else:
@@ -113,6 +114,7 @@ def check_packaging():
         "TheKingdoms/UI/KingdomsOverview.xml",
         "SolIntellect/Lua/SolRuntime.lua",
         "TheShatteredEmpire/UI/ImperialAdministration.xml",
+        "TheLastCity/UI/SanctuaryCouncil.xml",
     ], "Combined runtime entry points are incomplete or out of order"
     assert values["SupportsMultiplayer"] == "false", "Unvalidated multiplayer must remain disabled"
     dependencies = props.findall("m:ModDependencies/m:Association/m:Id", NS)
@@ -346,6 +348,7 @@ def check_database(path: Path, cp_root: Path):
         "DUAL_ORDER", "SEVERIN", "ROMAN_GLADIUS", "MESSI", "ETERNAL_NUMBER_TEN",
         "MASAYA_KID", "PSJ_", "VILTRUM", "TOKEN_", "KINGDOMS", "THE_THRONE", "GPT_SOL", "SOL_",
         "IMPERIAL_", "SHATTERED_EMPIRE", "LAST_EMPEROR", "WEIGHT_OF_EMPIRE",
+        "_LC_", "LAST_CITY",
     )
     for table in tables:
         columns = [r[1] for r in database.execute(f"PRAGMA table_info({quote(table)})")]

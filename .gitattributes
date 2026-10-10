@@ -1,0 +1,8 @@
+# Stable manifest hashes for the new pure-file civilization on every checkout.
+TheLastCity/**/*.lua text eol=lf
+TheLastCity/**/*.sql text eol=lf
+TheLastCity/**/*.xml text eol=lf
+TheLastCity/**/*.md text eol=lf
+TheLastCity/*.modinfo text eol=lf
+tools/*lastcity*.py text eol=lf
+tools/tests/lastcity*.lua text eol=lf
