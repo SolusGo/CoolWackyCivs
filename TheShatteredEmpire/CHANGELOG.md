@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0 Legalism correction — 2026-10-10
+
+- Fixed inheritance SQL aborting on CP's already-renamed theming migration table. The Governor's Palace now receives the Monument's flat Culture and its additional Gold, so native Legalism can select the civilization's Monument replacement.
+- Corrected the shared CP test schema to complete the official theming migration, and removed the same invalid companion copies from other collection civs. Generators now see only the final runtime tables.
+- Added Palace policy-eligibility assertions and optional SQL replay against a read-only live game-cache clone. No policy entitlements or political mechanics change.
+
 ## 1.0 founding and civil-war corrections — 2026-10-10
 
 - Fixed normal limited sight blocking otherwise legal starting provinces. Ranked connected local candidates now use a guarded terrain-only reveal around native founding; failed probes restore fog and pending grants recover interrupted revelation. Wonders cannot be discovered by probing, and hidden resources do not improve site ranking.

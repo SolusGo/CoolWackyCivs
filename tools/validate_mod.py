@@ -130,9 +130,22 @@ def check_packaging():
                 (node.text.replace("\\", "/"), node.get("md5", "").lower(), node.get("import"))
                 for node in manifest.findall("Files/File")
             }
-        assert file_signature(checked_in) == file_signature(ET.parse(modbuddy_manifest).getroot()), (
-            "Official ModBuddy output differs from the checked-in manifest"
+        modbuddy = ET.parse(modbuddy_manifest).getroot()
+        # An old optional ModBuddy build must not force a ModBuddy rebuild when
+        # validating the current pure-file package. Compare manifests only when
+        # the generated build actually contains the current source files.
+        current_build = all(
+            (modbuddy_manifest.parent / name).is_file()
+            and hashlib.md5((modbuddy_manifest.parent / name).read_bytes()).digest()
+            == hashlib.md5((ROOT / name).read_bytes()).digest()
+            for name, _ in files
         )
+        if current_build:
+            assert file_signature(checked_in) == file_signature(modbuddy), (
+                "Official ModBuddy output differs from the checked-in manifest"
+            )
+        else:
+            print("SKIP stale optional ModBuddy build; current project/manifest checks remain required")
     basenames = [Path(name).name.lower() for name in names]
     assert len(basenames) == len(set(basenames)), "VFS filename collision between civilizations"
     solution = (REPO / "CoolWackyCivs.civ5sln").read_text(encoding="utf-8-sig")
@@ -302,6 +315,19 @@ def apply_current_cp_schema(database, cp_root: Path):
                 columns.append(quote(column.get("name")) + " " + column.get("type", "text") + default_sql)
             if columns:
                 database.execute(f"CREATE TABLE IF NOT EXISTS {quote(name)}({','.join(columns)})")
+
+    # CP replaces this staging table during activation, before any civ SQL runs.
+    # Keeping it in fixtures hid invalid inheritance scripts and their aborted
+    # yield copies. Migrate a BNW-shaped clone using CP's own SQL; preserve an
+    # already migrated cache (including its ConsecutiveEras values).
+    staging = "Building_ThemingBonuses_new"
+    if database.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?", (staging,)).fetchone():
+        columns = {r[1] for r in database.execute('PRAGMA table_info(Building_ThemingBonuses)')}
+        if "ConsecutiveEras" in columns:
+            database.execute("DROP TABLE Building_ThemingBonuses_new")
+        else:
+            fixes = cp_root / "Database Changes/City/Buildings/BuildingTableFixes.sql"
+            database.executescript(fixes.read_text(encoding="utf-8-sig"))
 
 
 def check_database(path: Path, cp_root: Path):

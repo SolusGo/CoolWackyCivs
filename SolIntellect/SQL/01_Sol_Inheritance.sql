@@ -599,14 +599,6 @@ CREATE TEMP TABLE SolCompanion AS SELECT * FROM "Building_ThemingBonuses" WHERE 
 UPDATE SolCompanion SET BuildingType='BUILDING_SOL_REASONING_INSTITUTE';
 INSERT INTO "Building_ThemingBonuses" SELECT * FROM SolCompanion;
 DROP TABLE SolCompanion;
-CREATE TEMP TABLE SolCompanion AS SELECT * FROM "Building_ThemingBonuses_new" WHERE BuildingType='BUILDING_UNIVERSITY';
-UPDATE SolCompanion SET BuildingType='BUILDING_SOL_CONTEXT_ARCHIVE';
-INSERT INTO "Building_ThemingBonuses_new" SELECT * FROM SolCompanion;
-DROP TABLE SolCompanion;
-CREATE TEMP TABLE SolCompanion AS SELECT * FROM "Building_ThemingBonuses_new" WHERE BuildingType='BUILDING_PUBLIC_SCHOOL';
-UPDATE SolCompanion SET BuildingType='BUILDING_SOL_REASONING_INSTITUTE';
-INSERT INTO "Building_ThemingBonuses_new" SELECT * FROM SolCompanion;
-DROP TABLE SolCompanion;
 CREATE TEMP TABLE SolCompanion AS SELECT * FROM "Building_ThemingYieldBonus" WHERE BuildingType='BUILDING_UNIVERSITY';
 UPDATE SolCompanion SET BuildingType='BUILDING_SOL_CONTEXT_ARCHIVE';
 INSERT INTO "Building_ThemingYieldBonus" SELECT * FROM SolCompanion;

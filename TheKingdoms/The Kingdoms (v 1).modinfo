@@ -65,7 +65,7 @@
     <File md5="92162885E2FC0A04AEA39211CEC333F6" import="1">Lua/RulerManager.lua</File>
     <File md5="3AA9020BD343AE2A40CD303B2DFFB66E" import="1">Lua/SuccessionManager.lua</File>
     <File md5="A99C37A67E4213A6522C3CDD069B36ED" import="0">SQL/00_Kingdoms_Core.sql</File>
-    <File md5="8F9DBC9F6BF336F4B48F2618929FF225" import="0">SQL/01_Kingdoms_Inheritance.sql</File>
+    <File md5="9BE999D05113F0FC1255CE36FF5639F5" import="0">SQL/01_Kingdoms_Inheritance.sql</File>
     <File md5="D141DB0C3E990C318A3724ABE8AF066F" import="0">SQL/02_Kingdoms_Effects.sql</File>
     <File md5="C7209159E7956DD52590C204A8D3C343" import="0">SQL/10_Kingdoms_Text.sql</File>
     <File md5="9ADED50335B0ACC02A17C522EC7CDD08" import="1">UI/KingdomsOverview.lua</File>

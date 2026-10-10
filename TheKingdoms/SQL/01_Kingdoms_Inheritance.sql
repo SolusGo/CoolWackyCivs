@@ -299,10 +299,6 @@ CREATE TEMP TABLE KingdomsCompanion AS SELECT * FROM "Building_ThemingBonuses" W
 UPDATE KingdomsCompanion SET BuildingType='BUILDING_KINGDOMS_WALL';
 INSERT INTO "Building_ThemingBonuses" SELECT * FROM KingdomsCompanion;
 DROP TABLE KingdomsCompanion;
-CREATE TEMP TABLE KingdomsCompanion AS SELECT * FROM "Building_ThemingBonuses_new" WHERE BuildingType='BUILDING_WALLS';
-UPDATE KingdomsCompanion SET BuildingType='BUILDING_KINGDOMS_WALL';
-INSERT INTO "Building_ThemingBonuses_new" SELECT * FROM KingdomsCompanion;
-DROP TABLE KingdomsCompanion;
 CREATE TEMP TABLE KingdomsCompanion AS SELECT * FROM "Building_ThemingYieldBonus" WHERE BuildingType='BUILDING_WALLS';
 UPDATE KingdomsCompanion SET BuildingType='BUILDING_KINGDOMS_WALL';
 INSERT INTO "Building_ThemingYieldBonus" SELECT * FROM KingdomsCompanion;

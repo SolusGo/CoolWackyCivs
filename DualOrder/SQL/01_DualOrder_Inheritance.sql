@@ -872,10 +872,6 @@ CREATE TEMP TABLE DualOrderCPClone AS SELECT * FROM Building_ReligionYieldFromFa
 UPDATE DualOrderCPClone SET BuildingType='BUILDING_DUAL_ORDER_HALL_CONCORDANCE';
 INSERT INTO Building_ReligionYieldFromFaithPurchasableBuildingsGlobal SELECT * FROM DualOrderCPClone;
 DROP TABLE DualOrderCPClone;
-CREATE TEMP TABLE DualOrderCPClone AS SELECT * FROM Building_ThemingBonuses_new WHERE BuildingType='BUILDING_ARMORY';
-UPDATE DualOrderCPClone SET BuildingType='BUILDING_DUAL_ORDER_HALL_CONCORDANCE';
-INSERT INTO Building_ThemingBonuses_new SELECT * FROM DualOrderCPClone;
-DROP TABLE DualOrderCPClone;
 CREATE TEMP TABLE DualOrderCPClone AS SELECT * FROM Unit_YieldFromBarbarianKills WHERE UnitType='UNIT_LONGSWORDSMAN';
 UPDATE DualOrderCPClone SET UnitType='UNIT_DUAL_ORDER_DIVIDED_TEMPLAR';
 INSERT INTO Unit_YieldFromBarbarianKills SELECT * FROM DualOrderCPClone;

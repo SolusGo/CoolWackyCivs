@@ -72,6 +72,18 @@ Final execution results:
 
 Remaining engine checks: generated standard maps and actual hex wrapping; native terrain sight and temporary fog rendering; tactical/exploration cache updates; discovery hooks enabled by other mods; saves made through Civ V inside callbacks; final UI text/layout; AI tactics and numeric balance. The collection enables natural-wonder discovery for PaulsoaresJr, so verify that only genuine city sight discovers adjacent wonders and that rejected candidate probes never do. CP v151's tile-revealed hook is disabled by default and this collection does not enable it; third-party hooks may introduce non-reversible observer effects. No Civ V game was launched.
 
+## Legalism and final CP schema regression — 2026-10-10
+
+The player's live game database showed the Governor's Palace with no flat Culture or Gold. `Database.log` reported `no such table: Building_ThemingBonuses_new`; CP's official `BuildingTableFixes.sql` has already renamed that migration table before civilization activation. The invalid copy aborted Shattered Empire inheritance before `Building_YieldChanges` ran. Removing that copy restores the active Monument's Culture and the Palace's additional Gold. The same invalid companion copies were removed from the other affected collection civilizations.
+
+The shared fixture/generator schema now completes CP's official theming migration and preserves rows in already migrated caches. Focused assertions check the absent staging table, final `ConsecutiveEras` column, migrated-row preservation, inherited positive flat Culture, positive production cost, no technology gate, non-wonder Monument class, civilization override, native selection weight and unchanged four-city Legalism entitlement. Native source checks cover culture selection, award/owed state and technology-triggered retry. These are SQL/source regressions, not native policy-adoption playtests.
+
+For direct engine-schema replay, run `python tools/validate_shattered_mod.py --database-only --live-database "<game folder>/cache/Civ5DebugDatabase.db"`. The source opens read-only; namespace cleanup and SQL execution happen only in an in-memory copy, without creating missing schema tables. This replay passed against the player's active cache, as did SQL checks against the installed CP schema and the retained v151 baseline.
+
+`python tools/validate_all.py` passed all fifteen civilization suites, including final-schema inheritance, Legalism eligibility, migrated theming-row preservation and the existing four-speed political/founding/UI/endurance scenarios. Collection checks verified 538 registered files, 60 SQL actions, 401 DDS files and 52 Lua scripts. A stale optional ModBuddy build was skipped after comparing its generated files with current sources; the current project, checked-in manifests and source hashes still passed their required checks. No ModBuddy rebuild or DLL was required.
+
+After installing the corrected package, restart Civ V and load through Mods. In a new game, adopt Legalism with empty culture-building slots in the first four cities and verify free Palaces; also test a city with an existing Palace and the fourth city founded after policy adoption. For an existing save where no building was awarded, CP retries an owed culture building when the team learns a technology. A reward already spent on another culture building remains governed by the native policy. Verify those cases in the engine before claiming save recovery or policy playtesting.
+
 ## Required in-game checklist
 
 1. Enable CP v151 and one package. Confirm the civilization, leader portrait, city list, Legion and Palace appear in setup/Civilopedia; inspect Database.log and Lua.log for errors.

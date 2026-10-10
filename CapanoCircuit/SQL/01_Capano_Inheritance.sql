@@ -872,10 +872,6 @@ CREATE TEMP TABLE CapanoCPClone AS SELECT * FROM Building_ReligionYieldFromFaith
 UPDATE CapanoCPClone SET BuildingType='BUILDING_CAPANO_COMPETITION_CENTRE';
 INSERT INTO Building_ReligionYieldFromFaithPurchasableBuildingsGlobal SELECT * FROM CapanoCPClone;
 DROP TABLE CapanoCPClone;
-CREATE TEMP TABLE CapanoCPClone AS SELECT * FROM Building_ThemingBonuses_new WHERE BuildingType='BUILDING_ARMORY';
-UPDATE CapanoCPClone SET BuildingType='BUILDING_CAPANO_COMPETITION_CENTRE';
-INSERT INTO Building_ThemingBonuses_new SELECT * FROM CapanoCPClone;
-DROP TABLE CapanoCPClone;
 CREATE TEMP TABLE CapanoCPClone AS SELECT * FROM Unit_YieldFromBarbarianKills WHERE UnitType='UNIT_WORKER';
 UPDATE CapanoCPClone SET UnitType='UNIT_CAPANO_ROUTE_SETTER';
 INSERT INTO Unit_YieldFromBarbarianKills SELECT * FROM CapanoCPClone;

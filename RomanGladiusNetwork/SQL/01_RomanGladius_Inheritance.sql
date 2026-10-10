@@ -872,10 +872,6 @@ CREATE TEMP TABLE RomanGladiusCPClone AS SELECT * FROM Building_ReligionYieldFro
 UPDATE RomanGladiusCPClone SET BuildingType='BUILDING_ROMAN_GLADIUS_SERVER_CONSOLE';
 INSERT INTO Building_ReligionYieldFromFaithPurchasableBuildingsGlobal SELECT * FROM RomanGladiusCPClone;
 DROP TABLE RomanGladiusCPClone;
-CREATE TEMP TABLE RomanGladiusCPClone AS SELECT * FROM Building_ThemingBonuses_new WHERE BuildingType='BUILDING_MONUMENT';
-UPDATE RomanGladiusCPClone SET BuildingType='BUILDING_ROMAN_GLADIUS_SERVER_CONSOLE';
-INSERT INTO Building_ThemingBonuses_new SELECT * FROM RomanGladiusCPClone;
-DROP TABLE RomanGladiusCPClone;
 CREATE TEMP TABLE RomanGladiusCPClone AS SELECT * FROM Unit_YieldFromBarbarianKills WHERE UnitType='UNIT_SETTLER';
 UPDATE RomanGladiusCPClone SET UnitType='UNIT_ROMAN_GLADIUS_SERVER_OWNER';
 INSERT INTO Unit_YieldFromBarbarianKills SELECT * FROM RomanGladiusCPClone;

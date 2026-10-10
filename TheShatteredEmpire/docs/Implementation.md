@@ -29,6 +29,8 @@ Bounds: 300 Chronicle entries, 12 personal Governor entries, 50 inactive Governo
 
 Dummy buildings apply boolean state, never increment counts. Switching reforms, dormant Restoration and city captures remove prior effects. The Palace's scalar and companion effects are inherited once; Gold is added once. Legion upgrades keep a permanent lineage promotion; a separate boolean native promotion supplies conditional friendly-territory strength. Counterinsurgency uses the native barbarian modifier.
 
+The Palace inherits flat Culture from the Monument and remains its civilization building-class override, so CP's native Legalism selector can award it. CP renames `Building_ThemingBonuses_new` to `Building_ThemingBonuses` before civilization activation; inheritance must use only the final table. Test/generation cache clones now perform that migration, while already migrated caches retain their theming data. Free policy buildings and owed-building retries remain owned by the engine.
+
 ## Safe equivalents and remaining limits
 
 - Factions use tracked barbarian armies, Governor records and native city yield/happiness penalties, rather than new major/city-state slots or forced city ownership changes. Normal barbarians can attack third parties. Tracked cleanup never deletes unrelated barbarians. Independence is simulated by negotiated autonomy; unrest cannot permanently trap a city.

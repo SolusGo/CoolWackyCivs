@@ -1,5 +1,10 @@
 # Patch Notes
 
+## Version 20 — Legalism and CP inheritance correction — 2026-10-10
+
+- Fixed the Governor's Palace missing its inherited Culture and additional Gold after inheritance SQL aborted on a temporary CP migration table. Legalism can now grant it through the normal four-city policy rules.
+- Removed the same invalid migration-table copies across the collection and corrected the shared test/generation schema. Added explicit free-Culture eligibility and final engine-cache SQL regressions.
+
 ## Version 20 — Shattered Empire founding and war outcomes — 2026-10-10
 
 - Starting provinces now handle normal fog through guarded native founding on connected local land; rejected tiles return to fog, wonders are excluded, and interrupted grants remain recoverable.

@@ -403,10 +403,6 @@ CREATE TEMP TABLE ImperialCompanion AS SELECT * FROM "Building_ThemingBonuses" W
 UPDATE ImperialCompanion SET BuildingType='BUILDING_IMPERIAL_PALACE';
 INSERT INTO "Building_ThemingBonuses" SELECT * FROM ImperialCompanion;
 DROP TABLE ImperialCompanion;
-CREATE TEMP TABLE ImperialCompanion AS SELECT * FROM "Building_ThemingBonuses_new" WHERE BuildingType='BUILDING_MONUMENT';
-UPDATE ImperialCompanion SET BuildingType='BUILDING_IMPERIAL_PALACE';
-INSERT INTO "Building_ThemingBonuses_new" SELECT * FROM ImperialCompanion;
-DROP TABLE ImperialCompanion;
 CREATE TEMP TABLE ImperialCompanion AS SELECT * FROM "Building_ThemingYieldBonus" WHERE BuildingType='BUILDING_MONUMENT';
 UPDATE ImperialCompanion SET BuildingType='BUILDING_IMPERIAL_PALACE';
 INSERT INTO "Building_ThemingYieldBonus" SELECT * FROM ImperialCompanion;

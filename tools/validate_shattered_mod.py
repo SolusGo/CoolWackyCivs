@@ -1,7 +1,7 @@
 """Actual CP SQL, Lua 5.1 simulation, persistence, UI and package checks."""
 from pathlib import Path
 from xml.etree import ElementTree as ET
-import sqlite3,sys,re
+import argparse,sqlite3,sys,re
 R=Path(__file__).resolve().parents[1];V=R/'TheShatteredEmpire'
 sys.path[:0]=[str(R/'.tools/python'),str(R/'tools')]
 from validate_mod import apply_current_cp_schema,quote
@@ -9,10 +9,16 @@ from lupa.lua51 import LuaRuntime
 from PIL import Image
 
 
-def database(cp_root=None):
+def database(cp_root=None,source_path=None):
     user=Path.home()/"Documents/My Games/Sid Meier's Civilization 5"
-    source=sqlite3.connect((user/'cache_backup/Civ5DebugDatabase.db').as_uri()+'?mode=ro',uri=True)
-    d=sqlite3.connect(':memory:');source.backup(d);source.close();apply_current_cp_schema(d,cp_root or user/'MODS/(1) Community Patch');d.row_factory=sqlite3.Row
+    source=sqlite3.connect((source_path or user/'cache_backup/Civ5DebugDatabase.db').resolve().as_uri()+'?mode=ro',uri=True)
+    d=sqlite3.connect(':memory:');source.backup(d);source.close()
+    # A live-cache regression uses the engine's final schema directly, without
+    # fabricating missing tables. All writes remain in the disposable clone.
+    if source_path is None:apply_current_cp_schema(d,cp_root or user/'MODS/(1) Community Patch')
+    d.row_factory=sqlite3.Row
+    assert not d.execute("SELECT 1 FROM sqlite_master WHERE name='Building_ThemingBonuses_new'").fetchone()
+    assert 'ConsecutiveEras' in {r[1] for r in d.execute('PRAGMA table_info(Building_ThemingBonuses)')}
     d.execute('CREATE TABLE IF NOT EXISTS Language_en_US(Tag TEXT PRIMARY KEY,Text TEXT)')
     for (name,) in d.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").fetchall():
         cols=[r[1] for r in d.execute('PRAGMA table_info('+quote(name)+')')]
@@ -51,6 +57,34 @@ def database(cp_root=None):
     assert d.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
     print('PASS actual BNW/CP database, full inheritance, localization, AI selection and DDS atlases')
     return d
+
+
+def legalism(d):
+    palace=d.execute("SELECT * FROM Buildings WHERE Type='BUILDING_IMPERIAL_PALACE'").fetchone()
+    monument=d.execute("SELECT * FROM Buildings WHERE Type='BUILDING_MONUMENT'").fetchone()
+    culture=lambda kind:d.execute("SELECT SUM(Yield) FROM Building_YieldChanges WHERE BuildingType=? AND YieldType='YIELD_CULTURE'",(kind,)).fetchone()[0] or 0
+    assert culture(palace['Type'])==culture(monument['Type'])>0, 'Legalism requires flat Culture on the Palace'
+    assert palace['Cost']==monument['Cost']>0 and palace['PrereqTech']==monument['PrereqTech'] is None
+    assert palace['IsDummy']==0 and palace['BuildingClass']=='BUILDINGCLASS_MONUMENT'
+    limits=d.execute("SELECT MaxGlobalInstances,MaxTeamInstances,MaxPlayerInstances FROM BuildingClasses WHERE Type='BUILDINGCLASS_MONUMENT'").fetchone()
+    assert all(limit==-1 for limit in limits), 'Legalism excludes wonder classes'
+    assert d.execute("SELECT BuildingType FROM Civilization_BuildingClassOverrides WHERE CivilizationType='CIVILIZATION_SHATTERED_EMPIRE' AND BuildingClassType='BUILDINGCLASS_MONUMENT'").fetchone()[0]==palace['Type']
+    assert d.execute("SELECT NumCitiesFreeCultureBuilding FROM Policies WHERE Type='POLICY_LEGALISM'").fetchone()[0]==4
+    assert culture(palace['Type'])*10000//palace['Cost']==culture(monument['Type'])*10000//monument['Cost']>0
+    assert not d.execute("SELECT 1 FROM Buildings WHERE Type LIKE 'BUILDING_IMPERIAL_%' AND Type<>'BUILDING_IMPERIAL_PALACE' AND Cost>0").fetchone(), 'Imperial dummy effects must not compete for free buildings'
+    print('PASS Legalism Palace eligibility: inherited flat Culture, native weight, technology, class override and four-city policy')
+
+
+def theming_schema(d):
+    # Re-applying schema to a final cache must not reset real theming data or
+    # reintroduce the staging relation. Exercise this on another disposable copy.
+    clone=sqlite3.connect(':memory:');d.backup(clone)
+    clone.execute("INSERT INTO Building_ThemingBonuses(BuildingType,ConsecutiveEras) VALUES ('BUILDING_IMPERIAL_SCHEMA_TEST',1)")
+    cp_root=Path.home()/"Documents/My Games/Sid Meier's Civilization 5/MODS/(1) Community Patch"
+    apply_current_cp_schema(clone,cp_root)
+    assert not clone.execute("SELECT 1 FROM sqlite_master WHERE name='Building_ThemingBonuses_new'").fetchone()
+    assert clone.execute("SELECT ConsecutiveEras FROM Building_ThemingBonuses WHERE BuildingType='BUILDING_IMPERIAL_SCHEMA_TEST'").fetchone()[0]==1
+    clone.close();print('PASS CP final-schema reapplication preserves migrated theming rows')
 
 
 def fixture(d,speed=100,fallback=False,before_core=None,source=None):
@@ -269,6 +303,16 @@ def source_contracts():
     combat=(audit/'CvUnitCombat.cpp').read_text(encoding='utf-8');ended=combat[combat.index('if (MOD_EVENTS_RED_COMBAT_ENDED)'):combat.index('"CombatEnded"')]
     assert re.findall(r'args->Push\((\w+)\);',ended)==['iAttackingPlayer','iAttackingUnit','attackerDamage','attackerFinalDamage','attackerMaxHP','iDefendingPlayer','iDefendingUnit','defenderDamage','defenderFinalDamage','defenderMaxHP','iInterceptingPlayer','iInterceptingUnit','interceptorDamage','plotX','plotY']
     player=(audit/'CvPlayer.cpp').read_text(encoding='utf-8')
+    if (audit/'CvCity.cpp').exists() and (audit/'CvTeam.cpp').exists():
+        city=(audit/'CvCity.cpp').read_text(encoding='utf-8')
+        chooser=city[city.index('BuildingTypes CvCity::ChooseFreeCultureBuilding()'):city.index('BuildingTypes CvCity::ChooseFreeFoodBuilding()')]
+        for contract in ['GetYieldChange(YIELD_CULTURE)','GetProductionCost()','canConstruct(eBuilding)','iCulture > 0 && iCost > 0','iCulture * 10000 / iCost','isWorldWonderClass','isNationalWonderClass','isTeamWonderClass']:assert contract in chooser,contract
+        award=player[player.index('void CvPlayer::AwardFreeBuildings('):player.index('void CvPlayer::AwardFreeBuildings(')+6000]
+        for contract in ['ChooseFreeCultureBuilding()','SetNumFreeBuilding','SetOwedCultureBuilding(bOwedBuilding)','ChangeNumCitiesFreeCultureBuilding(-1)']:assert contract in award,contract
+        team=(audit/'CvTeam.cpp').read_text(encoding='utf-8')
+        owed=team[team.index('if (pLoopCity->IsOwedCultureBuilding())'):team.index('if (pLoopCity->IsOwedCultureBuilding())')+1100]
+        assert 'ChooseFreeCultureBuilding()' in owed and 'SetOwedCultureBuilding(false)' in owed and 'SetNumFreeBuilding' in owed
+        print('PASS native CP free-Culture selection, policy entitlement and owed-building technology retry contracts')
     capture=player[player.index('"CityCaptureComplete"')-350:player.index('"CityCaptureComplete"')]
     for name in ['eOldOwner','bCapital','iCityX','iCityY','GetID()','iPopulation','bConquest']:assert name in capture
     for file,names in [('Lua_CvLuaPlayer.cpp',['CanFound','Found','CanBuild','GetStartingPlot','IsCapitalConnectedToCity','GetExcessHappiness','GetHandicapType','InitUnit']),('Lua_CvLuaCity.cpp',['CanConstruct','SetPopulation','SetName','GetGameTurnFounded','ChangeResistanceTurns','GetGarrisonedUnit','IsHasBuilding']),('Lua_CvLuaUnit.cpp',['IsCargo','IsEmbarked','SetExperience','GetExperience','PushMission','GetDomainType','GetGameTurnCreated','JumpToNearestValidPlot'])]:
@@ -305,10 +349,19 @@ def packaging():
 
 
 def main():
-    d=database()
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--live-database',type=Path,help='Also replay SQL on a read-only engine cache clone, without schema supplementation')
+    parser.add_argument('--database-only',action='store_true',help='Run SQL/Legalism and native source checks only')
+    args=parser.parse_args()
+    d=database();legalism(d);theming_schema(d)
     baseline=Path.home()/"Documents/My Games/Sid Meier's Civilization 5/Community Patch Backups/pre-5.4.6/(1) Community Patch (v 151)"
-    if baseline.is_dir():database(baseline).close();print('PASS Shattered Empire SQL against retained CP v151 baseline schema')
-    source_contracts();runtime(d);packaging()
+    if baseline.is_dir():
+        retained=database(baseline);legalism(retained);retained.close();print('PASS Shattered Empire SQL against retained CP v151 baseline schema')
+    if args.live_database:
+        live=database(source_path=args.live_database);legalism(live);live.close();print('PASS Shattered Empire SQL/Legalism against unmodified engine schema in a read-only live cache clone')
+    source_contracts()
+    if not args.database_only:runtime(d);packaging()
+    d.close()
 
 
 if __name__=='__main__':main()

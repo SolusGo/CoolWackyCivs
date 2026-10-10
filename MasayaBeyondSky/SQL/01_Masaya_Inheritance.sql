@@ -872,10 +872,6 @@ CREATE TEMP TABLE MasayaKidCPClone AS SELECT * FROM Building_ReligionYieldFromFa
 UPDATE MasayaKidCPClone SET BuildingType='BUILDING_MASAYA_KID_GRAV_ROOM';
 INSERT INTO Building_ReligionYieldFromFaithPurchasableBuildingsGlobal SELECT * FROM MasayaKidCPClone;
 DROP TABLE MasayaKidCPClone;
-CREATE TEMP TABLE MasayaKidCPClone AS SELECT * FROM Building_ThemingBonuses_new WHERE BuildingType='BUILDING_BARRACKS';
-UPDATE MasayaKidCPClone SET BuildingType='BUILDING_MASAYA_KID_GRAV_ROOM';
-INSERT INTO Building_ThemingBonuses_new SELECT * FROM MasayaKidCPClone;
-DROP TABLE MasayaKidCPClone;
 CREATE TEMP TABLE MasayaKidCPClone AS SELECT * FROM Unit_YieldFromBarbarianKills WHERE UnitType='UNIT_HORSEMAN';
 UPDATE MasayaKidCPClone SET UnitType='UNIT_MASAYA_KID_FC_PRODIGY';
 INSERT INTO Unit_YieldFromBarbarianKills SELECT * FROM MasayaKidCPClone;

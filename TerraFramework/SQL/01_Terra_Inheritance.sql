@@ -872,10 +872,6 @@ CREATE TEMP TABLE TerraCPClone AS SELECT * FROM Building_ReligionYieldFromFaithP
 UPDATE TerraCPClone SET BuildingType='BUILDING_TERRA_MULTIMODAL_HUB';
 INSERT INTO Building_ReligionYieldFromFaithPurchasableBuildingsGlobal SELECT * FROM TerraCPClone;
 DROP TABLE TerraCPClone;
-CREATE TEMP TABLE TerraCPClone AS SELECT * FROM Building_ThemingBonuses_new WHERE BuildingType='BUILDING_MARKET';
-UPDATE TerraCPClone SET BuildingType='BUILDING_TERRA_MULTIMODAL_HUB';
-INSERT INTO Building_ThemingBonuses_new SELECT * FROM TerraCPClone;
-DROP TABLE TerraCPClone;
 CREATE TEMP TABLE TerraCPClone AS SELECT * FROM Unit_YieldFromBarbarianKills WHERE UnitType='UNIT_MUSKETMAN';
 UPDATE TerraCPClone SET UnitType='UNIT_TERRA_ADAPTIVE_OPERATIVE';
 INSERT INTO Unit_YieldFromBarbarianKills SELECT * FROM TerraCPClone;

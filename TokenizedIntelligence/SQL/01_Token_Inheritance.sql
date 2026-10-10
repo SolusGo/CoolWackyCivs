@@ -599,14 +599,6 @@ CREATE TEMP TABLE TokenCompanion AS SELECT * FROM "Building_ThemingBonuses" WHER
 UPDATE TokenCompanion SET BuildingType='BUILDING_TOKEN_CENTRE';
 INSERT INTO "Building_ThemingBonuses" SELECT * FROM TokenCompanion;
 DROP TABLE TokenCompanion;
-CREATE TEMP TABLE TokenCompanion AS SELECT * FROM "Building_ThemingBonuses_new" WHERE BuildingType='BUILDING_UNIVERSITY';
-UPDATE TokenCompanion SET BuildingType='BUILDING_TOKEN_CLUSTER';
-INSERT INTO "Building_ThemingBonuses_new" SELECT * FROM TokenCompanion;
-DROP TABLE TokenCompanion;
-CREATE TEMP TABLE TokenCompanion AS SELECT * FROM "Building_ThemingBonuses_new" WHERE BuildingType='BUILDING_LABORATORY';
-UPDATE TokenCompanion SET BuildingType='BUILDING_TOKEN_CENTRE';
-INSERT INTO "Building_ThemingBonuses_new" SELECT * FROM TokenCompanion;
-DROP TABLE TokenCompanion;
 CREATE TEMP TABLE TokenCompanion AS SELECT * FROM "Building_ThemingYieldBonus" WHERE BuildingType='BUILDING_UNIVERSITY';
 UPDATE TokenCompanion SET BuildingType='BUILDING_TOKEN_CLUSTER';
 INSERT INTO "Building_ThemingYieldBonus" SELECT * FROM TokenCompanion;
