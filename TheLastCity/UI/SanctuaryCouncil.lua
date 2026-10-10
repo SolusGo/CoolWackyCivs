@@ -10,8 +10,22 @@ local tabOrder={'OVERVIEW','REFUGEES','EXPERTS','RATIONS','BUILDINGS','CRISES','
 local achievementShown=false
 local interfaceMode=UI.GetInterfaceMode and UI.GetInterfaceMode() or InterfaceModeTypes.INTERFACEMODE_SELECTION
 local tabInstances={}
+local lastVisibilityReason
+local function visibilityLog(reason)
+ if reason~=lastVisibilityReason then
+  lastVisibilityReason=reason
+  print('[LastCity] Council visibility: '..reason)
+ end
+end
 local function worldView()
- return not cityView and not leaderView and next(blocked)==nil and interfaceMode==InterfaceModeTypes.INTERFACEMODE_SELECTION and not (UI.IsCityScreenUp and UI.IsCityScreenUp())
+ if cityView or (UI.IsCityScreenUp and UI.IsCityScreenUp()) then return false,'hidden: city screen' end
+ if leaderView then return false,'hidden: leader view' end
+ if next(blocked) then
+  local types={};for typ in pairs(blocked) do types[#types+1]=tostring(typ) end;table.sort(types)
+  return false,'hidden: popup '..table.concat(types,',')
+ end
+ if interfaceMode~=InterfaceModeTypes.INTERFACEMODE_SELECTION then return false,'hidden: interface mode '..tostring(interfaceMode) end
+ return true,'visible: world map'
 end
 local refresh
 local function row(text,button,callback,enabled,tooltip)
@@ -26,14 +40,17 @@ end
 refresh=function()
  if refreshing then return end;refreshing=true
  local pid=Game.GetActivePlayer();local p=Players[pid]
- local visible=L.IsCity(pid) and p:IsHuman() and p:IsAlive() and worldView()
+ local world,reason=worldView()
+ local sanctuary=L.IsCity(pid) and p:IsHuman()
+ local visible=sanctuary and p:IsAlive() and world
  Controls.Launcher:SetHide(not visible);Controls.Panel:SetHide(not visible or not opened)
- if not visible then refreshing=false;return end
+ if not visible then if sanctuary then visibilityLog(p:IsAlive() and reason or 'hidden: player defeated') end;refreshing=false;return end
  local s=L.State(pid)
- if s.fallen then Controls.Launcher:SetHide(true);Controls.Panel:SetHide(true);refreshing=false;return end
- if s.incompatible then Controls.Open:SetText(L.Text('SAVE_UNSUPPORTED'));Controls.Panel:SetHide(true);refreshing=false;return end
+ if s.fallen then Controls.Launcher:SetHide(true);Controls.Panel:SetHide(true);visibilityLog('hidden: sanctuary fallen');refreshing=false;return end
+ if s.incompatible then Controls.Open:SetText(L.Text('SAVE_UNSUPPORTED'));Controls.Panel:SetHide(true);visibilityLog('visible: unsupported save');refreshing=false;return end
  local c=L.City(s)
- if not c then Controls.Open:SetText(L.Text('FOUND_FIRST'));Controls.Panel:SetHide(true);refreshing=false;return end
+ if not c then Controls.Open:SetText(L.Text('FOUND_FIRST'));Controls.Panel:SetHide(true);visibilityLog('visible: awaiting first city');refreshing=false;return end
+ visibilityLog(reason)
  local stats=L.Stats(s)
  Controls.Open:SetText(L.Text('STATUS',math.floor(s.provisions),math.floor(s.morale))..' | '..L.Text('COUNCIL'))
  if not opened then refreshing=false;return end
@@ -133,11 +150,21 @@ Events.GameplaySetActivePlayer.Add(function() opened=false;selected=nil;refresh(
 Events.ActivePlayerTurnStart.Add(function() selected=nil;refresh() end)
 Events.ActivePlayerTurnEnd.Add(function() opened=false;selected=nil;refresh() end)
 Events.SerialEventEnterCityScreen.Add(function() cityView=true;opened=false;refresh() end)
-Events.SerialEventExitCityScreen.Add(function() cityView=false;refresh() end)
+Events.SerialEventExitCityScreen.Add(function()
+ cityView=false
+ -- EUI can process CHOOSEPRODUCTION before announcing it as shown, then
+ -- open the city screen without a second processed event. Leaving that screen
+ -- must release its production blocker as well as the city-view flag.
+ if ButtonPopupTypes then blocked[ButtonPopupTypes.BUTTONPOPUP_CHOOSEPRODUCTION]=nil end
+ refresh()
+end)
 Events.AILeaderMessage.Add(function() leaderView=true;opened=false;refresh() end)
 Events.LeavingLeaderViewMode.Add(function() leaderView=false;refresh() end)
-Events.SerialEventGameMessagePopupShown.Add(function(info) if info and info.Type then blocked[info.Type]=(blocked[info.Type] or 0)+1;opened=false;selected=nil;refresh() end end)
-Events.SerialEventGameMessagePopupProcessed.Add(function(typ) if blocked[typ] then blocked[typ]=blocked[typ]>1 and blocked[typ]-1 or nil end;refresh() end)
+-- Shown is a visibility notification, not a new popup instance. Native/modded
+-- screens can announce the same type repeatedly before a single close event.
+-- Track types independently, but never accumulate unmatched duplicate counts.
+Events.SerialEventGameMessagePopupShown.Add(function(info) if info and info.Type then blocked[info.Type]=true;opened=false;selected=nil;refresh() end end)
+Events.SerialEventGameMessagePopupProcessed.Add(function(typ) blocked[typ]=nil;refresh() end)
 Events.InterfaceModeChanged.Add(function(_,mode) interfaceMode=mode;if mode~=InterfaceModeTypes.INTERFACEMODE_SELECTION then opened=false;selected=nil end;refresh() end)
 Events.SerialEventCityInfoDirty.Add(function() if opened then refresh() end end)
 refresh()

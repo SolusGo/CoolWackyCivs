@@ -577,7 +577,7 @@
     <File md5="98F33A9BADEE3F49D274268172525C88" import="0">TheLastCity/SQL/01_LC_Inheritance.sql</File>
     <File md5="937A3DC3DEA6A0459A00BAFFFCDF4E09" import="0">TheLastCity/SQL/02_LC_Effects.sql</File>
     <File md5="0A4EF9B88C57C8DC0E5026F9EAE202EB" import="0">TheLastCity/SQL/10_LC_Text.sql</File>
-    <File md5="AA0E26820AF7BD02ED3647088151523D" import="1">TheLastCity/UI/SanctuaryCouncil.lua</File>
+    <File md5="0148F3E4F8C5D3CCEC38FF0507CC9FF7" import="1">TheLastCity/UI/SanctuaryCouncil.lua</File>
     <File md5="F686887BCCF66F6B95888548E337FB7A" import="0">TheLastCity/UI/SanctuaryCouncil.xml</File>
     <File md5="4D6415AB890EA4B9B0102174CA9C5145" import="1">TheLastCity/Art/LastLight.dds</File>
     <File md5="28A0812E05D3BB1ECFB39CE6C421C25F" import="1">TheLastCity/Art/LastCityAlpha128.dds</File>

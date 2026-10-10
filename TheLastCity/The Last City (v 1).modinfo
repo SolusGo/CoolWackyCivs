@@ -83,7 +83,7 @@
     <File md5="937A3DC3DEA6A0459A00BAFFFCDF4E09" import="0">SQL/02_LC_Effects.sql</File>
     <File md5="474FCFB92436A9E6D4C90932FF1AEFDE" import="0">SQL/03_LC_Art.sql</File>
     <File md5="0A4EF9B88C57C8DC0E5026F9EAE202EB" import="0">SQL/10_LC_Text.sql</File>
-    <File md5="AA0E26820AF7BD02ED3647088151523D" import="1">UI/SanctuaryCouncil.lua</File>
+    <File md5="0148F3E4F8C5D3CCEC38FF0507CC9FF7" import="1">UI/SanctuaryCouncil.lua</File>
     <File md5="F686887BCCF66F6B95888548E337FB7A" import="0">UI/SanctuaryCouncil.xml</File>
   </Files>
   <Actions>

@@ -13,6 +13,7 @@ function InstanceManager:new(name)
 end
 Mouse={eLClick=1};KeyEvents={KeyDown=1};Keys={VK_ESCAPE=27}
 InterfaceModeTypes={INTERFACEMODE_SELECTION=1}
+ButtonPopupTypes={BUTTONPOPUP_CHOOSEPRODUCTION=77}
 UI={IsCityScreenUp=function() return false end,GetInterfaceMode=function() return 1 end};ContextPtr={SetInputHandler=function(self,fn) self.input=fn end}
 local originalInclude=include;include=function(name) if name~='InstanceManager' then originalInclude(name) end end
 assert(loadstring(UISource))()
@@ -43,8 +44,30 @@ Events.InterfaceModeChanged.Fire(1,2);assert(Controls.Launcher.hidden)
 Events.InterfaceModeChanged.Fire(2,1);assert(not Controls.Launcher.hidden and Controls.Panel.hidden)
 Events.SerialEventGameMessagePopupShown.Fire({Type=9})
 Events.SerialEventGameMessagePopupShown.Fire({Type=9})
-Events.SerialEventGameMessagePopupProcessed.Fire(9);assert(Controls.Launcher.hidden)
-Events.SerialEventGameMessagePopupProcessed.Fire(9);assert(not Controls.Launcher.hidden)
+Events.SerialEventGameMessagePopupProcessed.Fire(9);assert(not Controls.Launcher.hidden,'Repeated shown notifications must need only one close')
+Events.SerialEventGameMessagePopupProcessed.Fire(9);assert(not Controls.Launcher.hidden,'Extra close notifications are harmless')
+Events.SerialEventGameMessagePopupShown.Fire({Type=9})
+Events.SerialEventGameMessagePopupShown.Fire({Type=10})
+Events.SerialEventGameMessagePopupProcessed.Fire(9);assert(Controls.Launcher.hidden,'A different popup still blocks the Council')
+Events.SerialEventGameMessagePopupProcessed.Fire(10);assert(not Controls.Launcher.hidden)
+-- Match EUI's production notification order: processed, shown, city entry/exit.
+Events.SerialEventGameMessagePopupProcessed.Fire(77)
+Events.SerialEventGameMessagePopupShown.Fire({Type=77})
+Events.SerialEventEnterCityScreen.Fire();assert(Controls.Launcher.hidden)
+Events.SerialEventExitCityScreen.Fire();assert(not Controls.Launcher.hidden and Controls.Panel.hidden)
+-- Closing production must not release a separate technology/policy popup.
+Events.SerialEventGameMessagePopupShown.Fire({Type=10})
+Events.SerialEventGameMessagePopupShown.Fire({Type=77})
+Events.SerialEventEnterCityScreen.Fire();Events.SerialEventExitCityScreen.Fire()
+assert(Controls.Launcher.hidden)
+Events.SerialEventGameMessagePopupProcessed.Fire(10);assert(not Controls.Launcher.hidden)
+for turn=1,4 do
+ Events.ActivePlayerTurnEnd.Fire();Events.ActivePlayerTurnStart.Fire()
+ Events.SerialEventGameMessagePopupShown.Fire({Type=9})
+ Events.SerialEventGameMessagePopupShown.Fire({Type=9})
+ Events.SerialEventGameMessagePopupProcessed.Fire(9)
+ assert(not Controls.Launcher.hidden,'Council must recover across repeated turns and popup cycles')
+end
 Controls.Open.click();Managers.LastCityTab.rows[4].TabButton.click()
 TURN=S.rationNext;LuaEvents.LastCityChanged(0)
 Managers.LastCityRow.rows[2].RowButton.click();LuaEvents.LastCityChanged(0);assert(Controls.Confirm.disabled)

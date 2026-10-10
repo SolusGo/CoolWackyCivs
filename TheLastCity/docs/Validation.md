@@ -10,6 +10,8 @@ The suite includes twenty regression cases in `tools/tests/lastcity_regressions.
 
 ## Native smoke tests
 
+- [ ] Reopen/close the same technology/policy popup repeatedly, choose production and leave the city screen, then play several turns. The Council launcher must return on the world map. If it remains hidden, record the latest `[LastCity] Council visibility` reason in `Lua.log`.
+
 - [ ] Enable standalone with BNW and CP; select The Warden and confirm Last Light, UA, UU, UB and custom Dawn/leader/map/portrait/flag art.
 - [ ] Enable collection v21 alone and confirm all sixteen civilizations; do not enable both packages.
 - [ ] Found with the starting Settler; attempt training/purchasing/receiving/capturing another Settler and confirm no additional founding.
