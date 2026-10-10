@@ -100,7 +100,7 @@ def fixture(d,speed=100,growth=None,construct=None,load_core=True):
     lua.globals().Translations=lua.table_from({'TXT_KEY_LC_'+k:v for k,v in TEXT.items()})
     lua.execute((R/'tools/tests/lastcity_mock.lua').read_text(encoding='utf-8'))
     info=lua.table();types={}
-    for table in ['Civilizations','Units','Buildings','UnitPromotions','Technologies','Eras','Improvements','Features','Unit_FreePromotions']:
+    for table in ['Civilizations','Units','UnitAIInfos','Buildings','UnitPromotions','Technologies','Eras','Improvements','Features','Unit_FreePromotions']:
         rows=[dict(r) for r in d.execute('SELECT * FROM '+table)]
         info[table]=lua.globals().dbTable(lua.table_from([lua.table_from(r) for r in rows]))
         for row in rows:
@@ -201,6 +201,7 @@ def simulations(d):
       plot(4,0).feature=GameInfoTypes.FEATURE_ICE;plot(5,0).owner=1
       PLOT_VISITS=0;assert(L.BeginWave(S));assert(S.wave.naval and PLOT_VISITS<500)
       for _,r in ipairs(S.wave.units) do local u=L.Unit(r);local def=GameInfo.Units[u:GetUnitType()]
+       assert(u.ai==GameInfoTypes.UNITAI_ATTACK_SEA,'Naval invaders require the real database AI role')
        assert(def.Domain=='DOMAIN_SEA' and plot(u.x,u.y).water and plot(u.x,u.y).owner==-1)
        assert(plot(u.x,u.y).feature~=GameInfoTypes.FEATURE_ICE)
        assert(not u:IsHasPromotion(GameInfoTypes.PROMOTION_OCEAN_IMPASSABLE))

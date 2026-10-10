@@ -21,7 +21,7 @@ The installed `(1) Community Patch (v 151).modinfo` identifies DLL **5.4.6**. Th
 | `UnitPrekill` | player, unit ID, type, x, y, delayed, killer | Native/CP `EVENTS_UNIT_PREKILL` observer; actual combat attribution and deduplication |
 | `CityCaptureComplete` | old owner, capital flag, x, y, new owner, population, conquest, great-work count, capture count | Native observer; uses first five arguments, records acquisition, defers mutation |
 | `AcquireCity` | city, conquest, gift, optional original | Native player method; transfer creates a replacement city object, so old references must be discarded |
-| `InitUnit` | type, x, y, UnitAI, direction | Native creation; only validated candidate plots are used |
+| `InitUnit` | type, x, y, UnitAI, direction | Native creation; only validated candidate plots are used. UnitAI IDs come from `GameInfoTypes`/`UnitAIInfos`; there is no native `UnitAITypes` Lua global. |
 | `PushMission` | move-to, x, y, flags, append (integer), manual (integer) | Bounded once-per-turn orders for distant tagged invaders; native AI may replace them |
 | `GetScriptData` / `SetScriptData` | string | Append namespaced tags, preserving other mod content |
 | `GetGameTurnCreated` | none | Native unit generation identity; combined with script tag and owner/ID |

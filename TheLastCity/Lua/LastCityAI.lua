@@ -27,7 +27,7 @@ function L.AITurn(s)
   local unit=L.SelectUnit(s,Players[s.pid]:GetCurrentEra(),1,false)
   local watch=L.ID('UNIT_LC_LAST_WATCH')
   if c:CanTrain(watch) then unit=watch end
-  if c:CanTrain(unit) then c:PushOrder(OrderTypes.ORDER_TRAIN,unit,UnitAITypes.UNITAI_DEFENSE,0,true,false,0);s.aiDefenseNext=L.Now()+L.Scale(5) end
+  if c:CanTrain(unit) then c:PushOrder(OrderTypes.ORDER_TRAIN,unit,L.ID('UNITAI_DEFENSE'),0,true,false,0);s.aiDefenseNext=L.Now()+L.Scale(5) end
  elseif idle then
   if not L.Has(c,'DISTRICT') and c:CanConstruct(L.ID('BUILDING_LC_DISTRICT')) then
    c:PushOrder(OrderTypes.ORDER_CONSTRUCT,L.ID('BUILDING_LC_DISTRICT'),-1,0,true,false,0)

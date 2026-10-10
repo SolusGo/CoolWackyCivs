@@ -21,7 +21,8 @@ Locale={ConvertTextKey=function(k,...)
  return (v:gsub('{(%d+)_[^}]+}',function(i) return tostring(args[tonumber(i)] or '') end))
 end}
 NotificationTypes={NOTIFICATION_GENERIC=1};DirectionTypes={DIRECTION_NORTH=0}
-UnitAITypes={UNITAI_ATTACK=1,UNITAI_ATTACK_SEA=2,UNITAI_DEFENSE=3}
+-- Native Civ V exports UnitAIInfos through GameInfoTypes, not UnitAITypes.
+UnitAITypes=nil
 OrderTypes={ORDER_TRAIN=0,ORDER_CONSTRUCT=1};DomainTypes={DOMAIN_LAND=0,DOMAIN_SEA=1,DOMAIN_AIR=2}
 MissionTypes={MISSION_MOVE_TO=1}
 function dbTable(records)
@@ -78,6 +79,7 @@ function newPlayer(pid,civ,human)
  function p:InitUnit(kind,x,y,ai,direction)
   if FAIL_UNITS then return end
   assert(kind and GameInfo.Units[kind],'Invalid unit type')
+  assert(ai==nil or ai==-1 or (type(ai)=='number' and GameInfo.UnitAIInfos[ai]),'Invalid native unit AI ID')
   local u=newUnit(self.id,self.nextUnit,kind,x,y);self.units[u.id]=u;self.nextUnit=self.nextUnit+1
   u.ai=ai;GameEvents.UnitCreated.Fire(self.id,u.id,kind,x,y);return u
  end
@@ -133,6 +135,7 @@ function newCity(owner,id,x,y)
  function c:CanTrain(id) return GameEvents.PlayerCanTrain.Test(self.owner,id) end
  function c:PushOrder(order,kind,ai,save,pop,append,rush)
   assert(type(save)=='number' and type(rush)=='number','Native Lua PushOrder requires integer save/rush parameters')
+  if order==OrderTypes.ORDER_TRAIN then assert(type(ai)=='number' and GameInfo.UnitAIInfos[ai],'Invalid queued unit AI ID') end
   self.lastOrder={order=order,kind=kind,ai=ai};self.productionUnit=-1;self.productionBuilding=-1
   if order==OrderTypes.ORDER_TRAIN then self.productionUnit=kind else self.productionBuilding=kind end
  end

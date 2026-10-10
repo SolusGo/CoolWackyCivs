@@ -69,13 +69,13 @@
     <File md5="C8BE04B67B712D4C19C20EDB50F97D9A" import="1">Art/WardenPortrait128.dds</File>
     <File md5="8C4230E2E28220374F292E04A7350260" import="1">Art/WardenPortrait256.dds</File>
     <File md5="7C25F73128413916701786B7B76B206C" import="1">Art/WardenPortrait64.dds</File>
-    <File md5="F2BFA10B1191A89D6204B9DE02A96FBB" import="1">Lua/LastCityAI.lua</File>
+    <File md5="135815D875ABE15893A1879B8DE8E054" import="1">Lua/LastCityAI.lua</File>
     <File md5="425B65F8CCA85C7E7C892934A802AC01" import="1">Lua/LastCityConfig.lua</File>
     <File md5="B2648D7BE4DDAF0C160DEB18EC87AD11" import="1">Lua/LastCityCore.lua</File>
     <File md5="BE6076F7DE5DA68203468CC5CC298C01" import="1">Lua/LastCityCrises.lua</File>
     <File md5="0586D2F292BE03B3AB12E381D50E6B41" import="1">Lua/LastCityEconomy.lua</File>
     <File md5="DBA8A63F32D00EAE04F9DF8B8EBF2889" import="1">Lua/LastCityEvents.lua</File>
-    <File md5="5358C0E182327C8AB71B7E0628328D42" import="1">Lua/LastCityInvasions.lua</File>
+    <File md5="3D9B50DDCAD7B227666486E819CFC8EF" import="1">Lua/LastCityInvasions.lua</File>
     <File md5="BAFF63BDC72E68DA5337167760A9B7E3" import="1">Lua/LastCityPersistence.lua</File>
     <File md5="BE7922264E8C6473F23B813E9B842151" import="1">Lua/LastCityRefugees.lua</File>
     <File md5="25606FC5DBC354F2B155292865EEA1B1" import="0">SQL/00_LC_Core.sql</File>

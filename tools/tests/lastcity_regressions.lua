@@ -1,5 +1,25 @@
 -- Each case runs in a fresh runtime against the actual activated CP database.
 RegressionCases={}
+function RegressionCases.invasion_native_ai_ids_and_empty_saved_wave_recovery()
+ assert(UnitAITypes==nil,'Do not invent a global unavailable in native Lua')
+ TURN=S.nextWave;GameEvents.PlayerDoTurn.Fire(0)
+ assert(S.wave and S.wave.spawned>0 and not S.wave.naval)
+ for _,record in ipairs(S.wave.units) do assert(L.Unit(record).ai==GameInfoTypes.UNITAI_ATTACK) end
+ S.refugee=nil;S.crisis=nil
+ Players[0].human=false;C.productionBuilding=-1;C.productionUnit=-1
+ L.AITurn(S);assert(C.lastOrder.ai==GameInfoTypes.UNITAI_DEFENSE)
+ assert(L.SpawnMilitia(S));assert(L.Unit(S.temporary[#S.temporary]).ai==GameInfoTypes.UNITAI_DEFENSE)
+ Players[0].human=true;L.RetireWave(S)
+ -- Match the state saved by the native failure before InitUnit ran.
+ S.wave={number=S.waveNumber+1,major=false,final=false,era=0,naval=false,
+  owner=63,started=TURN,expiry=TURN+L.Scale(18),units={},participants={},spawned=0,defeated=0,bossKilled=false}
+ S.nextWave=TURN;S.warning=true;L.Save(0);L.ReloadPersistence();S=L.State(0)
+ local victories,morale,number=S.wavesSurvived,S.morale,S.waveNumber
+ L.InvasionTurn(S)
+ assert(S.wave and S.wave.spawned>0 and S.waveNumber==number+1)
+ assert(S.wavesSurvived==victories and S.morale==morale,'Retry must award nothing and apply no retreat penalty')
+ local wave=S.wave;L.InvasionTurn(S);assert(S.wave==wave,'A real wave must never be replaced')
+end
 function RegressionCases.settler_veto_does_not_depend_on_capital_initialization()
  S.capital=nil
  assert(not GameEvents.PlayerCanTrain.Test(0,GameInfoTypes.UNIT_SETTLER))

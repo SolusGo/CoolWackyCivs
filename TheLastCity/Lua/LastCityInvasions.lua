@@ -94,7 +94,7 @@ function L.SelectUnit(s,era,role,naval)
 end
 function L.SpawnMilitia(s)
  local p=L.MilitiaPlot(s);if not p then return false end
- local u=Players[s.pid]:InitUnit(L.SelectUnit(s,Players[s.pid]:GetCurrentEra(),1,false),p:GetX(),p:GetY(),UnitAITypes.UNITAI_DEFENSE,DirectionTypes.DIRECTION_NORTH)
+ local u=Players[s.pid]:InitUnit(L.SelectUnit(s,Players[s.pid]:GetCurrentEra(),1,false),p:GetX(),p:GetY(),L.ID('UNITAI_DEFENSE'),DirectionTypes.DIRECTION_NORTH)
  if not u then return false end
  local r=L.Record(u,'LCMIL_'..s.pid..'_'..s.nextEvent);r.expiry=L.Now()+L.Scale(6)
  s.temporary[#s.temporary+1]=r;L.RefreshUnit(s,u);return true
@@ -165,7 +165,9 @@ function L.BeginWave(s)
  for i=1,math.min(count,#pool) do
   local index=L.Rand(s,#pool);local p=table.remove(pool,index)
   local unitType=L.SelectUnit(s,era,i,naval)
-  local ai=naval and UnitAITypes.UNITAI_ATTACK_SEA or UnitAITypes.UNITAI_ATTACK
+  -- UnitAIInfos are database types exposed through GameInfoTypes. Civ V does
+  -- not provide the UnitAITypes global that our former mock invented.
+  local ai=L.ID(naval and 'UNITAI_ATTACK_SEA' or 'UNITAI_ATTACK')
   local u=Players[owner]:InitUnit(unitType,p:GetX(),p:GetY(),ai,DirectionTypes.DIRECTION_NORTH)
   if u then
    local tag='LCW_'..s.pid..'_'..number..'_'..i
@@ -193,6 +195,7 @@ function L.BeginWave(s)
  if ambush then L.History(s,'OUTSKIRTS_RAID');L.Notify(s,'OUTSKIRTS_RAID') end
  L.History(s,'ASSAULT',L.Text(L.EraForces[era+1].name)..' ('..wave.spawned..')')
  L.Notify(s,final and 'FINAL_NIGHT' or major and 'MAJOR_ASSAULT' or 'ASSAULT',L.Text(L.EraForces[era+1].name)..' ('..wave.spawned..')')
+ print('[LastCity] Invasion '..number..' spawned '..wave.spawned..' '..(naval and 'naval' or 'land')..' units for owner '..owner)
  return true
 end
 function L.MarkParticipant(s,u)
@@ -256,6 +259,13 @@ function L.ResolveWave(s,victory)
 end
 function L.InvasionTurn(s)
  if s.fallen then return end
+ if s.wave and s.wave.spawned==0 and next(s.wave.units)==nil then
+  -- The old UnitAITypes error happened after assigning s.wave and Atomic
+  -- saved that empty attempt. Retry it without victory, retreat penalties or
+  -- resetting a legitimate wave that has already created physical units.
+  s.wave=nil;s.warning=nil;s.collapse=0;s.nextWave=L.Now()
+  print('[LastCity] Retrying empty invasion left by an interrupted spawn')
+ end
  if s.pressure then
   L.PressureTurn(s);return
  end
@@ -292,7 +302,7 @@ end
 function L.BeginPressure(s,era,final)
  s.pressure={era=era,final=final,expiry=L.Now()+L.Scale(L.Config.PressureTurns),lastTurn=-1}
  s.warning=nil;s.collapse=0
- L.Log('Physical wave blocked after radius '..L.Config.SpawnExpanded..'; siege pressure scheduled')
+ print('[LastCity] Physical invasion blocked after radius '..L.Config.SpawnExpanded..'; blockade until turn '..s.pressure.expiry)
  L.History(s,'SPAWN_BLOCKED');L.Notify(s,'SPAWN_BLOCKED')
 end
 function L.PressureTurn(s)
