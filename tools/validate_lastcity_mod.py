@@ -45,6 +45,8 @@ def database():
             for value in row:
                 if isinstance(value,str) and value.startswith('TXT_KEY_LC_'):assert value[11:] in TEXT,value
     assert d.execute("SELECT Count FROM Civilization_FreeUnits WHERE CivilizationType='CIVILIZATION_LAST_CITY' AND UnitClassType='UNITCLASS_SETTLER'").fetchone()[0]==1
+    assert d.execute("SELECT NoAnnexing FROM Traits WHERE Type='TRAIT_LC_FINAL_SANCTUARY'").fetchone()[0]==1
+    assert not d.execute("SELECT 1 FROM Civilization_UnitClassOverrides WHERE CivilizationType='CIVILIZATION_LAST_CITY' AND UnitClassType='UNITCLASS_SETTLER'").fetchone(), 'Starting Settler must retain its normal civilization unit mapping'
     assert d.execute("SELECT GlobalDefenseMod FROM Buildings WHERE Type='BUILDING_LC_LEGACY'").fetchone()[0]==2
     assert d.execute("SELECT DefenseMod FROM UnitPromotions WHERE Type='PROMOTION_LC_SANCTUARY'").fetchone()[0]==15
     assert d.execute("SELECT NoCapture FROM UnitPromotions WHERE Type='PROMOTION_LC_NO_CONQUEST'").fetchone()[0]==1
@@ -93,7 +95,7 @@ def validate_art(d):
         assert tuple(d.execute('SELECT PortraitIndex,IconAtlas FROM UnitPromotions WHERE Type=?',('PROMOTION_LC_'+key,)).fetchone())==(index,'LC_PROMOTION_ATLAS')
     print('PASS original Dawn/leader/map dimensions, all custom atlas slots, alpha, flags, portraits, promotion tiers and VFS references')
 
-def fixture(d,speed=100,growth=None,construct=None):
+def fixture(d,speed=100,growth=None,construct=None,load_core=True):
     lua=LuaRuntime(unpack_returned_tuples=True)
     lua.globals().Translations=lua.table_from({'TXT_KEY_LC_'+k:v for k,v in TEXT.items()})
     lua.execute((R/'tools/tests/lastcity_mock.lua').read_text(encoding='utf-8'))
@@ -108,8 +110,10 @@ def fixture(d,speed=100,growth=None,construct=None):
     def include(name):
         p=V/'Lua'/(name+'.lua')
         if p.is_file():lua.execute(p.read_text(encoding='utf-8'))
-    lua.globals().include=include;lua.globals().setup();include('LastCityCore')
-    lua.execute('L=MapModData.TheLastCity; S=L.State(0); C=Players[0].cities[0]')
+    lua.globals().include=include;lua.globals().setup()
+    if load_core:
+        include('LastCityCore')
+        lua.execute('L=MapModData.TheLastCity; S=L.State(0); C=Players[0].cities[0]')
     return lua
 
 def scenario(d,name,source,speed=100):
@@ -284,14 +288,24 @@ def packaging():
     ids={e.get('ID') for e in xml.iter() if e.get('ID')}
     assert set(re.findall(r'Controls\.(\w+)',ui))<=ids
     assert 'SetUpdate' not in ui and 'include(\'LastCityCore\')' in ui
+    ns={'m':'http://schemas.microsoft.com/developer/msbuild/2003'}
+    contents=ET.parse(R/'CoolWackyCivs.civ5proj').findall('.//m:ModContent/m:Content',ns)
+    # Reproduce ModBuddy's positional field interpretation, which produced the
+    # real installed failure even while the tag-based pure-file builder passed.
+    serialized=[tuple(e.text for e in content) for content in contents]
+    council=[row for row in serialized if 'TheLastCity/UI/SanctuaryCouncil.xml' in row]
+    assert council==[('InGameUIAddin','Sanctuary Council','Last City survival and management interface','TheLastCity/UI/SanctuaryCouncil.xml')], 'ModBuddy would export an invalid Council filename'
     print('PASS standalone manifest hashes, VFS/SQL order, sole runtime owner, Lua 5.1 syntax and Council controls')
+    print('PASS ModBuddy positional Council metadata resolves the actual registered XML entry point')
 
 def main():
     d=database();packaging();simulations(d);regressions(d);ui_simulation(d);d.close()
     print('Last City automated validation passed. Native in-game smoke tests remain outstanding.')
 
 def ui_simulation(d):
-    lua=fixture(d)
+    # Enter through the actual entry-point context, before any gameplay include.
+    lua=fixture(d,load_core=False)
+    assert lua.globals().MapModData.TheLastCity is None
     lua.globals().ControlNames=','.join(sorted({e.get('ID') for e in ET.parse(V/'UI/SanctuaryCouncil.xml').iter() if e.get('ID')}))
     lua.globals().UISource=(V/'UI/SanctuaryCouncil.lua').read_text(encoding='utf-8')
     lua.execute((R/'tools/tests/lastcity_ui_assertions.lua').read_text(encoding='utf-8'))

@@ -22,7 +22,7 @@ Enable BNW, CP and the selected mod through the Mods menu. Start a new modded ga
 
 ## Unique components
 
-**The Final Sanctuary:** begin with the normal Settler. Founding Last Light permanently closes further city founding and Settler training/purchasing. Granted/captured Settlers cannot found another city and are removed on the following owner turn. Combat units receive a no-capture promotion. Extra cities are returned to a living previous/original owner at a turn boundary; orphan cities go to a living AI custodian, preferring City-States. With no custodian, verified native city cleanup dismantles the extra city. No player is resurrected and no exceptional permanent puppet is retained.
+**The Final Sanctuary:** begin with the normal Settler. The native `NoAnnexing` trait blocks Settler training/purchasing and manual annexation; the starting Settler is still granted normally. The Lua veto also blocks new Settlers before capital initialization. Founding Last Light permanently closes further city founding. Granted/captured Settlers cannot found another city and are removed on the following owner turn. Combat units receive a no-capture promotion. Extra cities are returned to a living previous/original owner at a turn boundary; orphan cities go to a living AI custodian, preferring City-States. With no custodian, verified native city cleanup dismantles the extra city. No player is resurrected and no exceptional permanent puppet is retained.
 
 Combat units within three plots of Last Light have **+15% Defense**, refreshed on movement and changed defense inputs. Every fifth physical wave is a **Major Siege**; defeating it provides **+2% permanent City Defense**, capped at **+30%**. Units attacking distant cities gain no local defense bonus.
 

@@ -60,7 +60,10 @@ GameEvents.PlayerCanTrain.Add(function(pid,unitType)
  if not L.IsCity(pid) then return true end
  if L.State(pid).fallen then return false end
  local u=GameInfo.Units[unitType]
- if L.Founds(u) and L.State(pid).capital then return false end
+ -- Starting Settlers are granted by the engine, never trained. Keep this veto
+ -- independent of capital/save-state initialization; SQL NoAnnexing also
+ -- blocks normal training/purchases even before this add-in loads.
+ if L.Founds(u) then return false end
  return true
 end)
 GameEvents.PlayerCityFounded.Add(function(pid) if L.IsCity(pid) then L.Initialize(pid) end end)

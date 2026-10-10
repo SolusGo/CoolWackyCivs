@@ -1,5 +1,16 @@
 -- Each case runs in a fresh runtime against the actual activated CP database.
 RegressionCases={}
+function RegressionCases.settler_veto_does_not_depend_on_capital_initialization()
+ S.capital=nil
+ assert(not GameEvents.PlayerCanTrain.Test(0,GameInfoTypes.UNIT_SETTLER))
+ assert(GameEvents.PlayerCanTrain.Test(1,GameInfoTypes.UNIT_SETTLER))
+ Players[0].cities={}
+ assert(GameEvents.PlayerCanFoundCity.Test(0,0,0),'The starting Settler can still found Last Light')
+ assert(not GameEvents.PlayerCanTrain.Test(0,GameInfoTypes.UNIT_SETTLER))
+ Players[0].cities[0]=C;GameEvents.PlayerCityFounded.Fire(0)
+ assert(S.capital and not GameEvents.PlayerCanFoundCity.Test(0,3,3))
+ assert(not GameEvents.PlayerCanTrain.Test(0,GameInfoTypes.UNIT_SETTLER))
+end
 function RegressionCases.granted_dawn_cannot_bypass_era_or_technology()
  L.Building(C,'DISTRICT',1);L.Building(C,'DAWN',1);S.wavesSurvived=12;S.morale=65;S.provisions=200
  GameEvents.CityConstructed.Fire(0,C.id,GameInfoTypes.BUILDING_LC_DAWN,false,false)

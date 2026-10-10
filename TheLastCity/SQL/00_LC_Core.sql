@@ -3,7 +3,7 @@ UPDATE CustomModOptions SET Value=1 WHERE Name IN
  ('EVENTS_CITY','EVENTS_CITY_FOUNDING','EVENTS_UNIT_CREATED','EVENTS_UNIT_PREKILL','EVENTS_UNIT_UPGRADES','EVENTS_UNIT_CONVERTS');
 INSERT INTO Colors(Type,Red,Green,Blue,Alpha) VALUES ('COLOR_LC_COAL',0.09,0.10,0.12,1),('COLOR_LC_FIRE',0.95,0.65,0.25,1);
 INSERT INTO PlayerColors(Type,PrimaryColor,SecondaryColor,TextColor) VALUES ('PLAYERCOLOR_LC','COLOR_LC_COAL','COLOR_LC_FIRE','COLOR_PLAYER_WHITE_TEXT');
-INSERT INTO Traits(Type,Description,ShortDescription) VALUES ('TRAIT_LC_FINAL_SANCTUARY','TXT_KEY_LC_TRAIT_HELP','TXT_KEY_LC_TRAIT');
+INSERT INTO Traits(Type,Description,ShortDescription,NoAnnexing) VALUES ('TRAIT_LC_FINAL_SANCTUARY','TXT_KEY_LC_TRAIT_HELP','TXT_KEY_LC_TRAIT',1);
 CREATE TEMP TABLE LCClone AS SELECT * FROM "Leaders" WHERE Type='LEADER_WASHINGTON';
 UPDATE LCClone SET "ID"=NULL,"Type"='LEADER_LC_WARDEN',"Description"='TXT_KEY_LC_LEADER',"Civilopedia"='TXT_KEY_LC_LEADER_PEDIA',"CivilopediaTag"='TXT_KEY_CIVILOPEDIA_LEADERS_LC_WARDEN',"PackageID"=NULL,"Boldness"=2,"VictoryCompetitiveness"=2,"WonderCompetitiveness"=3,"MinorCivCompetitiveness"=2,"WarmongerHate"=9,"DoFWillingness"=8,"Loyalty"=9,"Meanness"=1;
 INSERT INTO "Leaders" SELECT * FROM LCClone;

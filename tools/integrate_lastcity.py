@@ -3,9 +3,14 @@ from pathlib import Path
 import sys
 import re
 R=Path(__file__).resolve().parents[1]
+COUNCIL_ENTRY='<Content><Type>InGameUIAddin</Type><Name>Sanctuary Council</Name><Description>Last City survival and management interface</Description><FileName>TheLastCity/UI/SanctuaryCouncil.xml</FileName></Content>'
 
 def integrate(text):
     if 'TheLastCity/UI/SanctuaryCouncil.xml' in text:
+        # ModBuddy reads these fields positionally: Type, Name, Description,
+        # FileName. The old Type/FileName/Name/Description order made it export
+        # the description as the entry-point filename and stop InGame loading.
+        text=re.sub(r'<Content>(?:(?!</Content>).)*TheLastCity/UI/SanctuaryCouncil.xml(?:(?!</Content>).)*</Content>',COUNCIL_ENTRY,text,flags=re.S)
         for p in sorted((R/'TheLastCity/SQL').glob('*.sql')):
             relative=p.relative_to(R).as_posix()
             if f'<FileName>{relative}</FileName>' not in text:
@@ -31,7 +36,7 @@ def integrate(text):
     for p in sorted((R/'TheLastCity/SQL').glob('*.sql')):
         actions+=f'      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TheLastCity/SQL/{p.name}</FileName></Action>\n'
     text=text.replace('    </ModActions>',actions+'    </ModActions>')
-    text=text.replace('    </ModContent>','      <Content><Type>InGameUIAddin</Type><FileName>TheLastCity/UI/SanctuaryCouncil.xml</FileName><Name>Sanctuary Council</Name><Description>Last City survival and management interface</Description></Content>\n    </ModContent>')
+    text=text.replace('    </ModContent>','      '+COUNCIL_ENTRY+'\n    </ModContent>')
     content='  <ItemGroup>\n'
     for p in sorted((R/'TheLastCity').rglob('*')):
         if not p.is_file() or p.suffix not in ['.sql','.lua','.xml','.dds']:continue

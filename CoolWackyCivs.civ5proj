@@ -439,7 +439,7 @@
         <Description>Persistent imperial gameplay, AI and administration UI.</Description>
         <FileName>TheShatteredEmpire/UI/ImperialAdministration.xml</FileName>
       </Content>
-      <Content><Type>InGameUIAddin</Type><FileName>TheLastCity/UI/SanctuaryCouncil.xml</FileName><Name>Sanctuary Council</Name><Description>Last City survival and management interface</Description></Content>
+      <Content><Type>InGameUIAddin</Type><Name>Sanctuary Council</Name><Description>Last City survival and management interface</Description><FileName>TheLastCity/UI/SanctuaryCouncil.xml</FileName></Content>
     </ModContent>
     <ModDependencies>
       <Association>
@@ -2131,9 +2131,6 @@
     <Content Include="TheLastCity/Art/LastLight.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TheLastCity/SQL/03_LC_Art.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="TheLastCity/Art/LastCityAlpha128.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
   </ItemGroup>
   <ItemGroup>
@@ -2261,5 +2258,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="TheLastCity/Art/WardenPortrait64.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/SQL/03_LC_Art.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
   </ItemGroup>
 </Project>

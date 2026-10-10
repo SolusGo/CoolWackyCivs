@@ -8,6 +8,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 SCRIPTS = (
     "validate_mod.py",
+    "validate_modbuddy_entrypoints.py",
     "validate_luna_mod.py",
     "validate_terra_mod.py",
     "validate_capano_mod.py",

@@ -37,6 +37,14 @@ def read_project():
             )
         imported = raw_import == "True"
         files.append((relative, imported))
+    registered = {name for name, _ in files}
+    for content in props.findall("m:ModContent/m:Content", NS):
+        order = [child.tag.split("}")[-1] for child in content]
+        if order != ["Type", "Name", "Description", "FileName"]:
+            raise ValueError("ModBuddy entry-point field order must be Type, Name, Description, FileName")
+        filename = content.findtext("m:FileName", "", NS).replace("\\", "/")
+        if filename not in registered or Path(filename).suffix not in (".lua", ".xml"):
+            raise ValueError(f"Entry point does not reference a registered Lua/XML file: {filename}")
     return tree, props, values, files
 
 

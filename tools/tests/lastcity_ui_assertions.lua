@@ -16,6 +16,9 @@ InterfaceModeTypes={INTERFACEMODE_SELECTION=1}
 UI={IsCityScreenUp=function() return false end,GetInterfaceMode=function() return 1 end};ContextPtr={SetInputHandler=function(self,fn) self.input=fn end}
 local originalInclude=include;include=function(name) if name~='InstanceManager' then originalInclude(name) end end
 assert(loadstring(UISource))()
+L=MapModData.TheLastCity;S=L.State(0);C=Players[0].cities[0]
+assert(L and #GameEvents.PlayerDoTurn.handlers==1 and #GameEvents.PlayerCanTrain.handlers==1)
+assert(not GameEvents.PlayerCanTrain.Test(0,GameInfoTypes.UNIT_SETTLER))
 assert(not Controls.Launcher.hidden and Controls.Panel.hidden)
 Controls.Open.click();assert(not Controls.Panel.hidden and #Managers.LastCityTab.rows==7)
 Managers.LastCityTab.rows[4].TabButton.click();Managers.LastCityRow.rows[2].RowButton.click()

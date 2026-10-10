@@ -1,6 +1,6 @@
 # Engine contracts and implementation limits
 
-The simulation is owned by `UI/SanctuaryCouncil.xml`'s single InGameUIAddin. `SanctuaryCouncil.lua` includes `LastCityCore.lua` once and owns gameplay handlers for every Last City player, including AI. Module functions are shared with the Council through `MapModData.TheLastCity` within that context. `LuaEvents.LastCityChanged` refreshes UI; there is no frame timer, continuous polling or second state owner. Multiplayer/hotseat are disabled.
+The simulation is owned by `UI/SanctuaryCouncil.xml`'s single InGameUIAddin. `SanctuaryCouncil.lua` includes `LastCityCore.lua` once and owns gameplay handlers for every Last City player, including AI. Module functions are shared with the Council through `MapModData.TheLastCity` within that context. `LuaEvents.LastCityChanged` refreshes UI; there is no frame timer, continuous polling or second state owner. Multiplayer/hotseat are disabled. ModBuddy requires entry-point fields in the order `Type`, `Name`, `Description`, `FileName`; both the builder and an optional real Firaxis manifest-task check enforce this. See [LoadingFix.md](LoadingFix.md) for the diagnosed native load failure.
 
 ## Verified API contracts
 
@@ -35,7 +35,7 @@ The installed `(1) Community Patch (v 151).modinfo` identifies DLL **5.4.6**. Th
 | `GetMaxHitPoints` | none | Uses actual city HP rather than assuming 200 |
 | `GetBuildingProductionNeeded` | building ID | Engine-scaled Production in Council previews |
 
-SQL enables only the needed CP event options. Standard hooks do not need invented option names. No `CityCanAcquire` hook was found; `CityCanAcquirePlot` concerns tiles rather than city ownership, so it is deliberately not used as a city veto. No CanMoveInto handler is registered because it would impose expensive global pathfinding callbacks.
+SQL enables only the needed CP event options. Standard hooks do not need invented option names. The `NoAnnexing` trait supplies a native Settler training/purchase restriction independent of Lua loading. Release-5.4.6 `CvPlayer::canTrainUnit` rejects production-cost founding units for this trait; the initial free-unit grant explicitly bypasses training eligibility for founding units. The normal Settler class mapping and one free Settler are preserved. The trait also disables manual annexation, matching the one-city rule. No `CityCanAcquire` hook was found; `CityCanAcquirePlot` concerns tiles rather than city ownership, so it is deliberately not used as a city veto. No CanMoveInto handler is registered because it would impose expensive global pathfinding callbacks.
 
 ## Persistence and effects
 

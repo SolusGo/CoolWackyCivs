@@ -143,3 +143,4 @@ include('LastCityEvents')
 for pid=0,GameDefines.MAX_MAJOR_CIVS-1 do
  if L.IsCity(pid) then L.Players[#L.Players+1]=pid;L.Initialize(pid) end
 end
+print('[LastCity] Survival runtime loaded; '..#L.Players..' sanctuary player(s)')
