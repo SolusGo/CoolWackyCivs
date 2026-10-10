@@ -23,7 +23,7 @@ Cool Wacky Civs is one Civilization V: Brave New World mod containing sixteen ci
 
 Token hardening in version 17 preserves version 16 Token save keys. Clear Context restores Tokens and clears persistent Prompts/cache while Compute Saturation expires naturally; weaker saturation cannot prolong a stronger tier.
 
-All sixteen civilizations are installed and enabled together. The original twelve remain human-only (`Playable = 1`, `AIPlayable = 0`). The Kingdoms, The Sol Intellect, The Shattered Empire and The Last City are AI-playable. The political and survival civilizations make automatic decisions, while Sol favors tall scientific development. The collection supports single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
+All sixteen civilizations are installed and enabled together. All sixteen are human-only (`Playable = 1`, `AIPlayable = 0`): humans can select them, but AI players cannot. This includes The Kingdoms, The Sol Intellect, The Shattered Empire and The Last City. The collection supports single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
 
 ## UA, UU and UB roster
 

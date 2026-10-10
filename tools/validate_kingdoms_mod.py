@@ -27,7 +27,7 @@ def database(cp=None):
         enabled=d.execute('SELECT Value FROM CustomModOptions WHERE Name=?',(name,)).fetchone()
         assert enabled and enabled[0]==1,('Missing CP event enablement',name)
     row=lambda table,kind:d.execute('SELECT * FROM '+table+' WHERE Type=?',(kind,)).fetchone()
-    assert tuple(d.execute("SELECT Playable,AIPlayable FROM Civilizations WHERE Type='CIVILIZATION_KINGDOMS'").fetchone())==(1,1)
+    assert tuple(d.execute("SELECT Playable,AIPlayable FROM Civilizations WHERE Type='CIVILIZATION_KINGDOMS'").fetchone())==(1,0)
     assert row('Units','UNIT_KINGDOMS_GUARD')['Combat']==28 and row('Units','UNIT_KINGDOMS_GUARD')['ObsoleteTech'] is None
     wall,base=row('Buildings','BUILDING_KINGDOMS_WALL'),row('Buildings','BUILDING_WALLS')
     assert wall['Defense']==base['Defense'] and wall['Happiness']==base['Happiness']+1

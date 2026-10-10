@@ -10,7 +10,7 @@ INSERT INTO "Leaders" SELECT * FROM LCClone;
 DROP TABLE LCClone;
 INSERT INTO Leader_Traits VALUES ('LEADER_LC_WARDEN','TRAIT_LC_FINAL_SANCTUARY');
 CREATE TEMP TABLE LCClone AS SELECT * FROM "Civilizations" WHERE Type='CIVILIZATION_AMERICA';
-UPDATE LCClone SET "ID"=NULL,"Type"='CIVILIZATION_LAST_CITY',"Description"='TXT_KEY_LC_CIV',"ShortDescription"='TXT_KEY_LC_SHORT',"Adjective"='TXT_KEY_LC_ADJECTIVE',"Civilopedia"='TXT_KEY_LC_CIV_PEDIA',"CivilopediaTag"='TXT_KEY_CIV5_LC',"Strategy"='TXT_KEY_LC_STRATEGY',"DefaultPlayerColor"='PLAYERCOLOR_LC',"Playable"=1,"AIPlayable"=1,"PackageID"=NULL,"DawnOfManQuote"='TXT_KEY_LC_DAWN',"DawnOfManAudio"='';
+UPDATE LCClone SET "ID"=NULL,"Type"='CIVILIZATION_LAST_CITY',"Description"='TXT_KEY_LC_CIV',"ShortDescription"='TXT_KEY_LC_SHORT',"Adjective"='TXT_KEY_LC_ADJECTIVE',"Civilopedia"='TXT_KEY_LC_CIV_PEDIA',"CivilopediaTag"='TXT_KEY_CIV5_LC',"Strategy"='TXT_KEY_LC_STRATEGY',"DefaultPlayerColor"='PLAYERCOLOR_LC',"Playable"=1,"AIPlayable"=0,"PackageID"=NULL,"DawnOfManQuote"='TXT_KEY_LC_DAWN',"DawnOfManAudio"='';
 INSERT INTO "Civilizations" SELECT * FROM LCClone;
 DROP TABLE LCClone;
 INSERT INTO Civilization_Leaders VALUES ('CIVILIZATION_LAST_CITY','LEADER_LC_WARDEN');

@@ -7,7 +7,7 @@ A Civilization V: Brave New World civilization for Community Patch v151 or newer
 - **UA — The Kingdoms United:** Persistent Houses, influence-weighted Stability, House and ruler benefits, demands, alliances, succession and painful internal civil wars.
 - **UU — The King's Guards:** Longswordsman replacement, 28 Strength, up to seven living named champions. Candidate appointments, permanent personality promotions, House affiliation, normal military upgrades and individual loyalty decisions. Remains trainable in later eras.
 - **UB — The Kingdom's Wall:** All active Walls effects, plus +1 local Happiness, +2 Production and +5 Kingdom Stability.
-- **AI:** Playable by humans and AI. AI appointments, appeasement, faction funding and oath decisions require no human interaction. Single-player only.
+- **Player access:** Human-only (`Playable = 1`, `AIPlayable = 0`). Retained AI fallback routines can handle appointments, appeasement, faction funding and oath decisions; ordinary AI selection is disabled. Single-player only.
 
 Open **KINGDOMS** below the top panel. Overview shows the current ruler and Realm Stability. Kingdoms shows local Houses, demands, lineage and actions. Succession shows claims or wartime factions. Guards handles appointments and personal loyalty. Chronicle filters persistent events by category. Appointment panels open when an eligible human receives a new Guard; you can close them and return later. Pending Guards can defend but cannot attack.
 

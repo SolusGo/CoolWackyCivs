@@ -30,7 +30,7 @@ def database(cp_root=None,source_path=None):
         try:d.executescript(f.read_text(encoding='utf-8'))
         except Exception as error:raise RuntimeError(str(f)+': '+str(error)) from error
     row=lambda table,kind:d.execute('SELECT * FROM '+table+' WHERE Type=?',(kind,)).fetchone()
-    assert tuple(d.execute("SELECT Playable,AIPlayable FROM Civilizations WHERE Type='CIVILIZATION_SHATTERED_EMPIRE'").fetchone())==(1,1)
+    assert tuple(d.execute("SELECT Playable,AIPlayable FROM Civilizations WHERE Type='CIVILIZATION_SHATTERED_EMPIRE'").fetchone())==(1,0)
     assert row('Units','UNIT_IMPERIAL_LEGION')['Combat']==10
     assert row('Units','UNIT_IMPERIAL_LEGION')['Cost']==(row('Units','UNIT_WARRIOR')['Cost']*115+99)//100
     assert row('Buildings','BUILDING_IMPERIAL_PALACE')['Cost']==row('Buildings','BUILDING_MONUMENT')['Cost']

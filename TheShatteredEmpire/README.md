@@ -4,7 +4,7 @@
 
 **UU:** Imperial Legion (Warrior) · **UB:** Provincial Governor's Palace (Monument)
 
-For Civilization V: Brave New World with Community Patch v151. Human and AI selection are enabled. Start a new single-player game. Multiplayer and hotseat are disabled in both packages.
+For Civilization V: Brave New World with Community Patch v151. Human selection is enabled and AI selection is disabled (`Playable = 1`, `AIPlayable = 0`). Start a new single-player game. Multiplayer and hotseat are disabled in both packages.
 
 ## Install
 

@@ -23,7 +23,7 @@ def database():
             try:d.execute('DELETE FROM '+quote(table)+' WHERE '+pred)
             except sqlite3.OperationalError:pass
     for p in sorted((V/'SQL').glob('*.sql')):d.executescript(p.read_text(encoding='utf-8'))
-    assert tuple(d.execute("SELECT Playable,AIPlayable FROM Civilizations WHERE Type='CIVILIZATION_LAST_CITY'").fetchone())==(1,1)
+    assert tuple(d.execute("SELECT Playable,AIPlayable FROM Civilizations WHERE Type='CIVILIZATION_LAST_CITY'").fetchone())==(1,0)
     for table,old,new,allowed in [
      ('Units','UNIT_SPEARMAN','UNIT_LC_LAST_WATCH',{'ID','Type','Description','Civilopedia','Help','Strategy'}),
      ('Buildings','BUILDING_GRANARY','BUILDING_LC_DISTRICT',{'ID','Type','Description','Civilopedia','Help','Strategy'})]:

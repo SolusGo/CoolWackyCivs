@@ -35,7 +35,7 @@ def database_checks(database, cp):
             raise RuntimeError(f"{file.name}: {error}") from error
 
     def one(sql, args=()): return db.execute(sql, args).fetchone()[0]
-    assert tuple(db.execute("SELECT Playable,AIPlayable FROM Civilizations WHERE Type='CIVILIZATION_GPT_SOL'").fetchone()) == (1,1)
+    assert tuple(db.execute("SELECT Playable,AIPlayable FROM Civilizations WHERE Type='CIVILIZATION_GPT_SOL'").fetchone()) == (1,0)
     assert one("SELECT COUNT(*) FROM Civilization_UnitClassOverrides WHERE CivilizationType='CIVILIZATION_GPT_SOL'") == 0
     assert one("SELECT COUNT(*) FROM Civilization_BuildingClassOverrides WHERE CivilizationType='CIVILIZATION_GPT_SOL'") == 2
     changed = {"ID","Type","Description","Civilopedia","Strategy","Help","PortraitIndex","IconAtlas"}

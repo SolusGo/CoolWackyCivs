@@ -80,7 +80,7 @@ INSERT INTO Traits(Type,Description,ShortDescription) VALUES
         "Description": tr("CIV", "The Sol Intellect"), "ShortDescription": tr("SHORT", "Sol Intellect"),
         "Adjective": tr("ADJECTIVE", "Solar"), "Civilopedia": tr("CIV_PEDIA", history),
         "CivilopediaTag": q("TXT_KEY_CIV5_SOL"), "Strategy": tr("STRATEGY", strategy),
-        "DefaultPlayerColor": q("PLAYERCOLOR_SOL"), "Playable": "1", "AIPlayable": "1",
+        "DefaultPlayerColor": q("PLAYERCOLOR_SOL"), "Playable": "1", "AIPlayable": "0",
         "PackageID": "NULL", "PortraitIndex": "0", "IconAtlas": q("SOL_ICON_ATLAS"),
         "AlphaIconAtlas": q("SOL_ALPHA_ATLAS"), "MapImage": q("SolMap.dds"),
         "DawnOfManImage": q("SolDawn.dds"), "DawnOfManAudio": q(""),

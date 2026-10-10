@@ -10,7 +10,7 @@ DROP TABLE KingdomsClone;
 INSERT INTO Leader_Traits VALUES ('LEADER_THE_THRONE','TRAIT_KINGDOMS_UNITED');
 INSERT INTO Leader_Flavors SELECT 'LEADER_THE_THRONE',FlavorType,Flavor FROM Leader_Flavors WHERE LeaderType='LEADER_ELIZABETH';
 CREATE TEMP TABLE KingdomsClone AS SELECT * FROM Civilizations WHERE Type='CIVILIZATION_ENGLAND';
-UPDATE KingdomsClone SET ID=NULL,Type='CIVILIZATION_KINGDOMS',Description='TXT_KEY_KINGDOMS_CIV',ShortDescription='TXT_KEY_KINGDOMS_SHORT',Adjective='TXT_KEY_KINGDOMS_ADJECTIVE',Civilopedia='TXT_KEY_KINGDOMS_CIV_PEDIA',CivilopediaTag='TXT_KEY_CIV5_KINGDOMS',Strategy='TXT_KEY_KINGDOMS_STRATEGY',DefaultPlayerColor='PLAYERCOLOR_KINGDOMS',Playable=1,AIPlayable=1,PackageID=NULL,PortraitIndex=0,IconAtlas='KINGDOMS_OBJECT_ATLAS',AlphaIconAtlas='KINGDOMS_ALPHA_ATLAS',MapImage='KingdomsMap.dds',DawnOfManImage='KingdomsDawn.dds',DawnOfManQuote='TXT_KEY_KINGDOMS_DAWN',DawnOfManAudio='';
+UPDATE KingdomsClone SET ID=NULL,Type='CIVILIZATION_KINGDOMS',Description='TXT_KEY_KINGDOMS_CIV',ShortDescription='TXT_KEY_KINGDOMS_SHORT',Adjective='TXT_KEY_KINGDOMS_ADJECTIVE',Civilopedia='TXT_KEY_KINGDOMS_CIV_PEDIA',CivilopediaTag='TXT_KEY_CIV5_KINGDOMS',Strategy='TXT_KEY_KINGDOMS_STRATEGY',DefaultPlayerColor='PLAYERCOLOR_KINGDOMS',Playable=1,AIPlayable=0,PackageID=NULL,PortraitIndex=0,IconAtlas='KINGDOMS_OBJECT_ATLAS',AlphaIconAtlas='KINGDOMS_ALPHA_ATLAS',MapImage='KingdomsMap.dds',DawnOfManImage='KingdomsDawn.dds',DawnOfManQuote='TXT_KEY_KINGDOMS_DAWN',DawnOfManAudio='';
 INSERT INTO Civilizations SELECT * FROM KingdomsClone;
 DROP TABLE KingdomsClone;
 INSERT INTO Civilization_Leaders VALUES ('CIVILIZATION_KINGDOMS','LEADER_THE_THRONE');

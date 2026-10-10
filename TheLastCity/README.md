@@ -6,6 +6,8 @@
 
 Last Light saves the survivors of a fallen world, feeds an expanding population and defends its walls against recurring invasions. The Sanctuary Council button above the map opens the survival dashboard. This is a playable source implementation with automated validation; native game smoke tests remain necessary. See [validation](docs/Validation.md) and [engine limitations](docs/Implementation.md).
 
+Human-only civilization: `Playable = 1`, `AIPlayable = 0`. Humans can choose The Last City; ordinary AI selection is disabled.
+
 ## Installation
 
 Requires Civilization V: Brave New World and `(1) Community Patch` mod version 151 or newer. The local validation schema is the installed CP v151 schema, with upstream 5.4.2/5.4.6 source references. Full Vox Populi is optional. Single-player only; multiplayer/hotseat are disabled.
@@ -121,7 +123,7 @@ Defeat the Final Night to receive the **HUMANITY ENDURES** Council aftermath, a 
 
 ## AI, balance and strategy
 
-The Warden is AI-playable. AI automatically assigns experts, evaluates refugee Housing/supplies, selects rationing, resolves crises and queues defensive units when threatened. It constructs survival infrastructure when the native queue is otherwise idle. Defense-focused leader flavors and UNITAI roles support native decisions; ordinary tactical AI still controls movement. Survival resources/costs are identical for human and AI players.
+The Warden is human-only (`Playable = 1`, `AIPlayable = 0`). Retained AI fallback logic automatically assigns experts, evaluates refugee Housing/supplies, selects rationing, resolves crises and queues defensive units when threatened. It constructs survival infrastructure when the native queue is otherwise idle. Defense-focused leader flavors and UNITAI roles support native decisions; ordinary tactical AI still controls movement. Survival resources/costs are identical for human and AI players.
 
 Quick/Standard/Epic/Marathon use native `TrainPercent` for turns and lump provision/production costs; Production building costs use the engine's own scaling. Costs and intervals are intentionally configurable. More difficult games add up to two invaders and bounded disease pressure. Early Waves are intended to be survivable with a garrison, walls and a steady supply surplus. Granary Food still grows Population, so use rationing and prudent admissions to control pressure.
 

@@ -34,7 +34,7 @@
     <File md5="979DAF475F3C1A6F6F8036F9C49A5520" import="1">Lua/LastCityInvasions.lua</File>
     <File md5="34CE9130E82130A612F90B47F5600954" import="1">Lua/LastCityPersistence.lua</File>
     <File md5="D1B7A9C90F3C7144905754691350D46B" import="1">Lua/LastCityRefugees.lua</File>
-    <File md5="2ABBA4E15E265567478AA7DFB2AE5AC9" import="0">SQL/00_LC_Core.sql</File>
+    <File md5="A0ACF17D5C72BF4B8B1B078BF2D5BD1B" import="0">SQL/00_LC_Core.sql</File>
     <File md5="98F33A9BADEE3F49D274268172525C88" import="0">SQL/01_LC_Inheritance.sql</File>
     <File md5="937A3DC3DEA6A0459A00BAFFFCDF4E09" import="0">SQL/02_LC_Effects.sql</File>
     <File md5="079A407F97E1A15373C5956A55C1D1DA" import="0">SQL/10_LC_Text.sql</File>

@@ -1,5 +1,10 @@
 # Patch Notes
 
+## Human-only selection for new civilizations - 2026-10-10
+
+- Set The Kingdoms, The Sol Intellect, The Shattered Empire and The Last City to `Playable = 1`, `AIPlayable = 0`. All sixteen collection civilizations are now human-only.
+- Updated core generators and focused checks; combined database validation now checks human-only selection for all sixteen civilizations.
+
 ## Version 21 — The Last City — 2026-10-10
 
 - Added The Warden of Last Light: a one-city survival civilization with the Last Watch and Sanctuary District, available to human and AI players.

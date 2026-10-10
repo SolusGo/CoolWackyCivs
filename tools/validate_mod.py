@@ -380,6 +380,10 @@ def check_database(path: Path, cp_root: Path):
         "CIVILIZATION_PSJ_FIRST_NIGHT",
         "CIVILIZATION_VILTRUM",
         "CIVILIZATION_TOKEN_INTELLIGENCE",
+        "CIVILIZATION_KINGDOMS",
+        "CIVILIZATION_GPT_SOL",
+        "CIVILIZATION_SHATTERED_EMPIRE",
+        "CIVILIZATION_LAST_CITY",
     ):
         assert database.execute(
             "SELECT COUNT(*) FROM Civilizations WHERE Type=?", (civilization,)

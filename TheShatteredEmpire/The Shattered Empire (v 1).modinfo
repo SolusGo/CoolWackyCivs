@@ -60,7 +60,7 @@
     <File md5="991624A114B9D471B9EC09E8E8FE042B" import="1">Lua/ImperialReforms.lua</File>
     <File md5="0DA17A21AD96E9EDAFC6BDDBCB3CF559" import="1">Lua/ImperialStartingCities.lua</File>
     <File md5="F6F04F5379E1AFAB0438817CAA093CA0" import="1">Lua/ImperialSuccession.lua</File>
-    <File md5="7FC29C8E184FB7133855CC1F91C84B07" import="0">SQL/00_Imperial_Core.sql</File>
+    <File md5="6D241D62D09767D38BE500885F4345A2" import="0">SQL/00_Imperial_Core.sql</File>
     <File md5="4E828C7DEDF65650B0BFC479958DB098" import="0">SQL/01_Imperial_Inheritance.sql</File>
     <File md5="FCB8A09D699D744C45DF2F9B1227C360" import="0">SQL/02_Imperial_Effects.sql</File>
     <File md5="2E2E24C8C87BC7CE13FE41FFA6F62DBF" import="0">SQL/10_Imperial_Text.sql</File>

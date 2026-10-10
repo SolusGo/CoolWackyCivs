@@ -12,7 +12,7 @@ INSERT INTO Leaders SELECT * FROM SolClone;
 DROP TABLE SolClone;
 INSERT INTO Leader_Traits VALUES ('LEADER_GPT_SOL','TRAIT_SOL_DEEP_DELIBERATION');
 CREATE TEMP TABLE SolClone AS SELECT * FROM Civilizations WHERE Type='CIVILIZATION_AMERICA';
-UPDATE SolClone SET ID=NULL,Type='CIVILIZATION_GPT_SOL',Description='TXT_KEY_SOL_CIV',ShortDescription='TXT_KEY_SOL_SHORT',Adjective='TXT_KEY_SOL_ADJECTIVE',Civilopedia='TXT_KEY_SOL_CIV_PEDIA',CivilopediaTag='TXT_KEY_CIV5_SOL',Strategy='TXT_KEY_SOL_STRATEGY',DefaultPlayerColor='PLAYERCOLOR_SOL',Playable=1,AIPlayable=1,PackageID=NULL,PortraitIndex=0,IconAtlas='SOL_ICON_ATLAS',AlphaIconAtlas='SOL_ALPHA_ATLAS',MapImage='SolMap.dds',DawnOfManImage='SolDawn.dds',DawnOfManAudio='',DawnOfManQuote='TXT_KEY_SOL_DAWN';
+UPDATE SolClone SET ID=NULL,Type='CIVILIZATION_GPT_SOL',Description='TXT_KEY_SOL_CIV',ShortDescription='TXT_KEY_SOL_SHORT',Adjective='TXT_KEY_SOL_ADJECTIVE',Civilopedia='TXT_KEY_SOL_CIV_PEDIA',CivilopediaTag='TXT_KEY_CIV5_SOL',Strategy='TXT_KEY_SOL_STRATEGY',DefaultPlayerColor='PLAYERCOLOR_SOL',Playable=1,AIPlayable=0,PackageID=NULL,PortraitIndex=0,IconAtlas='SOL_ICON_ATLAS',AlphaIconAtlas='SOL_ALPHA_ATLAS',MapImage='SolMap.dds',DawnOfManImage='SolDawn.dds',DawnOfManAudio='',DawnOfManQuote='TXT_KEY_SOL_DAWN';
 INSERT INTO Civilizations SELECT * FROM SolClone;
 DROP TABLE SolClone;
 INSERT INTO Civilization_Leaders VALUES ('CIVILIZATION_GPT_SOL','LEADER_GPT_SOL');

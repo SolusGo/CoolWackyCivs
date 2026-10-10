@@ -485,7 +485,7 @@
     <File md5="04F320374EF7053B0B646F55E3524037" import="1">TheKingdoms/Lua/KingsGuardManager.lua</File>
     <File md5="92162885E2FC0A04AEA39211CEC333F6" import="1">TheKingdoms/Lua/RulerManager.lua</File>
     <File md5="3AA9020BD343AE2A40CD303B2DFFB66E" import="1">TheKingdoms/Lua/SuccessionManager.lua</File>
-    <File md5="A99C37A67E4213A6522C3CDD069B36ED" import="0">TheKingdoms/SQL/00_Kingdoms_Core.sql</File>
+    <File md5="2479E5473FA671C36FBA7E42644F2E78" import="0">TheKingdoms/SQL/00_Kingdoms_Core.sql</File>
     <File md5="9BE999D05113F0FC1255CE36FF5639F5" import="0">TheKingdoms/SQL/01_Kingdoms_Inheritance.sql</File>
     <File md5="D141DB0C3E990C318A3724ABE8AF066F" import="0">TheKingdoms/SQL/02_Kingdoms_Effects.sql</File>
     <File md5="C7209159E7956DD52590C204A8D3C343" import="0">TheKingdoms/SQL/10_Kingdoms_Text.sql</File>
@@ -519,7 +519,7 @@
     <File md5="8DAE514D3BD752D5D0D617CD90B00F7A" import="1">SolIntellect/Art/SolLeaderScene.xml</File>
     <File md5="33036F6411A9149B08E50A44C8ABC9B6" import="1">SolIntellect/Art/SolMap.dds</File>
     <File md5="0C4C0C89F9B2FD567FF9F41BAF156848" import="1">SolIntellect/Lua/SolRuntime.lua</File>
-    <File md5="09667E9D71331A64B430399559D93675" import="0">SolIntellect/SQL/00_Sol_Core.sql</File>
+    <File md5="540C49091EFECAEFB55587CD4A733C6F" import="0">SolIntellect/SQL/00_Sol_Core.sql</File>
     <File md5="71F129EDB20B30849C45ACC790A040F1" import="0">SolIntellect/SQL/01_Sol_Inheritance.sql</File>
     <File md5="F21160BC422638F7999E10C59E596A41" import="0">SolIntellect/SQL/02_Sol_Effects.sql</File>
     <File md5="01BB361D2CA9EBBB9EA56B61E8C22E51" import="0">SolIntellect/SQL/10_Sol_Text.sql</File>
@@ -558,7 +558,7 @@
     <File md5="991624A114B9D471B9EC09E8E8FE042B" import="1">TheShatteredEmpire/Lua/ImperialReforms.lua</File>
     <File md5="0DA17A21AD96E9EDAFC6BDDBCB3CF559" import="1">TheShatteredEmpire/Lua/ImperialStartingCities.lua</File>
     <File md5="F6F04F5379E1AFAB0438817CAA093CA0" import="1">TheShatteredEmpire/Lua/ImperialSuccession.lua</File>
-    <File md5="7FC29C8E184FB7133855CC1F91C84B07" import="0">TheShatteredEmpire/SQL/00_Imperial_Core.sql</File>
+    <File md5="6D241D62D09767D38BE500885F4345A2" import="0">TheShatteredEmpire/SQL/00_Imperial_Core.sql</File>
     <File md5="4E828C7DEDF65650B0BFC479958DB098" import="0">TheShatteredEmpire/SQL/01_Imperial_Inheritance.sql</File>
     <File md5="FCB8A09D699D744C45DF2F9B1227C360" import="0">TheShatteredEmpire/SQL/02_Imperial_Effects.sql</File>
     <File md5="2E2E24C8C87BC7CE13FE41FFA6F62DBF" import="0">TheShatteredEmpire/SQL/10_Imperial_Text.sql</File>
@@ -573,7 +573,7 @@
     <File md5="979DAF475F3C1A6F6F8036F9C49A5520" import="1">TheLastCity/Lua/LastCityInvasions.lua</File>
     <File md5="34CE9130E82130A612F90B47F5600954" import="1">TheLastCity/Lua/LastCityPersistence.lua</File>
     <File md5="D1B7A9C90F3C7144905754691350D46B" import="1">TheLastCity/Lua/LastCityRefugees.lua</File>
-    <File md5="2ABBA4E15E265567478AA7DFB2AE5AC9" import="0">TheLastCity/SQL/00_LC_Core.sql</File>
+    <File md5="A0ACF17D5C72BF4B8B1B078BF2D5BD1B" import="0">TheLastCity/SQL/00_LC_Core.sql</File>
     <File md5="98F33A9BADEE3F49D274268172525C88" import="0">TheLastCity/SQL/01_LC_Inheritance.sql</File>
     <File md5="937A3DC3DEA6A0459A00BAFFFCDF4E09" import="0">TheLastCity/SQL/02_LC_Effects.sql</File>
     <File md5="079A407F97E1A15373C5956A55C1D1DA" import="0">TheLastCity/SQL/10_LC_Text.sql</File>
