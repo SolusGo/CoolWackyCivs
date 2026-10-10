@@ -26,7 +26,7 @@ Enable BNW, CP and the selected mod through the Mods menu. Start a new modded ga
 
 Combat units within three plots of Last Light have **+15% Defense**, refreshed on movement and changed defense inputs. Every fifth physical wave is a **Major Siege**; defeating it provides **+2% permanent City Defense**, capped at **+30%**. Units attacking distant cities gain no local defense bonus.
 
-**Last Watch (Spearman):** retains the Spearman's database stats, art, upgrades and all companion effects. Its local +15% Defense is the same UA bonus, applied once. A Watch unit present within three plots during a Major Siege and still alive at its conclusion earns a persistent veteran rank: **+3% local Defense**, up to **five ranks (+15%)**. Units built after a siege do not inherit prior victories. The Watch identity and earned ranks survive normal upgrades.
+**Last Watch (Spearman):** retains the Spearman's database stats, animated 3D model, upgrades and all companion effects; its portrait and flag use original generated art. Its local +15% Defense is the same UA bonus, applied once. A Watch unit present within three plots during a Major Siege and still alive at its conclusion earns a persistent veteran rank: **+3% local Defense**, up to **five ranks (+15%)**. Units built after a siege do not inherit prior victories. The Watch identity and earned ranks survive normal upgrades.
 
 **Sanctuary District (Granary):** inherits all Granary columns and companion tables, including resource Food yields. Adds **+6 Housing**, **+2 Provisions/turn**, enables quarantine and unlocks Sanctuary infrastructure.
 
@@ -133,7 +133,7 @@ Start by defending nearby improvements, building the District, assigning Farmers
 
 Implemented and connected: civilization/leader/UA/UU/UB, persistent economy, expert assignments, refugees/quarantine, Morale effects, starvation, bounded overcrowding, all fifteen crisis categories, infrastructure, scheduling/spawning/confirmed siege outcomes, bosses, veteran progression, Council, AI decisions and narrative endgame. Automated SQL, Lua simulation, UI wiring and package results are recorded in [Validation](docs/Validation.md).
 
-Gameplay refinements and the complete audit are described in [the implementation report](docs/RefinementReport.md). The Dawn of Man image is original generated art (`Art/LastLight.dds`); leader diplomacy, units and icons retain verified stock assets. Source art, generation prompt and reproducible conversion are recorded in [Art provenance](docs/Art.md).
+Gameplay refinements and the complete audit are described in [the implementation report](docs/RefinementReport.md). The Dawn illustration (1024×768), Warden scene (1600×900), selection map, civilization emblem, leader/unit/building portraits, flags and promotion icons use original generated art. Fourteen retained PNG sources compile into 43 DDS textures; animated 3D unit/world models remain inherited. The full prompt set, asset dimensions and reproducible conversion are recorded in [Art provenance](docs/Art.md).
 
 Native game behavior, defeat-screen delivery, visual layout, tactical targeting and performance on actual Huge/22-player saves remain untested. The stored-Food approximation and Humanity Endures narrative achievement remain deliberate engine limits. No additional DLL is required.
 

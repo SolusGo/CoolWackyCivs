@@ -2,6 +2,8 @@
 
 The bitmap assets were created with the built-in image-generation tool. Generated PNG sources are retained under `art-source/`; the DDS files consumed by Civ V are under each civilization's `Art/` directory.
 
+The Last City's fourteen original sources and complete prompt set are in [art-source/TheLastCity/Prompts.md](../art-source/TheLastCity/Prompts.md). `tools/build_lastcity_art.py` packs them into 43 DDS textures: corrected 1024×768 Dawn art, 1600×900 Warden scene, selection map, civilization/leader/object/promotion atlases and unit flag. [The Last City art reference](../TheLastCity/docs/Art.md) documents exact slots and dimensions. Its animated 3D unit/world models remain inherited.
+
 Leader prompt:
 
 > Use case: stylized-concept. Asset type: Civilization V mod static diplomacy background, widescreen 16:9. Subject: Trent Rou'ls, the Unbodied, a shifting dark humanoid silhouette surrounded by faint overlapping translucent humanoid bodies representing previous hosts. Scene: an ancient advanced biological consciousness archive on Trentaal, tall ribbed architecture, empty vessel chambers hinted in the distance. Style: polished painterly science fantasy concept art suitable for a strategy game leader diplomacy screen. Composition: central regal silhouette from knees upward, face mysterious luminous void, several ghostly prior silhouettes slightly offset behind him, atmospheric architecture wide to both sides. Mood: dignified, eerie, quietly welcoming, restrained teal and pale gold light, subtle mist, dark deep blue background. Constraints: no text, no letters, no UI, no logos, no watermark; no gore, no weapons, not a recognizable historical leader. This is a single wide leader scene.

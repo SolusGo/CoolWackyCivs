@@ -6,11 +6,11 @@ Automated validation covers database activation/inheritance/localization, Lua 5.
 
 No actual Civ V game has been launched as part of this implementation. Engine integration, tactical AI, graphics, native turn order and balance require the following checks.
 
-The refinement adds nineteen regression cases in `tools/tests/lastcity_regressions.lua`, four proportional attrition profiles, mixed speed-field checks and original DDS validation. The focused run reports 42 PASS groups. UI tests cover interface modes, overlapping popups, tab reuse, stale previews, infection projections, fallen-state hiding and reused-context reloads. Native cleanup and signatures were checked against Release-5.4.6 source matching the installed CP v151 manifest. All sixteen collection suites passed; final legacy-Final-Night, reload, exact unit-tag and granted-Dawn prerequisite guards were subsequently rechecked in the focused suite and packaging validation. See [RefinementReport.md](RefinementReport.md) for functions and balance changes.
+The refinement adds nineteen regression cases in `tools/tests/lastcity_regressions.lua`, four proportional attrition profiles, mixed speed-field checks and original DDS validation. The focused run reports 43 PASS groups after the 2026-10-11 art correction. UI tests cover interface modes, overlapping popups, tab reuse, stale previews, infection projections, fallen-state hiding and reused-context reloads. Native cleanup and signatures were checked against Release-5.4.6 source matching the installed CP v151 manifest. All sixteen collection suites passed; final legacy-Final-Night, reload, exact unit-tag and granted-Dawn prerequisite guards were subsequently rechecked in the focused suite and packaging validation. See [RefinementReport.md](RefinementReport.md) for functions and balance changes.
 
 ## Native smoke tests
 
-- [ ] Enable standalone with BNW and CP; select The Warden and confirm Last Light, UA, UU, UB and stock fallback art.
+- [ ] Enable standalone with BNW and CP; select The Warden and confirm Last Light, UA, UU, UB and custom Dawn/leader/map/portrait/flag art.
 - [ ] Enable collection v21 alone and confirm all sixteen civilizations; do not enable both packages.
 - [ ] Found with the starting Settler; attempt training/purchasing/receiving/capturing another Settler and confirm no additional founding.
 - [ ] Try capturing a foreign capital; sanctuary combat units cannot enter it. Gift a normal foreign city and confirm it is returned on the next turn without a crash, lost capital or lingering acquisition popup.
@@ -33,11 +33,11 @@ The refinement adds nineteen regression cases in `tools/tests/lastcity_regressio
 
 ## Status terminology
 
-“Implemented” means connected to game-state effects and registered components. “Automated pass” means mocked/static validation succeeded. Neither certifies native game behavior. Stored-Food growth, native tactics, inherited leader/unit/icon art and narrative victory remain documented limits; collapse cleanup and orphan handling now use source-verified native methods.
+“Implemented” means connected to game-state effects and registered components. “Automated pass” means mocked/static validation succeeded. Neither certifies native game behavior. Stored-Food growth, native tactics, inherited animated 3D unit/world models and narrative victory remain documented limits; collapse cleanup and orphan handling now use source-verified native methods.
 
 - [ ] Under CP-only, leave two or more tagged attackers near a city at 85% damage with no nearby defenders. Check the scaled warning countdown, repair/reinforcement resets and eventual native elimination/defeat. Repeat with Complete Kills, saving during the countdown; a lone raider must not cause collapse.
 - [ ] Fully surround neutral approaches with other civilizations' borders. Observe legal outskirts raids, then block every owned approach and check blockade consumption matches projections, shelter damage, physical retry and no fabricated victory.
 - [ ] Place Plaguebound within two plots; observe infection, supply drain, medical mitigation, duration cap, immunity, crisis treatment and reload. Verify no infinite stacking.
 - [ ] Give orphan capitals/City-State cities with dead former owners; check living custodian or native dismantling without resurrection or an extra permanent puppet.
 - [ ] Restore different native games and earlier saves while caravans, crises, infections, invasions and Dawn are pending. Verify their exact saved decisions/resources and matching checksum markers. Deliberately corrupt a bank only on copies of saves; stale backups must not replay rewards.
-- [ ] Verify the new Dawn of Man DDS renders in the native loading screen. Test Technology, Policy, Religion, overlapping popups and other interface modes with the Council.
+- [ ] Verify the corrected 1024×768 Dawn DDS, 1600×900 Warden scene, custom selection map, all portrait sizes, alpha emblems, unit flag and promotion tiers render in game. Test Technology, Policy, Religion, overlapping popups and other interface modes with the Council.

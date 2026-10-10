@@ -1,4 +1,4 @@
--- BNW + Community Patch v151. Stock art remains available without assets.
+-- BNW + Community Patch v151. Original art is registered in 03_LC_Art.sql.
 UPDATE CustomModOptions SET Value=1 WHERE Name IN
  ('EVENTS_CITY','EVENTS_CITY_FOUNDING','EVENTS_UNIT_CREATED','EVENTS_UNIT_PREKILL','EVENTS_UNIT_UPGRADES','EVENTS_UNIT_CONVERTS');
 INSERT INTO Colors(Type,Red,Green,Blue,Alpha) VALUES ('COLOR_LC_COAL',0.09,0.10,0.12,1),('COLOR_LC_FIRE',0.95,0.65,0.25,1);

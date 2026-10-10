@@ -25,8 +25,8 @@ def database():
     for p in sorted((V/'SQL').glob('*.sql')):d.executescript(p.read_text(encoding='utf-8'))
     assert tuple(d.execute("SELECT Playable,AIPlayable FROM Civilizations WHERE Type='CIVILIZATION_LAST_CITY'").fetchone())==(1,0)
     for table,old,new,allowed in [
-     ('Units','UNIT_SPEARMAN','UNIT_LC_LAST_WATCH',{'ID','Type','Description','Civilopedia','Help','Strategy'}),
-     ('Buildings','BUILDING_GRANARY','BUILDING_LC_DISTRICT',{'ID','Type','Description','Civilopedia','Help','Strategy'})]:
+     ('Units','UNIT_SPEARMAN','UNIT_LC_LAST_WATCH',{'ID','Type','Description','Civilopedia','Help','Strategy','PortraitIndex','IconAtlas','UnitFlagAtlas','UnitFlagIconOffset'}),
+     ('Buildings','BUILDING_GRANARY','BUILDING_LC_DISTRICT',{'ID','Type','Description','Civilopedia','Help','Strategy','PortraitIndex','IconAtlas'})]:
         a=d.execute('SELECT * FROM '+table+' WHERE Type=?',(old,)).fetchone();b=d.execute('SELECT * FROM '+table+' WHERE Type=?',(new,)).fetchone()
         for key in a.keys():
             if key not in allowed:assert a[key]==b[key],(table,key)
@@ -52,8 +52,46 @@ def database():
     for (atlas,index) in d.execute("SELECT IconAtlas,PortraitIndex FROM Units WHERE Type='UNIT_LC_LAST_WATCH' UNION ALL SELECT IconAtlas,PortraitIndex FROM Buildings WHERE Type='BUILDING_LC_DISTRICT' UNION ALL SELECT IconAtlas,PortraitIndex FROM Civilizations WHERE Type='CIVILIZATION_LAST_CITY' UNION ALL SELECT IconAtlas,PortraitIndex FROM Leaders WHERE Type='LEADER_LC_WARDEN' UNION ALL SELECT IconAtlas,PortraitIndex FROM UnitPromotions WHERE Type LIKE 'PROMOTION_LC_%'"):
         assert d.execute('SELECT 1 FROM IconTextureAtlases WHERE Atlas=? AND IconsPerRow*IconsPerColumn>?',(atlas,index)).fetchone(),(atlas,index)
     assert d.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
-    print('PASS actual BNW/CP SQL: complete inheritance, stock art atlases, localization, AI, production costs and effect schema')
+    print('PASS actual BNW/CP SQL: complete mechanical inheritance, custom art atlases, localization, AI, production costs and effect schema')
     return d
+
+
+def validate_art(d):
+    from PIL import Image
+    from build_lastcity_art import SIZES, LEADER_SIZES, PROMOTIONS
+    files={Path(e.text).name:e for e in manifest().findall('Files/File')}
+    for atlas,stem,sizes,cols,rows in [
+        ('LC_ICON_ATLAS','LastCityIcon',SIZES,1,1),
+        ('LC_ALPHA_ATLAS','LastCityAlpha',SIZES,1,1),
+        ('LC_LEADER_ATLAS','WardenPortrait',LEADER_SIZES,1,1),
+        ('LC_OBJECT_ATLAS','LastCityObjects',SIZES,4,3),
+        ('LC_PROMOTION_ATLAS','LastCityPromotions',SIZES,4,6),
+        ('LC_UNIT_FLAG_ATLAS','LastCityUnitFlag',(32,),1,1)]:
+        actual={(int(row[0]),row[1],int(row[2]),int(row[3])) for row in d.execute('SELECT IconSize,Filename,IconsPerRow,IconsPerColumn FROM IconTextureAtlases WHERE Atlas=?',(atlas,))}
+        assert actual=={(size,f'{stem}{size}.dds',cols,rows) for size in sizes},atlas
+        for size in sizes:
+            filename=f'{stem}{size}.dds'
+            assert files[filename].get('import')=='1',filename
+            with Image.open(V/'Art'/filename) as im:
+                im.load();assert im.size==(size*cols,size*rows),filename
+                alpha=im.convert('RGBA').getchannel('A')
+                assert alpha.getextrema()==(0,255),filename
+                assert alpha.getpixel((0,0))==0,filename
+    for filename,size in [('LastLight.dds',(1024,768)),('WardenLeader.dds',(1600,900)),('LastLightMap.dds',(360,412))]:
+        assert files[filename].get('import')=='1',filename
+        with Image.open(V/'Art'/filename) as im:im.load();assert im.size==size,filename
+    civ=d.execute("SELECT PortraitIndex,IconAtlas,AlphaIconAtlas,MapImage,DawnOfManImage FROM Civilizations WHERE Type='CIVILIZATION_LAST_CITY'").fetchone()
+    assert tuple(civ)==(0,'LC_ICON_ATLAS','LC_ALPHA_ATLAS','LastLightMap.dds','LastLight.dds')
+    leader=d.execute("SELECT PortraitIndex,IconAtlas,ArtDefineTag FROM Leaders WHERE Type='LEADER_LC_WARDEN'").fetchone()
+    assert tuple(leader)==(0,'LC_LEADER_ATLAS','WardenLeaderScene.xml')
+    assert files['WardenLeaderScene.xml'].get('import')=='1'
+    assert ET.parse(V/'Art/WardenLeaderScene.xml').getroot().get('FallbackImage')=='WardenLeader.dds'
+    assert tuple(d.execute("SELECT PortraitIndex,IconAtlas,UnitFlagAtlas,UnitFlagIconOffset FROM Units WHERE Type='UNIT_LC_LAST_WATCH'").fetchone())==(0,'LC_OBJECT_ATLAS','LC_UNIT_FLAG_ATLAS',0)
+    for index,key in enumerate(('DISTRICT','BARRACKS','RESIDENTIAL','SHELTER','HOSPITAL','STORAGE','DEPOT','WATER','DAWN'),1):
+        assert tuple(d.execute('SELECT PortraitIndex,IconAtlas FROM Buildings WHERE Type=?',('BUILDING_LC_'+key,)).fetchone())==(index,'LC_OBJECT_ATLAS')
+    for index,key in enumerate(PROMOTIONS):
+        assert tuple(d.execute('SELECT PortraitIndex,IconAtlas FROM UnitPromotions WHERE Type=?',('PROMOTION_LC_'+key,)).fetchone())==(index,'LC_PROMOTION_ATLAS')
+    print('PASS original Dawn/leader/map dimensions, all custom atlas slots, alpha, flags, portraits, promotion tiers and VFS references')
 
 def fixture(d,speed=100,growth=None,construct=None):
     lua=LuaRuntime(unpack_returned_tuples=True)
@@ -280,8 +318,7 @@ def regressions(d):
           assert(S.starvation==0 and C.population==10)
         """)
         print(f'PASS proportional attrition and economy at speed {speed}%')
-    from PIL import Image
-    with Image.open(V/'Art/LastLight.dds') as im:assert im.size==(1024,512)
-    print('PASS custom speed fields and original Dawn of Man DDS dimensions')
+    validate_art(d)
+    print('PASS custom game-speed fields')
 
 if __name__=='__main__':main()

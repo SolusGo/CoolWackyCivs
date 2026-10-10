@@ -25,7 +25,50 @@
     <Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" minversion="21" maxversion="999" title="Cool Wacky Civs includes The Last City" />
   </Blocks>
   <Files>
-    <File md5="4AFD262CDB0A9F35455785EB65AE89CB" import="1">Art/LastLight.dds</File>
+    <File md5="28A0812E05D3BB1ECFB39CE6C421C25F" import="1">Art/LastCityAlpha128.dds</File>
+    <File md5="E59821E35BCA2946E5DCE8336BAD30AF" import="1">Art/LastCityAlpha16.dds</File>
+    <File md5="A10E08EB848B54473D1C91A416E6DE7A" import="1">Art/LastCityAlpha24.dds</File>
+    <File md5="AB9FF2999EB26D8FFCF3E77D2888DED2" import="1">Art/LastCityAlpha256.dds</File>
+    <File md5="2BDE8B13B4C2BA525DEE7239527BD14B" import="1">Art/LastCityAlpha32.dds</File>
+    <File md5="9808AF7F6B1A70C921B4F7FD2522DFDF" import="1">Art/LastCityAlpha45.dds</File>
+    <File md5="DE191ABF155D3DA1A21C1BDB82B0FB09" import="1">Art/LastCityAlpha48.dds</File>
+    <File md5="2116688ED5E013E3EB2B757F1CB30DD6" import="1">Art/LastCityAlpha64.dds</File>
+    <File md5="67685A612672D9D5E6667309827862AC" import="1">Art/LastCityAlpha80.dds</File>
+    <File md5="B6762A83173AB0553572B2C63132D236" import="1">Art/LastCityIcon128.dds</File>
+    <File md5="2664EC55BE133ECD35B36683382091B9" import="1">Art/LastCityIcon16.dds</File>
+    <File md5="E603897AF8EFF6B9A2698F1A35E78A8E" import="1">Art/LastCityIcon24.dds</File>
+    <File md5="0886B90C0B643DD6327AD1ED0853C7F5" import="1">Art/LastCityIcon256.dds</File>
+    <File md5="B9A551AD08F017229A8F9B45A768B41B" import="1">Art/LastCityIcon32.dds</File>
+    <File md5="A5ACF67593C2F567955BFBF084F99334" import="1">Art/LastCityIcon45.dds</File>
+    <File md5="0B1638D05D42707252C21DD4FC8C1628" import="1">Art/LastCityIcon48.dds</File>
+    <File md5="FEDB53BDBD939227ED76F3DFA153B1A3" import="1">Art/LastCityIcon64.dds</File>
+    <File md5="5C7F885364F05D091919AFE091A5C048" import="1">Art/LastCityIcon80.dds</File>
+    <File md5="7DCA57BA35BDF4B7C7AA10B456A1418A" import="1">Art/LastCityObjects128.dds</File>
+    <File md5="BF7318025B627CA7028EB5EFA73E719D" import="1">Art/LastCityObjects16.dds</File>
+    <File md5="79C5686E6808C64C329F884A2BA6F773" import="1">Art/LastCityObjects24.dds</File>
+    <File md5="EDAC106E0F84D6C78DB86E5E405E77C7" import="1">Art/LastCityObjects256.dds</File>
+    <File md5="4B85B4FF073D55CC1B4B2046D09DD727" import="1">Art/LastCityObjects32.dds</File>
+    <File md5="C5DBCAFADC4EA93F5FBF2534F9408CFC" import="1">Art/LastCityObjects45.dds</File>
+    <File md5="AACB444A3DFF14090CB22645F6F1FEE9" import="1">Art/LastCityObjects48.dds</File>
+    <File md5="5D9DC694A269E8B3684112C7260E2F86" import="1">Art/LastCityObjects64.dds</File>
+    <File md5="CF153FC6275AE7CD5E78EB648C2CF26C" import="1">Art/LastCityObjects80.dds</File>
+    <File md5="A9C5F69BED07108B01D5D92967085343" import="1">Art/LastCityPromotions128.dds</File>
+    <File md5="DF6E0ACA8813DD750D0FA3E05F703E53" import="1">Art/LastCityPromotions16.dds</File>
+    <File md5="C4D737E6EDDAA3F4893854ED2E86BDD6" import="1">Art/LastCityPromotions24.dds</File>
+    <File md5="0E7784565F0CB00A7230E5016828FC2A" import="1">Art/LastCityPromotions256.dds</File>
+    <File md5="F0C2913B62403B296FBDFB78EE30C4BA" import="1">Art/LastCityPromotions32.dds</File>
+    <File md5="31FC13E8E729E48187D43845C73E32A9" import="1">Art/LastCityPromotions45.dds</File>
+    <File md5="AFC8A43F484A5F1E3BE10CE6185B38B4" import="1">Art/LastCityPromotions48.dds</File>
+    <File md5="D99ECE059CC0790CD2B96B18C9DEECEF" import="1">Art/LastCityPromotions64.dds</File>
+    <File md5="E99005BBE22BBF7B5C659B7C7DBCF171" import="1">Art/LastCityPromotions80.dds</File>
+    <File md5="2BDE8B13B4C2BA525DEE7239527BD14B" import="1">Art/LastCityUnitFlag32.dds</File>
+    <File md5="4D6415AB890EA4B9B0102174CA9C5145" import="1">Art/LastLight.dds</File>
+    <File md5="ACE8378957577B7CFDFD8B0565ACAEB4" import="1">Art/LastLightMap.dds</File>
+    <File md5="D612A6B71DB8FFEB9D31DDDF00C25C53" import="1">Art/WardenLeader.dds</File>
+    <File md5="8B879A7D9C3B324FFC023BFCCE616E99" import="1">Art/WardenLeaderScene.xml</File>
+    <File md5="C8BE04B67B712D4C19C20EDB50F97D9A" import="1">Art/WardenPortrait128.dds</File>
+    <File md5="8C4230E2E28220374F292E04A7350260" import="1">Art/WardenPortrait256.dds</File>
+    <File md5="7C25F73128413916701786B7B76B206C" import="1">Art/WardenPortrait64.dds</File>
     <File md5="F2BFA10B1191A89D6204B9DE02A96FBB" import="1">Lua/LastCityAI.lua</File>
     <File md5="425B65F8CCA85C7E7C892934A802AC01" import="1">Lua/LastCityConfig.lua</File>
     <File md5="B5D083BB9B4BC1689F86970026217F0E" import="1">Lua/LastCityCore.lua</File>
@@ -35,9 +78,10 @@
     <File md5="5358C0E182327C8AB71B7E0628328D42" import="1">Lua/LastCityInvasions.lua</File>
     <File md5="BAFF63BDC72E68DA5337167760A9B7E3" import="1">Lua/LastCityPersistence.lua</File>
     <File md5="BE7922264E8C6473F23B813E9B842151" import="1">Lua/LastCityRefugees.lua</File>
-    <File md5="63E542B2F245DC22CFE12C4E06AA2356" import="0">SQL/00_LC_Core.sql</File>
+    <File md5="BE20BDCEBE3EC6C9564D821EEB836187" import="0">SQL/00_LC_Core.sql</File>
     <File md5="98F33A9BADEE3F49D274268172525C88" import="0">SQL/01_LC_Inheritance.sql</File>
     <File md5="937A3DC3DEA6A0459A00BAFFFCDF4E09" import="0">SQL/02_LC_Effects.sql</File>
+    <File md5="474FCFB92436A9E6D4C90932FF1AEFDE" import="0">SQL/03_LC_Art.sql</File>
     <File md5="0A4EF9B88C57C8DC0E5026F9EAE202EB" import="0">SQL/10_LC_Text.sql</File>
     <File md5="AA0E26820AF7BD02ED3647088151523D" import="1">UI/SanctuaryCouncil.lua</File>
     <File md5="F686887BCCF66F6B95888548E337FB7A" import="0">UI/SanctuaryCouncil.xml</File>
@@ -47,6 +91,7 @@
       <UpdateDatabase>SQL/00_LC_Core.sql</UpdateDatabase>
       <UpdateDatabase>SQL/01_LC_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>SQL/02_LC_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>SQL/03_LC_Art.sql</UpdateDatabase>
       <UpdateDatabase>SQL/10_LC_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>

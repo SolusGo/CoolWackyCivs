@@ -32,7 +32,7 @@ The six expert roles retain their effects and assignment/reserve caps. Percentag
 
 `LastCityAI.AITurn` evaluates resources after assigning experts, prioritizes supply/Housing needs and eligible Dawn construction, and preserves ongoing production. Only an active siege with an inadequate army can interrupt a building, with a scaled intervention cooldown; Dawn construction is protected. Native AI still handles garrison movement and diplomacy. The fallback is tested even though ordinary AI selection of this civ is disabled.
 
-Original generated Dawn of Man art is compiled to a registered 1024×512 DXT5 DDS. All other atlas/model references remain valid inherited assets. [Art.md](Art.md) contains the final prompt, source path, tool/skill and reproducible conversion command.
+The 2026-10-11 art correction replaces the incorrect Dawn dimensions with 1024×768 and replaces stock 2D presentation with fourteen original generated sources: Warden diplomacy/portrait, Last Light/map, civilization emblem, Last Watch, District and eight infrastructure images. Forty-three DDS textures cover custom atlases, flags and promotion tiers. Animated 3D unit/world models remain inherited. [Art.md](Art.md) contains dimensions, the final prompt set, source paths and reproducible conversion command.
 
 ## Engine verification and limitations
 
@@ -65,3 +65,7 @@ The focused validator executes Lua 5.1 with stateful strict mocks and applies SQ
 Run `python tools/validate_all.py` for all sixteen collection suites. Build both packages with `python tools/build_mod.py` and `python tools/build_lastcity_mod.py`; builders verify archive integrity and manifests. Final results are recorded in [Validation.md](Validation.md).
 
 **No actual Civ V native game test has been performed.** Defeat screen/notification delivery, real save-slot persistence, AI targeting/garrison behavior, unusual modal screens, Dawn art rendering, native growth-threshold behavior and Huge/22-player performance/balance remain unverified in game. [Validation.md](Validation.md) supplies the manual checklist. Automated/source verification is not a claim that those native checks passed.
+
+## Art correction — 2026-10-11
+
+The Dawn converter had stretched a wide source to 1024×512 instead of the documented 1024×768; the previous size assertion repeated that mistake. The converter now fits aspect ratios and the validator enforces the correct Dawn/leader/map dimensions, complete atlas cell sizes, transparent margins, exact custom SQL references and VFS imports. All original mechanics remain inherited and tested. The focused suite now contains 43 PASS groups. See [Art.md](Art.md) and the retained preview/prompt set for all generated assets.

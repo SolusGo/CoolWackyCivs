@@ -333,6 +333,7 @@
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TheLastCity/SQL/00_LC_Core.sql</FileName></Action>
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TheLastCity/SQL/01_LC_Inheritance.sql</FileName></Action>
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TheLastCity/SQL/02_LC_Effects.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TheLastCity/SQL/03_LC_Art.sql</FileName></Action>
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TheLastCity/SQL/10_LC_Text.sql</FileName></Action>
     </ModActions>
     <ModContent>
@@ -2128,5 +2129,137 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="TheLastCity/Art/LastLight.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/SQL/03_LC_Art.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityAlpha128.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityAlpha16.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityAlpha24.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityAlpha256.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityAlpha32.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityAlpha45.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityAlpha48.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityAlpha64.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityAlpha80.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityIcon128.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityIcon16.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityIcon24.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityIcon256.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityIcon32.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityIcon45.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityIcon48.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityIcon64.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityIcon80.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityObjects128.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityObjects16.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityObjects24.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityObjects256.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityObjects32.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityObjects45.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityObjects48.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityObjects64.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityObjects80.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityPromotions128.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityPromotions16.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityPromotions24.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityPromotions256.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityPromotions32.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityPromotions45.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityPromotions48.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityPromotions64.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityPromotions80.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastCityUnitFlag32.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/LastLightMap.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/WardenLeader.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/WardenLeaderScene.xml"><SubType>XML</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/WardenPortrait128.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/WardenPortrait256.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheLastCity/Art/WardenPortrait64.dds"><SubType>DDS</SubType><ImportIntoVFS>True</ImportIntoVFS></Content>
   </ItemGroup>
 </Project>
