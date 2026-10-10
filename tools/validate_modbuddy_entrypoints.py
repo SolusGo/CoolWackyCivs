@@ -47,7 +47,8 @@ def check():
                             cwd=R, capture_output=True, text=True)
     if result.returncode:
         raise RuntimeError('Native ModBuddy manifest generation failed:\n' + result.stdout + result.stderr)
-    expected = ET.parse(R / 'Cool Wacky Civs (v 21).modinfo').getroot()
+    from build_mod import package_name
+    expected = ET.parse(R / f'{package_name()}.modinfo').getroot()
     native = ET.parse(output).getroot()
     signature = lambda root: [(e.get('type'), e.findtext('Name'), e.findtext('Description'),
                                e.get('file', '').replace('\\', '/')) for e in root.findall('EntryPoints/EntryPoint')]

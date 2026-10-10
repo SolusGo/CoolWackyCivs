@@ -6,8 +6,8 @@
     <Name>Cool Wacky Civs</Name>
     <SafeName>Cool Wacky Civs</SafeName>
     <Guid>4c02158d-ad52-4b73-bf2a-555ce58a1e60</Guid>
-    <Teaser>Sixteen civilizations. Sixteen stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, The Viltrum Empire, The Tokenized Intelligence, The Kingdoms, The Sol Intellect, The Shattered Empire, and The Last City. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Seventeen civilizations. Seventeen stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, The Viltrum Empire, The Tokenized Intelligence, The Kingdoms, The Sol Intellect, The Shattered Empire, The Last City, and The Relentless Seven. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -27,7 +27,7 @@
     <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <HideSetupGame>false</HideSetupGame>
-    <ModVersion>21</ModVersion>
+    <ModVersion>22</ModVersion>
     <Stability>Alpha</Stability>
     <ModActions>
       <Action>
@@ -335,6 +335,11 @@
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TheLastCity/SQL/02_LC_Effects.sql</FileName></Action>
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TheLastCity/SQL/03_LC_Art.sql</FileName></Action>
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TheLastCity/SQL/10_LC_Text.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>CristianoRonaldo/SQL/00_CR7_Core.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>CristianoRonaldo/SQL/01_CR7_Inheritance.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>CristianoRonaldo/SQL/02_CR7_Effects.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>CristianoRonaldo/SQL/03_CR7_Art.sql</FileName></Action>
+      <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>CristianoRonaldo/SQL/10_CR7_Text.sql</FileName></Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -440,6 +445,8 @@
         <FileName>TheShatteredEmpire/UI/ImperialAdministration.xml</FileName>
       </Content>
       <Content><Type>InGameUIAddin</Type><Name>Sanctuary Council</Name><Description>Last City survival and management interface</Description><FileName>TheLastCity/UI/SanctuaryCouncil.xml</FileName></Content>
+      <Content><Type>InGameUIAddin</Type><Name>Relentless Seven Gameplay</Name><Description>Relentless Seven Gameplay</Description><FileName>CristianoRonaldo/Lua/CR7Runtime.lua</FileName></Content>
+      <Content><Type>InGameUIAddin</Type><Name>CR7 Ambition and Career</Name><Description>CR7 Ambition and Career</Description><FileName>CristianoRonaldo/UI/CR7Career.xml</FileName></Content>
     </ModContent>
     <ModDependencies>
       <Association>
@@ -2261,5 +2268,50 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="TheLastCity/SQL/03_LC_Art.sql"><SubType>SQL</SubType><ImportIntoVFS>False</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CristianoRonaldo/Art/CR7Alpha128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Alpha16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Alpha24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Alpha256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Alpha32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Alpha45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Alpha48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Alpha64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Alpha80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Dawn.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Flag32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Icon128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Icon16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Icon24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Icon256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Icon32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Icon45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Icon48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Icon64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Icon80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Leader.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Leader128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Leader256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Leader64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7LeaderScene.xml"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Map.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Objects128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Objects16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Objects24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Objects256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Objects32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Objects45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Objects48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Objects64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CR7Objects80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Lua/CR7Runtime.lua"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/SQL/00_CR7_Core.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/SQL/01_CR7_Inheritance.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/SQL/02_CR7_Effects.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/SQL/03_CR7_Art.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/SQL/10_CR7_Text.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/UI/CR7Career.lua"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/UI/CR7Career.xml"><ImportIntoVFS>False</ImportIntoVFS></Content>
   </ItemGroup>
 </Project>

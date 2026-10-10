@@ -6,3 +6,12 @@ TheLastCity/**/*.md text eol=lf
 TheLastCity/*.modinfo text eol=lf
 tools/*lastcity*.py text eol=lf
 tools/tests/lastcity*.lua text eol=lf
+
+# Keep CR7 package hashes reproducible across Windows and Linux checkouts.
+CristianoRonaldo/**/*.lua text eol=lf
+CristianoRonaldo/**/*.sql text eol=lf
+CristianoRonaldo/**/*.xml text eol=lf
+CristianoRonaldo/**/*.md text eol=lf
+CristianoRonaldo/*.modinfo text eol=lf
+tools/*ronaldo*.py text eol=lf
+tools/tests/ronaldo*.lua text eol=lf

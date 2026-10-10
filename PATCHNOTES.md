@@ -1,5 +1,12 @@
 # Patch Notes
 
+## Version 22 — The Relentless Seven — 2026-10-11
+
+- Added player-only Cristiano Ronaldo, Funchal, Complete Forward and Sporting Academy, inheriting the active CP Cavalry/Barracks baseline.
+- Added saved Ambition, seven automatic Career Chapters, veteran Reinvention, academy origins, combat/war/capture bonuses, three overseas city slots and continuing legacy milestones.
+- Added an event-driven Career interface, queued chapter popups, original leader/Dawn artwork, promotion/chapter atlases, standalone packaging, documentation and deterministic regression tests.
+- Documented the military-only purchase rebate, CP ranged-defense interpretation and inferred GP birth detection. Native Civ V gameplay and performance testing remain outstanding.
+
 ## Human-only selection for new civilizations - 2026-10-10
 
 - Set The Kingdoms, The Sol Intellect, The Shattered Empire and The Last City to `Playable = 1`, `AIPlayable = 0`. All sixteen collection civilizations are now human-only.

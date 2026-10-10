@@ -1,9 +1,10 @@
 # Cool Wacky Civs
 
-Cool Wacky Civs is one Civilization V: Brave New World mod containing sixteen civilizations built for the Community Patch. The collection has one ModBuddy solution, one project and one combined deployable package; each civilization keeps its own gameplay and implementation README. The Kingdoms, The Shattered Empire and The Last City also include pure-file standalone builds.
+Cool Wacky Civs is one Civilization V: Brave New World mod containing seventeen civilizations built for the Community Patch. The collection has one ModBuddy solution, one project and one combined deployable package; each civilization keeps its own gameplay and implementation README. The Kingdoms, The Shattered Empire, The Last City and The Relentless Seven also include pure-file standalone builds.
 
 ## Civilizations
 
+- [The Relentless Seven](CristianoRonaldo/README.md) — Cristiano Ronaldo earns Ambition through training and worthy victories, unlocking seven Career Chapters while surviving veterans reinvent themselves through upgrades. Player playable only.
 - [The Rou'ls Ascendancy](RoulsAscendancy/README.md) — Trent Rou'ls preserves experienced forces through Anima, reconstruction, and strategic body exchange.
 - [The Luna Network](LunaNetwork/README.md) — GPT-5.6 Luna chains construction refunds, expands with Packet Settlers, and rapidly deploys newly trained forces.
 - [The Terra Framework](TerraFramework/README.md) — GPT-5.6 Terra temporarily specializes cities, supports outgoing trade, and reconfigures Operatives for their terrain.
@@ -23,7 +24,7 @@ Cool Wacky Civs is one Civilization V: Brave New World mod containing sixteen ci
 
 Token hardening in version 17 preserves version 16 Token save keys. Clear Context restores Tokens and clears persistent Prompts/cache while Compute Saturation expires naturally; weaker saturation cannot prolong a stronger tier.
 
-All sixteen civilizations are installed and enabled together. All sixteen are human-only (`Playable = 1`, `AIPlayable = 0`): humans can select them, but AI players cannot. This includes The Kingdoms, The Sol Intellect, The Shattered Empire and The Last City. The collection supports single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
+All seventeen civilizations are installed and enabled together. All seventeen are human-only (`Playable = 1`, `AIPlayable = 0`): humans can select them, but AI players cannot. This includes The Kingdoms, The Sol Intellect, The Shattered Empire, The Last City and The Relentless Seven. The collection supports single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
 
 ## UA, UU and UB roster
 
@@ -31,6 +32,7 @@ All sixteen civilizations are installed and enabled together. All sixteen are hu
 
 | Civilization | UA | UU(s) | UB(s) |
 | --- | --- | --- | --- |
+| [The Relentless Seven](CristianoRonaldo/README.md) | Work Until Greatness Becomes Habit | Complete Forward (Cavalry) | Sporting Academy (Barracks) |
 | [The Rou'ls Ascendancy](RoulsAscendancy/README.md#ua-uu-and-ubs) | The Flesh Is a Coat | Hollowhound (Rifleman); Matriarch of the Choir (Great General); Buddy, Everlasting (Standalone Biology-era naval unit) | Somatic Lattice (Hospital); The Choir Eternal (Heroic Epic) |
 | [The Luna Network](LunaNetwork/README.md#ua-uu-and-ubs) | Low Latency | Packet Settler (Settler) | Cache Node (Library) |
 | [The Terra Framework](TerraFramework/README.md#ua-uu-and-ubs) | Adaptive Intelligence | Adaptive Operative (Musketman) | Multimodal Hub (Market) |
@@ -207,7 +209,7 @@ Install the repository-local development dependencies:
 python -m pip install --target .tools/python -r requirements-dev.txt
 ```
 
-Validate all sixteen civilizations and build the collection package:
+Validate all seventeen civilizations and build the collection package:
 
 ```powershell
 python tools/validate_all.py
