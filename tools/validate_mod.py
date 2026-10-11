@@ -63,7 +63,7 @@ def check_packaging():
     civ_roots = (
         "RoulsAscendancy", "LunaNetwork", "TerraFramework", "CapanoCircuit",
         "FilthyRealm", "DualOrder", "RomanGladiusNetwork", "EternalNumberTen",
-        "MasayaBeyondSky", "PaulsoaresJr", "ViltrumEmpire", "TokenizedIntelligence", "TheKingdoms", "SolIntellect", "TheShatteredEmpire", "TheLastCity", "CristianoRonaldo",
+        "MasayaBeyondSky", "PaulsoaresJr", "ViltrumEmpire", "TokenizedIntelligence", "TheKingdoms", "SolIntellect", "TheShatteredEmpire", "TheLastCity", "CristianoRonaldo", "TheBoyWhoTouchedParadise",
     )
     actual = {
         p.relative_to(ROOT).as_posix()
@@ -84,6 +84,7 @@ def check_packaging():
             "TheShatteredEmpire/UI/ImperialAdministration.xml",
             "TheLastCity/UI/SanctuaryCouncil.xml",
             "CristianoRonaldo/UI/CR7Career.xml",
+            "TheBoyWhoTouchedParadise/UI/ParadiseJourney.xml",
         }:
             assert not imported, f"Database SQL must not import into VFS: {name}"
         else:
@@ -118,6 +119,8 @@ def check_packaging():
         "TheLastCity/UI/SanctuaryCouncil.xml",
         "CristianoRonaldo/Lua/CR7Runtime.lua",
         "CristianoRonaldo/UI/CR7Career.xml",
+        "TheBoyWhoTouchedParadise/Lua/ParadiseRuntime.lua",
+        "TheBoyWhoTouchedParadise/UI/ParadiseJourney.xml",
     ], "Combined runtime entry points are incomplete or out of order"
     assert values["SupportsMultiplayer"] == "false", "Unvalidated multiplayer must remain disabled"
     dependencies = props.findall("m:ModDependencies/m:Association/m:Id", NS)
@@ -352,6 +355,7 @@ def check_database(path: Path, cp_root: Path):
         "MASAYA_KID", "PSJ_", "VILTRUM", "TOKEN_", "KINGDOMS", "THE_THRONE", "GPT_SOL", "SOL_",
         "IMPERIAL_", "SHATTERED_EMPIRE", "LAST_EMPEROR", "WEIGHT_OF_EMPIRE",
         "_LC_", "LAST_CITY", "CR7_", "RELENTLESS_SEVEN", "CRISTIANO_RONALDO",
+        "PARADISE", "BOY_TOUCHED_PARADISE",
     )
     for table in tables:
         columns = [r[1] for r in database.execute(f"PRAGMA table_info({quote(table)})")]
@@ -379,6 +383,7 @@ def check_database(path: Path, cp_root: Path):
         "CIVILIZATION_DUAL_ORDER",
         "CIVILIZATION_ROMAN_GLADIUS_NETWORK",
         "CIVILIZATION_ETERNAL_NUMBER_TEN",
+        "CIVILIZATION_BOY_TOUCHED_PARADISE",
         "CIVILIZATION_MASAYA_KID",
         "CIVILIZATION_PSJ_FIRST_NIGHT",
         "CIVILIZATION_VILTRUM",

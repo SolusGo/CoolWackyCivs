@@ -6,8 +6,8 @@
     <Name>Cool Wacky Civs</Name>
     <SafeName>Cool Wacky Civs</SafeName>
     <Guid>4c02158d-ad52-4b73-bf2a-555ce58a1e60</Guid>
-    <Teaser>Seventeen civilizations. Seventeen stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, The Viltrum Empire, The Tokenized Intelligence, The Kingdoms, The Sol Intellect, The Shattered Empire, The Last City, and The Relentless Seven. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Eighteen civilizations. Eighteen stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, The Viltrum Empire, The Tokenized Intelligence, The Kingdoms, The Sol Intellect, The Shattered Empire, The Last City, The Relentless Seven, and The Boy Who Touched Paradise. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -27,7 +27,7 @@
     <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <HideSetupGame>false</HideSetupGame>
-    <ModVersion>23</ModVersion>
+    <ModVersion>24</ModVersion>
     <Stability>Alpha</Stability>
     <ModActions>
       <Action>
@@ -340,6 +340,26 @@
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>CristianoRonaldo/SQL/02_CR7_Effects.sql</FileName></Action>
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>CristianoRonaldo/SQL/03_CR7_Art.sql</FileName></Action>
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>CristianoRonaldo/SQL/10_CR7_Text.sql</FileName></Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheBoyWhoTouchedParadise/SQL/00_Paradise_Core.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheBoyWhoTouchedParadise/SQL/01_Paradise_Inheritance.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheBoyWhoTouchedParadise/SQL/02_Paradise_Effects.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheBoyWhoTouchedParadise/SQL/10_Paradise_Text.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -447,6 +467,18 @@
       <Content><Type>InGameUIAddin</Type><Name>Sanctuary Council</Name><Description>Last City survival and management interface</Description><FileName>TheLastCity/UI/SanctuaryCouncil.xml</FileName></Content>
       <Content><Type>InGameUIAddin</Type><Name>Relentless Seven Gameplay</Name><Description>Relentless Seven Gameplay</Description><FileName>CristianoRonaldo/Lua/CR7Runtime.lua</FileName></Content>
       <Content><Type>InGameUIAddin</Type><Name>CR7 Ambition and Career</Name><Description>CR7 Ambition and Career</Description><FileName>CristianoRonaldo/UI/CR7Career.xml</FileName></Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>Paradise Gameplay</Name>
+        <Description>The Boy Who Touched Paradise independent gameplay runtime</Description>
+        <FileName>TheBoyWhoTouchedParadise/Lua/ParadiseRuntime.lua</FileName>
+      </Content>
+      <Content>
+        <Type>InGameUIAddin</Type>
+        <Name>The Journey</Name>
+        <Description>Paradise event-driven Journey and illustrated finale</Description>
+        <FileName>TheBoyWhoTouchedParadise/UI/ParadiseJourney.xml</FileName>
+      </Content>
     </ModContent>
     <ModDependencies>
       <Association>
@@ -2313,5 +2345,60 @@
     <Content Include="CristianoRonaldo/SQL/10_CR7_Text.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
     <Content Include="CristianoRonaldo/UI/CR7Career.lua"><ImportIntoVFS>True</ImportIntoVFS></Content>
     <Content Include="CristianoRonaldo/UI/CR7Career.xml"><ImportIntoVFS>False</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseAlpha128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseAlpha16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseAlpha24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseAlpha256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseAlpha32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseAlpha45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseAlpha48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseAlpha64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseAlpha80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseDawn.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseEpilogue.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseFinalPeak.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseHeartbreak.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseIcon128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseIcon16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseIcon24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseIcon256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseIcon32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseIcon45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseIcon48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseIcon64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseIcon80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseJourney.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseLeader.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseLeader128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseLeader256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseLeader64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseLeaderScene.xml"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseMap.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseObjects128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseObjects16.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseObjects24.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseObjects256.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseObjects32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseObjects45.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseObjects48.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseObjects64.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseObjects80.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseUnitFlag32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/ParadiseWeight.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Lua/ParadisePersistence.lua"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Lua/ParadiseRuntime.lua"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/SQL/00_Paradise_Core.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/SQL/01_Paradise_Inheritance.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/SQL/02_Paradise_Effects.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/SQL/10_Paradise_Text.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/UI/ParadiseJourney.lua"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/UI/ParadiseJourney.xml"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Folder Include="TheBoyWhoTouchedParadise/" />
+    <Folder Include="TheBoyWhoTouchedParadise/Art/" />
+    <Folder Include="TheBoyWhoTouchedParadise/Lua/" />
+    <Folder Include="TheBoyWhoTouchedParadise/SQL/" />
+    <Folder Include="TheBoyWhoTouchedParadise/UI/" />
   </ItemGroup>
 </Project>

@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="23">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="24">
   <Properties>
     <Name>Cool Wacky Civs</Name>
-    <Teaser>Seventeen civilizations. Seventeen stranger ways to rule.</Teaser>
-    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, The Viltrum Empire, The Tokenized Intelligence, The Kingdoms, The Sol Intellect, The Shattered Empire, The Last City, and The Relentless Seven. Requires Brave New World and Community Patch.</Description>
+    <Teaser>Eighteen civilizations. Eighteen stranger ways to rule.</Teaser>
+    <Description>One collection containing The Rou'ls Ascendancy, The Luna Network, The Terra Framework, The Capano Circuit, The Filthy Realm, The Dual Order, The RomanGladius Network, The Eternal Number Ten, The Boy Beyond the Sky, The First Night, The Viltrum Empire, The Tokenized Intelligence, The Kingdoms, The Sol Intellect, The Shattered Empire, The Last City, The Relentless Seven, and The Boy Who Touched Paradise. Requires Brave New World and Community Patch.</Description>
     <Authors>SolusGo</Authors>
     <SpecialThanks>Community Patch Project; Firaxis Games; Enrico Capano</SpecialThanks>
     <Homepage>https://github.com/SolusGo/CoolWackyCivs</Homepage>
@@ -667,6 +667,54 @@
     <File md5="D5C84F56BC7E03D886F8999ADCA980D5" import="0">CristianoRonaldo/SQL/10_CR7_Text.sql</File>
     <File md5="2C14A2A136F9E09CCB5934A33F4C3BD7" import="1">CristianoRonaldo/UI/CR7Career.lua</File>
     <File md5="EEA24150B0063ACA37E0386001D55012" import="0">CristianoRonaldo/UI/CR7Career.xml</File>
+    <File md5="CA26E211EBB6AF9307D18FEC4BAECF9C" import="1">TheBoyWhoTouchedParadise/Art/ParadiseAlpha128.dds</File>
+    <File md5="24B1428DCEB27B5F811FA130F44A8F98" import="1">TheBoyWhoTouchedParadise/Art/ParadiseAlpha16.dds</File>
+    <File md5="E39CF8EC2EDDD2FE7240C92A0E2A34B9" import="1">TheBoyWhoTouchedParadise/Art/ParadiseAlpha24.dds</File>
+    <File md5="A68BD507C56916A2915C359D89D4DDE6" import="1">TheBoyWhoTouchedParadise/Art/ParadiseAlpha256.dds</File>
+    <File md5="5FA6539C27D9212EF19ED4910A72A80C" import="1">TheBoyWhoTouchedParadise/Art/ParadiseAlpha32.dds</File>
+    <File md5="F8012B592A13E56EF433CDEA6BE0CB2C" import="1">TheBoyWhoTouchedParadise/Art/ParadiseAlpha45.dds</File>
+    <File md5="2E16534B001D32C4D3D778841F5933FE" import="1">TheBoyWhoTouchedParadise/Art/ParadiseAlpha48.dds</File>
+    <File md5="E7B1D12729CFD77CB6F69AF67FA41A68" import="1">TheBoyWhoTouchedParadise/Art/ParadiseAlpha64.dds</File>
+    <File md5="7BF193FB67655F0ADBB8FBC477F54F54" import="1">TheBoyWhoTouchedParadise/Art/ParadiseAlpha80.dds</File>
+    <File md5="F900B28960AB0EF6A8ADF146673F5E02" import="1">TheBoyWhoTouchedParadise/Art/ParadiseDawn.dds</File>
+    <File md5="671DB3959EB627006B5FE3DB4B5B5C91" import="1">TheBoyWhoTouchedParadise/Art/ParadiseEpilogue.dds</File>
+    <File md5="6DD67CF148DC265772FE1C25BB3FBE11" import="1">TheBoyWhoTouchedParadise/Art/ParadiseFinalPeak.dds</File>
+    <File md5="09323223E85010FEFD8BB54C9D0F0FBE" import="1">TheBoyWhoTouchedParadise/Art/ParadiseHeartbreak.dds</File>
+    <File md5="EDF113728143A3D9D1738BC2647886F4" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon128.dds</File>
+    <File md5="80F5D21B876F20847EB24D0D49D39D73" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon16.dds</File>
+    <File md5="729558FA26D80FA782A36765FC6CB30B" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon24.dds</File>
+    <File md5="85214F0974327EC01ED9EEF2500A2859" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon256.dds</File>
+    <File md5="58A03412A962BDAFCD99C6BF75CE615A" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon32.dds</File>
+    <File md5="BCAC7957FCAB5D7FB13A45CE4A53FA58" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon45.dds</File>
+    <File md5="739066106F774F3B62DBC9F37489F052" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon48.dds</File>
+    <File md5="CC0B68684E53F38BECE1A52CDCFC5594" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon64.dds</File>
+    <File md5="12DE5212D5E3C9AC85263CD4E43D4804" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon80.dds</File>
+    <File md5="40C26110AB12EFAA2627E4767FB49647" import="1">TheBoyWhoTouchedParadise/Art/ParadiseJourney.dds</File>
+    <File md5="F1706BC779185F5C28416E1441DFCC93" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeader.dds</File>
+    <File md5="A91E70CD9C754656761EFB2A53572DF4" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeader128.dds</File>
+    <File md5="39AF28CC8953B9130B853B853977A30B" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeader256.dds</File>
+    <File md5="DBCBF5B893338EDC3D315A233CB002B0" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeader64.dds</File>
+    <File md5="D856B350B4CC0774A00C4A46243E9827" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeaderScene.xml</File>
+    <File md5="F50A5B61A3A080AF5BCC2A7E3059743E" import="1">TheBoyWhoTouchedParadise/Art/ParadiseMap.dds</File>
+    <File md5="0812BBACF368EE7133144092C4B7FC29" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects128.dds</File>
+    <File md5="9A346B8F2B0AC18108F186B4C14B29D5" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects16.dds</File>
+    <File md5="30E30C258DFCBA7AFC237BC0DA9CB6E8" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects24.dds</File>
+    <File md5="143E33A90C36D02927026EE781B7CE56" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects256.dds</File>
+    <File md5="AE0CC720D1287C5334EADC5D1CCCBCE4" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects32.dds</File>
+    <File md5="1AD621DFE401AAD9367F1A7FFB363B5C" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects45.dds</File>
+    <File md5="9D5241677AE1298806CB4F685ADE28C9" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects48.dds</File>
+    <File md5="71E1271A7B709C8B30946EA90CDEABEC" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects64.dds</File>
+    <File md5="024CA485E1749E6A0BEA57F0572332BB" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects80.dds</File>
+    <File md5="5FA6539C27D9212EF19ED4910A72A80C" import="1">TheBoyWhoTouchedParadise/Art/ParadiseUnitFlag32.dds</File>
+    <File md5="A56A74BF9B3927D964238CFF4B2005D4" import="1">TheBoyWhoTouchedParadise/Art/ParadiseWeight.dds</File>
+    <File md5="BE5FA733A1C509CB34E0A28C42FF5BC4" import="1">TheBoyWhoTouchedParadise/Lua/ParadisePersistence.lua</File>
+    <File md5="17E33485B6720ECB2F7AD83498D47AF7" import="1">TheBoyWhoTouchedParadise/Lua/ParadiseRuntime.lua</File>
+    <File md5="28AB6C75EBBBEA71F2A071C82D5920CD" import="0">TheBoyWhoTouchedParadise/SQL/00_Paradise_Core.sql</File>
+    <File md5="88EA5B59D13FB6DF206BE0CA9E261B91" import="0">TheBoyWhoTouchedParadise/SQL/01_Paradise_Inheritance.sql</File>
+    <File md5="3C7CF1322D121DA04246BDE620611F8A" import="0">TheBoyWhoTouchedParadise/SQL/02_Paradise_Effects.sql</File>
+    <File md5="5481591416A5F75BA88AF3CE3648F8D6" import="0">TheBoyWhoTouchedParadise/SQL/10_Paradise_Text.sql</File>
+    <File md5="EA39BF158ACBC54C2B2FE0B7B8A262A4" import="1">TheBoyWhoTouchedParadise/UI/ParadiseJourney.lua</File>
+    <File md5="9F0171FAEEB20E8512AC9057D539DC8B" import="0">TheBoyWhoTouchedParadise/UI/ParadiseJourney.xml</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -740,6 +788,10 @@
       <UpdateDatabase>CristianoRonaldo/SQL/02_CR7_Effects.sql</UpdateDatabase>
       <UpdateDatabase>CristianoRonaldo/SQL/03_CR7_Art.sql</UpdateDatabase>
       <UpdateDatabase>CristianoRonaldo/SQL/10_CR7_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheBoyWhoTouchedParadise/SQL/00_Paradise_Core.sql</UpdateDatabase>
+      <UpdateDatabase>TheBoyWhoTouchedParadise/SQL/01_Paradise_Inheritance.sql</UpdateDatabase>
+      <UpdateDatabase>TheBoyWhoTouchedParadise/SQL/02_Paradise_Effects.sql</UpdateDatabase>
+      <UpdateDatabase>TheBoyWhoTouchedParadise/SQL/10_Paradise_Text.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
@@ -822,6 +874,14 @@
     <EntryPoint type="InGameUIAddin" file="CristianoRonaldo/UI/CR7Career.xml">
       <Name>CR7 Ambition and Career</Name>
       <Description>CR7 Ambition and Career</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="TheBoyWhoTouchedParadise/Lua/ParadiseRuntime.lua">
+      <Name>Paradise Gameplay</Name>
+      <Description>The Boy Who Touched Paradise independent gameplay runtime</Description>
+    </EntryPoint>
+    <EntryPoint type="InGameUIAddin" file="TheBoyWhoTouchedParadise/UI/ParadiseJourney.xml">
+      <Name>The Journey</Name>
+      <Description>Paradise event-driven Journey and illustrated finale</Description>
     </EntryPoint>
   </EntryPoints>
 </Mod>

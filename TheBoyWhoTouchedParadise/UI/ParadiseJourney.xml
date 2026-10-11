@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Context ID="ParadiseJourney">
+  <GridButton ID="JourneyLauncher" Anchor="C,T" Offset="0,52" Size="400,32" Style="BaseButton" String="TXT_KEY_PARADISE_TITLE" Hidden="1" />
+  <Grid ID="JourneyPanel" Anchor="C,C" Size="944,624" Style="Grid9DetailFive140" ConsumeMouse="1" Hidden="1">
+    <Image ID="JourneyEmblem" Anchor="L,T" Offset="20,14" Size="64,64" />
+    <Label Anchor="L,T" Offset="100,16" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="TXT_KEY_PARADISE_TITLE" />
+    <Label ID="JourneyStatus" Anchor="L,T" Offset="100,48" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+    <GridButton ID="JourneyClose" Anchor="R,T" Offset="18,18" Size="84,30" Style="BaseButton" String="CLOSE" />
+    <Box ID="JourneyAccent" Anchor="C,T" Offset="0,86" Size="904,2" Color="91,184,232,255" />
+    <Stack Anchor="C,T" Offset="0,100" StackGrowth="Right" Padding="8">
+      <GridButton ID="OverviewTab" Size="205,32" Style="BaseButton" String="TXT_KEY_PARADISE_OVERVIEW" />
+      <GridButton ID="MemoriesTab" Size="205,32" Style="BaseButton" String="TXT_KEY_PARADISE_MEMORIES" />
+      <GridButton ID="MagicTab" Size="205,32" Style="BaseButton" String="TXT_KEY_PARADISE_MAGIC" />
+      <GridButton ID="PeakTab" Size="205,32" Style="BaseButton" String="TXT_KEY_PARADISE_PEAK" />
+    </Stack>
+    <Image ID="JourneyArt" Anchor="L,T" Offset="22,148" Size="280,420" Texture="ParadiseJourney.dds" />
+    <ScrollPanel ID="JourneyScroll" Anchor="R,T" Offset="22,148" Size="614,434" Vertical="1">
+      <Stack ID="JourneyDetails" StackGrowth="Bottom" Padding="16" Size="592,0">
+        <Label ID="JourneyHeading" Size="592,0" WrapWidth="592" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" />
+        <Label ID="JourneyBody" Size="592,0" WrapWidth="592" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+        <Stack ID="MemoryStack" StackGrowth="Bottom" Padding="16" Size="592,0" />
+        <Stack ID="MagicStack" StackGrowth="Bottom" Padding="14" Size="592,0" Hidden="1">
+          <Stack StackGrowth="Bottom" Padding="6" Size="588,0">
+            <Image ID="PassIcon" Size="64,64" />
+            <Label ID="PassDetails" Size="580,0" WrapWidth="580" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+            <GridButton ID="PassButton" Size="580,36" Style="BaseButton" String="TXT_KEY_PARADISE_PASS" />
+          </Stack>
+          <Stack StackGrowth="Bottom" Padding="6" Size="588,0">
+            <Image ID="HopeIcon" Size="64,64" />
+            <Label ID="HopeDetails" Size="580,0" WrapWidth="580" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+            <GridButton ID="HopeButton" Size="580,36" Style="BaseButton" String="TXT_KEY_PARADISE_HOPE" />
+          </Stack>
+          <Stack StackGrowth="Bottom" Padding="6" Size="588,0">
+            <Image ID="BeautyIcon" Size="64,64" />
+            <Label ID="BeautyDetails" Size="580,0" WrapWidth="580" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+            <GridButton ID="BeautyButton" Size="580,36" Style="BaseButton" String="TXT_KEY_PARADISE_BEAUTY" />
+          </Stack>
+        </Stack>
+        <Label ID="JourneyMessage" Size="592,0" WrapWidth="592" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+      </Stack>
+    </ScrollPanel>
+  </Grid>
+  <!-- A real modal, illustrated cinematic. Its bounds follow the screen. -->
+  <Grid ID="JourneyCinematic" Anchor="C,C" Size="1024,768" ConsumeMouse="1" Hidden="1">
+    <Image ID="CinematicArt" Anchor="C,C" Size="1024,768" Texture="ParadiseFinalPeak.dds" />
+    <Box ID="CinematicShade" Anchor="C,B" Size="1024,380" Color="7,20,38,235" />
+    <Label ID="CinematicTitle" Anchor="C,T" Offset="0,32" Size="920,0" WrapWidth="920" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" />
+    <Box ID="CinematicAccent" Anchor="C,B" Offset="0,366" Size="920,3" Color="247,209,80,255" />
+    <ScrollPanel ID="CinematicScroll" Anchor="C,B" Offset="0,66" Size="920,286" Vertical="1">
+      <Stack ID="CinematicDetails" StackGrowth="Bottom" Padding="16" Size="890,0">
+        <Label ID="CinematicStory" Size="890,0" WrapWidth="890" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" />
+        <Label ID="CinematicRewards" Size="890,0" WrapWidth="890" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+        <Label ID="CinematicMemories" Size="890,0" WrapWidth="890" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+      </Stack>
+    </ScrollPanel>
+    <GridButton ID="CinematicContinue" Anchor="C,B" Offset="0,18" Size="220,32" Style="BaseButton" String="CONTINUE THE JOURNEY" />
+  </Grid>
+  <Instance Name="ParadiseMemoryRow">
+    <Stack ID="MemoryRoot" StackGrowth="Bottom" Padding="6" Size="586,0">
+      <Image ID="MemoryIcon" Size="32,32" />
+      <Label ID="MemoryTitle" Size="580,0" WrapWidth="580" Font="TwCenMT20" ColorSet="Beige_Black_Alpha" />
+      <Label ID="MemoryText" Size="580,0" WrapWidth="580" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+    </Stack>
+  </Instance>
+</Context>

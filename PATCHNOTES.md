@@ -1,5 +1,13 @@
 # Patch Notes
 
+## Version 24 — The Boy Who Touched Paradise — 2026-10-12
+
+- Added an eighteenth human-only civilization: a separate Lionel Messi three-act journey, preserving Eternal Number Ten's existing source and identity.
+- Implemented Dreams/lifetime earnings, one civilian El Diez, three once-per-era Moments of Magic, complete active Amphitheater inheritance for El Potrero, national pressure, stable Heartbreak records, repeatable recovery opportunities with one eventual reward, and permanent Memories.
+- Added the actual constructible Last Dance National Wonder, persisted once-only Final Peak rewards, a movable capital memorial, full-screen illustrated narrative events and the event-driven four-tab Journey interface.
+- Packaged 39 original game-ready DDS textures with mipmaps; portraits use a fictional Argentine Number Ten figure under the design's fallback. Hope uses CP's +15% building-defense modifier, documented in UI/help.
+- Added dedicated CP SQL, Lua 5.1, speed/lifecycle/duplicate/reload/UI tests and an honest live-game checklist. Updated the project, manifest, roster and combined validation pipeline; the original Mod ID remains unchanged. A new game is required.
+
 ## Version 23 — Ronaldo technical audit — 2026-10-11
 
 - Preserved player-only selection and every approved balance value, chapter, database type and save namespace.
