@@ -1,4 +1,21 @@
 local L=MapModData.TheLastCity
+function L.IsAscendant(s) return s and s.dawn=='ENDURES' or false end
+function L.RationGrowth(s,key)
+ return L.IsAscendant(s) and key=='GENEROUS' and L.Ascendant.GenerousGrowth or L.Rations[key].growth
+end
+function L.GrowthAdjustment(s,key)
+ return L.RationGrowth(s,key)-(s.provisions==0 and 60 or s.starvation>0 and 20 or 0)
+end
+function L.LegacyDefense(s)
+ return math.min(L.IsAscendant(s) and L.Ascendant.MaxDefense or L.Config.MaxDefense,
+  s.majorSieges*(L.IsAscendant(s) and L.Ascendant.SiegeDefense or 2))
+end
+function L.MoraleText(s) return L.Text(L.IsAscendant(s) and L.Condition(s)=='UNITED' and 'ASC_UNITED' or L.Condition(s)) end
+function L.ExpertBonus(s,key)
+ local normal={ENGINEERS=3,SCIENTISTS=3,SCHOLARS=3,VETERANS=2,FARMERS=2,PHYSICIANS=1}
+ local ascended={ENGINEERS=100,SCIENTISTS=100,SCHOLARS=80,VETERANS=10,FARMERS=12,PHYSICIANS=3}
+ return (L.IsAscendant(s) and ascended or normal)[key]*s.assigned[key]
+end
 function L.Military(pid)
  local n=0
  -- Count combat units even if a promotion exempts them from gold maintenance.
@@ -13,8 +30,13 @@ end
 function L.Stats(s)
  local c=L.City(s);if not c then return {income=0,consumption=0,net=0,military=0,population=0,housing=s.housing,capacity=s.capacity,pillaged=0} end
  local housing,capacity,income=L.Config.Housing,L.Config.Storage,L.Config.BaseIncome
- if L.Has(c,'DISTRICT') then housing=housing+L.Config.DistrictHousing;income=income+L.Config.DistrictIncome end
- for _,b in ipairs(L.Infrastructure) do if L.Has(c,b.key) then housing=housing+(b.housing or 0);capacity=capacity+(b.storage or 0);income=income+(b.income or 0) end end
+ local asc=L.IsAscendant(s);local housingFactor=asc and L.Ascendant.HousingMultiplier or 1
+ local storageFactor=asc and L.Ascendant.StorageMultiplier or 1
+ if L.Has(c,'DISTRICT') then housing=housing+L.Config.DistrictHousing*housingFactor;income=income+L.Config.DistrictIncome end
+ for _,b in ipairs(L.Infrastructure) do if L.Has(c,b.key) then
+  housing=housing+(b.housing or 0)*housingFactor;capacity=capacity+(b.storage or 0)*storageFactor
+  income=income+(asc and b.key=='WATER' and L.Ascendant.WaterIncome or b.income or 0)
+ end end
  local farms,pillaged=0,0
  -- Native city plot iterator is bounded (usually 37, CP may extend it).
  -- Count only owned, completed, unpillaged supply improvements.
@@ -28,7 +50,7 @@ function L.Stats(s)
   end
  end
  housing=math.max(L.Config.Housing,housing-(s.housingDamage or 0))
- income=math.max(0,income+farms+s.assigned.FARMERS*L.Config.FarmerIncome-((s.waterUntil or 0)>L.Now() and 3 or 0))
+ income=math.max(0,income+farms*(asc and L.Ascendant.ImprovementIncome or 1)+s.assigned.FARMERS*(asc and L.Ascendant.FarmerIncome or L.Config.FarmerIncome)-((s.waterUntil or 0)>L.Now() and 3 or 0))
  local military=L.Military(s.pid)
  local base=math.ceil(c:GetPopulation()*L.Config.PopulationConsumption+military*L.Config.MilitaryConsumption)
  local infection=s.infection and L.Now()<s.infection.untilTurn and math.max(0,s.infection.severity-math.floor(L.Medical(s)/2)) or 0
@@ -37,7 +59,7 @@ function L.Stats(s)
  return {income=income,consumption=consumption,net=income-consumption,military=military,
   population=c:GetPopulation(),housing=housing,capacity=capacity,pillaged=pillaged,farms=farms,base=base,infection=infection,blockade=blockade}
 end
-function L.Medical(s) return s.assigned.PHYSICIANS+(L.Has(L.City(s),'HOSPITAL') and 2 or 0) end
+function L.Medical(s) return s.assigned.PHYSICIANS*(L.IsAscendant(s) and L.Ascendant.PhysicianPower or 1)+(L.Has(L.City(s),'HOSPITAL') and 2 or 0) end
 function L.Condition(s)
  return s.morale>=80 and 'UNITED' or s.morale>=60 and 'STABLE' or s.morale>=40 and 'ANXIOUS' or s.morale>=20 and 'UNREST' or 'BREAKING'
 end
@@ -45,13 +67,18 @@ function L.ApplyEffects(s)
  if s.incompatible then return end
  local c=L.City(s);if not c then return end
  local stats=L.Stats(s);s.housing=stats.housing;s.capacity=stats.capacity;s.provisions=L.Clamp(s.provisions,0,s.capacity)
- for _,k in ipairs({'ENGINEERS','SCIENTISTS','SCHOLARS'}) do L.Building(c,k,s.assigned[k]) end
+ local asc=L.IsAscendant(s)
+ for _,k in ipairs({'ENGINEERS','SCIENTISTS','SCHOLARS'}) do
+  L.Building(c,k,not asc and s.assigned[k] or 0);L.Building(c,'ASC_'..k,asc and s.assigned[k] or 0)
+ end
  local condition=L.Condition(s)
- for _,k in ipairs({'UNITED','ANXIOUS','UNREST','BREAKING'}) do L.Building(c,k,k==condition and 1 or 0) end
- L.Building(c,'LEGACY',math.min(math.floor(L.Config.MaxDefense/2),s.majorSieges))
+ for _,k in ipairs({'UNITED','ANXIOUS','UNREST','BREAKING'}) do L.Building(c,k,k==condition and (k~='UNITED' or not asc) and 1 or 0) end
+ L.Building(c,'ASC_UNITED',asc and condition=='UNITED' and 1 or 0)
+ local count=math.min(math.floor(L.Config.MaxDefense/2),s.majorSieges)
+ L.Building(c,'LEGACY',not asc and count or 0);L.Building(c,'ASC_LEGACY',asc and count or 0)
  L.Building(c,'GATES_UP',s.gates>0 and s.gatesUntil>L.Now() and 1 or 0)
  L.Building(c,'GATES_DOWN',s.gates<0 and s.gatesUntil>L.Now() and 1 or 0)
- L.Building(c,'ENDURES',s.dawn=='ENDURES' and 1 or 0)
+ L.Building(c,'ENDURES',asc and 1 or 0)
 end
 function L.SetRation(s,key)
  if not L.Rations[key] or key==s.ration then return false,L.Text('UNAVAILABLE') end
@@ -123,7 +150,7 @@ function L.EconomyTurn(s)
  -- by a fraction of positive net Food, retaining fractional remainders. Normal
  -- Civ V growth/starvation remains in charge of population. No Food is minted
  -- when the native city surplus is nonpositive.
- local growth=L.Rations[s.ration].growth-(s.provisions==0 and 60 or s.starvation>0 and 20 or 0)
+ local growth=L.GrowthAdjustment(s,s.ration)
  local surplus=math.max(0,c:FoodDifferenceTimes100()/100)
  -- PlayerDoTurn runs AFTER native city growth. Bound a negative adjustment by
  -- the food actually retained; a growth threshold may already have consumed

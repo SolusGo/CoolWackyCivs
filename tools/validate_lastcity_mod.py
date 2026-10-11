@@ -100,7 +100,7 @@ def fixture(d,speed=100,growth=None,construct=None,load_core=True):
     lua.globals().Translations=lua.table_from({'TXT_KEY_LC_'+k:v for k,v in TEXT.items()})
     lua.execute((R/'tools/tests/lastcity_mock.lua').read_text(encoding='utf-8'))
     info=lua.table();types={}
-    for table in ['Civilizations','Units','UnitAIInfos','Buildings','UnitPromotions','Technologies','Eras','Improvements','Features','Unit_FreePromotions']:
+    for table in ['Civilizations','Units','UnitAIInfos','Buildings','Building_YieldModifiers','UnitPromotions','Technologies','Eras','Improvements','Features','Unit_FreePromotions']:
         rows=[dict(r) for r in d.execute('SELECT * FROM '+table)]
         info[table]=lua.globals().dbTable(lua.table_from([lua.table_from(r) for r in rows]))
         for row in rows:
@@ -300,7 +300,7 @@ def packaging():
     print('PASS ModBuddy positional Council metadata resolves the actual registered XML entry point')
 
 def main():
-    d=database();packaging();simulations(d);regressions(d);ui_simulation(d);d.close()
+    d=database();packaging();simulations(d);regressions(d);ascendant_tests(d);ui_simulation(d);d.close()
     print('Last City automated validation passed. Native in-game smoke tests remain outstanding.')
 
 def ui_simulation(d):
@@ -335,5 +335,15 @@ def regressions(d):
         print(f'PASS proportional attrition and economy at speed {speed}%')
     validate_art(d)
     print('PASS custom game-speed fields')
+
+def ascendant_tests(d):
+    source=(R/'tools/tests/lastcity_ascendant.lua').read_text(encoding='utf-8')
+    discovery=fixture(d);discovery.execute(source)
+    for name in sorted(discovery.globals().AscendantCases.keys()):
+        lua=fixture(d);lua.execute(source);lua.globals().AscendantCases[name]()
+        print('PASS Humanity Ascendant: '+name)
+    for speed in [67,100,150,300]:
+        lua=fixture(d,speed);lua.execute(source);lua.globals().AscendantSpeeds()
+        print(f'PASS Humanity Ascendant: percentages, supply, growth and unchanged intervals at {speed}% speed')
 
 if __name__=='__main__':main()

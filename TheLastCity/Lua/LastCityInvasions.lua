@@ -19,14 +19,20 @@ function L.RefreshUnit(s,u)
  end
  if not u:IsCombatUnit() then return end
  local c=L.City(s);local near=c and Map.PlotDistance(u:GetX(),u:GetY(),c:GetX(),c:GetY())<=3
- L.Promotion(u,'SANCTUARY',near);L.Promotion(u,'NO_CONQUEST',s.capital~=nil)
- L.Promotion(u,'RESOLVE',near and s.morale>=80)
+ local asc=L.IsAscendant(s)
+ L.Promotion(u,'SANCTUARY',near and not asc);L.Promotion(u,'ASC_SANCTUARY',near and asc)
+ L.Promotion(u,'NO_CONQUEST',s.capital~=nil)
+ L.Promotion(u,'RESOLVE',near and s.morale>=80 and not asc);L.Promotion(u,'ASC_RESOLVE',near and s.morale>=80 and asc)
  for n=1,5 do
-  L.Promotion(u,'TRAINING_'..n,near and s.assigned.VETERANS==n)
+  L.Promotion(u,'TRAINING_'..n,near and s.assigned.VETERANS==n and not asc)
+  L.Promotion(u,'ASC_TRAINING_'..n,near and s.assigned.VETERANS==n and asc)
  end
  local rank=0
  for n=1,5 do if u:IsHasPromotion(L.ID('PROMOTION_LC_VETERAN_'..n)) then rank=math.max(rank,n) end end
- for n=1,5 do L.Promotion(u,'VETERAN_ACTIVE_'..n,near and rank==n) end
+ for n=1,5 do
+  L.Promotion(u,'VETERAN_ACTIVE_'..n,near and rank==n and not asc)
+  L.Promotion(u,'ASC_VETERAN_ACTIVE_'..n,near and rank==n and asc)
+ end
 end
 function L.RefreshUnits(s)
  if s.incompatible then return end
@@ -245,7 +251,7 @@ function L.ResolveWave(s,victory)
   L.History(s,'SIEGE_VICTORY',tostring(w.number));L.Notify(s,'SIEGE_VICTORY',tostring(w.number))
   if w.final then
    if w.finalEligible==true or (w.finalEligible==nil and w.spawned>=math.ceil(L.Config.MaxEnemies*.75)) then
-    s.dawn='ENDURES'
+    s.dawn='ENDURES';s.unitDirty=true
     if not s.achievement then L.History(s,'HUMANITY_ENDURES');L.Notify(s,'HUMANITY_ENDURES');s.achievement=true end
    else s.dawn='FINAL_PENDING' end
   end
@@ -256,6 +262,7 @@ function L.ResolveWave(s,victory)
  end
  local delay=L.Range(s,L.Config.WaveMin,L.Config.WaveMax)-math.min(4,w.era)
  s.nextWave=L.Now()+L.Scale((w.final and not victory) and 8 or s.dawn=='FINAL_PENDING' and L.Config.Warning or delay);s.warning=nil
+ L.Changed(s)
 end
 function L.InvasionTurn(s)
  if s.fallen then return end

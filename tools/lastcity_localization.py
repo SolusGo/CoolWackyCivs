@@ -222,3 +222,51 @@ TEXT.update({
  'REFUGEE_REFUSE':'Refuse the caravan. No Provisions cost; Morale -10. Previous quarantine costs are not refunded.',
  'BUILD_HELP':'Request this building through the native production queue. Current engine Production requirement: {1_Num}. The request replaces the existing queue.',
 })
+
+# Ascendant status is derived exclusively from the completed Final Night phase.
+TEXT.update({
+ 'ASCENDANT':'[COLOR_YELLOW]HUMANITY ASCENDANT[ENDCOLOR]',
+ 'ASC_SUBTITLE':'We were the last. Now we shall be the first.',
+ 'ASC_HELP':'Confirmed Final Night victory transforms Last Light into a one-city superpower. Experts retain their five-assignment cap. Refugees, hunger, disease, crises and Endless Survival continue; ordinary victory conditions remain available.',
+ 'ASC_UNITED':'United (+100% Production, +20% local Defense)',
+ 'ASC_TOTALS':'Assigned experts: Science +{1_Num}%, Production +{2_Num}%, Culture +{3_Num}%[NEWLINE]Veterans +{4_Num}% local Defense | Farmers +{5_Num} Provisions/turn[NEWLINE]Physician power {6_Num} | Total medical protection {7_Num}',
+ 'ASC_OUTPUT':'Production modifiers: Engineers +{1_Num}%, Humanity Endures +100%, Morale {2_Num}%[NEWLINE]Total from these sources: +{3_Num}% (additive). United requires at least 80 Morale; negative Morale penalties still apply.',
+ 'ASC_SKILL_ENGINEERS':'+100% Production per assigned Engineer; maximum +500%.',
+ 'ASC_SKILL_SCIENTISTS':'+100% Science per assigned Scientist; maximum +500%.',
+ 'ASC_SKILL_SCHOLARS':'+80% Culture per assigned Scholar; maximum +400%. Safe, adequately supplied Morale recovery remains +0.08 per Scholar per turn.',
+ 'ASC_SKILL_VETERANS':'+10% Defense per assigned Veteran to combat units within three plots of Last Light; maximum +50%.',
+ 'ASC_SKILL_FARMERS':'+12 Provisions per turn per assigned Farmer; maximum +60.',
+ 'ASC_SKILL_PHYSICIANS':'Each assigned Physician supplies three medical protection; maximum 15, plus two from the Hospital. Reduces disease risk, severity, duration, outbreak costs and starvation mortality. Risks and costs retain positive floors; outbreaks remain possible.',
+ 'EXPERT_TOTAL_ENGINEERS':'Current contribution: +{1_Num}% Production.',
+ 'EXPERT_TOTAL_SCIENTISTS':'Current contribution: +{1_Num}% Science.',
+ 'EXPERT_TOTAL_SCHOLARS':'Current contribution: +{1_Num}% Culture.',
+ 'EXPERT_TOTAL_VETERANS':'Current contribution: +{1_Num}% local Defense.',
+ 'EXPERT_TOTAL_FARMERS':'Current contribution: +{1_Num} Provisions/turn.',
+ 'EXPERT_TOTAL_PHYSICIANS':'Current Physician power: {1_Num} (Hospital adds two).',
+ 'DAWN_ENDURES':'HUMANITY ENDURES. Humanity Ascendant is active: +100% Production, amplified experts, infrastructure and local defenses. Endless Survival continues.',
+ 'ASC_CONCEPT':'Humanity Ascendant',
+ 'ASC_CONCEPT_HELP':'Only confirmed Final Night victory unlocks this transformation. Each assigned Scientist/Engineer grants +100% Science/Production; Scholar +80% Culture; Veteran +10% local Defense; Farmer +12 Provisions; Physician three medical power. Maximum five assignments per category. Humanity Endures gives +100% Production. At 80 Morale, United gives +100% Production and +20% local Defense. Generous adds 50% of positive native Food surplus. Housing structures double (total 68), storage structures double (capacity 550), Farms/Fishing Boats give 3 Provisions and built Waterworks 16. Sanctuary Defense becomes +30%; completed Major Sieges +4% City Defense each, capped at 60%; earned Watch ranks +6% local Defense each, capped at 30%. Hunger, disease, refugees, crises and invasions continue. No additional cities or conquests; this is not a conventional victory.',
+})
+TEXT['TRAIT_HELP']+=' After confirmed Final Night victory, Humanity Ascendant doubles Sanctuary and siege defenses and amplifies experts, infrastructure and United Morale. The one-city restriction remains.'
+TEXT['CIV_PEDIA']+=' Defeating the Final Night unlocks Humanity Ascendant: accumulated experience transforms this single sanctuary into a superpower able to pursue ordinary victories, while its survival systems continue.'
+TEXT['WATCH_HELP']+=' After Humanity Ascendant, Sanctuary Defense becomes +30% and earned Watch ranks grant +6% local Defense each, up to +30%; no unearned ranks are granted.'
+TEXT['DISTRICT_HELP']+=' After Humanity Ascendant: +12 Housing; Provisions income remains +2.'
+TEXT['CONCEPT_HELP_ECONOMY']+=' After confirmed Final Night victory, Humanity Ascendant amplifies supply improvements, assigned Farmers, built Waterworks, Housing, storage and conditional United Morale; consumption is unchanged.'
+TEXT['CONCEPT_HELP_SIEGES']+=' Confirmed Final Night victory activates Humanity Ascendant; Dawn construction, failed sieges and twelve ordinary victories do not. Endless Survival continues.'
+TEXT['BUILDING_HELP_HOSPITAL']=TEXT['BUILDING_HELP_HOSPITAL'].replace('Medical mitigation equivalent to two assigned Physicians.','Adds two medical protection in either phase.')
+asc_infra={'BARRACKS':('+4 Housing','+8 Housing'),'RESIDENTIAL':('+8 Housing','+16 Housing'),
+ 'SHELTER':('+10 Housing','+20 Housing'),'STORAGE':('+75 Provisions capacity','+150 Provisions capacity'),
+ 'DEPOT':('+100 Provisions capacity','+200 Provisions capacity'),'WATER':('+4 Provisions per turn','+16 Provisions per turn')}
+for key,(before,after) in asc_infra.items():
+ TEXT['ASC_BUILDING_HELP_'+key]=TEXT['BUILDING_HELP_'+key].replace(before,after)
+ TEXT['BUILDING_HELP_'+key]+=f' After Humanity Ascendant: {after}.'
+for key in ('HOSPITAL','DAWN'):TEXT['ASC_BUILDING_HELP_'+key]=TEXT['BUILDING_HELP_'+key]
+asc_promos={
+ 'ASC_SANCTUARY':('Ascendant Sanctuary','+30% Defense while within three plots of Last Light.'),
+ 'ASC_RESOLVE':('Ascendant United Resolve','+20% Defense within three plots of Last Light while Morale is at least 80.')}
+for n in range(1,6):
+ asc_promos['ASC_TRAINING_'+str(n)]=(f'Ascendant Veteran Training +{10*n}%',f'+{10*n}% Defense within three plots of Last Light from assigned refugee Veterans.')
+ asc_promos['ASC_VETERAN_ACTIVE_'+str(n)]=(f'Ascendant Siege Experience +{6*n}%',f'+{6*n}% Defense within three plots of Last Light from {n} earned Major Siege veteran ranks.')
+ TEXT['PROMO_HELP_VETERAN_'+str(n)]+=f' Humanity Ascendant amplifies this earned rank to +{6*n}% local Defense.'
+for key,(name,help_text) in asc_promos.items():
+ TEXT['PROMO_'+key]=name;TEXT['PROMO_HELP_'+key]=help_text

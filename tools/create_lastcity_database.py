@@ -65,7 +65,9 @@ INSERT INTO Civilization_CityNames VALUES ('CIVILIZATION_LAST_CITY','TXT_KEY_LC_
         effects.append(f"INSERT INTO Building_ClassesNeededInCity VALUES ('BUILDING_LC_{key}','BUILDINGCLASS_GRANARY');\nINSERT INTO Building_Flavors VALUES ('BUILDING_LC_{key}','FLAVOR_CITY_DEFENSE',10);\nINSERT INTO Building_Flavors VALUES ('BUILDING_LC_{key}','FLAVOR_PRODUCTION',8);\n")
     dummies={'ENGINEERS':('YIELD_PRODUCTION',3),'SCIENTISTS':('YIELD_SCIENCE',3),'SCHOLARS':('YIELD_CULTURE',3),
      'UNITED':('YIELD_PRODUCTION',10),'ANXIOUS':('YIELD_PRODUCTION',-5),'UNREST':('YIELD_PRODUCTION',-15),'BREAKING':('YIELD_PRODUCTION',-30),
-     'LEGACY':(None,2),'GATES_UP':(None,20),'GATES_DOWN':(None,-20),'ENDURES':('YIELD_PRODUCTION',5)}
+     'LEGACY':(None,2),'GATES_UP':(None,20),'GATES_DOWN':(None,-20),'ENDURES':('YIELD_PRODUCTION',100),
+     'ASC_ENGINEERS':('YIELD_PRODUCTION',100),'ASC_SCIENTISTS':('YIELD_SCIENCE',100),
+     'ASC_SCHOLARS':('YIELD_CULTURE',80),'ASC_UNITED':('YIELD_PRODUCTION',100),'ASC_LEGACY':(None,4)}
     for key,(yield_type,value) in dummies.items():
         defense=value if yield_type is None else 0
         effects.append(f"INSERT INTO BuildingClasses(Type,DefaultBuilding,Description) VALUES ('BUILDINGCLASS_LC_{key}','BUILDING_LC_{key}','TXT_KEY_LC_DUMMY');\nINSERT INTO Buildings(Type,BuildingClass,Description,Cost,FaithCost,GreatWorkCount,NeverCapture,NukeImmune,ConquestProb,IsDummy,ShowInPedia,GlobalDefenseMod) VALUES ('BUILDING_LC_{key}','BUILDINGCLASS_LC_{key}','TXT_KEY_LC_DUMMY',-1,-1,-1,1,1,0,1,0,{defense});\n")
@@ -73,11 +75,14 @@ INSERT INTO Civilization_CityNames VALUES ('CIVILIZATION_LAST_CITY','TXT_KEY_LC_
     promotions={'SANCTUARY':({'DefenseMod':15},1),'NO_CONQUEST':({'NoCapture':1},0),
      'WATCH':({},0),'RESOLVE':({'DefenseMod':5},1),'INVADER':({'AttackMod':10},0),
      'BOSS':({'CombatPercent':25,'CityAttack':35},0),'COMMAND':({'CombatPercent':10},1),
-     'PLAGUE':({},0),'ELITE':({'CombatPercent':15},0)}
+     'PLAGUE':({},0),'ELITE':({'CombatPercent':15},0),
+     'ASC_SANCTUARY':({'DefenseMod':30},1),'ASC_RESOLVE':({'DefenseMod':20},1)}
     for n in range(1,6):
         promotions['VETERAN_'+str(n)]=({},0)
         promotions['VETERAN_ACTIVE_'+str(n)]=({'DefenseMod':3*n},1)
         promotions['TRAINING_'+str(n)]=({'DefenseMod':2*n},1)
+        promotions['ASC_VETERAN_ACTIVE_'+str(n)]=({'DefenseMod':6*n},1)
+        promotions['ASC_TRAINING_'+str(n)]=({'DefenseMod':10*n},1)
     for key,(fields,lost) in promotions.items():
         extra=''.join(','+quote(k) for k in fields);values=''.join(','+str(v) for v in fields.values())
         effects.append(f"INSERT INTO UnitPromotions(Type,Description,Help,CannotBeChosen,LostWithUpgrade,LostOnGifting,PortraitIndex,IconAtlas,PediaType,PediaEntry{extra}) VALUES ('PROMOTION_LC_{key}','TXT_KEY_LC_PROMO_{key}','TXT_KEY_LC_PROMO_HELP_{key}',1,{lost},1,59,'PROMOTION_ATLAS','PEDIA_ATTRIBUTES','TXT_KEY_LC_PROMO_{key}'{values});\n")
@@ -85,6 +90,7 @@ INSERT INTO Civilization_CityNames VALUES ('CIVILIZATION_LAST_CITY','TXT_KEY_LC_
     # Original icon atlases and screen art are applied after mechanical inheritance.
     for key in ['ECONOMY','REFUGEES','SIEGES']:
         effects.append(f"INSERT INTO Concepts(Type,Topic,Description,Summary,Advisor,CivilopediaHeaderType) VALUES ('CONCEPT_LC_{key}','TXT_KEY_TOPIC_CITIES','TXT_KEY_LC_CONCEPT_{key}','TXT_KEY_LC_CONCEPT_HELP_{key}','MILITARY','HEADER_CITIES');\n")
+    effects.append("INSERT INTO Concepts(Type,Topic,Description,Summary,Advisor,CivilopediaHeaderType) VALUES ('CONCEPT_LC_ASCENDANT','TXT_KEY_TOPIC_CITIES','TXT_KEY_LC_ASC_CONCEPT','TXT_KEY_LC_ASC_CONCEPT_HELP','MILITARY','HEADER_CITIES');\n")
     for response in ['FIRST_GREETING','GREETING_NEUTRAL_HELLO','GREETING_POLITE_HELLO','GREETING_HOSTILE_HELLO','DECLAREWAR','ATTACKED','DEFEATED']:
         effects.append(f"DELETE FROM Diplomacy_Responses WHERE LeaderType='LEADER_LC_WARDEN' AND ResponseType='RESPONSE_{response}';\nINSERT INTO Diplomacy_Responses VALUES ('LEADER_LC_WARDEN','RESPONSE_{response}','TXT_KEY_LC_DIPLO_{response}',100);\n")
     for name,content in [('00_LC_Core.sql',core),('01_LC_Inheritance.sql',inherit),('02_LC_Effects.sql',''.join(effects))]:
@@ -107,6 +113,9 @@ INSERT INTO Civilization_CityNames VALUES ('CIVILIZATION_LAST_CITY','TXT_KEY_LC_
         art+=f"UPDATE Buildings SET PortraitIndex={index},IconAtlas='LC_OBJECT_ATLAS' WHERE Type='BUILDING_LC_{key}';\n"
     for index,key in enumerate(PROMOTIONS):
         art+=f"UPDATE UnitPromotions SET PortraitIndex={index},IconAtlas='LC_PROMOTION_ATLAS' WHERE Type='PROMOTION_LC_{key}';\n"
+        # The amplified variant retains the corresponding original custom icon.
+        if key in ('SANCTUARY','RESOLVE') or key.startswith(('TRAINING_','VETERAN_ACTIVE_')):
+            art+=f"UPDATE UnitPromotions SET PortraitIndex={index},IconAtlas='LC_PROMOTION_ATLAS' WHERE Type='PROMOTION_LC_ASC_{key}';\n"
     (V/'SQL/03_LC_Art.sql').write_bytes(art.encode('utf-8'))
     text='-- Generated by tools/create_lastcity_database.py from lastcity_localization.py\n'
     for key,value in sorted(TEXT.items()):text+="INSERT OR REPLACE INTO Language_en_US(Tag,Text) VALUES ('TXT_KEY_LC_"+key+"','"+value.replace("'","''")+"');\n"

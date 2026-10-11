@@ -74,6 +74,39 @@ Managers.LastCityRow.rows[2].RowButton.click();LuaEvents.LastCityChanged(0);asse
 S.infection={severity=4,untilTurn=TURN+8,lastTurn=-1};LuaEvents.LastCityChanged(0)
 local expected=math.ceil(L.Stats(S).base*L.Rations.GENEROUS.consumption)+L.Stats(S).infection
 assert(Managers.LastCityRow.rows[2].RowText.text:find(tostring(expected),1,true))
+-- The same event-driven Council must show the transformation and live inputs.
+S.dawn='ENDURES';S.morale=80;S.majorSieges=15;S.provisions=200;S.infection=nil
+for _,key in ipairs(L.Skills) do S.experts[key]=5;S.assigned[key]=5 end
+for _,key in ipairs({'DISTRICT','BARRACKS','RESIDENTIAL','SHELTER','STORAGE','DEPOT','WATER','HOSPITAL'}) do L.Building(C,key,1) end
+L.Changed(S)
+assert(Controls.Title.text==L.Text('ASCENDANT') and Controls.Open.text:find('HUMANITY ASCENDANT',1,true))
+assert(Controls.Summary.text:find('Housing 68',1,true) and Controls.Summary.text:find('/ 550',1,true))
+assert(Controls.Summary.text:find('Income +82',1,true) and Controls.Summary.text:find('+100% Production',1,true))
+assert(Managers.LastCityRow.rows[1].RowText.text:find(L.Text('ASC_SUBTITLE'),1,true))
+assert(Managers.LastCityRow.rows[2].RowText.text:find('City Defense +60%',1,true))
+assert(Managers.LastCityRow.rows[3].RowText.text:find('Science +500%',1,true))
+assert(Managers.LastCityRow.rows[4].RowText.text:find('+700%',1,true))
+local sequence=S.sequence;local provisions=S.provisions
+for _=1,100 do LuaEvents.LastCityChanged(0) end
+assert(S.sequence==sequence and S.provisions==provisions and C:GetNumRealBuilding(GameInfoTypes.BUILDING_LC_ASC_ENGINEERS)==5)
+Managers.LastCityTab.rows[3].TabButton.click()
+assert(Managers.LastCityExpert.rows[1].ExpertText.text:find('+500% Production',1,true))
+assert(Managers.LastCityExpert.rows[1].ExpertRoot.tooltip==L.Text('ASC_SKILL_ENGINEERS'))
+assert(Managers.LastCityExpert.rows[3].ExpertText.text:find('power: 15',1,true))
+Managers.LastCityExpert.rows[4].ExpertMinus.click();assert(S.assigned.VETERANS==4)
+assert(Managers.LastCityExpert.rows[4].ExpertText.text:find('+40% local Defense',1,true))
+Managers.LastCityTab.rows[4].TabButton.click()
+assert(Managers.LastCityRow.rows[2].RowText.text:find('adjustment 50%',1,true))
+S.provisions=0;LuaEvents.LastCityChanged(0)
+assert(Managers.LastCityRow.rows[2].RowText.text:find('adjustment -10%',1,true))
+S.provisions=200;Managers.LastCityTab.rows[5].TabButton.click()
+assert(Managers.LastCityRow.rows[2].RowText.text:find('+8 Housing',1,true))
+assert(Managers.LastCityRow.rows[8].RowText.text:find('+16 Provisions',1,true))
+S.morale=59;L.Changed(S);Managers.LastCityTab.rows[1].TabButton.click()
+assert(Controls.Summary.text:find('-5% Production',1,true))
+assert(Managers.LastCityRow.rows[4].RowText.text:find('+595%',1,true))
+Managers.LastCityTab.rows[7].TabButton.click()
+assert(Managers.LastCityRow.rows[1].RowText.text:find('City Defense +60%',1,true))
 S.fallen=true;LuaEvents.LastCityChanged(0);assert(Controls.Launcher.hidden and Controls.Panel.hidden)
 S.fallen=nil;L.Save(0);Events.AILeaderMessage.Fire();Events.SerialEventGameMessagePopupShown.Fire({Type=88})
 Events.LoadScreenClose.Fire();S=L.State(0)

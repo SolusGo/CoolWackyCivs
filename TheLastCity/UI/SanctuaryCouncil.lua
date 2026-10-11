@@ -52,10 +52,12 @@ refresh=function()
  if not c then Controls.Open:SetText(L.Text('FOUND_FIRST'));Controls.Panel:SetHide(true);visibilityLog('visible: awaiting first city');refreshing=false;return end
  visibilityLog(reason)
  local stats=L.Stats(s)
- Controls.Open:SetText(L.Text('STATUS',math.floor(s.provisions),math.floor(s.morale))..' | '..L.Text('COUNCIL'))
+ local asc=L.IsAscendant(s)
+ Controls.Open:SetText(L.Text('STATUS',math.floor(s.provisions),math.floor(s.morale))..' | '..L.Text(asc and 'ASCENDANT' or 'COUNCIL'))
+ Controls.Title:SetText(L.Text(asc and 'ASCENDANT' or 'COUNCIL'))
  if not opened then refreshing=false;return end
  local invasion=s.pressure and L.Text('PRESSURE_STATUS',math.max(0,s.pressure.expiry-L.Now())) or s.wave and L.Text('WAVE_ACTIVE',s.wave.number,s.wave.spawned-s.wave.defeated) or L.Text('NEXT_WAVE',math.max(0,(s.nextWave or L.Now())-L.Now()))
- Controls.Summary:SetText(L.Text('DASHBOARD',stats.population,stats.housing,math.floor(s.provisions),stats.capacity,stats.income,stats.consumption,stats.net)..'[NEWLINE]'..L.Text('MORALE_STATUS',math.floor(s.morale*10)/10,L.Text(L.Condition(s)),L.Text(s.ration))..' | '..invasion)
+ Controls.Summary:SetText(L.Text('DASHBOARD',stats.population,stats.housing,math.floor(s.provisions),stats.capacity,stats.income,stats.consumption,stats.net)..'[NEWLINE]'..L.Text('MORALE_STATUS',math.floor(s.morale*10)/10,L.MoraleText(s),L.Text(s.ration))..' | '..invasion)
  for _,key in ipairs(tabOrder) do local value=key;local r=tabInstances[value]
   -- Tab instances/callbacks are constant. Reuse them across dashboard updates.
   if not r then r=tabs:GetInstance();tabInstances[value]=r;r.TabButton:RegisterCallback(Mouse.eLClick,function() category=value;selected=nil;message='';refresh() end) end
@@ -63,8 +65,13 @@ refresh=function()
  end
  Controls.Tabs:CalculateSize();Controls.Tabs:ReprocessAnchoring();rows:ResetInstances();experts:ResetInstances()
  if category=='OVERVIEW' then
-  row(L.Text('OVERVIEW_HELP'))
-  row(L.Text('LEGACY_STATUS',s.wavesSurvived,s.majorSieges,s.bosses,math.min(30,s.majorSieges*2),s.losses))
+  row(asc and L.Text('ASC_SUBTITLE')..'[NEWLINE]'..L.Text('ASC_HELP') or L.Text('OVERVIEW_HELP'))
+  row(L.Text('LEGACY_STATUS',s.wavesSurvived,s.majorSieges,s.bosses,L.LegacyDefense(s),s.losses))
+  if asc then
+   row(L.Text('ASC_TOTALS',L.ExpertBonus(s,'SCIENTISTS'),L.ExpertBonus(s,'ENGINEERS'),L.ExpertBonus(s,'SCHOLARS'),L.ExpertBonus(s,'VETERANS'),L.ExpertBonus(s,'FARMERS'),L.ExpertBonus(s,'PHYSICIANS'),L.Medical(s)))
+   local morale=({UNITED=100,STABLE=0,ANXIOUS=-5,UNREST=-15,BREAKING=-30})[L.Condition(s)]
+   local engineers=L.ExpertBonus(s,'ENGINEERS');row(L.Text('ASC_OUTPUT',engineers,morale,engineers+100+morale))
+  end
   row(L.Text('EXPERT_OVERVIEW',s.accepted,s.refused,s.starvation))
   row(L.Text('DAWN_'..s.dawn))
   if s.infection then row(L.Text('INFECTION_STATUS',s.infection.severity,math.max(0,s.infection.untilTurn-L.Now()),stats.infection,L.Medical(s))) end
@@ -86,7 +93,8 @@ refresh=function()
  elseif category=='EXPERTS' then
   row(L.Text('EXPERTS_HELP'))
   for _,key in ipairs(L.Skills) do local value=key;local r=experts:GetInstance()
-   r.ExpertText:SetText(L.Text('EXPERT_ROW',L.Text(value),s.experts[value],s.assigned[value],L.Config.ExpertCap));r.ExpertRoot:SetToolTipString(L.Text('SKILL_'..value))
+   r.ExpertText:SetText(L.Text('EXPERT_ROW',L.Text(value),s.experts[value],s.assigned[value],L.Config.ExpertCap)..'[NEWLINE]'..L.Text('EXPERT_TOTAL_'..value,L.ExpertBonus(s,value)))
+   r.ExpertRoot:SetToolTipString(L.Text((asc and 'ASC_SKILL_' or 'SKILL_')..value))
    r.ExpertPlus:SetDisabled(not p:IsTurnActive() or s.assigned[value]>=math.min(L.Config.ExpertCap,s.experts[value]));r.ExpertMinus:SetDisabled(not p:IsTurnActive() or s.assigned[value]==0)
    r.ExpertPlus:RegisterCallback(Mouse.eLClick,function() local _,msg=L.Action(pid,'EXPERT',value,1);message=msg;refresh() end)
    r.ExpertMinus:RegisterCallback(Mouse.eLClick,function() local _,msg=L.Action(pid,'EXPERT',value,-1);message=msg;refresh() end)
@@ -95,14 +103,14 @@ refresh=function()
   row(L.Text('RATION_HELP',math.max(0,s.rationNext-L.Now())))
   for _,key in ipairs(L.RationOrder) do local value=key;local r=L.Rations[value]
    local consumption=math.ceil(stats.base*r.consumption)+(stats.infection or 0)+(stats.blockade or 0)
-   local preview=L.Text('RATION_PREVIEW',L.Text(value),consumption,stats.income-consumption,r.morale/L.Speed,r.growth)
+   local preview=L.Text('RATION_PREVIEW',L.Text(value),consumption,stats.income-consumption,r.morale/L.Speed,L.GrowthAdjustment(s,value))
    local ok=s.ration~=value and L.Now()>=s.rationNext
    row(preview,L.Text('SELECT'),function() choose('RATION',value,nil,preview,ok) end,ok and p:IsTurnActive(),preview)
   end
  elseif category=='BUILDINGS' then
   row(L.Text('BUILDINGS_HELP'))
   for _,b in ipairs(L.Infrastructure) do local key=b.key;local ok,reason=L.CanInfrastructure(s,key)
-   local text=L.Text('BUILDING_'..key)..'[NEWLINE]'..L.Text('BUILDING_HELP_'..key)
+   local text=L.Text('BUILDING_'..key)..'[NEWLINE]'..L.Text((asc and 'ASC_BUILDING_HELP_' or 'BUILDING_HELP_')..key)
    row(text,L.Has(c,key) and L.Text('BUILT') or L.Text('QUEUE'),function() choose('BUILD',key,nil,text..'[NEWLINE]'..reason,ok) end,ok and p:IsTurnActive(),reason)
   end
  elseif category=='CRISES' then local r=s.crisis
@@ -114,7 +122,7 @@ refresh=function()
    end
   else row(L.Text('NO_CRISIS')) end
  elseif category=='HISTORY' then
-  row(L.Text('LEGACY_STATUS',s.wavesSurvived,s.majorSieges,s.bosses,math.min(30,s.majorSieges*2),s.losses))
+  row(L.Text('LEGACY_STATUS',s.wavesSurvived,s.majorSieges,s.bosses,L.LegacyDefense(s),s.losses))
   for i=#s.history,1,-1 do local h=s.history[i];row(L.Text('HISTORY_ROW',h.turn,L.Text(h.key),h.detail)) end
  end
  Controls.Rows:CalculateSize();Controls.Rows:ReprocessAnchoring();Controls.Scroll:CalculateInternalSize()

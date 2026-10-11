@@ -63,7 +63,7 @@ function L.Provisions(s,delta) s.provisions=L.Clamp(s.provisions+delta,0,s.capac
 function L.Changed(s)
  if L.Depth>0 then s.dirty=true;return end
  local cache=L.Caches[s.pid] or {};L.Caches[s.pid]=cache
- local signature=tostring(s.morale>=80)..':'..s.assigned.VETERANS..':'..tostring(L.City(s)~=nil)
+ local signature=tostring(L.IsAscendant(s))..':'..tostring(s.morale>=80)..':'..s.assigned.VETERANS..':'..tostring(L.City(s)~=nil)
  L.ApplyEffects(s)
  if s.unitDirty or cache.defense~=signature then L.RefreshUnits(s);cache.defense=signature end
  s.unitDirty=nil;L.Save(s.pid)

@@ -14,13 +14,15 @@ Requires Civilization V: Brave New World and `(1) Community Patch` mod version 1
 
 Choose **one** installation:
 
-- Collection: build `python tools/build_mod.py`, then install `dist/Cool Wacky Civs (v 21).civ5mod`, or extract the ZIP into your Civ V `MODS` directory.
+- Collection: build `python tools/build_mod.py`, then install `dist/Cool Wacky Civs (v 23).civ5mod`, or extract the ZIP into your Civ V `MODS` directory.
 - Standalone: build `python tools/build_lastcity_mod.py`, then install `dist/The Last City (v 1).civ5mod`, or extract its ZIP into `MODS`.
 - Pure files: copy this directory, including `The Last City (v 1).modinfo`, into `MODS`. No ModBuddy is required.
 
 Enable BNW, CP and the selected mod through the Mods menu. Start a new modded game and select The Warden. The standalone manifest blocks collection versions containing this civilization to prevent duplicate registration. Development dependencies are in `requirements-dev.txt`; the bundled repository `.tools/python` directory is supported by the builders/validators.
 
 ## Unique components
+
+The values below describe the survival phase before a confirmed Final Night victory. [Humanity Ascendant](#humanity-ascendant) amplifies the existing mechanics afterwards.
 
 **The Final Sanctuary:** begin with the normal Settler. The native `NoAnnexing` trait blocks Settler training/purchasing and manual annexation; the starting Settler is still granted normally. The Lua veto also blocks new Settlers before capital initialization. Founding Last Light permanently closes further city founding. Granted/captured Settlers cannot found another city and are removed on the following owner turn. Combat units receive a no-capture promotion. Extra cities are returned to a living previous/original owner at a turn boundary; orphan cities go to a living AI custodian, preferring City-States. With no custodian, verified native city cleanup dismantles the extra city. No player is resurrected and no exceptional permanent puppet is retained.
 
@@ -97,7 +99,7 @@ These are one-time unique buildings in the normal Production queue. Native game-
 | Refugee Barracks | 100 | Masonry | +4 Housing |
 | Expanded Residential Quarter | 220 | Engineering | +8 Housing |
 | Underground Shelter | 400 | Dynamite | +10 Housing |
-| Emergency Field Hospital | 300 | Biology | Medical mitigation equivalent to two Physicians |
+| Emergency Field Hospital | 300 | Biology | +2 medical protection in either phase |
 | Protected Storehouses | 240 | Metal Casting | +75 capacity |
 | Deep Supply Depot | 450 | Railroad | +100 capacity |
 | Reclaimed Waterworks | 300 | Chemistry | +4 Provisions/turn |
@@ -119,7 +121,42 @@ Only confirmed combat destruction of every spawned unit awards victory. Ransom r
 
 Unlock with Atomic Era, Atomic Theory, **12 confirmed invasion victories**, **55 Morale**, **150 Provisions**, the District and **900 base Production**. Completion consumes 150 Provisions and schedules the Final Night. If resources drop during construction, the completed Initiative waits for adequate supplies and Morale. Existing waves finish before the final warning.
 
-Defeat the Final Night to receive the **HUMANITY ENDURES** Council aftermath, a persistent Chronicle entry and a permanent +5% Production recovery bonus. Endless Survival then continues. This is a **narrative achievement**, not a custom DLL victory or mislabeled Science/Culture Victory.
+Defeat the Final Night to receive the **HUMANITY ENDURES** Council aftermath, a persistent Chronicle entry and **Humanity Ascendant**, including permanent **+100% Production**. Endless Survival then continues. Humanity Endures remains a narrative achievement; it does not end the game or introduce a custom victory.
+
+## Humanity Ascendant
+
+Only the saved `dawn == 'ENDURES'` phase unlocks this permanent transformation. Survive a legitimate Final Night: complete Dawn, spawn its required force and confirm every tagged attacker's defeat. Construction, twelve ordinary victories, an achievement flag or a failed/undersized Final Night cannot unlock it. Existing completed saves gain the transformation on load without repeating the achievement.
+
+The enormous bonuses turn a city that has survived centuries of siege into a one-city superpower able to pursue ordinary Science, Culture and other enabled victory conditions. There are still no additional Settlers, expansion or conquest.
+
+| Mechanic | Before Final Night | Humanity Ascendant |
+|---|---:|---:|
+| Scientist, each / five | +3% / +15% Science | +100% / +500% Science |
+| Engineer, each / five | +3% / +15% Production | +100% / +500% Production |
+| Scholar, each / five | +3% / +15% Culture | +80% / +400% Culture |
+| Veteran, each / five | +2% / +10% local Defense | +10% / +50% local Defense |
+| Farmer, each / five | +2 / +10 Provisions per turn | +12 / +60 Provisions per turn |
+| Physician, each / five | 1 / 5 medical power | 3 / 15 medical power |
+| Humanity Endures Production | Inactive | +100% (replaces former +5%) |
+| United at Morale ≥80 | +10% Production, +5% local Defense | +100% Production, +20% local Defense |
+| Generous positive Food surplus | +15% | +50% |
+| District / Barracks / Residential / Shelter Housing | +6 / +4 / +8 / +10 | +12 / +8 / +16 / +20 |
+| Fully developed Housing, undamaged | 40 | 68 |
+| Farm / Fishing Boats Provisions | +1 each | +3 each |
+| Built Waterworks Provisions | +4 | +16 |
+| Storehouses / Depot capacity | +75 / +100 | +150 / +200 |
+| Fully developed Provisions capacity | 375 | 550 |
+| Sanctuary local Defense | +15% | +30% |
+| Completed Major Siege / cap | +2% / +30% City Defense | +4% / +60% City Defense |
+| Earned Watch rank / five | +3% / +15% local Defense | +6% / +30% local Defense |
+
+Only assigned experts contribute; the cap stays five per category and reserves stay capped at 50. Native yield bonuses add: five Engineers +500%, Humanity Endures +100%, and United +100% give **+700% Production** from these sources. United ends below 80 Morale; all negative Morale penalties remain. Local unit bonuses require owned eligible defenders within three plots. Earned Watch ranks and past Major Sieges are amplified retroactively; new units receive no unearned ranks.
+
+Infrastructure must exist. Improvements must be completed, owned, unpillaged and in the native city radius. Housing starts at 12; damage is subtracted after amplification. Capacity starts at 200 and increasing it grants no free stock. Base income remains four and District income remains two. The Hospital adds two medical power in either phase; disease risks, treatment costs and mortality retain bounded floors.
+
+Hunger, disease, crises, refugees, assignments, cooldowns, ration consumption and Endless Survival continue. Generous retains the stored-Food approximation and fractional remainder; its consumption and Morale are unchanged. Percentages, capacities and per-turn income do not scale with speed; existing intervals and lump costs do. The Council displays the gold **HUMANITY ASCENDANT** heading, its subtitle, active expert totals, infrastructure and conditional Morale effects.
+
+See the [full implementation report](docs/HumanityAscendant.md) for file changes, native source verification, older saves, validation and remaining in-game checks.
 
 ## AI, balance and strategy
 

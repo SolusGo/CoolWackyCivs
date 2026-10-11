@@ -11,6 +11,11 @@ L.Config={Version=2,StartProvisions=45,Storage=200,StartMorale=65,Housing=12,
  SpawnExpanded=16,CollapseTurns=3,CollapseDamage=.85,PressureTurns=6,
  InfectionMaxTurns=8,InfectionCooldown=4,
  StarvePopulationAfter=4,HistoryLimit=90,Debug=false}
+-- Only the persisted ENDURES phase enables these values. Percentage effects
+-- live in SQL; these virtual infrastructure/economy values never scale by speed.
+L.Ascendant={FarmerIncome=12,ImprovementIncome=3,WaterIncome=16,
+ HousingMultiplier=2,StorageMultiplier=2,PhysicianPower=3,GenerousGrowth=50,
+ SiegeDefense=4,MaxDefense=60}
 L.Skills={'ENGINEERS','SCIENTISTS','PHYSICIANS','VETERANS','FARMERS','SCHOLARS'}
 L.Rations={
  GENEROUS={consumption=1.5,morale=.3,growth=15},STANDARD={consumption=1,morale=0,growth=0},
