@@ -10,7 +10,7 @@ The Last Dance has `MaxPlayerInstances=1`, 450 base Production and Radio prerequ
 
 ## Audited signatures and native timing
 
-The repository's local CP v151 source audit (`.tools/cp-v151-audit`) supplied these signatures and ordering proofs. The options enabled in Paradise core SQL are the event groups consumed here; vanilla hooks need no invented options.
+The [v25 stability audit](Audit.md) rechecked these signatures and ordering against the matching Release-5.4.6 source and installed CP v151 UI. Paradise now explicitly enables `EVENTS_MINORS_INTERACTION` for PlayerCanGiftUnit as well as the event groups below; it never depends on another civilization enabling a hook. Vanilla hooks need no invented options.
 
 | Hook | Signature / proof |
 | --- | --- |
@@ -22,6 +22,7 @@ The repository's local CP v151 source audit (`.tools/cp-v151-audit`) supplied th
 | PlayerGoldenAge | `(player, started, turns)`, `EVENTS_GOLDEN_AGE`. CP can emit the positive-duration hook for an extension; the persisted start/end state excludes extensions. |
 | MinorAlliesChanged | `(minor, major, isAlly, oldFriendship, newFriendship)`, `EVENTS_MINORS`. Track first-ever alliance identity and how long an alliance lasted. |
 | CapitalChanged | `(player, newCapital, oldCapital)`, `EVENTS_CITY_CAPITAL`. Reconcile both capital buildings once. |
+| PlayerCanGiftUnit | `(player, minor, unit)`, `EVENTS_MINORS_INTERACTION`. Deny only the unique hero; leave ordinary gifting alone. |
 | CityCaptureComplete | `(oldPlayer, isCapital, x, y, newPlayer, population, conquest)`. Clear transferred city effects, invalidate local timers, preserve stable city-loss claims. |
 | UnitSetXY / GreatWorkCreated | Transfer presence immediately and update cultural objective progress on actual changes. |
 
@@ -30,6 +31,8 @@ Owner-turn clocks and the last applied game turn survive reload. A duplicate Pla
 ## Generated GP proof and limitations
 
 At UnitCreated, a pending identity includes owner, unit ID, creation turn, unit type, turn, owner clock and active challenge serial. The next safe callback or turn settles it against native post-creation evidence. Civilian specialist classes use `City:GetSpecialistUpgradeThreshold(unitClassID)`, which reflects class creation counts and respects CP's enabled `GLOBAL_TRULY_FREE_GP`. This handles Writers, Artists, Musicians and the shared Scientist/Merchant/Engineer pool without requiring unavailable Lua counter getters. Generals use `GetGreatGeneralsCreated(true)`; Prophets use the next faith cost. `CityTrained` excludes produced/purchased candidates; conversion callbacks exclude transfers. Direct InitUnit alone does not raise these thresholds and provides no reward.
+
+The specialist threshold is owner-wide even though the getter lives on a city; the capital is valid for non-capital births. v25 checks a unit's Created claim before settling pending evidence, so an early duplicate callback cannot discard a genuine birth before its native counter increment. The existing serialized pending records and payout values are retained without migration. Prophet belief/trait cost changes and arbitrary native non-free script grants remain attribution limitations detailed in the audit.
 
 CP exposes an Admiral threshold modifier but no Admiral count. `setNavalCombatExperienceTimes100()` creates a naturally earned Admiral before spending the accumulated meter. The candidate must therefore have naval experience at least `GreatAdmiralThreshold()` during UnitCreated, followed by the complete own-plus-team threshold increment. Free/scripted Admirals with no earned-meter proof do not qualify. This is conservative; third-party mods that change birth thresholds or manually manufacture a non-free native GP during an earned-meter crossing can affect attribution. Do not claim arbitrary third-party compatibility. Native combat-earned Admirals should still be checked in-game. The attainable specialist-based final objective does not require an Admiral.
 

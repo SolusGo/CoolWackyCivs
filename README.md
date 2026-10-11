@@ -8,6 +8,8 @@ Cool Wacky Civs is one Civilization V: Brave New World mod containing eighteen c
 
 Collection v24 adds Paradise with 39 finished DDS textures, an event-driven Journey, a real National Wonder and focused lifecycle tests. Start a new game to select the new civilization.
 
+Collection v25 applies the [Paradise stability audit](TheBoyWhoTouchedParadise/docs/Audit.md): popup/modal recovery, an explicit City-State interaction hook and early duplicate GP-birth protection. Balance, narrative and artwork are preserved. Existing `PARADISE_v1` state is retained without migration; live engine save loading remains on the audit checklist.
+
 - [The Relentless Seven](CristianoRonaldo/README.md) — Cristiano Ronaldo earns Ambition through training and worthy victories, unlocking seven Career Chapters while surviving veterans reinvent themselves through upgrades. Player playable only.
 
 Collection v23 includes the [Ronaldo technical audit](CristianoRonaldo/docs/Audit.md): combat/upgrade/GP fixes, separate Dawn artwork, preserved saves and balance, and expanded regression tests. Ronaldo remains player-only.

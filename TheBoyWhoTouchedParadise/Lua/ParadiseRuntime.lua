@@ -309,9 +309,12 @@ local function onCreated(p,id,typ,x,y)
         return
     end
     if removing then return end
-    settleBirths(p)
     local u=Players[p]:GetUnitByID(id)
     if not u then return end
+    -- A repeated init callback can arrive before the native creator increments
+    -- its GP counter. Do not discard that unit's still-pending evidence.
+    if state(p).claims['Created|'..unitKey(p,u)] then return end
+    settleBirths(p)
     local kind,value,class,navalReady=gpSnapshot(p,u)
     if kind and claim(p,'Created|'..unitKey(p,u)) then
         local s=state(p)

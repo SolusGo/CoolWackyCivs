@@ -27,7 +27,7 @@
     <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <HideSetupGame>false</HideSetupGame>
-    <ModVersion>24</ModVersion>
+    <ModVersion>25</ModVersion>
     <Stability>Alpha</Stability>
     <ModActions>
       <Action>

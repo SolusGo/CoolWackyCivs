@@ -1,5 +1,12 @@
 # Patch Notes
 
+## Version 25 — Paradise stability audit — 2026-10-12
+
+- Fixed Journey popup requests leaving stale blockers; reconcile actual BNW/CP screen visibility on lifecycle/map-return events, honor Culture Overview's completion-before-dequeue ordering, and preserve nested fullscreen blockers. Added modal ownership, parent-hide and shutdown handling; pending cinematics still require explicit acknowledgement. No polling or timers.
+- Explicitly enabled Paradise's own `EVENTS_MINORS_INTERACTION`, removing the implicit dependency on The Filthy Realm for El Diez's gifting restriction.
+- Guarded repeated `UnitCreated` callbacks before settling pending GP evidence, preventing an early duplicate from discarding a genuine birth. Retained the existing native attribution strategy and all earning values.
+- Added nine-class GP/exclusion, non-capital/shared-counter, early-duplicate, v24-save, gifting-isolation, single-registration and popup/modal/cinematic regression scenarios. Kept the Mod ID, `PARADISE_v1` codec, mechanics, balance, artwork and every other civilization's gameplay unchanged. Live Civ V testing remains outstanding.
+
 ## Version 24 — The Boy Who Touched Paradise — 2026-10-12
 
 - Added an eighteenth human-only civilization: a separate Lionel Messi three-act journey, preserving Eternal Number Ten's existing source and identity.

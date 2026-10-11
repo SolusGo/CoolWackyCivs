@@ -5,6 +5,41 @@ local rows=InstanceManager:new('ParadiseMemoryRow','MemoryRoot',Controls.MemoryS
 local open,modal,selected,story=false,false,'OVERVIEW',''
 local blocked,message={},''
 local rendering=false
+local shownPopups,closingScreens={},{}
+local contextHidden=false
+-- IDs from BNW InGame.xml and the installed CP UI. Inspect this bounded set
+-- only on lifecycle events; never scan the map or run an update timer.
+local screens={'TechTree','TechPopup','SocialPolicyPopup','CultureOverview','GenericPopup',
+    'TextPopup','DeclareWarPopup','NotificationLogPopup','WhosWinningPopup','NewEraPopup',
+    'NaturalWonderPopup','GoodyHutPopup','BarbarianCampPopup','GoldenAgePopup','GreatPersonRewardPopup',
+    'TechAwardPopup','WonderPopup','CityStateGreetingPopup','CityStateDiploPopup','DiploOverview',
+    'MilitaryOverview','EconomicOverview','Demographics','VictoryProgress','ChoosePantheon',
+    'ChooseReligion','EspionageOverview','ReligionOverview','ChooseMayaBonus','ChooseFaithGreatPerson',
+    'SetUnitName','SetCityName','ProductionPopup','LeagueOverviewPopup','ChooseArchaeology',
+    'ChooseIdeology','ChooseInternationalTradeRoute','ChooseTradeRouteNewHome','GreatWorkSplash',
+    'TradeRouteOverview','LeagueProjectPopup','ChooseGoodyHutRewardPopup','ChooseAdmiralNewPort',
+    'LeagueSplash','GameMenu','CivilopediaScreen','LeaderHeadRoot','LeaderTrade','DiscussLeader'}
+local popupScreens={}
+for _,entry in ipairs({{'BUTTONPOPUP_TECH_TREE','TechTree'},{'BUTTONPOPUP_CHOOSETECH','TechPopup'},
+    {'BUTTONPOPUP_CHOOSE_TECH_TO_STEAL','TechPopup'},{'BUTTONPOPUP_CHOOSEPOLICY','SocialPolicyPopup'},
+    {'BUTTONPOPUP_CULTURE_OVERVIEW','CultureOverview'}}) do
+    local typ=ButtonPopupTypes and ButtonPopupTypes[entry[1]]
+    if typ then popupScreens[typ]=entry[2] end
+end
+local function screen(name)
+    local c=ContextPtr:LookUpControl('/InGame/'..name)
+    -- The compact tech chooser is nested in InfoCorner; diplomacy is an
+    -- engine-loaded root rather than a child of BNW InGame.xml.
+    if not c and name=='TechPopup' then
+        c=ContextPtr:LookUpControl('/InGame/WorldView/InfoCorner/TechPanel/TechPopup')
+    elseif not c and name=='LeaderHeadRoot' then c=ContextPtr:LookUpControl('/LeaderHeadRoot') end
+    return c
+end
+local function screenVisible(name)
+    local c=screen(name)
+    if c and c:IsHidden() then closingScreens[name]=nil end
+    return c and not c:IsHidden() and not closingScreens[name]
+end
 local function text(key) return Locale.ConvertTextKey('TXT_KEY_PARADISE_'..key) end
 local function runtime() return MapModData.Paradise end
 local function uiState()
@@ -15,14 +50,32 @@ local function eraName(id)
     local row=GameInfo.Eras[id]
     return row and Locale.ConvertTextKey(row.Description) or tostring(id)
 end
-local function hidden()
+local function hidden(mapReturn)
+    local nativeScreen=false
+    for _,name in ipairs(screens) do if screenVisible(name) then nativeScreen=true end end
+    local bulk=screen('BulkUI');if bulk then blocked.bulk=bulk:IsHidden() end
+    if UI.IsCityScreenUp then blocked.city=UI.IsCityScreenUp() end
+    if UI.GetInterfaceMode then blocked.mode=UI.GetInterfaceMode()~=InterfaceModeTypes.INTERFACEMODE_SELECTION end
+    for typ in pairs(shownPopups) do
+        local name=popupScreens[typ]
+        if name and screen(name) and not screenVisible(name) then shownPopups[typ]=nil end
+    end
+    -- A map-selection/return/turn event is the fallback for an unknown mod popup
+    -- that omits Processed. Never dismiss a still-visible native fullscreen UI.
+    if mapReturn and not nativeScreen and not blocked.city and not blocked.mode and not blocked.bulk then
+        shownPopups={};blocked.diplo=false
+    end
+    if contextHidden or nativeScreen then return true end
     for _,value in pairs(blocked) do if value then return true end end
-    return UI.IsCityScreenUp and UI.IsCityScreenUp()
+    return next(shownPopups)~=nil
 end
 local function setModal(value)
-    if modal==value then return end
+    local present=modal
+    if UIManager.IsModal then present=UIManager:IsModal(ContextPtr) end
+    if present~=value then
+        if value then UIManager:PushModal(ContextPtr) else UIManager:PopModal(ContextPtr) end
+    end
     modal=value
-    if value then UIManager:PushModal(ContextPtr) else UIManager:PopModal(ContextPtr) end
 end
 local function rewards(s)
     return 'The Final Peak: '..s.finalTurns..' Golden Age turns; Pressure ends forever; +2 global Happiness; '
@@ -36,10 +89,10 @@ local function memoriesText(s)
     end
     return table.concat(lines,'[NEWLINE][NEWLINE]')
 end
-local function refresh()
+local function refresh(obstructed,mapReturn)
     if rendering then return end
     rendering=true
-    local s=uiState();local invisible=not s or hidden()
+    local s=uiState();local invisible=not s or obstructed or hidden(mapReturn)
     Controls.JourneyLauncher:SetHide(invisible or open or story~='')
     if invisible then
         Controls.JourneyPanel:SetHide(true);Controls.JourneyCinematic:SetHide(true);setModal(false)
@@ -161,20 +214,51 @@ end
 LuaEvents.ParadiseChanged.Add(function(p)if p==Game.GetActivePlayer() then refresh()end end)
 LuaEvents.ParadiseStory.Add(function(p)if p==Game.GetActivePlayer() then refresh()end end)
 local function subscribe(name,handler) if Events[name] then Events[name].Add(handler) end end
-subscribe('GameplaySetActivePlayer',function()open=false;story='';blocked={};setModal(false);refresh()end)
-subscribe('ActivePlayerTurnStart',refresh)
-subscribe('ActivePlayerTurnEnd',function()open=false;refresh()end)
-subscribe('SerialEventEnterCityScreen',function()blocked.city=true;refresh()end)
-subscribe('SerialEventExitCityScreen',function()blocked.city=false;refresh()end)
-subscribe('AILeaderMessage',function()blocked.diplo=true;refresh()end)
-subscribe('LeavingLeaderViewMode',function()blocked.diplo=false;refresh()end)
-local function popup(info) blocked['popup|'..tostring(info and info.Type or 'unknown')]=true;refresh()end
-subscribe('SerialEventGameMessagePopup',popup)
-subscribe('SerialEventGameMessagePopupShown',popup)
-subscribe('SerialEventGameMessagePopupProcessed',function(typ)blocked['popup|'..tostring(typ or 'unknown')]=nil;refresh()end)
-subscribe('InterfaceModeChanged',function(old,current)
-    blocked.mode=current~=InterfaceModeTypes.INTERFACEMODE_SELECTION;refresh()
+local function returnToMap() refresh(false,true) end
+subscribe('GameplaySetActivePlayer',function()
+    open=false;story='';message='';blocked={};shownPopups={};closingScreens={};setModal(false);refresh()
 end)
+subscribe('ActivePlayerTurnStart',returnToMap)
+subscribe('ActivePlayerTurnEnd',function()open=false;refresh()end)
+subscribe('SerialEventEnterCityScreen',function()blocked.city=true;refresh(true)end)
+subscribe('SerialEventExitCityScreen',function()blocked.city=false;returnToMap()end)
+subscribe('AILeaderMessage',function()blocked.diplo=true;refresh(true)end)
+subscribe('LeavingLeaderViewMode',function()blocked.diplo=false;returnToMap()end)
+subscribe('SerialEventGameMessagePopup',function(info)
+    local name=info and popupScreens[info.Type]
+    if name then closingScreens[name]=nil end
+    -- Requests can be ignored, toggled closed or processed synchronously by an
+    -- earlier listener. Yield the modal now, but never create a sticky request.
+    refresh(true)
+end)
+subscribe('SerialEventGameMessagePopupShown',function(info)
+    local typ=info and info.Type or 'unknown'
+    local name=popupScreens[typ];if name then closingScreens[name]=nil end
+    shownPopups[typ]=true;refresh(true)
+end)
+subscribe('SerialEventGameMessagePopupProcessed',function(typ)
+    shownPopups[typ or 'unknown']=nil
+    -- Culture Overview emits Processed BEFORE DequeuePopup; Policy emits it
+    -- on hide. Honor completion in either order without clearing other screens.
+    local name=popupScreens[typ];if name then closingScreens[name]=true end
+    refresh()
+end)
+subscribe('InterfaceModeChanged',function(old,current)
+    blocked.mode=current~=InterfaceModeTypes.INTERFACEMODE_SELECTION
+    refresh(false,not blocked.mode)
+end)
+subscribe('UnitSelectionChanged',function(p,id,x,y,z,selected)
+    if p==Game.GetActivePlayer() and selected then returnToMap() end
+end)
+subscribe('SystemUpdateUI',function(typ)
+    if typ==SystemUpdateUIType.BulkHideUI then blocked.bulk=true;refresh(true)
+    elseif typ==SystemUpdateUIType.BulkShowUI then blocked.bulk=false;returnToMap() end
+end)
+ContextPtr:SetShowHideHandler(function(isHidden,initial)
+    contextHidden=isHidden
+    if isHidden then setModal(false) elseif not initial then returnToMap() end
+end)
+ContextPtr:SetShutdown(function()setModal(false)end)
 ContextPtr:SetInputHandler(function(event,key)
     if event==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then
         if story~='' then return true end -- finale needs an explicit Continue acknowledgement

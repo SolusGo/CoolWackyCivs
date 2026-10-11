@@ -6,7 +6,8 @@ Saved={};Modding={OpenSaveData=function()return {
 GameInfoTypes={CIVILIZATION_BOY_TOUCHED_PARADISE=1,CIVILIZATION_ETERNAL_NUMBER_TEN=2,
  UNIT_PARADISE_EL_DIEZ=10,BUILDING_PARADISE_POTRERO=20,BUILDING_PARADISE_LAST_DANCE=21,
  ERA_RENAISSANCE=3,ERA_INDUSTRIAL=4,ERA_MODERN=5,YIELD_SCIENCE=3,YIELD_CULTURE=4,
- UNITCLASS_SCIENTIST=100,UNITCLASS_WRITER=101,UNITCLASS_GREAT_GENERAL=102,UNITCLASS_GREAT_ADMIRAL=103}
+ UNITCLASS_SCIENTIST=100,UNITCLASS_WRITER=101,UNITCLASS_GREAT_GENERAL=102,UNITCLASS_GREAT_ADMIRAL=103,
+ UNITCLASS_ENGINEER=106,UNITCLASS_MERCHANT=107,UNITCLASS_ARTIST=104,UNITCLASS_MUSICIAN=105}
 for n,name in ipairs({'PRESENCE','CAPITAL','PRESSURE_5','PRESSURE_10','HOPE','MEMORIAL','FULFILLED'})do
  GameInfoTypes['BUILDING_PARADISE_'..name]=29+n
 end
@@ -44,7 +45,11 @@ GameInfo={
   {ID=81,Type='UNIT_WRITER',Class='UNITCLASS_WRITER',Special='SPECIALUNIT_PEOPLE'},
   {ID=82,Type='UNIT_GREAT_GENERAL',Class='UNITCLASS_GREAT_GENERAL',Special='SPECIALUNIT_PEOPLE'},
   {ID=83,Type='UNIT_GREAT_ADMIRAL',Class='UNITCLASS_GREAT_ADMIRAL',Special='SPECIALUNIT_PEOPLE'},
-  {ID=84,Type='UNIT_PROPHET',Class='UNITCLASS_PROPHET',Special='SPECIALUNIT_PEOPLE',FoundReligion=1}}),
+  {ID=84,Type='UNIT_PROPHET',Class='UNITCLASS_PROPHET',Special='SPECIALUNIT_PEOPLE',FoundReligion=1},
+  {ID=85,Type='UNIT_ENGINEER',Class='UNITCLASS_ENGINEER',Special='SPECIALUNIT_PEOPLE'},
+  {ID=86,Type='UNIT_MERCHANT',Class='UNITCLASS_MERCHANT',Special='SPECIALUNIT_PEOPLE'},
+  {ID=87,Type='UNIT_ARTIST',Class='UNITCLASS_ARTIST',Special='SPECIALUNIT_PEOPLE'},
+  {ID=88,Type='UNIT_MUSICIAN',Class='UNITCLASS_MUSICIAN',Special='SPECIALUNIT_PEOPLE'}}),
  Buildings=info({{ID=20,Type='BUILDING_PARADISE_POTRERO',BuildingClass='BUILDINGCLASS_AMPHITHEATER',Cost=100},
   {ID=21,Type='BUILDING_PARADISE_LAST_DANCE',BuildingClass='BUILDINGCLASS_PARADISE_LAST_DANCE',Cost=450},
   {ID=22,Type='BUILDING_WONDER_A',BuildingClass='BUILDINGCLASS_WONDER_A',Cost=250},
@@ -80,7 +85,11 @@ function City(owner,id,x,y)
  function c:IsHasBuilding(i)return self:GetNumRealBuilding(i)>0 end
  function c:GetNumThingsProduced()return self.produced end
  function c:GetOrderFromQueue(n)return self.order,self.item end
- function c:GetSpecialistUpgradeThreshold(i)return Players[self.owner].thresholds[i] or 100 end
+ function c:GetSpecialistUpgradeThreshold(i)
+  -- CP's default Scientist/Engineer/Merchant pool is player-wide, not city-local.
+  if i==106 or i==107 then i=100 end
+  return Players[self.owner].thresholds[i] or 100
+ end
  function c:GetYieldRateTimes100(i)return (i==3 and self.science or self.culture)*100 end
  function c:ChangeWeLoveTheKingDayCounter(n)self.wltkd=self.wltkd+n end
  function c:ChangeJONSCultureStored(n)self.cultureStored=self.cultureStored+n end
@@ -167,18 +176,22 @@ end
 Players[1].cities[1]=City(1,1,3,3)
 Players[1].cities[2]=City(1,2,5,3)
 Players[0].cities[1]=City(0,1,1,1)
-function NativeGP(typ,source)
+function NativeGP(typ,source,cityID,beforeIncrement)
  local p=Players[1]
+ local c=cityID and p.cities[cityID] or p:GetCapitalCity()
  if typ==83 and source=='generated' then p.navalXP=100 end
- local u=p:InitUnit(typ,3,3)
+ local u=p:InitUnit(typ,c.x,c.y)
+ if beforeIncrement then beforeIncrement(u)end
+ local class=typ==81 and 101 or typ==87 and 104 or typ==88 and 105 or 100
  if source=='generated' then
   if typ==82 then p.generals=p.generals+1 elseif typ==83 then p.admiralMod=p.admiralMod+100;p.navalXP=0
   elseif typ==84 then p.prophetCost=p.prophetCost+100
-  else local class=typ==81 and 101 or 100;p.thresholds[class]=p.thresholds[class]+100 end
+  else p.thresholds[class]=(p.thresholds[class] or 100)+100 end
  elseif source=='purchased' then
   if typ==84 then p.prophetCost=p.prophetCost+100 elseif typ==82 then p.generals=p.generals+1
-  else local class=typ==81 and 101 or 100;p.thresholds[class]=p.thresholds[class]+100 end
-  GameEvents.CityTrained(1,1,u.id,false,true)
+  elseif typ==83 then p.admiralMod=p.admiralMod+100
+  else p.thresholds[class]=(p.thresholds[class] or 100)+100 end
+  GameEvents.CityTrained(1,c.id,u.id,false,true)
  elseif source=='free' and typ==83 then p.admiralMod=p.admiralMod+100
  end
  return u

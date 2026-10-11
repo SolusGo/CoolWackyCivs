@@ -1,8 +1,10 @@
 # Argentina — The Boy Who Touched Paradise
 
-Lionel Messi leads a separate, human-only civilization for Civilization V: Brave New World and Community Patch v151 (5.4.2). Its story has three acts: brilliance, heartbreak and redemption. Messi is extraordinary from the beginning; The Final Peak completes a dream without creating his talent.
+Lionel Messi leads a separate, human-only civilization for Civilization V: Brave New World and Community Patch v151 (audited against installed 5.4.6). Its story has three acts: brilliance, heartbreak and redemption. Messi is extraordinary from the beginning; The Final Peak completes a dream without creating his talent.
 
 This is collection civilization eighteen, added in **Cool Wacky Civs v24**. **The Eternal Number Ten remains a separate selectable civilization, with its existing mechanics and saves unchanged.** This civilization uses only `PARADISE` database identifiers, Lua contexts, artwork and save keys.
+
+**v25 stability patch:** [technical audit](docs/Audit.md), reliable popup/modal returns, explicit gifting-hook dependency and early duplicate GP-birth protection. Mechanics, narrative, artwork and numerical balance remain the same. Existing v24 `PARADISE_v1` data needs no migration; automated historical-save compatibility passes, with actual engine save loading still awaiting the live checklist.
 
 ## Uniques and starting strength
 
@@ -106,7 +108,7 @@ python tools/validate_all.py
 python tools/build_mod.py
 ```
 
-The unpacked folder, ZIP and native `.civ5mod` are in `dist/Cool Wacky Civs (v 24)*`. Install the unpacked folder or native package under the Civ V user MODS directory, enable Community Patch and the collection, then start a **new game** and select **Argentina — The Boy Who Touched Paradise / Lionel Messi**. Do not enable duplicate collection versions together. Installation requires no generation script or development dependency.
+The unpacked folder, ZIP and native `.civ5mod` are in `dist/Cool Wacky Civs (v 25)*`. Install the unpacked folder or native package under the Civ V user MODS directory, enable Community Patch and the collection, then start a **new game** and select **Argentina — The Boy Who Touched Paradise / Lionel Messi**. Do not enable duplicate collection versions together. Installation requires no generation script or development dependency. Updating an existing v24 Paradise journey preserves its save namespace, data format, Mod ID and minimum compatible save version; follow the stability audit's live save-load checklist.
 
 The mod keeps the collection's original Mod ID and supports single player. Multiplayer/hotseat remain disabled. Adding a civilization requires a new game; this is not advertised as an upgrade that inserts a new playable civilization into an existing save. Existing Eternal Number Ten source files were not modified.
 

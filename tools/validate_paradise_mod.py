@@ -17,7 +17,12 @@ def database_checks():
     db=sqlite3.connect(':memory:');src.backup(db);src.close()
     apply_current_cp_schema(db,game/'MODS/(1) Community Patch');db.row_factory=sqlite3.Row
     db.execute('CREATE TABLE IF NOT EXISTS Language_en_US(Tag TEXT PRIMARY KEY,Text TEXT)')
+    # Paradise must work without any other civilization enabling these hooks.
+    db.execute("UPDATE CustomModOptions SET Value=0 WHERE Name LIKE 'EVENTS_%'")
     for path in sorted((C/'SQL').glob('*.sql')):db.executescript(path.read_text(encoding='utf-8'))
+    expected={'EVENTS_CITY','EVENTS_CITY_CAPITAL','EVENTS_GOLDEN_AGE','EVENTS_MINORS',
+        'EVENTS_MINORS_INTERACTION','EVENTS_UNIT_CREATED','EVENTS_UNIT_PREKILL','EVENTS_UNIT_CAPTURE','EVENTS_UNIT_CONVERTS'}
+    assert {r[0] for r in db.execute("SELECT Name FROM CustomModOptions WHERE Name LIKE 'EVENTS_%' AND Value=1")}==expected
     def row(table,key):return db.execute(f'SELECT * FROM {table} WHERE Type=?',(key,)).fetchone()
     assert tuple(row('Civilizations','CIVILIZATION_BOY_TOUCHED_PARADISE')[k] for k in ['Playable','AIPlayable'])==(1,0)
     assert row('Traits','TRAIT_PARADISE_POINT_OF_DIFFERENCE')['GreatPeopleRateModifier']==5
@@ -148,69 +153,104 @@ def gameplay_checks():
     ''')
     print('PASS Paradise adversarial: Quick/Standard/Epic/Marathon recovery, elimination, failed crisis retry, post-activation achievements and no-loss/no-CS/no-Wonder route')
 
+def stability_checks():
+    # Every native GP class, every exclusion, non-capital births and early duplicates.
+    for typ in range(80,89):
+        lua=fixture()
+        lua.execute(f"""
+            for _,source in ipairs({{'free','scripted','purchased'}})do NativeGP({typ},source,2)end
+            NextTurn();assert(S().gp==0 and S().dreams==0 and S().lifetime==0)
+            local converted=NativeGP({typ},'scripted',2)
+            GameEvents.UnitConverted(0,1,99,converted.id,false)
+            local pending=ParadisePersistence.Read(1).pending
+            assert(pending[next(pending)].excluded,'conversion birth was not excluded')
+            NextTurn();assert(S().gp==0)
+            local u=NativeGP({typ},'generated',2,function(unit)
+                GameEvents.UnitCreated(1,unit.id,unit.typ,unit.x,unit.y)
+                assert(next(ParadisePersistence.Read(1).pending),'early duplicate erased native evidence')
+            end)
+            NextTurn();assert(S().gp==1 and S().dreams==2 and S().lifetime==2)
+            GameEvents.UnitCreated(1,u.id,u.typ,u.x,u.y);NextTurn();assert(S().gp==1)
+        """)
+        lua=fixture()
+        lua.execute(f"""
+            NativeGP({typ},'generated',2,function()ReloadParadise()end)
+            NextTurn();assert(S().gp==1 and S().dreams==2,'creation/save/load/native settlement')
+        """)
+    lua=fixture();lua.execute('''
+        for typ=80,88 do NativeGP(typ,'scripted',2);NativeGP(typ,'generated',2)end
+        NextTurn();assert(S().gp==9 and S().dreams==18 and S().lifetime==18,'nearby shared/distinct counter births')
+        local gift=GameEvents.PlayerCanGiftUnit.handlers[1]
+        assert(not gift(1,2,Hero().id) and gift(1,2,99999))
+        local ordinary=Players[1]:InitUnit(80,3,3);local foreign=Players[0]:InitUnit(80,1,1)
+        assert(gift(1,2,ordinary.id) and gift(0,2,foreign.id),'unrelated unit gifting changed')
+        Players[2].alive=false;assert(not gift(1,2,Hero().id) and gift(1,99,ordinary.id))
+        local foreignHero=Players[0]:InitUnit(10,1,1)
+        assert(foreignHero:IsDelayedDeath() and Players[0]:GetUnitByID(foreignHero.id)==nil,'foreign hero retained')
+    ''')
+    lua=fixture();lua.execute('''
+        AdvanceEra(3);local baseline=S().pressure
+        NativeGP(80,'generated',2);NextTurn();assert(S().pressure==baseline-8)
+        NativeGP(85,'generated',2);NextTurn();assert(S().pressure==baseline-8,'per-era GP relief repeated')
+        AdvanceEra(4);baseline=S().pressure
+        NativeGP(84,'generated',2);NextTurn()
+        -- Third owner turn also adds the unchanged Act II passive +1 Pressure.
+        assert(S().gp==3 and S().recovered and S().dreams==11 and S().pressure==baseline-37)
+    ''')
+    lua=fixture();lua.execute('''
+        for i=1,3 do NativeGP(80,'generated')end;NextTurn()
+        assert(MapModData.Paradise.UseMagic(1,'HOPE'))
+        GoldenStart();GameEvents.MinorAlliesChanged(2,1,true,20,60);AdvanceEra(4)
+        Hero():Kill(false,-1)
+        local encoded=Saved['PARADISE_v1|1'];local before=ParadisePersistence.Read(1)
+        assert(before.lifetime>before.dreams and before.challenge and before.recoveryDue>before.clock)
+        assert(before.act==2 and before.crisis and before.pressure>0 and #before.memories>0)
+        ReloadParadise();assert(Saved['PARADISE_v1|1']==encoded,'existing save values or format changed')
+        assert(S().lifetime==before.lifetime and S().dreams==before.dreams and S().story==before.story)
+        local clock=S().clock;GameEvents.PlayerDoTurn(1);GameEvents.PlayerDoTurn(1)
+        assert(S().clock==clock,'reloaded duplicate owner-turn advanced timers')
+    ''')
+    lua=fixture();lua.execute((C/'Lua/ParadiseRuntime.lua').read_text(encoding='utf-8'))
+    lua.execute('for name,event in pairs(GameEvents)do assert(#event.handlers==1,name.." registered twice")end')
+    # Serialized by the actual v24 runtime at commit 484cf33, not a new schema.
+    lua=fixture()
+    lua.execute('''
+        Hero():Kill(false,-1);SetTurn(1);Players[1].era=4;Players[1].ga=10
+        for i=1,3 do Unit(1,80,3,3)end;Unit(1,81,5,3)
+        Players[1].thresholds[100]=400;Players[1].thresholds[101]=200
+    ''')
+    data=(R/'tools/tests/paradise_v24_save.txt').read_text(encoding='utf-8')
+    lua.globals().Saved['PARADISE_v1|1']=data
+    lua.execute('''
+        local encoded=Saved['PARADISE_v1|1'];ReloadParadise()
+        assert(Saved['PARADISE_v1|1']==encoded,'v24 save reset or rewritten during reconciliation')
+        assert(S().dreams==5 and S().lifetime==11 and S().gp==3 and S().pressure==65)
+        assert(S().challenge and not S().recovered and S().recoveryRemaining==5 and S().story=='DENIED')
+        assert(S().claims['MagicEra|0'] and S().distinctAllies['2'] and not S().fulfilled)
+        NextTurn();assert(S().gp==4 and S().recovered and S().dreams==12 and S().lifetime==18)
+        ReloadParadise();NextTurn();assert(S().gp==4 and S().dreams==12,'v24 pending birth/recovery duplicated')
+    ''')
+    print('PASS Paradise stability: nine GP classes, early duplicates, non-capital/shared counters, pending-birth reload, gifting isolation, unchanged save bytes and single event registration')
+
+
 def ui_checks():
     lua=fixture()
-    lua.execute(r'''
-      Locale={ConvertTextKey=function(key)return key end};Mouse={eLClick=1};KeyEvents={KeyDown=1};Keys={VK_ESCAPE=27}
-      InterfaceModeTypes={INTERFACEMODE_SELECTION=1};UI={IsCityScreenUp=function()return false end}
-      UIManager={modal=0,GetScreenSizeVal=function()return 1024,768 end,
-       PushModal=function(self)self.modal=self.modal+1 end,PopModal=function(self)self.modal=self.modal-1 end}
-      Vector4=function(...)return {...}end
-      ContextPtr={SetInputHandler=function(self,f)self.input=f end}
-      function Control()
-       local c={hidden=false,disabled=false}
-       function c:SetHide(v)self.hidden=v end;function c:SetDisabled(v)self.disabled=v end
-       function c:SetText(v)self.text=v end;function c:SetTexture(v)self.texture=v end
-       function c:SetColor(v)self.color=v end;function c:SetSizeVal(x,y)self.size={x,y}end
-       function c:SetToolTipString(v)self.tooltip=v end;function c:RegisterCallback(button,f)self.callback=f end
-       function c:CalculateSize()end;function c:ReprocessAnchoring()end;function c:CalculateInternalSize()end
-       return c
-      end
-      Controls=setmetatable({},{__index=function(t,k)local c=Control();rawset(t,k,c);return c end})
-      IconHookup=function(n,size,atlas,c)c.icon=n end
-      InstanceManager={new=function()return {ResetInstances=function()end,GetInstance=function()return {
-       MemoryRoot=Control(),MemoryIcon=Control(),MemoryTitle=Control(),MemoryText=Control()}end}end}
-      Events={}
-      for _,name in ipairs({'GameplaySetActivePlayer','ActivePlayerTurnStart','ActivePlayerTurnEnd','SerialEventEnterCityScreen',
-       'SerialEventExitCityScreen','AILeaderMessage','LeavingLeaderViewMode','SerialEventGameMessagePopup',
-       'SerialEventGameMessagePopupShown','SerialEventGameMessagePopupProcessed','InterfaceModeChanged'})do Events[name]=Event()end
-    ''')
-    lua.globals().include=lambda name: None if name in ['IconSupport','InstanceManager'] else (_ for _ in ()).throw(AssertionError(name))
+    lua.execute((R/'tools/tests/paradise_ui_mock.lua').read_text(encoding='utf-8'))
     panel=(C/'UI/ParadiseJourney.lua').read_text(encoding='utf-8')
-    lua.execute(panel)
-    lua.execute('''
-       assert(not Controls.JourneyLauncher.hidden and Controls.JourneyPanel.hidden)
-       Controls.JourneyLauncher.callback();assert(not Controls.JourneyPanel.hidden and UIManager.modal==1)
-       Controls.MagicTab.callback();assert(not Controls.MagicStack.hidden and Controls.PassButton.disabled)
-       Events.SerialEventEnterCityScreen();assert(Controls.JourneyLauncher.hidden and Controls.JourneyPanel.hidden and UIManager.modal==0)
-       Events.SerialEventExitCityScreen();assert(not Controls.JourneyPanel.hidden)
-       Controls.JourneyClose.callback();assert(UIManager.modal==0)
-       for i=1,3 do NativeGP(80,'generated')end;NextTurn()
-       Controls.JourneyLauncher.callback();Controls.MagicTab.callback()
-       assert(not Controls.PassButton.disabled)
-       Controls.PassButton.callback();assert(S().dreams==0 and Players[1].science==30,'button executes authoritative magic')
-       Controls.JourneyClose.callback()
-       AdvanceEra(4);assert(not Controls.JourneyCinematic.hidden and Controls.CinematicArt.texture=='ParadiseHeartbreak.dds')
-       Controls.CinematicContinue.callback();assert(Controls.JourneyCinematic.hidden)
-       Events.SerialEventGameMessagePopup({Type=1});Events.SerialEventGameMessagePopupShown({Type=1})
-       assert(Controls.JourneyLauncher.hidden);Events.SerialEventGameMessagePopupProcessed(1)
-       assert(not Controls.JourneyLauncher.hidden)
-       Events.AILeaderMessage();assert(Controls.JourneyLauncher.hidden);Events.LeavingLeaderViewMode()
-       assert(not Controls.JourneyLauncher.hidden)
-       NativeConstruct(Players[1].cities[1],20,'built');NextTurn(8)
-       Controls.CinematicContinue.callback()
-       GoldenStart();GoldenEnd();GoldenStart()
-       for i=1,16 do NativeGP(80,'generated')end;NextTurn();AdvanceEra(5)
-       NativeConstruct(Players[1].cities[1],21,'built')
-       assert(not Controls.JourneyCinematic.hidden and Controls.CinematicArt.texture=='ParadiseFinalPeak.dds')
-       assert(Controls.CinematicMemories.text:find('The Final Peak',1,true) and UIManager.modal==1)
-       Controls.CinematicContinue.callback();assert(S().finalShown and UIManager.modal==0)
-       SetActive(0);Events.GameplaySetActivePlayer();assert(Controls.JourneyLauncher.hidden)
-    ''')
-    lua.execute('MapModData.Paradise=nil;SetActive(1)');lua.execute(panel)
+    def reload_ui():
+        lua.execute('if ContextPtr and ContextPtr.shutdown then ContextPtr.shutdown()end;SetupJourneyUI()')
+        lua.execute(panel)
+    lua.globals().ReloadJourneyUI=reload_ui
+    def include(name):
+        if name=='ParadisePersistence':lua.execute((C/'Lua/ParadisePersistence.lua').read_text(encoding='utf-8'))
+        elif name not in ['IconSupport','InstanceManager']:raise AssertionError(name)
+    lua.globals().include=include
+    reload_ui()
+    lua.execute((R/'tools/tests/paradise_ui_assertions.lua').read_text(encoding='utf-8'))
+    lua.execute('MapModData.Paradise=nil;SetActive(1)');reload_ui()
     lua.execute('assert(Controls.JourneyLauncher.hidden and Controls.JourneyPanel.hidden and Controls.JourneyCinematic.hidden)')
-    print('PASS Paradise UI: safe absent runtime, functional tabs, modal lifecycle, pending illustrated story and hidden city/diplomacy/popup launcher')
+    print('PASS Paradise UI: normal/reversed/missing/nested popup lifecycles, synchronous toggle-close, city/diplomacy/fullscreen returns, repeated events, modal ownership/shutdown, pending-finale reload and explicit acknowledgement')
 
 if __name__=='__main__':
-    database_checks();static_checks();gameplay_checks();ui_checks()
+    database_checks();static_checks();gameplay_checks();stability_checks();ui_checks()
     print('Paradise validation passed. Live Civ V rendering/capture timing remains on the smoke-test checklist.')

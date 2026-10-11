@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="24">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="25">
   <Properties>
     <Name>Cool Wacky Civs</Name>
     <Teaser>Eighteen civilizations. Eighteen stranger ways to rule.</Teaser>
@@ -708,12 +708,12 @@
     <File md5="5FA6539C27D9212EF19ED4910A72A80C" import="1">TheBoyWhoTouchedParadise/Art/ParadiseUnitFlag32.dds</File>
     <File md5="A56A74BF9B3927D964238CFF4B2005D4" import="1">TheBoyWhoTouchedParadise/Art/ParadiseWeight.dds</File>
     <File md5="BE5FA733A1C509CB34E0A28C42FF5BC4" import="1">TheBoyWhoTouchedParadise/Lua/ParadisePersistence.lua</File>
-    <File md5="17E33485B6720ECB2F7AD83498D47AF7" import="1">TheBoyWhoTouchedParadise/Lua/ParadiseRuntime.lua</File>
-    <File md5="28AB6C75EBBBEA71F2A071C82D5920CD" import="0">TheBoyWhoTouchedParadise/SQL/00_Paradise_Core.sql</File>
+    <File md5="89FE2BC1B434277BD0614681303AB04E" import="1">TheBoyWhoTouchedParadise/Lua/ParadiseRuntime.lua</File>
+    <File md5="3C3FE4C5A8C32059E536AA8B4B9CA862" import="0">TheBoyWhoTouchedParadise/SQL/00_Paradise_Core.sql</File>
     <File md5="88EA5B59D13FB6DF206BE0CA9E261B91" import="0">TheBoyWhoTouchedParadise/SQL/01_Paradise_Inheritance.sql</File>
     <File md5="3C7CF1322D121DA04246BDE620611F8A" import="0">TheBoyWhoTouchedParadise/SQL/02_Paradise_Effects.sql</File>
     <File md5="5481591416A5F75BA88AF3CE3648F8D6" import="0">TheBoyWhoTouchedParadise/SQL/10_Paradise_Text.sql</File>
-    <File md5="EA39BF158ACBC54C2B2FE0B7B8A262A4" import="1">TheBoyWhoTouchedParadise/UI/ParadiseJourney.lua</File>
+    <File md5="BE011DFC347B1BDF9E44C426225736C2" import="1">TheBoyWhoTouchedParadise/UI/ParadiseJourney.lua</File>
     <File md5="9F0171FAEEB20E8512AC9057D539DC8B" import="0">TheBoyWhoTouchedParadise/UI/ParadiseJourney.xml</File>
   </Files>
   <Actions>
