@@ -74,10 +74,15 @@ def dds(im,path):
     im.save(path,**({'pixel_format':'DXT5'} if im.width%4==0 and im.height%4==0 else {}))
 def main():
     O.mkdir(parents=True,exist_ok=True)
+    dawn=ImageOps.fit(Image.open(S/'DawnJourney.png').convert('RGBA'),(1600,900),Image.Resampling.LANCZOS)
+    dds(dawn,O/'CR7Dawn.dds')
+    if '--dawn-only' in sys.argv:
+        print('Built distinct CR7 Dawn panorama; existing leader assets preserved')
+        return
     original=Image.open(S/'RelentlessJourney.png').convert('RGBA')
     # Cropping/resizing and DDS compilation of the original generated artwork.
     hero=ImageOps.fit(original,(1600,900),Image.Resampling.LANCZOS)
-    dds(hero,O/'CR7Leader.dds');dds(hero,O/'CR7Dawn.dds')
+    dds(hero,O/'CR7Leader.dds')
     portrait=original.crop((530,10,1150,630))
     for n in (256,128,64):dds(portrait.resize((n,n),Image.Resampling.LANCZOS),O/f'CR7Leader{n}.dds')
     for n in SIZES:

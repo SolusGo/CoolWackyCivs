@@ -8,7 +8,8 @@ local function tag(n,suffix) return 'TXT_KEY_CR7_CHAPTER_'..n..'_'..suffix end
 local function fmt(n) return n==math.floor(n) and tostring(n) or string.format('%.2f',n) end
 local function state()
     local runtime=MapModData.CR7
-    return runtime and runtime.GetUIState and runtime.GetUIState(Game.GetActivePlayer())
+    local p=Game.GetActivePlayer()
+    return Players[p] and Players[p]:IsHuman() and runtime and runtime.GetUIState and runtime.GetUIState(p)
 end
 local function eraName(n)
     local row=GameInfo.Eras[n]

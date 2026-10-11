@@ -30,7 +30,11 @@ local function isCR7(p)
         and Players[p]:GetCivilizationType() == I.CIVILIZATION_RELENTLESS_SEVEN
 end
 local present=false
-for p=0,GameDefines.MAX_MAJOR_CIVS-1 do if isCR7(p) then present=true;break end end
+-- Captured veterans retain their innate bonuses even after Ronaldo is defeated.
+-- The assigned civilization survives elimination; only career rewards need IsAlive.
+for p=0,GameDefines.MAX_MAJOR_CIVS-1 do
+    if Players[p] and Players[p]:GetCivilizationType()==I.CIVILIZATION_RELENTLESS_SEVEN then present=true;break end
+end
 if not present then return end
 local function chapter(p,n) return get(p,'Chapter'..n,false) end
 local function promotion(name) return I['PROMOTION_CR7_'..name] end
@@ -205,7 +209,7 @@ addAmbition=function(p,n,source,oneTime,limited)
     checkChapters(p)
 end
 checkUnit=function(p,u)
-    if not military(u) then return end
+    if not military(u) or u:IsDead() then return end
     local era=Players[p]:GetCurrentEra()
     if u:GetLevel()>=6 and ug(u,'Developed',false) and not ug(u,'Level6Resolved',false) then
         us(u,'Level6Resolved',true)
@@ -244,6 +248,13 @@ local function onTrained(p,cityID,id,gold,faith)
     if not u or not c or not once(-1,uk(u,'CityTrained')) then return end
     refreshUnit(p,u)
     if u:GetUnitType()==I.UNIT_CR7_COMPLETE_FORWARD then us(u,'Forward',true) end
+    local unitClass=GameInfo.Units[u:GetUnitType()].Class
+    if (gold or faith) and (unitClass=='UNITCLASS_GREAT_GENERAL' or unitClass=='UNITCLASS_GREAT_ADMIRAL') then
+        -- Native GP purchases are authoritative CityTrained events and need not
+        -- advance the combat-born threshold. Share the same saved birth reward.
+        us(u,'PendingGP',false)
+        if once(-1,uk(u,'GPReward')) then addAmbition(p,3,'GreatPerson',true) end
+    end
     if military(u) and gold and chapter(p,3) then
         player:ChangeGold(math.floor(c:GetUnitPurchaseCost(u:GetUnitType())*0.05+0.5))
     end
@@ -268,11 +279,13 @@ local function onConverted(oldP,newP,oldID,newID,isUpgrade)
     if not old or not u then return end
     local history=unitHistory(old)
     if not isCR7(oldP) and not isCR7(newP) and not history then return end
+    if isCR7(oldP) then checkGP(oldP) end
+    local creation=get(newP,'UnitCreation|'..newID,lineage(u))
     local token=lineage(old);put(newP,slot(newP,newID),token)
     local upgrade=get(oldP,'PendingUpgrade|'..newID,-1)==oldID
     put(oldP,'PendingUpgrade|'..newID,nil)
     if isUpgrade and upgrade and oldP==newP and military(old) and military(u)
-        and old:GetUnitType()~=u:GetUnitType() then
+        and old:GetUnitType()~=u:GetUnitType() and once(-1,uk(old,'UpgradeTo|'..creation)) then
         if isCR7(newP) then
             local level=0
             for n=1,4 do if old:IsHasPromotion(promotion('REINVENTION_'..n)) then level=n end end
@@ -283,18 +296,25 @@ local function onConverted(oldP,newP,oldID,newID,isUpgrade)
                 if old:GetMaxHitPoints()-old:GetDamage()<old:GetMaxHitPoints()*0.35 then heal(u,15) end
             end
         end
-        if old:GetUnitType()==I.UNIT_CR7_COMPLETE_FORWARD and ug(old,'Forward',false) then
+        if ug(old,'Forward',false) and old:IsHasPromotion(promotion('FINISHER')) then
             setPromo(u,'FINISHER',false);setPromo(u,'FORWARD_MOBILITY',false)
             setPromo(u,'FINISHER_VETERAN',true)
         elseif u:GetUnitType()==I.UNIT_CR7_COMPLETE_FORWARD then us(u,'Forward',true) end
     end
+    if old:IsHasPromotion(promotion('FINISHER_VETERAN')) then
+        setPromo(u,'FINISHER',false);setPromo(u,'FORWARD_MOBILITY',false)
+        setPromo(u,'FINISHER_VETERAN',true)
+    end
     refreshUnit(newP,u)
+    if GameInfo.Units[u:GetUnitType()].Class=='UNITCLASS_GREAT_GENERAL' and isCR7(newP) then
+        units(newP,function(v) refreshUnit(newP,v) end)
+    end
     if isCR7(newP) then checkUnit(newP,u) end
 end
 local battles={}
 local activeBattle
 local function onBattleStarted(kind,x,y)
-    battles[#battles+1]={kind=kind,x=x,y=y,units={},parent=activeBattle}
+    battles[#battles+1]={kind=kind,x=x,y=y,units={},kills={},parent=activeBattle}
 end
 local function onBattleJoined(p,id,role,isCity,sourceBattle)
     local b=sourceBattle or battles[#battles];if not b then return end
@@ -347,18 +367,15 @@ local function onPrekill(p,id,typ,x,y,delay,killerP)
     if not isCR7(killerP) and not unitHistory(killer) then return end
     if not once(-1,uk(victim,'KillRewarded')) then return end
     local kr,vr=GameInfo.Units[killer:GetUnitType()],GameInfo.Units[typ]
-    if math.max(vr.Combat or 0,vr.RangedCombat or 0)>=math.max(kr.Combat or 0,kr.RangedCombat or 0) then
-        addAmbition(killerP,1,'Victory',false,true)
-    end
     local reinvention=0
     for n=1,4 do if killer:IsHasPromotion(promotion('REINVENTION_'..n)) then reinvention=n end end
     local finish=killer:IsHasPromotion(promotion('FINISHER'))
-    heal(killer,reinvention*3+(finish and 8 or killer:IsHasPromotion(promotion('FINISHER_VETERAN')) and 5 or 0))
-    if finish and ug(killer,'FinisherMoveTurn',-1)~=turn() then
-        us(killer,'FinisherMoveTurn',turn())
-        -- Defer until DLL attack movement costs have been paid.
-        b.move={p=killerP,id=killer:GetID()}
-    end
+    -- setDamage kills the defender before CP applies damage to the attacker.
+    -- Defer healing AND chapter-triggering rewards until both damage and moves
+    -- are resolved; an apparent winner can still die in the same exchange.
+    b.kills[#b.kills+1]={p=killerP,id=killer:GetID(),token=lineage(killer),finish=finish,
+        healing=reinvention*3+(finish and 8 or killer:IsHasPromotion(promotion('FINISHER_VETERAN')) and 5 or 0),
+        comparable=math.max(vr.Combat or 0,vr.RangedCombat or 0)>=math.max(kr.Combat or 0,kr.RangedCombat or 0)}
 end
 local function onBattleFinished()
     local b=activeBattle
@@ -370,13 +387,29 @@ local function onBattleFinished()
     if b.parent then
         for _,pending in ipairs(battles) do if pending==b.parent then activeBattle=pending;break end end
     end
-    if b.move then
-        local u=Players[b.move.p]:GetUnitByID(b.move.id)
-        if u and not u:IsDead() then u:ChangeMoves(GameDefines.MOVE_DENOMINATOR or 60) end
+    for _,reward in ipairs(b.kills) do
+        local u=Players[reward.p]:GetUnitByID(reward.id)
+        if u and lineage(u)==reward.token and not u:IsDead() then
+            heal(u,reward.healing)
+            if reward.finish and ug(u,'FinisherMoveTurn',-1)~=turn() then
+                us(u,'FinisherMoveTurn',turn())
+                u:ChangeMoves(GameDefines.MOVE_DENOMINATOR or 60)
+            end
+            if reward.comparable then addAmbition(reward.p,1,'Victory',false,true) end
+        end
     end
     for _,v in pairs(b.units) do
         local u=not v.city and Players[v.p]:GetUnitByID(v.id)
-        if u and isCR7(v.p) then setPromo(u,'MADRID_GG',false);checkUnit(v.p,u) end
+        if isCR7(v.p) then
+            checkGP(v.p)
+            if u then setPromo(u,'MADRID_GG',false);checkUnit(v.p,u) end
+        end
+    end
+    -- A nested battle may share a unit with its still-resolving parent.
+    -- Restore that parent's temporary General-point modifier after cleanup.
+    if activeBattle then
+        local a,d=activeBattle.units[0],activeBattle.units[1]
+        if a and d then onBattleJoined(a.p,a.id,0,a.city,activeBattle) end
     end
 end
 local function onCapture(oldP,isCapital,x,y,newP,population,conquest)
@@ -452,8 +485,10 @@ end
 local function onCreated(p,id,typ,x,y)
     local u=Players[p] and Players[p]:GetUnitByID(id);if not u then return end
     -- Unit IDs can be reused. A fresh creation gets a fresh lineage before conversion transfers it.
-    put(p,slot(p,id),nil);lineage(u)
+    put(p,slot(p,id),nil);put(p,'UnitCreation|'..id,lineage(u))
+    put(p,'PendingUpgrade|'..id,nil)
     dyingGenerals[p..'|'..id]=nil
+    if typ==I.UNIT_CR7_COMPLETE_FORWARD then us(u,'Forward',true) end
     if not isCR7(p) then return end
     refreshUnit(p,u)
     local row=GameInfo.Units[typ]
@@ -463,6 +498,12 @@ local function onCreated(p,id,typ,x,y)
         us(u,'PendingGP',true);us(u,'GPGeneral',general)
         us(u,'GPThreshold',general and Players[p]:GetGreatGeneralsThresholdModifier()
             or Players[p]:GetGreatAdmiralsThresholdModifier())
+        if general then
+            -- This counter belongs to the player; teammate/external threshold
+            -- adjustments cannot impersonate a General birth.
+            us(u,'GPCreated',Players[p]:GetGreatGeneralsCreated(false))
+            units(p,function(v) refreshUnit(p,v) end)
+        end
     end
 end
 checkGP=function(p)
@@ -470,9 +511,17 @@ checkGP=function(p)
         if ug(u,'PendingGP',false) then
             local current=ug(u,'GPGeneral',false) and Players[p]:GetGreatGeneralsThresholdModifier()
                 or Players[p]:GetGreatAdmiralsThresholdModifier()
-            -- Real CP births increment the appropriate threshold after UnitCreated;
-            -- bare InitUnit, upgrades and ownership transfers do not.
-            if current>ug(u,'GPThreshold',current) then
+            local counter=ug(u,'GPCreated',nil)
+            local delta=current-ug(u,'GPThreshold',current)
+            local step=(GameDefines.GREAT_GENERALS_THRESHOLD_INCREASE or 50)
+                +(GameDefines.GREAT_GENERALS_THRESHOLD_INCREASE_TEAM or 50)
+            -- CP exposes the General counter but no Admiral counter/birth event.
+            -- Admiral (and old pending-save) inference requires the whole own+
+            -- team birth increment, excluding small edits and ordinary team-only rises.
+            local born=ug(u,'GPGeneral',false) and counter~=nil
+                and Players[p]:GetGreatGeneralsCreated(false)>counter
+                or counter==nil and step>0 and delta>=step and delta%step==0
+            if born then
                 us(u,'PendingGP',false)
                 if once(-1,uk(u,'GPReward')) then addAmbition(p,3,'GreatPerson',true) end
             end
@@ -540,7 +589,9 @@ M.OnConstructed=onConstructed;M.OnGoldenAge=onGoldenAge;M.OnWar=onWar;M.OnCreate
 local function onUpgraded(p,oldID,newID,goody)
     -- Keep the identity and reduced Finisher behavior when a trained unit changes owners.
     local old=Players[p] and Players[p]:GetUnitByID(oldID)
-    if isCR7(p) or unitHistory(old) then put(p,'PendingUpgrade|'..newID,oldID) end
+    local new=Players[p] and Players[p]:GetUnitByID(newID)
+    if old and old:GetUnitType()==I.UNIT_CR7_COMPLETE_FORWARD then us(old,'Forward',true) end
+    if old and new and (isCR7(p) or unitHistory(old)) then put(p,'PendingUpgrade|'..newID,oldID) end
 end
 M.OnUpgraded=onUpgraded
 GameEvents.PlayerDoTurn.Add(onTurn)
@@ -566,7 +617,7 @@ GameEvents.SetPopulation.Add(function(x,y,oldPopulation,newPopulation)
 end)
 GameEvents.TeamTechResearched.Add(function(team)
     for p=0,GameDefines.MAX_MAJOR_CIVS-1 do
-        if isCR7(p) and Players[p]:GetTeam()==team then checkChapters(p) end
+        if isCR7(p) and Players[p]:GetTeam()==team then checkChapters(p);refreshCities(p) end
     end
 end)
 -- Loading repairs permanent representations, never reapplies one-time rewards.
@@ -576,7 +627,11 @@ for p=0,GameDefines.MAX_MAJOR_CIVS-1 do
             if chapter(p,n) then Players[p]:SetHasPolicy(I['POLICY_CR7_CHAPTER_'..n],true) end
         end
         for n=1,math.min(5,get(p,'LegacyCount',0)) do Players[p]:SetHasPolicy(I['POLICY_CR7_LEGACY_'..n],true) end
-        units(p,function(u) lineage(u);setPromo(u,'MADRID_GG',false) end)
+        units(p,function(u)
+            lineage(u);setPromo(u,'MADRID_GG',false)
+            -- Existing saves may predate creation-time Forward lineage tracking.
+            if u:GetUnitType()==I.UNIT_CR7_COMPLETE_FORWARD then us(u,'Forward',true) end
+        end)
         refresh(p)
     end
 end

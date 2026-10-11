@@ -9,13 +9,13 @@ Equal(Ambition(),before,'existing veteran does not trigger again in new era')
 local newcomer=NewUnit(0,2,'UNIT_WARRIOR',0,0,6);M.OnTrained(0,1,2,false,false)
 Equal(Ambition(),before+3,'different unit legitimately reaches Level 6 in new era')
 local general=NewUnit(0,3,'UNIT_GREAT_GENERAL');before=Ambition()
-Players[0].generalThreshold=50
+Players[0].generalThreshold=100;Players[0].generalsCreated=1
 M.OnPrekill(0,3,general.typ,0,0,true,-1)
 Equal(Ambition(),before+3,'birth-turn expenditure rewarded')
 Players[0].units[3]=nil
 -- A bare administrative GP before a real one cannot steal the birth reward.
 NewUnit(0,4,'UNIT_GREAT_ADMIRAL');local admiral=NewUnit(0,5,'UNIT_GREAT_ADMIRAL')
-before=Ambition();Players[0].admiralThreshold=50
+before=Ambition();Players[0].admiralThreshold=100
 M.OnPrekill(0,5,admiral.typ,0,0,true,-1);Equal(Ambition(),before+3)
 -- Per-era academy entitlement follows ownership changes and foreign upgrades.
 M.AddAmbition(0,20,'test',false);c:SetNumRealBuilding(T.BUILDING_CR7_SPORTING_ACADEMY,1)

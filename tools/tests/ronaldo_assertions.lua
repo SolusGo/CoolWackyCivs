@@ -97,7 +97,7 @@ M.OnWar(1,0,true);Equal(Players[0].gap,before+100)
 -- GP administrative creation is excluded; genuine threshold-changing birth rewarded once.
 before=Ambition();local general=NewUnit(0,42,'UNIT_GREAT_GENERAL')
 M.OnTurn(0);Equal(Ambition(),before)
-general=NewUnit(0,43,'UNIT_GREAT_GENERAL');Players[0].generalThreshold=50
+general=NewUnit(0,43,'UNIT_GREAT_GENERAL');Players[0].generalThreshold=100;Players[0].generalsCreated=1
 CurrentTurn=43;M.OnTurn(0);Equal(Ambition(),before+3)
 M.OnTurn(0);Equal(Ambition(),before+3)
 -- Population milestones survive shrink/regrowth; wonders need genuine completion.

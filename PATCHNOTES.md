@@ -1,5 +1,13 @@
 # Patch Notes
 
+## Version 23 — Ronaldo technical audit — 2026-10-11
+
+- Preserved player-only selection and every approved balance value, chapter, database type and save namespace.
+- Moved kill healing/Ambition to post-damage battle completion; guarded lineage, duplicate upgrade callbacks and nested General-point modifiers. Free and foreign Forwards retain veteran behavior, including after the original civilization is eliminated.
+- Used the native General birth counter and guarded Admiral threshold inference; refreshed General auras at creation/transfer and overseas Tourism immediately at Flight.
+- Added distinct original Dawn art, a human-only event-driven Career display, explicit standalone BNW dependency, standalone v2 packaging and audit/save-compatibility documentation.
+- Added source-ordered combat, GP/ownership/reload, purchase, Flight, UI and forced-AI regressions. Forced-AI simulations do not enable AI selection. Native game execution remains unverified.
+
 ## Version 22 — The Relentless Seven — 2026-10-11
 
 - Added player-only Cristiano Ronaldo, Funchal, Complete Forward and Sporting Academy, inheriting the active CP Cavalry/Barracks baseline.

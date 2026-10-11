@@ -5,7 +5,7 @@ Modding={OpenSaveData=function()return {
  GetValue=function(k)return Saved[k]end,SetValue=function(k,v)Saved[k]=v end}end}
 Game={GetGameSpeedType=function()return TestSpeed end,GetGameTurn=function()return CurrentTurn end,
  GetActivePlayer=function()return ActivePlayer end}
-GameDefines={MAX_MAJOR_CIVS=2,MOVE_DENOMINATOR=60}
+GameDefines={MAX_MAJOR_CIVS=2,MOVE_DENOMINATOR=60,GREAT_GENERALS_THRESHOLD_INCREASE=50,GREAT_GENERALS_THRESHOLD_INCREASE_TEAM=50}
 local function event()
  local e={handlers={}}
  e.Add=function(f)e.handlers[#e.handlers+1]=f end
@@ -31,7 +31,7 @@ local function plot(x,y)
 end
 Map={GetPlot=plot,PlotDistance=function(x,y,a,b)return math.max(math.abs(x-a),math.abs(y-b))end}
 Teams={}
-for p=0,1 do
+for p=0,2 do
  local team={techs={}}
  function team:IsHasTech(id)return self.techs[id]or false end
  Teams[p]=team
@@ -41,14 +41,14 @@ local function iterator(items)
  local ids={};for id in pairs(items)do ids[#ids+1]=id end;table.sort(ids)
  local n=0;return function()n=n+1;return items[ids[n]]end
 end
-for p=0,1 do
+for p=0,2 do
  local player={id=p,era=0,units={},cities={},policies={},culture=0,gap=0,golden=0,freePolicies=0,gold=0,
-  generalThreshold=0,admiralThreshold=0}
- function player:IsAlive()return true end
- function player:GetCivilizationType()return self.id==0 and GameInfoTypes.CIVILIZATION_RELENTLESS_SEVEN or -1 end
+  generalThreshold=0,admiralThreshold=0,generalsCreated=0,alive=true,human=p==0,civ=p==0 and GameInfoTypes.CIVILIZATION_RELENTLESS_SEVEN or -1}
+ function player:IsAlive()return self.alive end
+ function player:GetCivilizationType()return self.civ end
  function player:GetTeam()return self.id end
  function player:GetCurrentEra()return self.era end
- function player:IsHuman()return self.id==0 end
+ function player:IsHuman()return self.human end
  function player:Units()return iterator(self.units)end
  function player:Cities()return iterator(self.cities)end
  function player:GetUnitByID(id)return self.units[id]end
@@ -67,6 +67,7 @@ for p=0,1 do
  function player:ChangeGoldenAgeProgressMeter(n)self.gap=self.gap+n end
  function player:ChangeGold(n)self.gold=self.gold+n end
  function player:GetGreatGeneralsThresholdModifier()return self.generalThreshold end
+ function player:GetGreatGeneralsCreated(excludeFree)return self.generalsCreated end
  function player:GetGreatAdmiralsThresholdModifier()return self.admiralThreshold end
  Players[p]=player
 end
@@ -146,7 +147,7 @@ function Promote(u,id)
  u.level=u.level+1;u.promotions[id]=true
  GameEvents.UnitPromoted(u.owner,u.id,id)
 end
-function Ambition()return MapModData.CR7.GetUIState(0).ambition end
+function Ambition(p)return MapModData.CR7.GetUIState(p or 0).ambition end
 function Has(u,name)return u:IsHasPromotion(GameInfoTypes['PROMOTION_CR7_'..name])end
 function Equal(actual,expected,message)
  assert(actual==expected,(message or 'mismatch')..': expected '..tostring(expected)..', got '..tostring(actual))

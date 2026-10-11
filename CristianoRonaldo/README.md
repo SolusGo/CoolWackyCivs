@@ -10,8 +10,8 @@ Civilization V: Brave New World on Windows with **Community Patch v151 / 5.4.6**
 
 Choose one package:
 
-- Collection: build `python tools/build_mod.py`, then extract `dist/Cool Wacky Civs (v 22).zip` under `Documents/My Games/Sid Meier's Civilization 5/MODS` and enable Cool Wacky Civs with CP.
-- Standalone: build `python tools/build_ronaldo_mod.py`, then extract `dist/Cristiano Ronaldo - The Relentless Seven (v 1).zip` into the same MODS directory and enable it with CP. Its manifest blocks collection v22+, which already includes these definitions.
+- Collection: build `python tools/build_mod.py`, then extract `dist/Cool Wacky Civs (v 23).zip` under `Documents/My Games/Sid Meier's Civilization 5/MODS` and enable Cool Wacky Civs with CP.
+- Standalone: build `python tools/build_ronaldo_mod.py`, then extract `dist/Cristiano Ronaldo - The Relentless Seven (v 2).zip` into the same MODS directory and enable it with CP. Its manifest blocks collection v22+, which already includes these definitions. Both manifests explicitly require BNW and CP v151.
 
 The scripts also produce Firaxis-compatible LZMA `.civ5mod` files. Disable older collection copies. Start a **new modded game**, manually select The Relentless Seven / Cristiano Ronaldo, and verify Funchal. Do not enable standalone and collection together. Generated DDS files and source definitions are checked in; asset generation is not required to play.
 
@@ -46,7 +46,7 @@ Ambition accumulates and is never spent. All sources pass through one manager. V
 
 Level 6 milestones are resolved once per unit lineage. Carrying the same veteran into another era does not create a fresh milestone. Academy graduates also provide 1 Ambition under the training rules below.
 
-Great Person detection records a pending General/Admiral at `UnitCreated` and checks its CP threshold after the birth finishes: at the next creation, player turn, or before a Great Person is killed/expended. Direct `InitUnit`, ownership transfer and upgrading do not change that threshold. Pending administrative creations are resolved before a subsequent real birth, and a Great Person expended on its birth turn is still rewarded. The DLL exposes neither an Admiral-created counter nor a separate birth event. External mods or teammates that change GP thresholds can interfere with this inference. This is an engine limitation, not a guaranteed universal birth hook.
+Great Person detection records a pending General/Admiral at `UnitCreated` and checks after birth completes: at battle finish, subsequent creation, player turn, or before expenditure/transfer. Native GP purchases use their authoritative `CityTrained` event and the same saved birth entitlement. Other Generals use CP's own `GetGreatGeneralsCreated(false)` counter, so unrelated threshold edits and teammate births cannot impersonate a new General. Other Admirals lack a supported counter/birth event: their increase must match a full own-plus-team birth increment, using the installed game defines. This rejects small edits and ordinary team-only increases, but sufficiently large teammate births or external changes that exactly imitate a native increment remain ambiguous. Bare `InitUnit`, upgrades and ownership transfers receive no reward. Birth-turn expenditure and save reloads retain the entitlement. Old pending General records without the new counter snapshot use the guarded threshold fallback once. External mods deliberately invoking CP's native GP-birth helpers are indistinguishable from engine births. This is an engine limitation, not a universal birth hook.
 
 ## Career Chapters
 
@@ -84,9 +84,9 @@ Chapters unlock in sequence as soon as both cumulative Ambition and the era requ
 
 Replaces Cavalry. Clones the active CP baseline's strength, requirements, resource usage, upgrade path, production AI and standard Cavalry world model. Costs 20% more Production (rounded up), moves one tile farther, and can move after attacking. It gains no extra defensive strength.
 
-Relentless Finisher: +15% strength against wounded units, no river attack penalty, 8 HP healing after a genuine military enemy kill. The first kill each turn restores one movement point **after** the DLL pays attack movement costs. No extra attacks are granted. The kill and movement entitlements are saved per unit lineage; duplicate pre-kill callbacks cannot repeat them. Original-capital captures and civilian captures are not military kill rewards.
+Relentless Finisher: +15% strength against wounded units, no river attack penalty, 8 HP healing after a genuine military enemy kill. Healing, comparable-kill Ambition and the first-kill movement refund resolve at **BattleFinished**, after incoming damage and DLL movement costs. Rewards verify the surviving unit's lineage, cannot resurrect a casualty or attach to a reused unit ID, and cannot grant an extra attack. The kill and movement entitlements are saved per lineage; duplicate pre-kill callbacks cannot repeat them. Original-capital captures and civilian captures are not military kill rewards.
 
-Upon a Forward's real upgrade, Finisher and its move-after-attacking helper are removed; Veteran Finisher grants only +8% against wounded units and 5 HP healing on kills. That retained promotion survives later upgrades. It is never applied to a unit that did not have a recorded Complete Forward lineage. Reinvention and Finisher healing combine once each, clamped to legal HP.
+Upon a Forward's real upgrade, Finisher and its move-after-attacking helper are removed; Veteran Finisher grants only +8% against wounded units and 5 HP healing on kills. That retained promotion survives later upgrades. Actual Forward creation records lineage even for free grants, and old live Forward units repair that record without granting a reward. Conversion preserves lineage; a saved creation serial prevents duplicate upgrade callbacks from increasing Reinvention or repeating upgrade healing. Foreign-owned veterans retain their innate Finisher behavior after Ronaldo's elimination and reload. Reinvention and Finisher healing combine once each, clamped to legal HP.
 
 ## Sporting Academy
 
@@ -114,13 +114,13 @@ Early rushes, veteran losses, anti-mounted units, ranged attrition, multiple fro
 
 ## Art and limitations
 
-Original imagegen artwork supplies the veteran Ronaldo leader and cinematic journey Dawn; no official photographs or club logos are bundled. Original code-drawn icons supply all seven chapters, UA, Ambition, unique components, promotions, civilization emblem and transparent unit flag. The Dawn map is an explicitly illustrative route map. Leader art is a static fallback scene; the Forward uses standard Cavalry animations/model. See `art-source/CristianoRonaldo/README.md` for the generation prompt and asset slots.
+Original imagegen artwork supplies the veteran Ronaldo leader and a **separate** cinematic Dawn panorama following Madeira, Sporting, Manchester, Madrid, Portugal, later career and continuing legacy. The audit preserves the existing leader texture and portraits byte-for-byte. No official photographs or club logos are bundled. Original code-drawn icons supply all seven chapters, UA, Ambition, unique components, promotions, civilization emblem and transparent unit flag. The route map is explicitly illustrative. Leader art is a static fallback scene; the Forward uses standard Cavalry animations/model. See `art-source/CristianoRonaldo/README.md` for source artwork, prompts and asset slots.
 
 The military purchase rebate, ranged defense interpretation and inferred GP birth timing are described above. Lua gameplay is deterministic where practicable, but ordinary Civ V UI-addin gameplay and OpenSaveData are **not certified for network multiplayer or hotseat**; manifests disable those modes. No runtime Civ V gameplay, selection-screen, popup layout, save-file, FPS, turn-time or game-log verification has been performed. Automated Lua mocks are not a substitute for actual DLL playtesting.
 
 ## Verification and practical in-game checklist
 
-Run `python tools/validate_ronaldo_mod.py` for installed-schema SQL, inherited baseline checks, DDS decoding/DirectXTex, Lua 5.1 syntax, and deterministic event-sequence regression tests. `python tools/validate_all.py` validates the combined collection. Read `docs/Validation.md` for the actual recorded results.
+Run `python tools/validate_ronaldo_mod.py` for installed-schema SQL, inherited baseline checks, DDS decoding/DirectXTex, Lua 5.1 syntax, and deterministic event-sequence regression tests. `python tools/validate_all.py` validates the combined collection. Read `docs/Validation.md` for recorded results and [the audit report](docs/Audit.md) for fixes, source evidence and save compatibility. SQL, all balance values, type IDs, mod GUIDs and `CR7|v1|` remain unchanged. Package versions are now collection 23 / standalone 2, with minimum compatible save version 1. Native saves still require manual verification.
 
 1. Start with CP + one package. Confirm manual selection works, random AI excludes Ronaldo, Funchal is first, all portrait/flag/DOM art appears, and the CR7 button opens/closes at the supported screen size.
 2. Train versus purchase units. Confirm the Academy retains baseline Barracks XP, graduates carry the right origin, XP bonuses stack, and one Level 4 reward per city/era survives an upgrade and reload.

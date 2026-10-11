@@ -1,6 +1,6 @@
 # Original CR7 artwork
 
-`RelentlessJourney.png` was generated with Codex's built-in imagegen tool for this mod. `ArtPreview.png` previews the compiled composition and original programmatic icons. No downloaded photographs or protected club logos were used. The static leader/Dawn scene shares that original composition; its portrait is cropped for circular-sized selection icons. The route map and emblem/symbol atlases are original code-drawn art compiled by `tools/make_ronaldo_assets.py`.
+`RelentlessJourney.png` supplies the original leader artwork and selection portraits, preserved unchanged in the technical audit. `DawnJourney.png` is a separate cinematic career panorama generated with Codex's built-in imagegen tool; its exact generation/cleanup prompts are in [DawnPrompt.md](DawnPrompt.md). `ArtPreview.png` previews the original leader composition and programmatic icons. No downloaded photographs or protected club logos were used. The route map and emblem/symbol atlases are original code-drawn art compiled by `tools/make_ronaldo_assets.py`. Use `--dawn-only` to compile the new 1600×900 DXT5 Dawn texture without touching existing leader assets.
 
 Generation prompt:
 

@@ -5,6 +5,8 @@ Cool Wacky Civs is one Civilization V: Brave New World mod containing seventeen 
 ## Civilizations
 
 - [The Relentless Seven](CristianoRonaldo/README.md) — Cristiano Ronaldo earns Ambition through training and worthy victories, unlocking seven Career Chapters while surviving veterans reinvent themselves through upgrades. Player playable only.
+
+Collection v23 includes the [Ronaldo technical audit](CristianoRonaldo/docs/Audit.md): combat/upgrade/GP fixes, separate Dawn artwork, preserved saves and balance, and expanded regression tests. Ronaldo remains player-only.
 - [The Rou'ls Ascendancy](RoulsAscendancy/README.md) — Trent Rou'ls preserves experienced forces through Anima, reconstruction, and strategic body exchange.
 - [The Luna Network](LunaNetwork/README.md) — GPT-5.6 Luna chains construction refunds, expands with Packet Settlers, and rapidly deploys newly trained forces.
 - [The Terra Framework](TerraFramework/README.md) — GPT-5.6 Terra temporarily specializes cities, supports outgoing trade, and reconfigures Operatives for their terrain.

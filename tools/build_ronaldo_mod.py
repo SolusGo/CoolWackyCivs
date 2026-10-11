@@ -7,12 +7,14 @@ import zipfile
 from xml.etree import ElementTree as ET
 R=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(R/'.tools/python'))
-NAME='Cristiano Ronaldo - The Relentless Seven (v 1)'
+NAME='Cristiano Ronaldo - The Relentless Seven (v 2)'
 def manifest():
-    root=ET.Element('Mod',id='7ccdb315-1a25-4b24-ae17-777c071d7127',version='1')
+    root=ET.Element('Mod',id='7ccdb315-1a25-4b24-ae17-777c071d7127',version='2')
     props=ET.SubElement(root,'Properties')
     for k,v in dict(Name='Cristiano Ronaldo - The Relentless Seven',Teaser='Greatness is earned, refined and pursued again.',Description='Player-playable only. Seven Career Chapters, Ambition and veteran reinvention. Requires Brave New World and Community Patch v151.',Authors='SolusGo',AffectsSavedGames='1',MinCompatibleSaveVersion='1',SupportsSinglePlayer='1',SupportsMultiplayer='0',SupportsHotSeat='0',SupportsMac='0',ReloadUnitSystem='0').items():ET.SubElement(props,k).text=v
-    deps=ET.SubElement(root,'Dependencies');ET.SubElement(deps,'Mod',id='d1b6328c-ff44-4b0d-aad7-c657f83610cd',minversion='151',maxversion='999',title='Community Patch')
+    deps=ET.SubElement(root,'Dependencies')
+    ET.SubElement(deps,'Dlc',id='6DA07636-4123-4018-B643-6575B4EC336B',minversion='0',maxversion='999',title='Expansion - Brave New World')
+    ET.SubElement(deps,'Mod',id='d1b6328c-ff44-4b0d-aad7-c657f83610cd',minversion='151',maxversion='999',title='Community Patch')
     ET.SubElement(root,'References')
     blocks=ET.SubElement(root,'Blocks');ET.SubElement(blocks,'Mod',id='4c02158d-ad52-4b73-bf2a-555ce58a1e60',minversion='22',maxversion='999',title='Cool Wacky Civs (already includes Ronaldo)')
     files=ET.SubElement(root,'Files')

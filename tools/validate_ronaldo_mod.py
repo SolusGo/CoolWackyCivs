@@ -1,5 +1,6 @@
 """Validate CR7 against installed CP SQL, DDS, Lua 5.1 and deterministic event sequences."""
 from pathlib import Path
+import hashlib
 import re
 import sqlite3
 import sys
@@ -7,6 +8,8 @@ from xml.etree import ElementTree as ET
 R=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(R/'.tools/python'))
 from validate_mod import apply_current_cp_schema, directxtex_checks
+from build_mod import package_name
+from build_ronaldo_mod import NAME
 
 def database():
     game=Path.home()/"Documents/My Games/Sid Meier's Civilization 5"
@@ -26,6 +29,8 @@ def static(db):
     assert 'GameEvents.CombatResult.Add(onCombatResult)' in runtime
     civ=db.execute("SELECT * FROM Civilizations WHERE Type='CIVILIZATION_RELENTLESS_SEVEN'").fetchone()
     assert (civ['Playable'],civ['AIPlayable'])==(1,0)
+    for table in ('Units','Buildings','BuildingClasses','Policies','UnitPromotions'):
+        assert not db.execute(f"SELECT Type FROM {table} WHERE Type LIKE '%_CR7_%' GROUP BY Type HAVING COUNT(*)<>1").fetchall(),table
     unit=db.execute("SELECT * FROM Units WHERE Type='UNIT_CR7_COMPLETE_FORWARD'").fetchone()
     base=db.execute("SELECT * FROM Units WHERE Type='UNIT_CAVALRY'").fetchone()
     assert unit['Cost']==(base['Cost']*120+99)//100 and unit['Moves']==base['Moves']+1
@@ -67,9 +72,38 @@ def static(db):
             assert im.size==(row['IconSize']*int(row['IconsPerRow']),row['IconSize']*int(row['IconsPerColumn']))
             im.load()
     directxtex_checks(list(art.values()))
+    for name in ('CR7Dawn.dds','CR7Leader.dds'):
+        with Image.open(art[name]) as im:assert im.size==(1600,900)
+        assert art[name].read_bytes()[84:88]==b'DXT5'
+    assert art['CR7Dawn.dds'].read_bytes()!=art['CR7Leader.dds'].read_bytes(),'Dawn artwork must be distinct'
     print('PASS CR7 SQL: player-only, CP baseline inheritance, exact modifiers, localization, atlas slots')
 
-def mock(db,pace=100):
+def packaging():
+    standalone=ET.parse(R/'CristianoRonaldo'/f'{NAME}.modinfo').getroot()
+    collection=ET.parse(R/f'{package_name()}.modinfo').getroot()
+    for root,base in ((standalone,R/'CristianoRonaldo'),(collection,R)):
+        files=root.findall('Files/File')
+        assert len({f.text for f in files})==len(files),'duplicate manifest file'
+        for f in files:
+            if root is collection and not f.text.startswith('CristianoRonaldo/'):continue
+            path=base/f.text
+            assert hashlib.md5(path.read_bytes()).hexdigest().upper()==f.attrib['md5'],path
+            assert f.attrib['import']==str(int(path.suffix!='.sql' and path.name!='CR7Career.xml')),path
+        assert [p.text for p in root.findall('Actions/OnModActivated/UpdateDatabase') if 'CR7_' in p.text]==[
+            ('CristianoRonaldo/' if root is collection else '')+'SQL/'+p.name for p in sorted((R/'CristianoRonaldo/SQL').glob('*.sql'))]
+        entries=[e.attrib['file'] for e in root.findall('EntryPoints/EntryPoint')]
+        prefix='CristianoRonaldo/' if root is collection else ''
+        assert entries.count(prefix+'Lua/CR7Runtime.lua')==1
+        assert entries.count(prefix+'UI/CR7Career.xml')==1
+        assert root.find("Dependencies/Mod[@id='d1b6328c-ff44-4b0d-aad7-c657f83610cd']").attrib['minversion']=='151'
+        assert any(e.attrib['id'].lower()=='6da07636-4123-4018-b643-6575b4ec336b' for e in root.findall('Dependencies/Dlc'))
+        assert root.findtext('Properties/MinCompatibleSaveVersion')=='1'
+    blocker=standalone.find('Blocks/Mod')
+    assert blocker.attrib['id']==collection.attrib['id']
+    assert int(blocker.attrib['minversion'])<=int(collection.attrib['version'])<=int(blocker.attrib['maxversion'])
+    print('PASS CR7 packages: single runtimes, VFS, ordered SQL, hashes, BNW/CP dependencies, collection exclusion and save-version compatibility')
+
+def mock(db,pace=100,forced_ai=False):
     from lupa.lua51 import LuaRuntime
     lua=LuaRuntime(unpack_returned_tuples=True)
     types={};info={}
@@ -86,11 +120,13 @@ def mock(db,pace=100):
     lua.globals().FreePromotions=lua.table_from([lua.table_from(dict(r))for r in db.execute('select * from Unit_FreePromotions')])
     lua.execute((R/'tools/tests/ronaldo_mock.lua').read_text(encoding='utf-8'))
     runtime=(R/'CristianoRonaldo/Lua/CR7Runtime.lua').read_text(encoding='utf-8')
+    lua.globals().RuntimeSource=runtime
+    if forced_ai:lua.execute('for p=0,1 do Players[p].human=false;Players[p].civ=GameInfoTypes.CIVILIZATION_RELENTLESS_SEVEN end')
     lua.execute(runtime)
     return lua,runtime
 
 def main():
-    db=database();static(db)
+    db=database();static(db);packaging()
     from lupa.lua51 import LuaRuntime
     for path in (R/'CristianoRonaldo').rglob('*.lua'):
         lua=LuaRuntime();lua.execute('assert(loadstring(...))',path.read_text(encoding='utf-8'))
@@ -121,11 +157,29 @@ assert(not Controls.UnlockPopup.hidden and Controls.UnlockIcon.icon==17)
 Controls.UnlockClose.callbacks[1]();assert(Controls.UnlockIcon.icon==18)
 Controls.UnlockClose.callbacks[1]();assert(Controls.UnlockPopup.hidden)
 assert(ContextPtr.input(1,27));assert(Controls.Career.hidden)
+for n=1,7 do
+    Controls['Chapter'..n].callbacks[1]()
+    assert(Controls.ChapterTitle.text=='TXT_KEY_CR7_CHAPTER_'..n..'_TITLE')
+    assert(Controls.Story.text=='TXT_KEY_CR7_CHAPTER_'..n..'_STORY')
+end
+assert(string.find(Controls.Legacy.text,'0 / 60 additional Ambition',1,true))
+local displayed=Controls.Launcher.text
+Players[1].civ=GameInfoTypes.CIVILIZATION_RELENTLESS_SEVEN
+MapModData.CR7.AddAmbition(1,20,'test',false)
+assert(Controls.Launcher.text==displayed,'AI state changes cannot replace the human display')
+Players[0].human=false;Events.ActivePlayerTurnStart();assert(Controls.Launcher.hidden)
+Players[0].human=true;Events.ActivePlayerTurnStart();assert(not Controls.Launcher.hidden)
+ActivePlayer=1;Events.GameplaySetActivePlayer();assert(Controls.Launcher.hidden)
+ActivePlayer=0;Events.GameplaySetActivePlayer();assert(not Controls.Launcher.hidden and Controls.Career.hidden)
 MapModData.CR7=nil;Events.ActivePlayerTurnStart();assert(Controls.Launcher.hidden)
 ''')
     print('PASS CR7 UI callbacks: opens/closes, queued popups, city/diplomacy/culture blockers, absent-runtime safety')
     lua,runtime=mock(db)
     lua.execute((R/'tools/tests/ronaldo_lifecycle_assertions.lua').read_text(encoding='utf-8'))
+    lua,runtime=mock(db)
+    lua.execute((R/'tools/tests/ronaldo_audit_assertions.lua').read_text(encoding='utf-8'))
+    lua,runtime=mock(db,forced_ai=True)
+    lua.execute((R/'tools/tests/ronaldo_ai_assertions.lua').read_text(encoding='utf-8'))
     # Save/load in the middle of a capped turn, then continue ordinary play.
     lua,runtime=mock(db)
     lua.execute('''

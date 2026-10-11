@@ -10,9 +10,10 @@
 - Combat tests use `CombatResult` for identities, matching this CP source. Tests cover duplicate pre-kill callbacks, queued and nested combat, genuine melee captures, and conquest-flagged peace cessions. Movement refund executes after `BattleFinished`, without changing attack counts.
 - Tested Career UI callbacks using control/event mocks: launcher, close, Escape, chapter selections, queued unlocks, city/diplomacy/culture screen blockers, and safe behavior when the gameplay context is absent. No polling callback exists.
 - Tested Quick/Standard/Epic/Marathon threshold/reward scaling and saved mid-turn promotion limits. These are deterministic model tests, not runtime certification.
+- Audited tagged CP source and added source-ordered combat, immutable upgrade completion, free/foreign Forward and eliminated-origin reload, nested General points, guarded GP detection/purchases/migration, immediate Flight, razed Academy-origin and human-display regressions. Two forced-AI players complete a 60-turn model simulation; normal AI selection remains disabled by request. The original runtime fails the new damage-order test, while the corrected runtime passes.
 - Generated manifests with the Python builders and the actual installed Firaxis ModBuddy manifest task. Confirmed the combined entry points agree, resolve to real files and use the required field order. Package builds verify LZMA `.civ5mod` integrity.
 
-The focused executable check is `python tools/validate_ronaldo_mod.py`; the collection suite is `python tools/validate_all.py`. Builders produce the standalone v1 and collection v22 packages under `dist/`.
+The focused executable check is `python tools/validate_ronaldo_mod.py`; the collection suite is `python tools/validate_all.py`. Builders produce standalone v2 and collection v23 packages under `dist/`. The focused check now verifies distinct 1600×900 DXT5 Dawn art, both manifests' hashes/VFS/order/dependencies/exclusion and minimum compatible save version 1. See [Audit.md](Audit.md) for the full fix and compatibility record.
 
 ## Not performed
 
@@ -22,7 +23,7 @@ No native Civilization V game was launched or played for this implementation. Ac
 
 1. Military Gold purchase discounts are immediate 5% rebates because CP's native unit-cost policy also discounts civilians. Up-front affordability and displayed prices remain full cost.
 2. Captain's ranged resistance uses the native +5% ranged defensive-strength field; CP does not expose a flat damage multiplier for this specific aura.
-3. General/Admiral births are inferred from a new GP plus a corresponding CP threshold increase. Death/expenditure and subsequent GP creation flush pending births, but unrelated external/teammate threshold changes can interfere.
+3. Generals use the native own-player birth count; GP purchases use CityTrained. Other Admirals still require guarded threshold inference, and changes that exactly imitate a native increment remain ambiguous. Old pending General records use that fallback once.
 4. Decisive Night participants are surviving military combatants with identifiable opposing teams since that war's declaration; anonymous city-bombardment callbacks are excluded.
 5. The leader is static art and the Forward uses the standard Cavalry world model with custom portrait/flag. The route map is illustrative.
 
