@@ -258,6 +258,8 @@ def check_ui_and_lua():
                          "MasayaLeader.dds", "MasayaDawn.dds", "PSJLeader.dds", "PSJDawn.dds"}:
             assert (width, height) == (1600, 900), "Static leader scene must be 1600x900"
     directxtex_checks(dds_paths)
+    from standardize_icons import validate as validate_icons
+    validate_icons(ROOT)
     print(f"PASS XML/control wiring, runtime hooks, DDS decode and Lua 5.1 syntax ({len(lua_files)} scripts)")
 
 

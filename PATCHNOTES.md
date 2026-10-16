@@ -1,5 +1,11 @@
 # Patch Notes
 
+## Version 26 — Consistent civilization icons — 2026-10-16
+
+- Standardized all eighteen leaders, civilization emblems and custom unit/building portraits with centred circular artwork and matching beveled gold rims.
+- Leader artwork occupies 75% of each atlas slot: a 96px circle inside the 128px selection portrait fits the native 100px civilization row. Other colour icons use 90% of their slot. All registered atlas dimensions and portrait indices are preserved.
+- Retained lossless atlas masters and added an automatic build finishing step plus decoded DDS dimension, padding and gold-rim validation. Alpha masks, unit flags and promotion tier overlays retain their native treatment.
+
 ## Version 25 — Paradise stability audit — 2026-10-12
 
 - Fixed Journey popup requests leaving stale blockers; reconcile actual BNW/CP screen visibility on lifecycle/map-return events, honor Culture Overview's completion-before-dequeue ordering, and preserve nested fullscreen blockers. Added modal ownership, parent-hide and shutdown handling; pending cinematics still require explicit acknowledgement. No polling or timers.

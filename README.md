@@ -2,6 +2,8 @@
 
 Cool Wacky Civs is one Civilization V: Brave New World mod containing eighteen civilizations built for the Community Patch. The collection has one ModBuddy solution, one project and one combined deployable package; each civilization keeps its own gameplay and implementation README. The Kingdoms, The Shattered Empire, The Last City and The Relentless Seven also include pure-file standalone builds.
 
+Collection v26 gives every custom leader, civilization and unit/building icon consistent gold framing and centred padding. See the [icon build notes](docs/IconConsistency.md) for dimensions, reproducible atlas masters and verification.
+
 ## Civilizations
 
 - [The Boy Who Touched Paradise](TheBoyWhoTouchedParadise/README.md) — a separate Lionel Messi civilization whose Dreams, Moments of Magic, national expectation and recovery lead through three acts to an illustrated Final Peak. El Diez inspires cities throughout the journey. Human playable only; Eternal Number Ten remains independent.

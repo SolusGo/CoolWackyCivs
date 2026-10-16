@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="25">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="26">
   <Properties>
     <Name>Cool Wacky Civs</Name>
     <Teaser>Eighteen civilizations. Eighteen stranger ways to rule.</Teaser>
@@ -36,25 +36,25 @@
     <File md5="A1BEE4F67D5D5A742D2E06C325EF4697" import="1">PaulsoaresJr/Art/PSJAlpha64.dds</File>
     <File md5="D0D5A278A34462778F4F2B61735B6878" import="1">PaulsoaresJr/Art/PSJAlpha80.dds</File>
     <File md5="034D46298808F335F75591C1614B2176" import="1">PaulsoaresJr/Art/PSJDawn.dds</File>
-    <File md5="D596BCAE9AF4F539E78814D25384CBC1" import="1">PaulsoaresJr/Art/PSJIcon128.dds</File>
-    <File md5="D5442AA53A7AFE5793242CD09C135D63" import="1">PaulsoaresJr/Art/PSJIcon16.dds</File>
-    <File md5="09CBE532326F4A44AE0E91E1F8948B68" import="1">PaulsoaresJr/Art/PSJIcon24.dds</File>
-    <File md5="816E9F09DFE30B6E44C6577F61C64E4F" import="1">PaulsoaresJr/Art/PSJIcon256.dds</File>
-    <File md5="31302E9D5EC3FDC9B1A4947A46918304" import="1">PaulsoaresJr/Art/PSJIcon32.dds</File>
-    <File md5="24755639B110A7ADBBDA18D7DACCF93E" import="1">PaulsoaresJr/Art/PSJIcon45.dds</File>
-    <File md5="BFEFC0E6CD33945309012D3F22C13997" import="1">PaulsoaresJr/Art/PSJIcon48.dds</File>
-    <File md5="A9D53152F4D21863A89A29C1913919A5" import="1">PaulsoaresJr/Art/PSJIcon64.dds</File>
-    <File md5="40EFECB286EA6B04CD8C8D2485AAEE09" import="1">PaulsoaresJr/Art/PSJIcon80.dds</File>
+    <File md5="3199A9A046BB22985F5E75132F413B08" import="1">PaulsoaresJr/Art/PSJIcon128.dds</File>
+    <File md5="E43A6AEE6DC50DA570929440F61EF433" import="1">PaulsoaresJr/Art/PSJIcon16.dds</File>
+    <File md5="DFD4C9C42BBED04B09D3D529441A1B57" import="1">PaulsoaresJr/Art/PSJIcon24.dds</File>
+    <File md5="FBDA3C206E87EA10B76BA44C784EBB40" import="1">PaulsoaresJr/Art/PSJIcon256.dds</File>
+    <File md5="AD3EEABC7CCD9D82F849BBFC8E6AE2A2" import="1">PaulsoaresJr/Art/PSJIcon32.dds</File>
+    <File md5="BE41BBB92D2A1CEE420C7BC66B732478" import="1">PaulsoaresJr/Art/PSJIcon45.dds</File>
+    <File md5="AD4191B513F56ED697A41BF133288A3A" import="1">PaulsoaresJr/Art/PSJIcon48.dds</File>
+    <File md5="F6BD5DF0B1F1F100B850C32460BC64AC" import="1">PaulsoaresJr/Art/PSJIcon64.dds</File>
+    <File md5="02F35E8C9AB75F2E88D251DBE7A4E918" import="1">PaulsoaresJr/Art/PSJIcon80.dds</File>
     <File md5="A6DB82F9682065F10F079ECD50DEB0F1" import="1">PaulsoaresJr/Art/PSJLeader.dds</File>
     <File md5="3B4D31AB9EE1645FE2A51FD1A2EECD21" import="1">PaulsoaresJr/Art/PSJLeaderScene.xml</File>
     <File md5="17F9EBE26F53ECF7BC36D756872DC5A1" import="1">PaulsoaresJr/Art/PSJMap.dds</File>
-    <File md5="3A2D134B07D307DBA97EF1F8CB1277B1" import="1">PaulsoaresJr/Art/PSJObjects128.dds</File>
-    <File md5="82E0C78BBA6B657A032025245476C2C5" import="1">PaulsoaresJr/Art/PSJObjects16.dds</File>
-    <File md5="35640F3E2B07BA982626E026FBF9ECC9" import="1">PaulsoaresJr/Art/PSJObjects256.dds</File>
-    <File md5="B6D307AFD447B5C773CFF42176BC65DE" import="1">PaulsoaresJr/Art/PSJObjects32.dds</File>
-    <File md5="F9ECE08A30D96133ADBA3150F61A0432" import="1">PaulsoaresJr/Art/PSJObjects45.dds</File>
-    <File md5="9DCD1EB0C8CB519A3F7A7D9BFD33756F" import="1">PaulsoaresJr/Art/PSJObjects64.dds</File>
-    <File md5="5A25A21E7EC53AEB62FE1E5679C02DA7" import="1">PaulsoaresJr/Art/PSJObjects80.dds</File>
+    <File md5="740B415F0D0C88BEA97EDF8C75DAAFB0" import="1">PaulsoaresJr/Art/PSJObjects128.dds</File>
+    <File md5="2FBCB00E4EDC8B2CAA7C64984ACCDD6A" import="1">PaulsoaresJr/Art/PSJObjects16.dds</File>
+    <File md5="F6143481F0D8722F2581E42B89AACFD9" import="1">PaulsoaresJr/Art/PSJObjects256.dds</File>
+    <File md5="8C0C119C81523F523B7D30B17A9AFE5C" import="1">PaulsoaresJr/Art/PSJObjects32.dds</File>
+    <File md5="8370981B27FFD3EAB130C25607A8C88C" import="1">PaulsoaresJr/Art/PSJObjects45.dds</File>
+    <File md5="C05F8DF6B8A09D11DA61ADC255F820F5" import="1">PaulsoaresJr/Art/PSJObjects64.dds</File>
+    <File md5="A6A06B694E34C398C567394BF698EF0F" import="1">PaulsoaresJr/Art/PSJObjects80.dds</File>
     <File md5="229D3300D84F8F8B06AD95B5CBC957B5" import="1">PaulsoaresJr/Art/PSJUnitFlag32.dds</File>
     <File md5="EAF0D1DCFDE948DBBED2246866E5DF76" import="1">PaulsoaresJr/Lua/PSJRuntime.lua</File>
     <File md5="D678CAC485751773CE2C1A01AD7353A9" import="0">PaulsoaresJr/SQL/00_PSJ_Core.sql</File>
@@ -70,25 +70,25 @@
     <File md5="9ED90C9F8DF89EC565FCE7868DE20F34" import="1">CapanoCircuit/Art/CapanoAlpha48.dds</File>
     <File md5="4561F894338EAB8F71230861C0BCFEC4" import="1">CapanoCircuit/Art/CapanoAlpha64.dds</File>
     <File md5="95188580C46EC952F457A6CEA1E72D1A" import="1">CapanoCircuit/Art/CapanoAlpha80.dds</File>
-    <File md5="53D797BE3FB526CC957936CF197B408A" import="1">CapanoCircuit/Art/CapanoIcon128.dds</File>
-    <File md5="E74CA3B55EF83A46B6341E799DBBF52A" import="1">CapanoCircuit/Art/CapanoIcon16.dds</File>
-    <File md5="B09F9AFD35F89A45EF39B5150D370A2F" import="1">CapanoCircuit/Art/CapanoIcon24.dds</File>
-    <File md5="F699C46AE0F257A2EC97BF17F23B9122" import="1">CapanoCircuit/Art/CapanoIcon256.dds</File>
-    <File md5="FB3353E11F52103AB094BD8C84142459" import="1">CapanoCircuit/Art/CapanoIcon32.dds</File>
-    <File md5="AE645A6BB0F068C26F02040FE390F0BE" import="1">CapanoCircuit/Art/CapanoIcon45.dds</File>
-    <File md5="1D2F15C11160CA07608C63CD72B64229" import="1">CapanoCircuit/Art/CapanoIcon48.dds</File>
-    <File md5="D5CE703D9179452997B6AEF4AA2816D7" import="1">CapanoCircuit/Art/CapanoIcon64.dds</File>
-    <File md5="F1E53E717EBB6CD633EAF16E2B1A9334" import="1">CapanoCircuit/Art/CapanoIcon80.dds</File>
+    <File md5="CC47E12472753B6A3A397D570834B810" import="1">CapanoCircuit/Art/CapanoIcon128.dds</File>
+    <File md5="4689677BB25897E35608A7C05277A567" import="1">CapanoCircuit/Art/CapanoIcon16.dds</File>
+    <File md5="52E8415E32931D59687832628C254EE9" import="1">CapanoCircuit/Art/CapanoIcon24.dds</File>
+    <File md5="206B42FA31885F82DC1FC82F607E20AF" import="1">CapanoCircuit/Art/CapanoIcon256.dds</File>
+    <File md5="A8124D7A1D38EEEF8B6715F61853CECD" import="1">CapanoCircuit/Art/CapanoIcon32.dds</File>
+    <File md5="26BADE20BA286C003106FC75DAB0D323" import="1">CapanoCircuit/Art/CapanoIcon45.dds</File>
+    <File md5="1BDACECD09C16BEE1CFCDBC0F50FB124" import="1">CapanoCircuit/Art/CapanoIcon48.dds</File>
+    <File md5="23A14B5640F36984959710A09042D2FA" import="1">CapanoCircuit/Art/CapanoIcon64.dds</File>
+    <File md5="FE56D12B40AA35DC5F015F58E2A3A7F9" import="1">CapanoCircuit/Art/CapanoIcon80.dds</File>
     <File md5="92810519467AD5553F3A4A730339FF7B" import="1">CapanoCircuit/Art/CapanoLeader.dds</File>
     <File md5="EAA456120ABB04034E299C6FDAD9C577" import="1">CapanoCircuit/Art/CapanoLeaderScene.xml</File>
     <File md5="F42D31B98CE867E1BE6CCAF936A1422D" import="1">CapanoCircuit/Art/CapanoMap.dds</File>
-    <File md5="CEBB5ED37EFD2658F7000F60AA719567" import="1">CapanoCircuit/Art/CapanoObjects128.dds</File>
-    <File md5="0417C9BE62075F4913946A55E26EA86C" import="1">CapanoCircuit/Art/CapanoObjects16.dds</File>
-    <File md5="E166128642DCBD413019F46968FD52C2" import="1">CapanoCircuit/Art/CapanoObjects256.dds</File>
-    <File md5="D554671D56E16DAC7967A1011113A35B" import="1">CapanoCircuit/Art/CapanoObjects32.dds</File>
-    <File md5="446E5A1B2B0E3FABA9C7CBD65DB91618" import="1">CapanoCircuit/Art/CapanoObjects45.dds</File>
-    <File md5="38DD78110769A4CA508F453601B7A6E4" import="1">CapanoCircuit/Art/CapanoObjects64.dds</File>
-    <File md5="D22A68FCA5E1609DAE664025556FF73B" import="1">CapanoCircuit/Art/CapanoObjects80.dds</File>
+    <File md5="DA9E5F026B66C721A806B3DC27771E03" import="1">CapanoCircuit/Art/CapanoObjects128.dds</File>
+    <File md5="B90CAF5C95DEC771D1188FA440E0D04E" import="1">CapanoCircuit/Art/CapanoObjects16.dds</File>
+    <File md5="015DF0759ACB1F6CD45CDBAE4420FA5D" import="1">CapanoCircuit/Art/CapanoObjects256.dds</File>
+    <File md5="99B083EBD0C565250B8584802E1DFA7D" import="1">CapanoCircuit/Art/CapanoObjects32.dds</File>
+    <File md5="18ED09421F0A35433700A59F1CC8F284" import="1">CapanoCircuit/Art/CapanoObjects45.dds</File>
+    <File md5="CC62154AEA1C3F93B24325FE3B6FFBAD" import="1">CapanoCircuit/Art/CapanoObjects64.dds</File>
+    <File md5="983B5E8CF1EA6E93C20E2DEB286D9602" import="1">CapanoCircuit/Art/CapanoObjects80.dds</File>
     <File md5="4538D1584814413F2D4C78B52C5BC9F8" import="1">CapanoCircuit/Art/CapanoUnitFlag32.dds</File>
     <File md5="9137E0A3F948655F7B798EF5BC7C7162" import="1">CapanoCircuit/Lua/CapanoRuntime.lua</File>
     <File md5="13FA6941DE4F2D5F0A3482A027A9F754" import="0">CapanoCircuit/SQL/00_Capano_Core.sql</File>
@@ -105,25 +105,25 @@
     <File md5="3E0CBAEAB8B518B965FF9DC34907B669" import="1">FilthyRealm/Art/FilthyAlpha64.dds</File>
     <File md5="FB18CF11BCEAF9E39B2E8768FDAF94F9" import="1">FilthyRealm/Art/FilthyAlpha80.dds</File>
     <File md5="2158EC2B6609FE3CCD741A6BC0CFD73E" import="1">FilthyRealm/Art/FilthyDawn.dds</File>
-    <File md5="A409D36321F2B6A8696E2FF0A9D48396" import="1">FilthyRealm/Art/FilthyIcon128.dds</File>
-    <File md5="0F3A5A3C6B0C4FAC9B12E181CEB8ABE3" import="1">FilthyRealm/Art/FilthyIcon16.dds</File>
-    <File md5="CAD2063128331A0B123FA9302D6C946C" import="1">FilthyRealm/Art/FilthyIcon24.dds</File>
-    <File md5="8F61B3221B899C0B2A0627D7C2BE8A02" import="1">FilthyRealm/Art/FilthyIcon256.dds</File>
-    <File md5="B96D0B4547105C1A7095A2403020722F" import="1">FilthyRealm/Art/FilthyIcon32.dds</File>
-    <File md5="BB344224BC07445E3E7F6F232953E4A4" import="1">FilthyRealm/Art/FilthyIcon45.dds</File>
-    <File md5="EE2675ACB1F4397DDAC8DEAE5531A31E" import="1">FilthyRealm/Art/FilthyIcon48.dds</File>
-    <File md5="38B512CC58EFE370021C8CC60705D6A3" import="1">FilthyRealm/Art/FilthyIcon64.dds</File>
-    <File md5="B9D1063995D11E63784EA654BAA858A0" import="1">FilthyRealm/Art/FilthyIcon80.dds</File>
+    <File md5="EB1D8C8AE8DD3F003516637706F8552B" import="1">FilthyRealm/Art/FilthyIcon128.dds</File>
+    <File md5="938CD9E7DEE35F6B5880780A8A773D96" import="1">FilthyRealm/Art/FilthyIcon16.dds</File>
+    <File md5="C7C96AF2F4C2750F1DCC23E4936CD33C" import="1">FilthyRealm/Art/FilthyIcon24.dds</File>
+    <File md5="6BDB76EF378459DFC4D655B0B98583BA" import="1">FilthyRealm/Art/FilthyIcon256.dds</File>
+    <File md5="249CEDA835A3DF42505C6C2716AA6ABD" import="1">FilthyRealm/Art/FilthyIcon32.dds</File>
+    <File md5="8E165667CF01E615260BBEFF1F29D59C" import="1">FilthyRealm/Art/FilthyIcon45.dds</File>
+    <File md5="509CAC18788B7858D2B228992E450A4B" import="1">FilthyRealm/Art/FilthyIcon48.dds</File>
+    <File md5="B59B9111120E406EC4E9882BEF5DDB1C" import="1">FilthyRealm/Art/FilthyIcon64.dds</File>
+    <File md5="CB56E040D88C9AADE7687AB0F2F9291D" import="1">FilthyRealm/Art/FilthyIcon80.dds</File>
     <File md5="57759718A54B7041F2F9B0B91372277A" import="1">FilthyRealm/Art/FilthyLeader.dds</File>
     <File md5="20B4E48917F4C1F143571B6D8CC8912A" import="1">FilthyRealm/Art/FilthyLeaderScene.xml</File>
     <File md5="9F8C759D3357593235C5C66CC8D9C574" import="1">FilthyRealm/Art/FilthyMap.dds</File>
-    <File md5="B4D98AD987C34B195B18A040560EE765" import="1">FilthyRealm/Art/FilthyObjects128.dds</File>
-    <File md5="11B4FD9D6614418F917D2C6F0763A74C" import="1">FilthyRealm/Art/FilthyObjects16.dds</File>
-    <File md5="4C7C0564D6FD36800272068BB670DD77" import="1">FilthyRealm/Art/FilthyObjects256.dds</File>
-    <File md5="5208648A002DFCB27674ED1284C3080C" import="1">FilthyRealm/Art/FilthyObjects32.dds</File>
-    <File md5="6CC52E901518D09D9E1BD44DD4BAFCF3" import="1">FilthyRealm/Art/FilthyObjects45.dds</File>
-    <File md5="15E516E0676FC827DF38D2E459FEFCFB" import="1">FilthyRealm/Art/FilthyObjects64.dds</File>
-    <File md5="899837750DF75D2439DE82C04E985E88" import="1">FilthyRealm/Art/FilthyObjects80.dds</File>
+    <File md5="62D1161911CB8994D21AA2D816C494E6" import="1">FilthyRealm/Art/FilthyObjects128.dds</File>
+    <File md5="0C70111BE24E460425E29E2E1B8A26B2" import="1">FilthyRealm/Art/FilthyObjects16.dds</File>
+    <File md5="1287FD58FE4B962624E2472E0D67313E" import="1">FilthyRealm/Art/FilthyObjects256.dds</File>
+    <File md5="A7050B7DC0014FCBC600BC57DBA1DED1" import="1">FilthyRealm/Art/FilthyObjects32.dds</File>
+    <File md5="C4F9EBF38951B35852FFF5230592B6B9" import="1">FilthyRealm/Art/FilthyObjects45.dds</File>
+    <File md5="A1AE0204B0E1EC837F81ACE905503B9E" import="1">FilthyRealm/Art/FilthyObjects64.dds</File>
+    <File md5="2A2DAEB3B5D6C41F23CE85E224B62D5D" import="1">FilthyRealm/Art/FilthyObjects80.dds</File>
     <File md5="3B8641E929895C36120D21AAE32133E3" import="1">FilthyRealm/Art/FilthyUnitFlag32.dds</File>
     <File md5="5A5DBE41F4741917C67605EF394272EC" import="1">FilthyRealm/Lua/FilthyRuntime.lua</File>
     <File md5="69A2C036747B8610913175187C9F5C16" import="0">FilthyRealm/SQL/00_Filthy_Core.sql</File>
@@ -142,28 +142,28 @@
     <File md5="DCDC2FA054AF3D0FE3FFB67F0F971D3E" import="1">DualOrder/Art/DualOrderAlpha64.dds</File>
     <File md5="78B3CD20EE2CB72E2E29AFC002E08590" import="1">DualOrder/Art/DualOrderAlpha80.dds</File>
     <File md5="559F15484232DA9C7E959BA0D637E054" import="1">DualOrder/Art/DualOrderDawn.dds</File>
-    <File md5="0F3063B164744774B7CD137E338C6B0F" import="1">DualOrder/Art/DualOrderIcon128.dds</File>
-    <File md5="7F7CA65E62DA32393D5FF971549C2648" import="1">DualOrder/Art/DualOrderIcon16.dds</File>
-    <File md5="219D656D9CB8F16196156D8DC99B5713" import="1">DualOrder/Art/DualOrderIcon24.dds</File>
-    <File md5="6E122088458D933C57204DE88EFE9F6C" import="1">DualOrder/Art/DualOrderIcon256.dds</File>
-    <File md5="8E55E458EB501EA06A694A113D0A428B" import="1">DualOrder/Art/DualOrderIcon32.dds</File>
-    <File md5="F710E03295259258D28D6460B1D32060" import="1">DualOrder/Art/DualOrderIcon45.dds</File>
-    <File md5="CA170220595BD061A177873DA6C9F287" import="1">DualOrder/Art/DualOrderIcon48.dds</File>
-    <File md5="1C3858A73A66F446558F7263C47A5933" import="1">DualOrder/Art/DualOrderIcon64.dds</File>
-    <File md5="311FF655F9AFB8BF392AB453BD4C4FCA" import="1">DualOrder/Art/DualOrderIcon80.dds</File>
+    <File md5="58F384E447E3EF0914D8B2C421362437" import="1">DualOrder/Art/DualOrderIcon128.dds</File>
+    <File md5="5AE262C56338DF38C54A95C7A9CD23E4" import="1">DualOrder/Art/DualOrderIcon16.dds</File>
+    <File md5="7E25B607D992B1BE8614901D66820CC4" import="1">DualOrder/Art/DualOrderIcon24.dds</File>
+    <File md5="D87BDC886B351511C10A59B89A2B501C" import="1">DualOrder/Art/DualOrderIcon256.dds</File>
+    <File md5="2CC8DAE951D64CB36AEB3BA25265C675" import="1">DualOrder/Art/DualOrderIcon32.dds</File>
+    <File md5="72EB0C385B6253EA77CB1623B76F70D4" import="1">DualOrder/Art/DualOrderIcon45.dds</File>
+    <File md5="FB364736B2D3D269B6D8464B7E68117A" import="1">DualOrder/Art/DualOrderIcon48.dds</File>
+    <File md5="750D0CD5FCEF7F2D4AF312CF0128AAFE" import="1">DualOrder/Art/DualOrderIcon64.dds</File>
+    <File md5="DEF6BA6DF243B98B078F7313400FAB94" import="1">DualOrder/Art/DualOrderIcon80.dds</File>
     <File md5="B665FF475F317B6895AC9AEF61272579" import="1">DualOrder/Art/DualOrderLeader.dds</File>
-    <File md5="EF09ECAA9F3FFEBADA3D182DF2D26FC1" import="1">DualOrder/Art/DualOrderLeader128.dds</File>
-    <File md5="D71B885A80ACFC0AA242C6FC093B4812" import="1">DualOrder/Art/DualOrderLeader256.dds</File>
-    <File md5="8DE4A730FBA419BBC9564EAA132002B8" import="1">DualOrder/Art/DualOrderLeader64.dds</File>
+    <File md5="BC1F101224FF9E15F9A8D76B48608AA2" import="1">DualOrder/Art/DualOrderLeader128.dds</File>
+    <File md5="4E25B9DB72453F16DE92FE24968AC277" import="1">DualOrder/Art/DualOrderLeader256.dds</File>
+    <File md5="66565DA0CBE9DF9ECBEA8BE013806CED" import="1">DualOrder/Art/DualOrderLeader64.dds</File>
     <File md5="AD49919E2130D2E9753C72B745847E04" import="1">DualOrder/Art/DualOrderLeaderScene.xml</File>
     <File md5="B8CA69BB2C1BDA54ACC9E881E482F786" import="1">DualOrder/Art/DualOrderMap.dds</File>
-    <File md5="0E9B4D4651BD9DB681869CE34A8D47FE" import="1">DualOrder/Art/DualOrderObjects128.dds</File>
-    <File md5="BEDA3AA2C0CCF95FC8733900DFA5D516" import="1">DualOrder/Art/DualOrderObjects16.dds</File>
-    <File md5="E682A844C0D98C713D9953EBB8DDA30D" import="1">DualOrder/Art/DualOrderObjects256.dds</File>
-    <File md5="4FCC336263B451ECD5AAC752B1C10C59" import="1">DualOrder/Art/DualOrderObjects32.dds</File>
-    <File md5="68ACA9FE7E2788123D288A68B4E6EAA4" import="1">DualOrder/Art/DualOrderObjects45.dds</File>
-    <File md5="79316044D8EF577367A0496506C81332" import="1">DualOrder/Art/DualOrderObjects64.dds</File>
-    <File md5="006C2EF67EAE6D4938388E35738EA936" import="1">DualOrder/Art/DualOrderObjects80.dds</File>
+    <File md5="6B03068B38F48E9CB5E4142C0E59E2CC" import="1">DualOrder/Art/DualOrderObjects128.dds</File>
+    <File md5="D8F770E850CCBD9CA4EB436C0CA90E38" import="1">DualOrder/Art/DualOrderObjects16.dds</File>
+    <File md5="15C8D7A0D4D83A7350D822357DBAE9DE" import="1">DualOrder/Art/DualOrderObjects256.dds</File>
+    <File md5="D74A6ABED3F9E1AAFC7A0A2013499E22" import="1">DualOrder/Art/DualOrderObjects32.dds</File>
+    <File md5="F459B4228A38D67DFCED3D33E3FEC80D" import="1">DualOrder/Art/DualOrderObjects45.dds</File>
+    <File md5="08BACE108EB91B60A8CB076E54D5B987" import="1">DualOrder/Art/DualOrderObjects64.dds</File>
+    <File md5="400D7D07B9D97FF3168988808661CCF0" import="1">DualOrder/Art/DualOrderObjects80.dds</File>
     <File md5="B98A88DAAE7602E3E1607658B0075084" import="1">DualOrder/Art/DualOrderUnitFlag32.dds</File>
     <File md5="7891B46A6560135AAA2C4F2F6B1C6BA0" import="1">DualOrder/Lua/DualOrderRuntime.lua</File>
     <File md5="B3F2B9647A0AC986CBD0CDE171D27122" import="0">DualOrder/SQL/00_DualOrder_Core.sql</File>
@@ -178,16 +178,16 @@
     <File md5="C7EB82B01829E975B5D66507F5797EBF" import="1">LunaNetwork/Art/LunaAlpha32.dds</File>
     <File md5="7327EC4D993B02B4E57037BD1C55013C" import="1">LunaNetwork/Art/LunaAlpha48.dds</File>
     <File md5="A2864B33CB7B8EA7CF4780CC3CB23B81" import="1">LunaNetwork/Art/LunaAlpha64.dds</File>
-    <File md5="A55ACBAA4A7D19B198634DFF26844921" import="1">LunaNetwork/Art/LunaIcon128.dds</File>
-    <File md5="AE27DAC15F85EEB455C439F17102D93D" import="1">LunaNetwork/Art/LunaIcon256.dds</File>
-    <File md5="C3A1CDFF6F700D85E6C99B71FCF3F1DA" import="1">LunaNetwork/Art/LunaIcon32.dds</File>
-    <File md5="F767C615D96D00FB1167429E2E9BF179" import="1">LunaNetwork/Art/LunaIcon45.dds</File>
-    <File md5="DF92F6947B1595008FFA32F20338B24B" import="1">LunaNetwork/Art/LunaIcon64.dds</File>
-    <File md5="04B7EC4607BD4C5DBFCD0E783922486B" import="1">LunaNetwork/Art/LunaIcon80.dds</File>
+    <File md5="21A191FF9A53F1EE800103A67950C9B2" import="1">LunaNetwork/Art/LunaIcon128.dds</File>
+    <File md5="EF378A5C9DA640186401ACDEC577E8C8" import="1">LunaNetwork/Art/LunaIcon256.dds</File>
+    <File md5="76DA4C58E2823EB99DDF80ED3E507F80" import="1">LunaNetwork/Art/LunaIcon32.dds</File>
+    <File md5="E0D74BE68569FA216A3DC0D889DF0052" import="1">LunaNetwork/Art/LunaIcon45.dds</File>
+    <File md5="2E8228F1CC5A8DA7AA9EE69B00A95ACF" import="1">LunaNetwork/Art/LunaIcon64.dds</File>
+    <File md5="CB7D15EE0BAD101FED79EDE12A8452A1" import="1">LunaNetwork/Art/LunaIcon80.dds</File>
     <File md5="EA6CD2C412F75330930203751BACA71B" import="1">LunaNetwork/Art/LunaLeader.dds</File>
-    <File md5="C70AE6AAFDA06A0B3A22494AD44E4D9C" import="1">LunaNetwork/Art/LunaLeader128.dds</File>
-    <File md5="395EC72FA27BA7D8B059445079EFC399" import="1">LunaNetwork/Art/LunaLeader256.dds</File>
-    <File md5="40AFB0BE4DE73ECDDE8C6E9D70CE3C50" import="1">LunaNetwork/Art/LunaLeader64.dds</File>
+    <File md5="C079D77F5892BAE40AEDDF411A84533E" import="1">LunaNetwork/Art/LunaLeader128.dds</File>
+    <File md5="4D867C1363B073E2651552595CEBB60A" import="1">LunaNetwork/Art/LunaLeader256.dds</File>
+    <File md5="D2B3C8973CEEE1B69C19EE8E8A82C3B7" import="1">LunaNetwork/Art/LunaLeader64.dds</File>
     <File md5="10D9D1D4A5C122959421D5D882A0F87D" import="1">LunaNetwork/Art/LunaLeaderScene.xml</File>
     <File md5="59B48554C6617645E50B2AE1B91AE732" import="1">LunaNetwork/Lua/LunaLowLatency.lua</File>
     <File md5="DE2BD3BF59675AADA5F4C8876D91DAC0" import="0">LunaNetwork/SQL/00_Luna_Core.sql</File>
@@ -200,16 +200,16 @@
     <File md5="0C39D6EBAD5179314BDC42A0AB241CEA" import="1">RoulsAscendancy/Art/RoulsAlpha32.dds</File>
     <File md5="B22325E98D573B05881461B52A78B4A5" import="1">RoulsAscendancy/Art/RoulsAlpha48.dds</File>
     <File md5="22B9B9CA49AD5ABBA9B78FF4DB855200" import="1">RoulsAscendancy/Art/RoulsAlpha64.dds</File>
-    <File md5="AE1616B7AB03A5EC4541FBD9933123F4" import="1">RoulsAscendancy/Art/RoulsIcon128.dds</File>
-    <File md5="A2348C8902CB54510542AE3AC2240C60" import="1">RoulsAscendancy/Art/RoulsIcon256.dds</File>
-    <File md5="C57B3ECE2CB3AC41852ABAD22078765D" import="1">RoulsAscendancy/Art/RoulsIcon32.dds</File>
-    <File md5="16CF5F35143E543FC77BB9B6B8BCC224" import="1">RoulsAscendancy/Art/RoulsIcon45.dds</File>
-    <File md5="09FD076EB2AB5DBF8FBD848EC3E32E15" import="1">RoulsAscendancy/Art/RoulsIcon64.dds</File>
-    <File md5="FA51C4862C296FA69F2F2C4B56C1B9CC" import="1">RoulsAscendancy/Art/RoulsIcon80.dds</File>
+    <File md5="5DCC33F512DAC08FF850C5E417F27B05" import="1">RoulsAscendancy/Art/RoulsIcon128.dds</File>
+    <File md5="C8FCECEEA17F68FEB8CB51E9A6B621D4" import="1">RoulsAscendancy/Art/RoulsIcon256.dds</File>
+    <File md5="EE556AFD1BE997DC8000B155674CAC46" import="1">RoulsAscendancy/Art/RoulsIcon32.dds</File>
+    <File md5="D703B379AE91E774E1AA202C335AA94B" import="1">RoulsAscendancy/Art/RoulsIcon45.dds</File>
+    <File md5="FACD0A479FB0626EDF9D21EF6EB0E907" import="1">RoulsAscendancy/Art/RoulsIcon64.dds</File>
+    <File md5="AF685074C3E67A22CA92056A001DE1E3" import="1">RoulsAscendancy/Art/RoulsIcon80.dds</File>
     <File md5="0ED6F7AC513B6F8752ECB8AAF03EFAC0" import="1">RoulsAscendancy/Art/RoulsLeader.dds</File>
-    <File md5="7F60E56D577F10B359FC522C991ED373" import="1">RoulsAscendancy/Art/RoulsLeader128.dds</File>
-    <File md5="22CF50D090A8E0B118060B4C64C464AF" import="1">RoulsAscendancy/Art/RoulsLeader256.dds</File>
-    <File md5="1495571C56D7FE4631755471521B28FA" import="1">RoulsAscendancy/Art/RoulsLeader64.dds</File>
+    <File md5="F4A86B3A58EDB3465155A243D51BBD8F" import="1">RoulsAscendancy/Art/RoulsLeader128.dds</File>
+    <File md5="893A57C0DE66BDAC49D0214D32B1F9D8" import="1">RoulsAscendancy/Art/RoulsLeader256.dds</File>
+    <File md5="9807F3046F25E7CD2D2740AF2D4D6A49" import="1">RoulsAscendancy/Art/RoulsLeader64.dds</File>
     <File md5="05459C58F5C944FD791B6382A6D7DEF6" import="1">RoulsAscendancy/Art/RoulsLeaderScene.xml</File>
     <File md5="1A2667FB422DD5C608DB90460C95E049" import="1">RoulsAscendancy/Lua/RoulsActions.lua</File>
     <File md5="24D2F5C8ECBA61CB5488B10F603CCC00" import="1">RoulsAscendancy/Lua/RoulsCore.lua</File>
@@ -225,27 +225,27 @@
     <File md5="F48216E04AAFDDAAD47B807F1829CF23" import="1">TerraFramework/Art/TerraAlpha32.dds</File>
     <File md5="FFAF8A6F6004AA32BD77FB06AEC42EB6" import="1">TerraFramework/Art/TerraAlpha48.dds</File>
     <File md5="E38F9917F0811C00727AD80BCB7A56E4" import="1">TerraFramework/Art/TerraAlpha64.dds</File>
-    <File md5="D4EE75B351D34AC9115E386FA42D0985" import="1">TerraFramework/Art/TerraHub128.dds</File>
-    <File md5="3EA2446968A18B6C5A98FECEE5BFB136" import="1">TerraFramework/Art/TerraHub256.dds</File>
-    <File md5="BD98C162B0032BBE8A831F8D190D53B6" import="1">TerraFramework/Art/TerraHub45.dds</File>
-    <File md5="7CA9FAD8B35214069CAB175E8927387B" import="1">TerraFramework/Art/TerraHub64.dds</File>
-    <File md5="175770DCD70958E3DF4FF8F8C163FE2C" import="1">TerraFramework/Art/TerraIcon128.dds</File>
-    <File md5="0A20D28F600B344865BF2CF1CEB34B40" import="1">TerraFramework/Art/TerraIcon256.dds</File>
-    <File md5="3331492FA6DBD1C946AA0281A8A0BB65" import="1">TerraFramework/Art/TerraIcon32.dds</File>
-    <File md5="F56708A7FE45AEFF4BC5485E9A521D1A" import="1">TerraFramework/Art/TerraIcon45.dds</File>
-    <File md5="005016BF31BE615573E237A4C1EC134D" import="1">TerraFramework/Art/TerraIcon64.dds</File>
-    <File md5="77570A42417795DD995403557041378D" import="1">TerraFramework/Art/TerraIcon80.dds</File>
+    <File md5="FD6D8CE70C82AF6B15B588FFC8DAA145" import="1">TerraFramework/Art/TerraHub128.dds</File>
+    <File md5="CA98A26C4D0AD1DB568BD4A0F13E4786" import="1">TerraFramework/Art/TerraHub256.dds</File>
+    <File md5="C49D870AF56EBB513C338ABBF3E52995" import="1">TerraFramework/Art/TerraHub45.dds</File>
+    <File md5="976808720846B11DF6B5313AED4CD936" import="1">TerraFramework/Art/TerraHub64.dds</File>
+    <File md5="BFA5ADA62B7DCD16429988245A16A145" import="1">TerraFramework/Art/TerraIcon128.dds</File>
+    <File md5="CD2C427BCF65DC1DAC906393E07C2E18" import="1">TerraFramework/Art/TerraIcon256.dds</File>
+    <File md5="9F89402EE62537A71A48D49B88B1BB6B" import="1">TerraFramework/Art/TerraIcon32.dds</File>
+    <File md5="CBB7F022BE9FA45B4328A6B38921680D" import="1">TerraFramework/Art/TerraIcon45.dds</File>
+    <File md5="1BD06D7EA598D373C9384223078A8B76" import="1">TerraFramework/Art/TerraIcon64.dds</File>
+    <File md5="A468573DB712B4BF6545E4B2A04DFE5B" import="1">TerraFramework/Art/TerraIcon80.dds</File>
     <File md5="A672B4737A3D011EF02799E18189D6C0" import="1">TerraFramework/Art/TerraLeader.dds</File>
-    <File md5="125E726B911DCAA812282D0DC765F119" import="1">TerraFramework/Art/TerraLeader128.dds</File>
-    <File md5="F6066958B5F62D5B8A0C400908C50F35" import="1">TerraFramework/Art/TerraLeader256.dds</File>
-    <File md5="DC1E92DA2F5477901D1D190A0DA2644B" import="1">TerraFramework/Art/TerraLeader64.dds</File>
+    <File md5="4D31E7141F7B44BD133312A5A6AF892D" import="1">TerraFramework/Art/TerraLeader128.dds</File>
+    <File md5="596CC542607A6EC260889C328D8D84D9" import="1">TerraFramework/Art/TerraLeader256.dds</File>
+    <File md5="72F0AEDA5F5E249DF865DEDEE8F64074" import="1">TerraFramework/Art/TerraLeader64.dds</File>
     <File md5="65FC89890F99966A0E59A087429C4555" import="1">TerraFramework/Art/TerraLeaderScene.xml</File>
     <File md5="F475B537A578FA6EA6D7C2B4580CA44A" import="1">TerraFramework/Art/TerraMap.dds</File>
-    <File md5="12B9547CDE0CFEA44EF37756318B7FE1" import="1">TerraFramework/Art/TerraOperative128.dds</File>
-    <File md5="66CEBB6AAB18B300A999AB51B2027856" import="1">TerraFramework/Art/TerraOperative256.dds</File>
-    <File md5="F69A7C711DC862B28FF8A8803387884E" import="1">TerraFramework/Art/TerraOperative45.dds</File>
-    <File md5="DFEA792A9620FD4A6538E1E2F0208212" import="1">TerraFramework/Art/TerraOperative64.dds</File>
-    <File md5="17B60B0CA678ED7E819537182E300991" import="1">TerraFramework/Art/TerraOperative80.dds</File>
+    <File md5="588586F7171767FB1A5652D0441296F7" import="1">TerraFramework/Art/TerraOperative128.dds</File>
+    <File md5="30F55742ABC46A396F1B5827537B7EBC" import="1">TerraFramework/Art/TerraOperative256.dds</File>
+    <File md5="41ABECC87143D5322415F5A0E3E43217" import="1">TerraFramework/Art/TerraOperative45.dds</File>
+    <File md5="D3481559A3ED931AADB76FB8E0E7165C" import="1">TerraFramework/Art/TerraOperative64.dds</File>
+    <File md5="319091E437B96CE2271E836BDA02B3A5" import="1">TerraFramework/Art/TerraOperative80.dds</File>
     <File md5="C9A0C49FEA742BF7A18DF784CF26D73B" import="1">TerraFramework/Lua/TerraRuntime.lua</File>
     <File md5="A25C00BDE26C38D7783610FFC5D1992B" import="0">TerraFramework/SQL/00_Terra_Core.sql</File>
     <File md5="940FB100FAD1D3398702E65347AB7991" import="0">TerraFramework/SQL/01_Terra_Inheritance.sql</File>
@@ -261,27 +261,27 @@
     <File md5="01BDC7B23A5695F2139155985C0AD9A4" import="1">RomanGladiusNetwork/Art/RomanGladiusAlpha64.dds</File>
     <File md5="22F3FB95AEBD546FC2AC342C2E8D66AF" import="1">RomanGladiusNetwork/Art/RomanGladiusAlpha80.dds</File>
     <File md5="E8CEEBBD9CDCCD25079893BC00996553" import="1">RomanGladiusNetwork/Art/RomanGladiusDawn.dds</File>
-    <File md5="0BDAB6C63B75FC47CFB9FB292670D47D" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon128.dds</File>
-    <File md5="76A3AC99D8714F3E6114767C2F9CB135" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon16.dds</File>
-    <File md5="16AAF8BBC94ECF1B08006C5B3A566451" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon24.dds</File>
-    <File md5="AA41F9744B69C6287307475409B664C3" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon256.dds</File>
-    <File md5="F1B70AC3A1DB57120F09CA57FD38EAC7" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon32.dds</File>
-    <File md5="5CBDBB916E5C0D621D3788827FA4FAB8" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon45.dds</File>
-    <File md5="231745F4EF3323058534FC4DB0624014" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon48.dds</File>
-    <File md5="E89D9F5861FCD2302EF69E702B4A9457" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon64.dds</File>
-    <File md5="C668287C1663422581B9367AE313F844" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon80.dds</File>
+    <File md5="E7F0D090F4469F6E3241986CA22BD803" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon128.dds</File>
+    <File md5="5B1D5D39FA8EC43F626A0BB4FFB45671" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon16.dds</File>
+    <File md5="56BE8C20316C0234BEA338E4EE74D033" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon24.dds</File>
+    <File md5="85D12CDADC60F835B4BE0EBDE5637641" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon256.dds</File>
+    <File md5="43DCA221FA8D4E59684B5800F7C042A7" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon32.dds</File>
+    <File md5="5C99E876FC12A97717A281F829C38415" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon45.dds</File>
+    <File md5="A581CFD241CB935C377DCD6BEA7ED5EE" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon48.dds</File>
+    <File md5="E269CEEEBE17F9F5A5F4DC1FC7FC153F" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon64.dds</File>
+    <File md5="114E7CE039F176F0E231CFC465442866" import="1">RomanGladiusNetwork/Art/RomanGladiusIcon80.dds</File>
     <File md5="726AB6377AE9241E59F4D6D69679B73B" import="1">RomanGladiusNetwork/Art/RomanGladiusLeader.dds</File>
-    <File md5="A7B33D1456E4516841FA7DEE7907634D" import="1">RomanGladiusNetwork/Art/RomanGladiusLeader128.dds</File>
-    <File md5="49ED8299955B7D989593040944EF41FF" import="1">RomanGladiusNetwork/Art/RomanGladiusLeader256.dds</File>
-    <File md5="650AEABA78575C9112B7E7F55A9E1A39" import="1">RomanGladiusNetwork/Art/RomanGladiusLeader64.dds</File>
+    <File md5="C87AD9ECE19088B2FB69A95AB7052DC2" import="1">RomanGladiusNetwork/Art/RomanGladiusLeader128.dds</File>
+    <File md5="9E13597921EF8821601EC731252C8FF6" import="1">RomanGladiusNetwork/Art/RomanGladiusLeader256.dds</File>
+    <File md5="240D3C60BEBDB4A1E00BE300C75780FE" import="1">RomanGladiusNetwork/Art/RomanGladiusLeader64.dds</File>
     <File md5="28122F5EAD798EDBB79DD309F561003D" import="1">RomanGladiusNetwork/Art/RomanGladiusMap.dds</File>
-    <File md5="8874350CA9DA3C63E6E8728D9098150F" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects128.dds</File>
-    <File md5="4E0AB35ADFFB0FFB2D9C88F45D0BB76F" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects16.dds</File>
-    <File md5="C6D6AE2AFD3B2CF1E6FF8E6B705F4452" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects256.dds</File>
-    <File md5="80B6176EB195E123A63E506D63F463B1" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects32.dds</File>
-    <File md5="3551873FB599541FD7FCC7AE80C45903" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects45.dds</File>
-    <File md5="B28E650660681A8EC00EE4FC217C2636" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects64.dds</File>
-    <File md5="90A776FAC1276D0570B2B6B995845971" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects80.dds</File>
+    <File md5="A2DB87E4980D0389082C55204CBA320D" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects128.dds</File>
+    <File md5="C574FEE6833B3603F072AF9A117C31C6" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects16.dds</File>
+    <File md5="423864AF54E11AD0FDE75B40AB22183C" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects256.dds</File>
+    <File md5="2330532AF633F64A1A7D2142603292E0" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects32.dds</File>
+    <File md5="2B209BA74F165B11D60B84654D5E105D" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects45.dds</File>
+    <File md5="523BCA44C8023A9BCB6594DF9478C6BF" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects64.dds</File>
+    <File md5="017A153545C831F77A59172BB67F8306" import="1">RomanGladiusNetwork/Art/RomanGladiusObjects80.dds</File>
     <File md5="7EA728DFD912364B2D7F84ACDC1F8510" import="1">RomanGladiusNetwork/Art/RomanGladiusUnitFlag32.dds</File>
     <File md5="84FBB033F8EE248DC205BAB8450A0CDE" import="1">RomanGladiusNetwork/Art/RomanGladiusLeaderScene.xml</File>
     <File md5="149E20C9ABCFAF9FA6A101425F3849F9" import="1">RomanGladiusNetwork/Lua/RomanGladiusRuntime.lua</File>
@@ -301,28 +301,28 @@
     <File md5="2123F9F6C6CCE9E691DBD2354B6C3966" import="1">EternalNumberTen/Art/MessiAlpha64.dds</File>
     <File md5="433AB40E936EC627037915DC20C4C018" import="1">EternalNumberTen/Art/MessiAlpha80.dds</File>
     <File md5="71E06A0B3C89AE526139CBF6425EDAE6" import="1">EternalNumberTen/Art/MessiDawn.dds</File>
-    <File md5="A401C94E1D430D11E7BBFBD5B9263D15" import="1">EternalNumberTen/Art/MessiIcon128.dds</File>
-    <File md5="E38E259F1D4AF1C2F3904CA23EE2B30B" import="1">EternalNumberTen/Art/MessiIcon16.dds</File>
-    <File md5="9C39264E9F3102A6B690220F716C3B75" import="1">EternalNumberTen/Art/MessiIcon24.dds</File>
-    <File md5="7455FC0C6A9FC14744DEA0C6593FA446" import="1">EternalNumberTen/Art/MessiIcon256.dds</File>
-    <File md5="CA60F859DBA5FB8B49F13CF7561DFA9A" import="1">EternalNumberTen/Art/MessiIcon32.dds</File>
-    <File md5="A05047938780AC17FBBE1626E6A350D9" import="1">EternalNumberTen/Art/MessiIcon45.dds</File>
-    <File md5="F47979110AC92E3964628F19533B449A" import="1">EternalNumberTen/Art/MessiIcon48.dds</File>
-    <File md5="D898D0466B700CF1178CDE0F5E8145DC" import="1">EternalNumberTen/Art/MessiIcon64.dds</File>
-    <File md5="2BCB0CE02EE02ECC6BDD62FC013BE575" import="1">EternalNumberTen/Art/MessiIcon80.dds</File>
+    <File md5="CCACFB12BCAD053B7CF13395782FFBFD" import="1">EternalNumberTen/Art/MessiIcon128.dds</File>
+    <File md5="B98EC7BAC189C7D015B19FEAB9CD8E6E" import="1">EternalNumberTen/Art/MessiIcon16.dds</File>
+    <File md5="C03DEF413E9FB5E9FD3DC92BB6EF3268" import="1">EternalNumberTen/Art/MessiIcon24.dds</File>
+    <File md5="9BA99670A78D09D3BA83438D7DFF47C6" import="1">EternalNumberTen/Art/MessiIcon256.dds</File>
+    <File md5="071163D3AE5CC2E03EF914534C8D5DBB" import="1">EternalNumberTen/Art/MessiIcon32.dds</File>
+    <File md5="B537F1793622405273D2E8F479395198" import="1">EternalNumberTen/Art/MessiIcon45.dds</File>
+    <File md5="1BD5DFBB80384470C20E03640948AFC2" import="1">EternalNumberTen/Art/MessiIcon48.dds</File>
+    <File md5="D0BB685547BC66A3905D63C3EE26E465" import="1">EternalNumberTen/Art/MessiIcon64.dds</File>
+    <File md5="359B2A1AB192EA8D27B8ADBB47A94A0F" import="1">EternalNumberTen/Art/MessiIcon80.dds</File>
     <File md5="60D29CDAC67018ACCB51DF404962F717" import="1">EternalNumberTen/Art/MessiLeader.dds</File>
-    <File md5="7416BB273B53FA6A49735E66E304C4B1" import="1">EternalNumberTen/Art/MessiLeader128.dds</File>
-    <File md5="9F381F1BF0EFE88A6E70677B0990FB31" import="1">EternalNumberTen/Art/MessiLeader256.dds</File>
-    <File md5="372C266B4EE30338C5FCA1984404505D" import="1">EternalNumberTen/Art/MessiLeader64.dds</File>
+    <File md5="2ABDFCCE6039FAAD63BD038FB5AC50AF" import="1">EternalNumberTen/Art/MessiLeader128.dds</File>
+    <File md5="F010D66F77D936DD648BE4D4A97CA606" import="1">EternalNumberTen/Art/MessiLeader256.dds</File>
+    <File md5="E4765DE25C0CF59659C9A1828B6512EB" import="1">EternalNumberTen/Art/MessiLeader64.dds</File>
     <File md5="D195B6A451E87A7C4599BE4C31E3A8A7" import="1">EternalNumberTen/Art/MessiLeaderScene.xml</File>
     <File md5="4285A95EA26F40A732268526A93D0F31" import="1">EternalNumberTen/Art/MessiMap.dds</File>
-    <File md5="E058D90564F77701CC67CB15EF25213D" import="1">EternalNumberTen/Art/MessiObjects128.dds</File>
-    <File md5="040D7EF0EB4A6E5EAA6B0415E80C6AE0" import="1">EternalNumberTen/Art/MessiObjects16.dds</File>
-    <File md5="3349167AB783D61DFF132E008934CB5C" import="1">EternalNumberTen/Art/MessiObjects256.dds</File>
-    <File md5="7D962B74419F340EB8D731EF416FCACD" import="1">EternalNumberTen/Art/MessiObjects32.dds</File>
-    <File md5="6C246ACDDCB0DB4A0323A15148137B86" import="1">EternalNumberTen/Art/MessiObjects45.dds</File>
-    <File md5="80EA8BCB5127DC4B1FB6A72C6BBF0987" import="1">EternalNumberTen/Art/MessiObjects64.dds</File>
-    <File md5="E0BBA9F10362B9F21E2A81D53EC69664" import="1">EternalNumberTen/Art/MessiObjects80.dds</File>
+    <File md5="ED31F4A5996D54CB96C36ED718ED0EC6" import="1">EternalNumberTen/Art/MessiObjects128.dds</File>
+    <File md5="A2B3B221BE97B37B3FC1028F2016D5A3" import="1">EternalNumberTen/Art/MessiObjects16.dds</File>
+    <File md5="373020C40BD7E94E72E88AB4C9B15739" import="1">EternalNumberTen/Art/MessiObjects256.dds</File>
+    <File md5="5ACE42163511EFE33AFE7FB386DEC14B" import="1">EternalNumberTen/Art/MessiObjects32.dds</File>
+    <File md5="E2A8832BC7DDB586B01F3B31077CFF51" import="1">EternalNumberTen/Art/MessiObjects45.dds</File>
+    <File md5="4DA2C5EB57D094DD09791AF9D6954563" import="1">EternalNumberTen/Art/MessiObjects64.dds</File>
+    <File md5="C73598231046A26C5020B1D247663539" import="1">EternalNumberTen/Art/MessiObjects80.dds</File>
     <File md5="E4C6D6B7DA11348B40C31EB2D8DE5508" import="1">EternalNumberTen/Art/MessiUnitFlag32.dds</File>
     <File md5="BC23F1F48BB2F1BF262914AE6A866FDB" import="1">EternalNumberTen/Lua/MessiRuntime.lua</File>
     <File md5="AE3017031B689E1BC9353C30444B0198" import="0">EternalNumberTen/SQL/00_Messi_Core.sql</File>
@@ -341,25 +341,25 @@
     <File md5="BDE667F33A4725EEEBED78BD480DF609" import="1">MasayaBeyondSky/Art/MasayaAlpha64.dds</File>
     <File md5="F0B97EE97C195BE12E76B3CF30D195AB" import="1">MasayaBeyondSky/Art/MasayaAlpha80.dds</File>
     <File md5="5FEE49704E8A74AE11D89038BA22E071" import="1">MasayaBeyondSky/Art/MasayaDawn.dds</File>
-    <File md5="88B1D04B2F8E8DA4B56AF11DC2D98E88" import="1">MasayaBeyondSky/Art/MasayaIcon128.dds</File>
-    <File md5="D8D477CCA918326B8F57E2AE8496D68D" import="1">MasayaBeyondSky/Art/MasayaIcon16.dds</File>
-    <File md5="23FC897922A57C3992E03BC8747DD0D1" import="1">MasayaBeyondSky/Art/MasayaIcon24.dds</File>
-    <File md5="BF28DC40B7431E3434C72FAFCB1248F3" import="1">MasayaBeyondSky/Art/MasayaIcon256.dds</File>
-    <File md5="6314D3072ADFC1A4E8693CD3648E2949" import="1">MasayaBeyondSky/Art/MasayaIcon32.dds</File>
-    <File md5="13449FD1E13659F137EBF604FD6A57A5" import="1">MasayaBeyondSky/Art/MasayaIcon45.dds</File>
-    <File md5="3EF6B4945C74C41A4389B7B49BC66612" import="1">MasayaBeyondSky/Art/MasayaIcon48.dds</File>
-    <File md5="91446FEF49FED476A4E6CA30419211BA" import="1">MasayaBeyondSky/Art/MasayaIcon64.dds</File>
-    <File md5="8ABC55A3B3A43F34327DDE3DDB652A9B" import="1">MasayaBeyondSky/Art/MasayaIcon80.dds</File>
+    <File md5="E675AB2C8F5F619652B1076738CF3D06" import="1">MasayaBeyondSky/Art/MasayaIcon128.dds</File>
+    <File md5="928214E13452A40D0DACEF9B39D47D36" import="1">MasayaBeyondSky/Art/MasayaIcon16.dds</File>
+    <File md5="5C16C41E49529F78F8F737DCC16E771B" import="1">MasayaBeyondSky/Art/MasayaIcon24.dds</File>
+    <File md5="D435DB62E9307F16B09AFD77851FA062" import="1">MasayaBeyondSky/Art/MasayaIcon256.dds</File>
+    <File md5="7D0BE8BCF4B935E093C4E9AC084115E9" import="1">MasayaBeyondSky/Art/MasayaIcon32.dds</File>
+    <File md5="060300074F9A0AE5796408CFD10BACA1" import="1">MasayaBeyondSky/Art/MasayaIcon45.dds</File>
+    <File md5="779124FB8AAF7F9E7EC9173C8E6E8372" import="1">MasayaBeyondSky/Art/MasayaIcon48.dds</File>
+    <File md5="A66499F1A589BFD102B4F36B39D42B74" import="1">MasayaBeyondSky/Art/MasayaIcon64.dds</File>
+    <File md5="85130606F9ED0C65DA13169BBAE9B262" import="1">MasayaBeyondSky/Art/MasayaIcon80.dds</File>
     <File md5="BBD1FDED1CDEE164C306C27B41AC2A8B" import="1">MasayaBeyondSky/Art/MasayaLeader.dds</File>
     <File md5="5B0B4B4A641187E9AD31B9D12251E075" import="1">MasayaBeyondSky/Art/MasayaLeaderScene.xml</File>
     <File md5="E29140B23EC707B4751268EE7377A065" import="1">MasayaBeyondSky/Art/MasayaMap.dds</File>
-    <File md5="5D7956B15E2223A77CB591CC877CCDD0" import="1">MasayaBeyondSky/Art/MasayaObjects128.dds</File>
-    <File md5="B2674FC4893F7D98E6B6D3EEA45B424A" import="1">MasayaBeyondSky/Art/MasayaObjects16.dds</File>
-    <File md5="EEC614241F278B39424ED79ED90B8F7E" import="1">MasayaBeyondSky/Art/MasayaObjects256.dds</File>
-    <File md5="84EF4D2F3241513306BEA08C6BC27082" import="1">MasayaBeyondSky/Art/MasayaObjects32.dds</File>
-    <File md5="0274459DA99AC77A372FC0928DECC801" import="1">MasayaBeyondSky/Art/MasayaObjects45.dds</File>
-    <File md5="7DC5D07BB50F1B144C308D998E0A1310" import="1">MasayaBeyondSky/Art/MasayaObjects64.dds</File>
-    <File md5="140E6BEBEFC04D27137561CD7A518EA6" import="1">MasayaBeyondSky/Art/MasayaObjects80.dds</File>
+    <File md5="657BF64C07CFEC4E0990BBEF71F8DE73" import="1">MasayaBeyondSky/Art/MasayaObjects128.dds</File>
+    <File md5="934856D158BC07940AE015807E769969" import="1">MasayaBeyondSky/Art/MasayaObjects16.dds</File>
+    <File md5="369785976AE0DF1C30BE0F56F6784C13" import="1">MasayaBeyondSky/Art/MasayaObjects256.dds</File>
+    <File md5="09B57AD278B031C4372DE54AB4E5EC91" import="1">MasayaBeyondSky/Art/MasayaObjects32.dds</File>
+    <File md5="27FB112EF61BF983C10D9635CE67DDD4" import="1">MasayaBeyondSky/Art/MasayaObjects45.dds</File>
+    <File md5="FC72E42AC23CD8D02E954DDD9FDC1B2C" import="1">MasayaBeyondSky/Art/MasayaObjects64.dds</File>
+    <File md5="0CC025AF42CB77D1E3AF053A0EE5AF7C" import="1">MasayaBeyondSky/Art/MasayaObjects80.dds</File>
     <File md5="44F99879C7AFD35BB2561D5DEE487A62" import="1">MasayaBeyondSky/Art/MasayaUnitFlag32.dds</File>
     <File md5="C83766928DF193D9F05B07017080D6FA" import="1">MasayaBeyondSky/Lua/MasayaRuntime.lua</File>
     <File md5="BBFAC9F7F7AC3EBE97408F69355D6BA3" import="0">MasayaBeyondSky/SQL/00_Masaya_Core.sql</File>
@@ -378,27 +378,27 @@
     <File md5="89BCBBFD3596D5A3FEEDBA70C6526FDC" import="1">TokenizedIntelligence/Art/TokenAlpha64.dds</File>
     <File md5="671CD6E14958B62EE43E7E785D1C5F1A" import="1">TokenizedIntelligence/Art/TokenAlpha80.dds</File>
     <File md5="DF39CC34CDAEF3924308C1CC1B3661C7" import="1">TokenizedIntelligence/Art/TokenDawn.dds</File>
-    <File md5="CBF264686E63FCD73084D58E73B8CDF9" import="1">TokenizedIntelligence/Art/TokenIcon128.dds</File>
-    <File md5="EDFB306099BA163BB5288A3E8976587E" import="1">TokenizedIntelligence/Art/TokenIcon16.dds</File>
-    <File md5="F1A28A6DA048FAACEFA1F7356CA3113F" import="1">TokenizedIntelligence/Art/TokenIcon24.dds</File>
-    <File md5="663AFCC3A3B47345B2E942C565557D01" import="1">TokenizedIntelligence/Art/TokenIcon256.dds</File>
-    <File md5="D5F39C62AA390D43766C5BCE70BF495D" import="1">TokenizedIntelligence/Art/TokenIcon32.dds</File>
-    <File md5="CA37C51A1A13F20F7AED196080ABADA3" import="1">TokenizedIntelligence/Art/TokenIcon45.dds</File>
-    <File md5="98623B6523E0CCE668A113B0CE5CE611" import="1">TokenizedIntelligence/Art/TokenIcon48.dds</File>
-    <File md5="D74DC093A0383B4E1D0A147079C54ABC" import="1">TokenizedIntelligence/Art/TokenIcon64.dds</File>
-    <File md5="24A9AD6453C06ECD8489ED0E544D3A8B" import="1">TokenizedIntelligence/Art/TokenIcon80.dds</File>
+    <File md5="86510C8740CE5DDE92AB3714E2CFA8AD" import="1">TokenizedIntelligence/Art/TokenIcon128.dds</File>
+    <File md5="52E0B90CCA0BF0316269A5C5AB770CA7" import="1">TokenizedIntelligence/Art/TokenIcon16.dds</File>
+    <File md5="7497F689417A28011EBF6E64C0DF0B26" import="1">TokenizedIntelligence/Art/TokenIcon24.dds</File>
+    <File md5="835EED32394FAF2E4059EF7128C593FA" import="1">TokenizedIntelligence/Art/TokenIcon256.dds</File>
+    <File md5="ED473426F84830E58D3F26C352F04114" import="1">TokenizedIntelligence/Art/TokenIcon32.dds</File>
+    <File md5="C85E59DC3C9BCA1C237FC138886B0096" import="1">TokenizedIntelligence/Art/TokenIcon45.dds</File>
+    <File md5="57EF9213AA779ACCAC2435C9F2EFD53C" import="1">TokenizedIntelligence/Art/TokenIcon48.dds</File>
+    <File md5="D1731D8FAEB5844615F50D119419C8A3" import="1">TokenizedIntelligence/Art/TokenIcon64.dds</File>
+    <File md5="393FF8F08212E2BACBA123534ED92FBF" import="1">TokenizedIntelligence/Art/TokenIcon80.dds</File>
     <File md5="E1C9B3FB9E78A02DEDFE95ADFD648CFF" import="1">TokenizedIntelligence/Art/TokenLeader.dds</File>
     <File md5="142E61D7AC2DE3E76FFBF2E4C033B569" import="1">TokenizedIntelligence/Art/TokenLeaderScene.xml</File>
     <File md5="F9AA9513764CB3276274D91F8920F5D5" import="1">TokenizedIntelligence/Art/TokenMap.dds</File>
-    <File md5="0A256B6028408E04C03607B984526D02" import="1">TokenizedIntelligence/Art/TokenObjects128.dds</File>
-    <File md5="B9F1DC072D4AA3465C126882930C2767" import="1">TokenizedIntelligence/Art/TokenObjects16.dds</File>
-    <File md5="4C2999C94656C4CA223BBF715714ADB5" import="1">TokenizedIntelligence/Art/TokenObjects24.dds</File>
-    <File md5="E88E81149EB301CE82D82F49736B8768" import="1">TokenizedIntelligence/Art/TokenObjects256.dds</File>
-    <File md5="E44C13A92FF0189C6484D5BBDEF114A1" import="1">TokenizedIntelligence/Art/TokenObjects32.dds</File>
-    <File md5="9F7661611B31CD3A9D44AC0644AE772F" import="1">TokenizedIntelligence/Art/TokenObjects45.dds</File>
-    <File md5="9D1852581882A08D2EA839946937388B" import="1">TokenizedIntelligence/Art/TokenObjects48.dds</File>
-    <File md5="0CB7C697100CBA23770D938AFF7DDA98" import="1">TokenizedIntelligence/Art/TokenObjects64.dds</File>
-    <File md5="E7F158FE651F04A434836A2A1BAE17E8" import="1">TokenizedIntelligence/Art/TokenObjects80.dds</File>
+    <File md5="24AE31BF861D24CED45E7EC747A2C592" import="1">TokenizedIntelligence/Art/TokenObjects128.dds</File>
+    <File md5="61E8F9567A72C7F9F96B8F40AF845EDD" import="1">TokenizedIntelligence/Art/TokenObjects16.dds</File>
+    <File md5="42EF1D8DF6838C33A287A021FC49AEA1" import="1">TokenizedIntelligence/Art/TokenObjects24.dds</File>
+    <File md5="96118C976E773679D81CE7FE2A966040" import="1">TokenizedIntelligence/Art/TokenObjects256.dds</File>
+    <File md5="A9A9C9DFAD871E95A97CFE75580999EE" import="1">TokenizedIntelligence/Art/TokenObjects32.dds</File>
+    <File md5="55EBB4A8EA4BA1A58940225B732CBC20" import="1">TokenizedIntelligence/Art/TokenObjects45.dds</File>
+    <File md5="CC2F201EF3F1B448EEDF566D1A00A1D7" import="1">TokenizedIntelligence/Art/TokenObjects48.dds</File>
+    <File md5="E5228BC0044C731017B1AF85C00E16BE" import="1">TokenizedIntelligence/Art/TokenObjects64.dds</File>
+    <File md5="738885E6719E6B933EBD07C922B224F6" import="1">TokenizedIntelligence/Art/TokenObjects80.dds</File>
     <File md5="8EC804D77262D0D67F3B2CE9100FC5C8" import="1">TokenizedIntelligence/Art/TokenUnitFlag32.dds</File>
     <File md5="9A689CF56037DA7085193C44E42F2314" import="1">TokenizedIntelligence/Lua/TokenRuntime.lua</File>
     <File md5="E5D6BFB29603BB04D4A2BF45683501C3" import="0">TokenizedIntelligence/SQL/00_Token_Core.sql</File>
@@ -417,27 +417,27 @@
     <File md5="E1EC96E16B831268B0A71A2715187C46" import="1">ViltrumEmpire/Art/ViltrumAlpha64.dds</File>
     <File md5="396512D953813641A71874E88A044740" import="1">ViltrumEmpire/Art/ViltrumAlpha80.dds</File>
     <File md5="EA902A2672D99632FAF34FD6B3FB742D" import="1">ViltrumEmpire/Art/ViltrumDawn.dds</File>
-    <File md5="A345AD07E8E427EE3A54C1833BCB934C" import="1">ViltrumEmpire/Art/ViltrumIcon128.dds</File>
-    <File md5="636684F3453BF2BA0D14C582FE4D84D2" import="1">ViltrumEmpire/Art/ViltrumIcon16.dds</File>
-    <File md5="A8EA12443A50D8D44329925B7C6E26CA" import="1">ViltrumEmpire/Art/ViltrumIcon24.dds</File>
-    <File md5="21A2D26AFDA9D601BA1FC5512C67C13D" import="1">ViltrumEmpire/Art/ViltrumIcon256.dds</File>
-    <File md5="F40811805EB16BFD1EF17557B1CC3206" import="1">ViltrumEmpire/Art/ViltrumIcon32.dds</File>
-    <File md5="F6B0FCA1A16A21C81A5E8111C760C87C" import="1">ViltrumEmpire/Art/ViltrumIcon45.dds</File>
-    <File md5="24620FC29EBB784B3C7DF50C8C21BE0D" import="1">ViltrumEmpire/Art/ViltrumIcon48.dds</File>
-    <File md5="0C10203412FF40A5477AA96FD7DFC376" import="1">ViltrumEmpire/Art/ViltrumIcon64.dds</File>
-    <File md5="3CA9412A27031A8B145A0C47955D6EB0" import="1">ViltrumEmpire/Art/ViltrumIcon80.dds</File>
+    <File md5="4430920535BAF1811380F5A888792871" import="1">ViltrumEmpire/Art/ViltrumIcon128.dds</File>
+    <File md5="4206B1A06FF38A298D8A94731406320A" import="1">ViltrumEmpire/Art/ViltrumIcon16.dds</File>
+    <File md5="1411C1908100EE5CE02910F3FA58AC6B" import="1">ViltrumEmpire/Art/ViltrumIcon24.dds</File>
+    <File md5="F466E2FA132936737BAC3D0DE484CD2D" import="1">ViltrumEmpire/Art/ViltrumIcon256.dds</File>
+    <File md5="64FA68B69D6FCC5852A200A053FF5B9A" import="1">ViltrumEmpire/Art/ViltrumIcon32.dds</File>
+    <File md5="0104963FEAE6FF159F02B4E5D258FD4D" import="1">ViltrumEmpire/Art/ViltrumIcon45.dds</File>
+    <File md5="9113804556EED4C2D144EF9E385D3BEA" import="1">ViltrumEmpire/Art/ViltrumIcon48.dds</File>
+    <File md5="C600A993DF3831EBE2693FE13A82A6AE" import="1">ViltrumEmpire/Art/ViltrumIcon64.dds</File>
+    <File md5="5785CC8C590597CEB9952880E93B5634" import="1">ViltrumEmpire/Art/ViltrumIcon80.dds</File>
     <File md5="65E274D1F442DBBEF224313D6F8355DD" import="1">ViltrumEmpire/Art/ViltrumLeader.dds</File>
     <File md5="E7A50DBEECC87B276DF601359D2FDFDF" import="1">ViltrumEmpire/Art/ViltrumLeaderScene.xml</File>
     <File md5="419A83FEDEAF0BFB6C11FDF54E6EC81B" import="1">ViltrumEmpire/Art/ViltrumMap.dds</File>
-    <File md5="7E22E911E73F58225ED7D798BF4AFE95" import="1">ViltrumEmpire/Art/ViltrumObjects128.dds</File>
-    <File md5="6FE78A1677F011C9F49A27CEB2242FCB" import="1">ViltrumEmpire/Art/ViltrumObjects16.dds</File>
-    <File md5="1EC1EDAC5B9A0F6C2B4267E4CC0F9D88" import="1">ViltrumEmpire/Art/ViltrumObjects24.dds</File>
-    <File md5="ABF8F55B8C65F31A7AE8E69C5E3B3583" import="1">ViltrumEmpire/Art/ViltrumObjects256.dds</File>
-    <File md5="EF1A4C227C01C7833E4DD2829ACA422F" import="1">ViltrumEmpire/Art/ViltrumObjects32.dds</File>
-    <File md5="FB8F68DBB0182E86D0D59D40352BD895" import="1">ViltrumEmpire/Art/ViltrumObjects45.dds</File>
-    <File md5="19036B01F9E81DB1A9FC959FC07A2932" import="1">ViltrumEmpire/Art/ViltrumObjects48.dds</File>
-    <File md5="627EC331504E89015C398D3FAB4224F7" import="1">ViltrumEmpire/Art/ViltrumObjects64.dds</File>
-    <File md5="204B685E213EA8D19367090A415CBCB1" import="1">ViltrumEmpire/Art/ViltrumObjects80.dds</File>
+    <File md5="91D40F8569961500C63D9888D55B5329" import="1">ViltrumEmpire/Art/ViltrumObjects128.dds</File>
+    <File md5="A43A341C7F51F9FA33FD518D19E75296" import="1">ViltrumEmpire/Art/ViltrumObjects16.dds</File>
+    <File md5="D43108C6D80DAAFAD4DAD8240204EA74" import="1">ViltrumEmpire/Art/ViltrumObjects24.dds</File>
+    <File md5="BD84444642C1F8C010027ED65A64AA1E" import="1">ViltrumEmpire/Art/ViltrumObjects256.dds</File>
+    <File md5="F2F7F689EFE658C4AC378289023DACE7" import="1">ViltrumEmpire/Art/ViltrumObjects32.dds</File>
+    <File md5="BC72678EC6914C3C689543BF524DBA31" import="1">ViltrumEmpire/Art/ViltrumObjects45.dds</File>
+    <File md5="B4CCFF641AE7BEACD29924C6B75296DC" import="1">ViltrumEmpire/Art/ViltrumObjects48.dds</File>
+    <File md5="F58B91368D056859923832BC6BF11A04" import="1">ViltrumEmpire/Art/ViltrumObjects64.dds</File>
+    <File md5="D1EC6BBC3C9D3933CA9F058641577AF3" import="1">ViltrumEmpire/Art/ViltrumObjects80.dds</File>
     <File md5="1193FADC2F3A9717050489515A3A6649" import="1">ViltrumEmpire/Art/ViltrumUnitFlag32.dds</File>
     <File md5="6F0BE4C33E67211A7F2D5FF24803375E" import="1">ViltrumEmpire/Lua/ViltrumRuntime.lua</File>
     <File md5="51E9CCE1AF487305A1E1FF84EE5B5FEF" import="0">ViltrumEmpire/SQL/00_Viltrum_Core.sql</File>
@@ -459,15 +459,15 @@
     <File md5="C46F57975DFEC351E2FDCB53591E2B2E" import="1">TheKingdoms/Art/KingdomsLeader.dds</File>
     <File md5="9F3C146B57C3037D348CEC49F2B4587C" import="1">TheKingdoms/Art/KingdomsLeaderScene.xml</File>
     <File md5="78AB222A5817E5D9AB89539E1542F858" import="1">TheKingdoms/Art/KingdomsMap.dds</File>
-    <File md5="CA8741FF9342907C194D8A322BAB7C61" import="1">TheKingdoms/Art/KingdomsObjects128.dds</File>
-    <File md5="F2560ED4571F081B64E7132BC170606B" import="1">TheKingdoms/Art/KingdomsObjects16.dds</File>
-    <File md5="BE80100704604A025E97985D9F5F3791" import="1">TheKingdoms/Art/KingdomsObjects24.dds</File>
-    <File md5="537D43481FD73C00EE163BBF1AC7CB39" import="1">TheKingdoms/Art/KingdomsObjects256.dds</File>
-    <File md5="6E616F16DFAF9D483F4257B670CAF56B" import="1">TheKingdoms/Art/KingdomsObjects32.dds</File>
-    <File md5="C45B3D74EF3282FB6508EB02DF6BE063" import="1">TheKingdoms/Art/KingdomsObjects45.dds</File>
-    <File md5="F371D21FEE6CBA5381CE01E59FB7C699" import="1">TheKingdoms/Art/KingdomsObjects48.dds</File>
-    <File md5="412B63D152BC975A5A1360A332486CDE" import="1">TheKingdoms/Art/KingdomsObjects64.dds</File>
-    <File md5="EAC9A8DB9BDC94430E17A0302369AE09" import="1">TheKingdoms/Art/KingdomsObjects80.dds</File>
+    <File md5="8B4306F593799CA79CE6F806124F128B" import="1">TheKingdoms/Art/KingdomsObjects128.dds</File>
+    <File md5="90049BE51EEFD52D8C8E79581F316EF6" import="1">TheKingdoms/Art/KingdomsObjects16.dds</File>
+    <File md5="F47769CC02ECF66BB27CFA67C4F981A4" import="1">TheKingdoms/Art/KingdomsObjects24.dds</File>
+    <File md5="26C60FDFCF5446CA28A027041CAF02B4" import="1">TheKingdoms/Art/KingdomsObjects256.dds</File>
+    <File md5="B62C2312A56A373818AAC75407C15BAE" import="1">TheKingdoms/Art/KingdomsObjects32.dds</File>
+    <File md5="A348615F7F55F8BED762206228BF6F87" import="1">TheKingdoms/Art/KingdomsObjects45.dds</File>
+    <File md5="183B8DA0838F94A6D2B2F8A26501455C" import="1">TheKingdoms/Art/KingdomsObjects48.dds</File>
+    <File md5="3AF6C04D52C1421DE878CB78DE885FBF" import="1">TheKingdoms/Art/KingdomsObjects64.dds</File>
+    <File md5="C9F8C260E89C2D0C4B693C932AC078F5" import="1">TheKingdoms/Art/KingdomsObjects80.dds</File>
     <File md5="6EE6719BCC7CCF712647005970BE71EC" import="1">TheKingdoms/Art/KingdomsUnitFlag32.dds</File>
     <File md5="7CBA1F539F176DCEF459124DE772AACA" import="1">TheKingdoms/Lua/CharacterManager.lua</File>
     <File md5="D1B4441D2F93F21FF8C65FB8E27F8F3D" import="1">TheKingdoms/Lua/CivilWarManager.lua</File>
@@ -497,25 +497,25 @@
     <File md5="5E4B92DCEC68946DD116116AEEBA7E7D" import="1">SolIntellect/Art/SolAlpha32.dds</File>
     <File md5="83B1D5793DA1BC55AFE67A69BF00B0B7" import="1">SolIntellect/Art/SolAlpha48.dds</File>
     <File md5="7A6DEAF4A9268E2ED1D10D29EDC2D731" import="1">SolIntellect/Art/SolAlpha64.dds</File>
-    <File md5="33667EB0BE311380B78E5A5F4E07990F" import="1">SolIntellect/Art/SolArchive128.dds</File>
-    <File md5="186F035687064FA8D268352D248C570E" import="1">SolIntellect/Art/SolArchive256.dds</File>
-    <File md5="4483116D2D0EC716A500B295FE51B6D7" import="1">SolIntellect/Art/SolArchive45.dds</File>
-    <File md5="28F4318E2CC251D10C57CE0DC73D2733" import="1">SolIntellect/Art/SolArchive64.dds</File>
+    <File md5="62DB95C3E04014E6F0FC31CEBBD6F8F7" import="1">SolIntellect/Art/SolArchive128.dds</File>
+    <File md5="6BE6CCB8D22895EEB5F8241692649000" import="1">SolIntellect/Art/SolArchive256.dds</File>
+    <File md5="BBCEC714A5B338D00618463A1364C543" import="1">SolIntellect/Art/SolArchive45.dds</File>
+    <File md5="2AA254E195BC04314A23856FE63F7093" import="1">SolIntellect/Art/SolArchive64.dds</File>
     <File md5="1C4054F4164C9A6D50EC192C755D40FC" import="1">SolIntellect/Art/SolDawn.dds</File>
-    <File md5="72314E81055BD11EAF6EFCC509AEBCC4" import="1">SolIntellect/Art/SolIcon128.dds</File>
-    <File md5="D7DEA3BE55492E1F00EB0093AB7FA327" import="1">SolIntellect/Art/SolIcon256.dds</File>
-    <File md5="101E884E5F7310CC7F808BC06C0FD027" import="1">SolIntellect/Art/SolIcon32.dds</File>
-    <File md5="EC62232B55EE37DF5CD155A023003E15" import="1">SolIntellect/Art/SolIcon45.dds</File>
-    <File md5="ECE3560DF39F40A17D136E2933CBF1D1" import="1">SolIntellect/Art/SolIcon64.dds</File>
-    <File md5="0B85D4B5A7C0BC2FECC7B1AA818E75A6" import="1">SolIntellect/Art/SolIcon80.dds</File>
-    <File md5="C58FD9A993C5BB9504AC00D7C763974A" import="1">SolIntellect/Art/SolInstitute128.dds</File>
-    <File md5="D439382849944B9B822B518B8CE5CF3A" import="1">SolIntellect/Art/SolInstitute256.dds</File>
-    <File md5="E01BA9B8A36CBF85496C9F122560DC95" import="1">SolIntellect/Art/SolInstitute45.dds</File>
-    <File md5="B6B1CA40E8DFAF2F7A1D2803B47C8C18" import="1">SolIntellect/Art/SolInstitute64.dds</File>
+    <File md5="A5FF7C3C9B702EC62344AB470E945F5A" import="1">SolIntellect/Art/SolIcon128.dds</File>
+    <File md5="4E0B85FA3DCB4D80E69B91CB96E7A432" import="1">SolIntellect/Art/SolIcon256.dds</File>
+    <File md5="212C3B916CB6D13367D516F6B0B09498" import="1">SolIntellect/Art/SolIcon32.dds</File>
+    <File md5="0A35BA43A2000FF3FEF281C3B25AAD32" import="1">SolIntellect/Art/SolIcon45.dds</File>
+    <File md5="9BB84CD337639EB2E33C090439DE5494" import="1">SolIntellect/Art/SolIcon64.dds</File>
+    <File md5="826C3D3E65CA2F80EF5331E02CD8496C" import="1">SolIntellect/Art/SolIcon80.dds</File>
+    <File md5="418DBF60F2A0DEC82D0A8822F2A3068E" import="1">SolIntellect/Art/SolInstitute128.dds</File>
+    <File md5="E4AF53EAD73B23555588B99ABE7C2700" import="1">SolIntellect/Art/SolInstitute256.dds</File>
+    <File md5="C9D7F6CCB4849243C6123FF35644A07B" import="1">SolIntellect/Art/SolInstitute45.dds</File>
+    <File md5="E8A2AF600A4D8090D60694B65A145325" import="1">SolIntellect/Art/SolInstitute64.dds</File>
     <File md5="D1AEBA6113310C1A2ABF2FFA5969C1A6" import="1">SolIntellect/Art/SolLeader.dds</File>
-    <File md5="8ED3A929C8F14FD7BAD9D12CEE8B94D6" import="1">SolIntellect/Art/SolLeader128.dds</File>
-    <File md5="8B094D4F5C4EA9481475E68F9A78C8B3" import="1">SolIntellect/Art/SolLeader256.dds</File>
-    <File md5="7CAE1675DB1660E83A38F87B4F36A165" import="1">SolIntellect/Art/SolLeader64.dds</File>
+    <File md5="102E1AA33F22EA3FAEA0839B3938D64D" import="1">SolIntellect/Art/SolLeader128.dds</File>
+    <File md5="D43F7607CE5DB3F39E4A25FB3E12B013" import="1">SolIntellect/Art/SolLeader256.dds</File>
+    <File md5="E2E669FB60B1B4A46019EE51DDBB15EE" import="1">SolIntellect/Art/SolLeader64.dds</File>
     <File md5="8DAE514D3BD752D5D0D617CD90B00F7A" import="1">SolIntellect/Art/SolLeaderScene.xml</File>
     <File md5="33036F6411A9149B08E50A44C8ABC9B6" import="1">SolIntellect/Art/SolMap.dds</File>
     <File md5="0C4C0C89F9B2FD567FF9F41BAF156848" import="1">SolIntellect/Lua/SolRuntime.lua</File>
@@ -536,15 +536,15 @@
     <File md5="EFC4B28F861A811CFCBDDE706F4245F3" import="1">TheShatteredEmpire/Art/ImperialLeader.dds</File>
     <File md5="4F1CA25FBAC518AD1EA10D06534983BF" import="1">TheShatteredEmpire/Art/ImperialLeaderScene.xml</File>
     <File md5="2B731349AB6113331B485A698DD416BC" import="1">TheShatteredEmpire/Art/ImperialMap.dds</File>
-    <File md5="6CDD11C8B38A6939DD0FF860CD24601E" import="1">TheShatteredEmpire/Art/ImperialObjects128.dds</File>
-    <File md5="898400272671B12D99C37EFEAD5DAB33" import="1">TheShatteredEmpire/Art/ImperialObjects16.dds</File>
-    <File md5="AFF5D58C96188B39410F5DA59F219F83" import="1">TheShatteredEmpire/Art/ImperialObjects24.dds</File>
-    <File md5="99656FF148FCD6089B7A3045B5B2E37F" import="1">TheShatteredEmpire/Art/ImperialObjects256.dds</File>
-    <File md5="A93A0980C4063F14C7EA9594F3FE5E33" import="1">TheShatteredEmpire/Art/ImperialObjects32.dds</File>
-    <File md5="89CE992A8E4362D2616B7A0861A2CF50" import="1">TheShatteredEmpire/Art/ImperialObjects45.dds</File>
-    <File md5="5CD3796934329D76A4888AE94CC26824" import="1">TheShatteredEmpire/Art/ImperialObjects48.dds</File>
-    <File md5="BD75137BCB55BB0C4D08C017D813EA82" import="1">TheShatteredEmpire/Art/ImperialObjects64.dds</File>
-    <File md5="CF0AA05DAD60FBF1C5CF463E236DB208" import="1">TheShatteredEmpire/Art/ImperialObjects80.dds</File>
+    <File md5="B2494DC2F95DD9AFF8AB19669DCBD3A8" import="1">TheShatteredEmpire/Art/ImperialObjects128.dds</File>
+    <File md5="87AC56E77C28E53E027874DA244C38D7" import="1">TheShatteredEmpire/Art/ImperialObjects16.dds</File>
+    <File md5="F417E702D6C2084DCDBB75D0806D1BCB" import="1">TheShatteredEmpire/Art/ImperialObjects24.dds</File>
+    <File md5="775D8BB5169B1D8EF408F3D514CA9E0F" import="1">TheShatteredEmpire/Art/ImperialObjects256.dds</File>
+    <File md5="663CEDD4FA5FFA3070FF69922FB01F5D" import="1">TheShatteredEmpire/Art/ImperialObjects32.dds</File>
+    <File md5="F5B236D26D18681014E6CE732FFF5EB7" import="1">TheShatteredEmpire/Art/ImperialObjects45.dds</File>
+    <File md5="D34FB514B53DAEBFF9822CB59D7AA205" import="1">TheShatteredEmpire/Art/ImperialObjects48.dds</File>
+    <File md5="4F669A773C93D4A3F4C2B8A3F610A34E" import="1">TheShatteredEmpire/Art/ImperialObjects64.dds</File>
+    <File md5="4B4900E8520C60C8F64369978197169A" import="1">TheShatteredEmpire/Art/ImperialObjects80.dds</File>
     <File md5="5DAB679B29C3EEF4237FA180384D540F" import="1">TheShatteredEmpire/Art/ImperialUnitFlag32.dds</File>
     <File md5="7F300833A8BE03E73124F0C95A8643EC" import="1">TheShatteredEmpire/Lua/ImperialAI.lua</File>
     <File md5="C1FA98CBA1B35B1995C40813FFAE0BF6" import="1">TheShatteredEmpire/Lua/ImperialChronicle.lua</File>
@@ -589,24 +589,24 @@
     <File md5="DE191ABF155D3DA1A21C1BDB82B0FB09" import="1">TheLastCity/Art/LastCityAlpha48.dds</File>
     <File md5="2116688ED5E013E3EB2B757F1CB30DD6" import="1">TheLastCity/Art/LastCityAlpha64.dds</File>
     <File md5="67685A612672D9D5E6667309827862AC" import="1">TheLastCity/Art/LastCityAlpha80.dds</File>
-    <File md5="B6762A83173AB0553572B2C63132D236" import="1">TheLastCity/Art/LastCityIcon128.dds</File>
-    <File md5="2664EC55BE133ECD35B36683382091B9" import="1">TheLastCity/Art/LastCityIcon16.dds</File>
-    <File md5="E603897AF8EFF6B9A2698F1A35E78A8E" import="1">TheLastCity/Art/LastCityIcon24.dds</File>
-    <File md5="0886B90C0B643DD6327AD1ED0853C7F5" import="1">TheLastCity/Art/LastCityIcon256.dds</File>
-    <File md5="B9A551AD08F017229A8F9B45A768B41B" import="1">TheLastCity/Art/LastCityIcon32.dds</File>
-    <File md5="A5ACF67593C2F567955BFBF084F99334" import="1">TheLastCity/Art/LastCityIcon45.dds</File>
-    <File md5="0B1638D05D42707252C21DD4FC8C1628" import="1">TheLastCity/Art/LastCityIcon48.dds</File>
-    <File md5="FEDB53BDBD939227ED76F3DFA153B1A3" import="1">TheLastCity/Art/LastCityIcon64.dds</File>
-    <File md5="5C7F885364F05D091919AFE091A5C048" import="1">TheLastCity/Art/LastCityIcon80.dds</File>
-    <File md5="7DCA57BA35BDF4B7C7AA10B456A1418A" import="1">TheLastCity/Art/LastCityObjects128.dds</File>
-    <File md5="BF7318025B627CA7028EB5EFA73E719D" import="1">TheLastCity/Art/LastCityObjects16.dds</File>
-    <File md5="79C5686E6808C64C329F884A2BA6F773" import="1">TheLastCity/Art/LastCityObjects24.dds</File>
-    <File md5="EDAC106E0F84D6C78DB86E5E405E77C7" import="1">TheLastCity/Art/LastCityObjects256.dds</File>
-    <File md5="4B85B4FF073D55CC1B4B2046D09DD727" import="1">TheLastCity/Art/LastCityObjects32.dds</File>
-    <File md5="C5DBCAFADC4EA93F5FBF2534F9408CFC" import="1">TheLastCity/Art/LastCityObjects45.dds</File>
-    <File md5="AACB444A3DFF14090CB22645F6F1FEE9" import="1">TheLastCity/Art/LastCityObjects48.dds</File>
-    <File md5="5D9DC694A269E8B3684112C7260E2F86" import="1">TheLastCity/Art/LastCityObjects64.dds</File>
-    <File md5="CF153FC6275AE7CD5E78EB648C2CF26C" import="1">TheLastCity/Art/LastCityObjects80.dds</File>
+    <File md5="FC1FF35687CBE75413245EE2EED01AB3" import="1">TheLastCity/Art/LastCityIcon128.dds</File>
+    <File md5="C81040EDF4FBC0308D187BF160F2D77C" import="1">TheLastCity/Art/LastCityIcon16.dds</File>
+    <File md5="12FAFF31A0636B4D6E172AD5C977E7C5" import="1">TheLastCity/Art/LastCityIcon24.dds</File>
+    <File md5="1927055765E2F9AF9FC16B7FA5AAEBEA" import="1">TheLastCity/Art/LastCityIcon256.dds</File>
+    <File md5="E92A62F0CD93372447127F109A9F7F82" import="1">TheLastCity/Art/LastCityIcon32.dds</File>
+    <File md5="9986243331D0369B43C73CA9D749414C" import="1">TheLastCity/Art/LastCityIcon45.dds</File>
+    <File md5="46F3224A068757F502627668492CDFFA" import="1">TheLastCity/Art/LastCityIcon48.dds</File>
+    <File md5="F6C1D6297D624580273725D18ABAA520" import="1">TheLastCity/Art/LastCityIcon64.dds</File>
+    <File md5="82C5899DDCBD963E39B30523892B9A62" import="1">TheLastCity/Art/LastCityIcon80.dds</File>
+    <File md5="BCE776279978A677A0F752EC0802C4C3" import="1">TheLastCity/Art/LastCityObjects128.dds</File>
+    <File md5="4CEDE1576ECB907BCE523361E62BC453" import="1">TheLastCity/Art/LastCityObjects16.dds</File>
+    <File md5="D1F63BE1EE11BAB78E257676944A77EB" import="1">TheLastCity/Art/LastCityObjects24.dds</File>
+    <File md5="7E5A5F8042C7605AFB80BB4A91A11D42" import="1">TheLastCity/Art/LastCityObjects256.dds</File>
+    <File md5="EFBBA5BCC562F6A24A5DE64AC8391DE9" import="1">TheLastCity/Art/LastCityObjects32.dds</File>
+    <File md5="2323B1DB21E4A53E72C4C1278B41502D" import="1">TheLastCity/Art/LastCityObjects45.dds</File>
+    <File md5="12AA285520CE760E6B7A324D90A64736" import="1">TheLastCity/Art/LastCityObjects48.dds</File>
+    <File md5="41A031715B26E82D032BC2702256BA43" import="1">TheLastCity/Art/LastCityObjects64.dds</File>
+    <File md5="EE812D83F73E611F18CC2D4CB1BD959E" import="1">TheLastCity/Art/LastCityObjects80.dds</File>
     <File md5="A9C5F69BED07108B01D5D92967085343" import="1">TheLastCity/Art/LastCityPromotions128.dds</File>
     <File md5="DF6E0ACA8813DD750D0FA3E05F703E53" import="1">TheLastCity/Art/LastCityPromotions16.dds</File>
     <File md5="C4D737E6EDDAA3F4893854ED2E86BDD6" import="1">TheLastCity/Art/LastCityPromotions24.dds</File>
@@ -620,9 +620,9 @@
     <File md5="ACE8378957577B7CFDFD8B0565ACAEB4" import="1">TheLastCity/Art/LastLightMap.dds</File>
     <File md5="D612A6B71DB8FFEB9D31DDDF00C25C53" import="1">TheLastCity/Art/WardenLeader.dds</File>
     <File md5="8B879A7D9C3B324FFC023BFCCE616E99" import="1">TheLastCity/Art/WardenLeaderScene.xml</File>
-    <File md5="C8BE04B67B712D4C19C20EDB50F97D9A" import="1">TheLastCity/Art/WardenPortrait128.dds</File>
-    <File md5="8C4230E2E28220374F292E04A7350260" import="1">TheLastCity/Art/WardenPortrait256.dds</File>
-    <File md5="7C25F73128413916701786B7B76B206C" import="1">TheLastCity/Art/WardenPortrait64.dds</File>
+    <File md5="95080095EB19989B77C52908C0DFAED1" import="1">TheLastCity/Art/WardenPortrait128.dds</File>
+    <File md5="09175DB467343BFC8EA7380F0A601E9F" import="1">TheLastCity/Art/WardenPortrait256.dds</File>
+    <File md5="6F33B034B62AB1A6B790ED9D9A21EC13" import="1">TheLastCity/Art/WardenPortrait64.dds</File>
     <File md5="7A831776F35615A1483CB2A3F632A2EA" import="0">TheLastCity/SQL/03_LC_Art.sql</File>
     <File md5="0C6B8C1F02891562C2B5BCC89B3FF3E6" import="1">CristianoRonaldo/Art/CR7Alpha128.dds</File>
     <File md5="595916EA3D3905550CBCB44DB375C5B6" import="1">CristianoRonaldo/Art/CR7Alpha16.dds</File>
@@ -635,30 +635,30 @@
     <File md5="13D1BB142C187FDDDBB777D774C0DFE7" import="1">CristianoRonaldo/Art/CR7Alpha80.dds</File>
     <File md5="9CC4475EA93A5051227495E629DEA7A9" import="1">CristianoRonaldo/Art/CR7Dawn.dds</File>
     <File md5="AAC0F39E4B7B4F4BF575D904CD1176F2" import="1">CristianoRonaldo/Art/CR7Flag32.dds</File>
-    <File md5="7D8E0A4EB264A65205D154D10BA4F29E" import="1">CristianoRonaldo/Art/CR7Icon128.dds</File>
-    <File md5="EC6A0B62A7C91D7E5077062D0736E10A" import="1">CristianoRonaldo/Art/CR7Icon16.dds</File>
-    <File md5="B544EF9910B0DA137EE22468EF3549FE" import="1">CristianoRonaldo/Art/CR7Icon24.dds</File>
-    <File md5="8DB499A0CE637643707BE3045D5D3BF0" import="1">CristianoRonaldo/Art/CR7Icon256.dds</File>
-    <File md5="0B4CB7CCDA33DC14E1A78D6F858925F0" import="1">CristianoRonaldo/Art/CR7Icon32.dds</File>
-    <File md5="D572D8C67B539E64F45DDBC5CE615C07" import="1">CristianoRonaldo/Art/CR7Icon45.dds</File>
-    <File md5="8C6EB2C0A823376FB8BD9E1C4FD03D90" import="1">CristianoRonaldo/Art/CR7Icon48.dds</File>
-    <File md5="B2D7928E7CB5028B8DEC4CEC4D1A0316" import="1">CristianoRonaldo/Art/CR7Icon64.dds</File>
-    <File md5="561A341DB4EFE2C0E8A077FDEEF28A8B" import="1">CristianoRonaldo/Art/CR7Icon80.dds</File>
+    <File md5="E165BC4D96B6733CAE2D16CA738F682F" import="1">CristianoRonaldo/Art/CR7Icon128.dds</File>
+    <File md5="87499DC82FA8F68C5E8020D4046470F0" import="1">CristianoRonaldo/Art/CR7Icon16.dds</File>
+    <File md5="EF1A813F4DA5BE1A0DBD47C29DE24F31" import="1">CristianoRonaldo/Art/CR7Icon24.dds</File>
+    <File md5="0BFAFD1E126240074CA0FC3716229FC1" import="1">CristianoRonaldo/Art/CR7Icon256.dds</File>
+    <File md5="425862E1475B873C5F67FEBDB36ED68E" import="1">CristianoRonaldo/Art/CR7Icon32.dds</File>
+    <File md5="853923646D281CB5B011930068C03DCE" import="1">CristianoRonaldo/Art/CR7Icon45.dds</File>
+    <File md5="7AA73BD19FBAA08B92BA09C656746213" import="1">CristianoRonaldo/Art/CR7Icon48.dds</File>
+    <File md5="FF7A5E2AF753F11957558202F6B69D28" import="1">CristianoRonaldo/Art/CR7Icon64.dds</File>
+    <File md5="200D2B5AB521A92D3D02047220C598DA" import="1">CristianoRonaldo/Art/CR7Icon80.dds</File>
     <File md5="9DD3B3452E83DEDB0DD8F01A13F5A00E" import="1">CristianoRonaldo/Art/CR7Leader.dds</File>
-    <File md5="AA5519BAF2DE06F23F4EE3D6A19145D6" import="1">CristianoRonaldo/Art/CR7Leader128.dds</File>
-    <File md5="C72EB6911E3E0D22981A542A4DF78FB5" import="1">CristianoRonaldo/Art/CR7Leader256.dds</File>
-    <File md5="E2AB4FF5BB8D69C7E7E823D0DE741AC8" import="1">CristianoRonaldo/Art/CR7Leader64.dds</File>
+    <File md5="8DE598105833DB5D72588EC701EBCB30" import="1">CristianoRonaldo/Art/CR7Leader128.dds</File>
+    <File md5="FD7025255D9CDDA41DB3C73382193609" import="1">CristianoRonaldo/Art/CR7Leader256.dds</File>
+    <File md5="2FFCF75BC0A14A2CB23361122DD7662C" import="1">CristianoRonaldo/Art/CR7Leader64.dds</File>
     <File md5="2CA883A9520116F0DC8FF3D06EC8874D" import="1">CristianoRonaldo/Art/CR7LeaderScene.xml</File>
     <File md5="FCDABE6D601BB885269DF6309DB95AA8" import="1">CristianoRonaldo/Art/CR7Map.dds</File>
-    <File md5="1D1D4F56EFC924592F6788E96B05BCF3" import="1">CristianoRonaldo/Art/CR7Objects128.dds</File>
-    <File md5="2F6269C558E767454E8A312863222694" import="1">CristianoRonaldo/Art/CR7Objects16.dds</File>
-    <File md5="A3E24EE85DB34275DE3E5EA86A03A947" import="1">CristianoRonaldo/Art/CR7Objects24.dds</File>
-    <File md5="261A58514B96592C51031C0C9A7B475F" import="1">CristianoRonaldo/Art/CR7Objects256.dds</File>
-    <File md5="C8813D5A795356939DA314B282470E5D" import="1">CristianoRonaldo/Art/CR7Objects32.dds</File>
-    <File md5="4B0A5B7590279F2BFD260A9FD8968D11" import="1">CristianoRonaldo/Art/CR7Objects45.dds</File>
-    <File md5="CFD0E15D57BC361E4552048C1F3242A8" import="1">CristianoRonaldo/Art/CR7Objects48.dds</File>
-    <File md5="321AEA9C3C9BBB6049D4C52CCC640ECD" import="1">CristianoRonaldo/Art/CR7Objects64.dds</File>
-    <File md5="A1C65CA26A8C11B10F4A0D58A9616222" import="1">CristianoRonaldo/Art/CR7Objects80.dds</File>
+    <File md5="5C74D20DBD31B8029F6D6BDC1ECFAA3F" import="1">CristianoRonaldo/Art/CR7Objects128.dds</File>
+    <File md5="709CAD8BB428B7DF3133F9F3DC1E101E" import="1">CristianoRonaldo/Art/CR7Objects16.dds</File>
+    <File md5="826F63202ECEF468385F75C12608A9EC" import="1">CristianoRonaldo/Art/CR7Objects24.dds</File>
+    <File md5="A4366CDB090EC6C98662A006A35E5E84" import="1">CristianoRonaldo/Art/CR7Objects256.dds</File>
+    <File md5="E1A06EBD228B44B8F71B7C42951EA821" import="1">CristianoRonaldo/Art/CR7Objects32.dds</File>
+    <File md5="748CBA54D7B72283FF73BFC6467D252F" import="1">CristianoRonaldo/Art/CR7Objects45.dds</File>
+    <File md5="5EF1DA1B23F3FE3BC6B305594002F31D" import="1">CristianoRonaldo/Art/CR7Objects48.dds</File>
+    <File md5="D288292118E6CF48F9279EC116D8C791" import="1">CristianoRonaldo/Art/CR7Objects64.dds</File>
+    <File md5="D46B8F1A9FAC71F67CE22E109B5B280C" import="1">CristianoRonaldo/Art/CR7Objects80.dds</File>
     <File md5="DAE0AC7B57FAE2E384D8BAF01D77FA25" import="1">CristianoRonaldo/Lua/CR7Runtime.lua</File>
     <File md5="8C80340BA91784E9C50FB09234CE081E" import="0">CristianoRonaldo/SQL/00_CR7_Core.sql</File>
     <File md5="8E52969F9FAA6330C255C843A54BF4DE" import="0">CristianoRonaldo/SQL/01_CR7_Inheritance.sql</File>
@@ -680,31 +680,31 @@
     <File md5="671DB3959EB627006B5FE3DB4B5B5C91" import="1">TheBoyWhoTouchedParadise/Art/ParadiseEpilogue.dds</File>
     <File md5="6DD67CF148DC265772FE1C25BB3FBE11" import="1">TheBoyWhoTouchedParadise/Art/ParadiseFinalPeak.dds</File>
     <File md5="09323223E85010FEFD8BB54C9D0F0FBE" import="1">TheBoyWhoTouchedParadise/Art/ParadiseHeartbreak.dds</File>
-    <File md5="EDF113728143A3D9D1738BC2647886F4" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon128.dds</File>
-    <File md5="80F5D21B876F20847EB24D0D49D39D73" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon16.dds</File>
-    <File md5="729558FA26D80FA782A36765FC6CB30B" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon24.dds</File>
-    <File md5="85214F0974327EC01ED9EEF2500A2859" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon256.dds</File>
-    <File md5="58A03412A962BDAFCD99C6BF75CE615A" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon32.dds</File>
-    <File md5="BCAC7957FCAB5D7FB13A45CE4A53FA58" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon45.dds</File>
-    <File md5="739066106F774F3B62DBC9F37489F052" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon48.dds</File>
-    <File md5="CC0B68684E53F38BECE1A52CDCFC5594" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon64.dds</File>
-    <File md5="12DE5212D5E3C9AC85263CD4E43D4804" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon80.dds</File>
+    <File md5="AE1BDBBA1E5376829F5484E5D8EC3E55" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon128.dds</File>
+    <File md5="2F283EED1F35D50BF0B76FC7292EB984" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon16.dds</File>
+    <File md5="544ABC219131EBE27CBBE534C3BD860E" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon24.dds</File>
+    <File md5="D6675B2DE4FD4037967EEDE5CB510BBF" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon256.dds</File>
+    <File md5="67A434A6F66FD6E384E6AAB7A976A95D" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon32.dds</File>
+    <File md5="BB3A8EE3E0EAC5E373DB284B3AE35A3A" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon45.dds</File>
+    <File md5="1128BE658157989032F208717687C6C3" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon48.dds</File>
+    <File md5="B75CEE159BD168A44349527B10C1418A" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon64.dds</File>
+    <File md5="67568030F767A0973735A2B33B590884" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon80.dds</File>
     <File md5="40C26110AB12EFAA2627E4767FB49647" import="1">TheBoyWhoTouchedParadise/Art/ParadiseJourney.dds</File>
     <File md5="F1706BC779185F5C28416E1441DFCC93" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeader.dds</File>
-    <File md5="A91E70CD9C754656761EFB2A53572DF4" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeader128.dds</File>
-    <File md5="39AF28CC8953B9130B853B853977A30B" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeader256.dds</File>
-    <File md5="DBCBF5B893338EDC3D315A233CB002B0" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeader64.dds</File>
+    <File md5="82C4192781E437D3F7E8DF2D61D2CEE3" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeader128.dds</File>
+    <File md5="CBE272000E38F0B0D2863E2F0294EE65" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeader256.dds</File>
+    <File md5="BEB66CAC4341E2E916F909A39E1226EE" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeader64.dds</File>
     <File md5="D856B350B4CC0774A00C4A46243E9827" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeaderScene.xml</File>
     <File md5="F50A5B61A3A080AF5BCC2A7E3059743E" import="1">TheBoyWhoTouchedParadise/Art/ParadiseMap.dds</File>
-    <File md5="0812BBACF368EE7133144092C4B7FC29" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects128.dds</File>
-    <File md5="9A346B8F2B0AC18108F186B4C14B29D5" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects16.dds</File>
-    <File md5="30E30C258DFCBA7AFC237BC0DA9CB6E8" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects24.dds</File>
-    <File md5="143E33A90C36D02927026EE781B7CE56" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects256.dds</File>
-    <File md5="AE0CC720D1287C5334EADC5D1CCCBCE4" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects32.dds</File>
-    <File md5="1AD621DFE401AAD9367F1A7FFB363B5C" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects45.dds</File>
-    <File md5="9D5241677AE1298806CB4F685ADE28C9" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects48.dds</File>
-    <File md5="71E1271A7B709C8B30946EA90CDEABEC" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects64.dds</File>
-    <File md5="024CA485E1749E6A0BEA57F0572332BB" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects80.dds</File>
+    <File md5="40F439E6A9B72FC91B6ADEB981B0E530" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects128.dds</File>
+    <File md5="46CA00841239DE753FA47C65B11D8727" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects16.dds</File>
+    <File md5="85B418D01FF4A312A2065A56F9BE1271" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects24.dds</File>
+    <File md5="568B6025EE8414072D2904216ACA69EB" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects256.dds</File>
+    <File md5="AA2DE97AE7F250E082FCF93AC25C31C6" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects32.dds</File>
+    <File md5="53118A36A6FBE6A26C9CFC33FE7DFD8E" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects45.dds</File>
+    <File md5="32CE517DFE22B573F37823DBB223ADF0" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects48.dds</File>
+    <File md5="D97E1EFFDE333108D34E7CF382C32EC3" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects64.dds</File>
+    <File md5="D6492D05AF00E3EE9BDFB591680F205A" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects80.dds</File>
     <File md5="5FA6539C27D9212EF19ED4910A72A80C" import="1">TheBoyWhoTouchedParadise/Art/ParadiseUnitFlag32.dds</File>
     <File md5="A56A74BF9B3927D964238CFF4B2005D4" import="1">TheBoyWhoTouchedParadise/Art/ParadiseWeight.dds</File>
     <File md5="BE5FA733A1C509CB34E0A28C42FF5BC4" import="1">TheBoyWhoTouchedParadise/Lua/ParadisePersistence.lua</File>

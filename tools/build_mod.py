@@ -99,6 +99,8 @@ def package_name() -> str:
 
 
 def sync_manifest() -> Path:
+    from standardize_icons import standardize
+    standardize(ROOT)
     manifest = ROOT / f"{package_name()}.modinfo"
     create_manifest().write(manifest, encoding="utf-8", xml_declaration=True)
     return manifest
