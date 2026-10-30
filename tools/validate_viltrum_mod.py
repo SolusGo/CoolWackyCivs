@@ -236,9 +236,10 @@ Events.LeavingLeaderViewMode.Fire();assert(not Controls.Launcher.hidden,'diploma
 Events.SerialEventGameMessagePopupShown.Fire({Type=11});Events.SerialEventGameMessagePopupShown.Fire({Type=12})
 assert(Controls.Launcher.hidden and Controls.Panel.hidden,'overview overlay')
 Events.SerialEventGameMessagePopupProcessed.Fire(11,0);assert(Controls.Launcher.hidden,'nested popup restored prematurely')
-state('pending',1);Events.ActivePlayerTurnStart.Fire();assert(not Controls.Panel.hidden and Controls.Launcher.hidden,'mandatory choice hidden by overview')
-Controls.ChoiceB.click();assert(Controls.Panel.hidden,'optional panel visible over remaining popup')
-Events.SerialEventGameMessagePopupProcessed.Fire(12,0);assert(not Controls.Launcher.hidden,'popup exit restoration')
+state('pending',1);Events.ActivePlayerTurnStart.Fire();assert(Controls.Panel.hidden and Controls.Launcher.hidden,'decision overlaid another overview')
+Controls.ChoiceB.click();assert(MapModData.ViltrumEmpire.Get(0,'pending')==1,'hidden stale choice consumed the decision')
+Events.SerialEventGameMessagePopupProcessed.Fire(12,0);assert(not Controls.Panel.hidden and Controls.Launcher.hidden,'pending decision did not resume')
+Controls.ChoiceB.click();assert(not Controls.Launcher.hidden,'resolved decision did not restore launcher')
 state('pending',1);Events.ActivePlayerTurnStart.Fire();assert(Queues==3)
 P.alive=false;Events.ActivePlayerTurnStart.Fire();assert(Dequeues==3 and Controls.Panel.hidden,'elimination left modal popup queued')
 for n,e in pairs(GameEvents)do local expected=(n=='DeclareWar' or n=='MakePeace')and 0 or 1;assert(#e.handlers==expected,'UI listener count '..n)end

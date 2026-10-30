@@ -2,6 +2,7 @@
 from pathlib import Path
 from xml.etree import ElementTree as ET
 import hashlib,sys,zipfile
+from standalone_ui import add_shared_ui, source_file, archive_name
 R=Path(__file__).resolve().parents[1];V=R/'TheKingdoms'
 sys.path.insert(0,str(R/'.tools/python'))
 
@@ -18,24 +19,24 @@ def manifest():
     for p in sorted(V.rglob('*')):
         if not p.is_file() or p.suffix.lower() not in ['.sql','.lua','.xml','.dds']:continue
         imported=p.suffix!='.sql' and p.name!='KingdomsOverview.xml'
-        ET.SubElement(group,'File',md5=hashlib.md5(p.read_bytes()).hexdigest().upper(),**{'import':str(int(imported))}).text=p.relative_to(V).as_posix()
+        ET.SubElement(group,'File',md5=hashlib.md5(p.read_bytes()).hexdigest().upper(),**{'import':str(int(imported))}).text=archive_name(p,V)
     actions=ET.SubElement(ET.SubElement(root,'Actions'),'OnModActivated')
-    for p in sorted((V/'SQL').glob('*.sql')):ET.SubElement(actions,'UpdateDatabase').text=p.relative_to(V).as_posix()
+    for p in sorted((V/'SQL').glob('*.sql')):ET.SubElement(actions,'UpdateDatabase').text=archive_name(p,V)
     entry=ET.SubElement(ET.SubElement(root,'EntryPoints'),'EntryPoint',type='InGameUIAddin',file='UI/KingdomsOverview.xml')
     ET.SubElement(entry,'Name').text='The Kingdoms Overview';ET.SubElement(entry,'Description').text='Persistent politics, AI simulation and event-driven realm panels.'
-    ET.indent(root,'  ');return ET.ElementTree(root)
+    add_shared_ui(root);ET.indent(root,'  ');return ET.ElementTree(root)
 
 def main():
     path=V/'The Kingdoms (v 1).modinfo';tree=manifest();tree.write(path,encoding='utf-8',xml_declaration=True)
     if '--manifest-only' in sys.argv:print(path);return
     out=R/'dist';out.mkdir(exist_ok=True)
-    files=[V/e.text for e in tree.findall('Files/File')]+[path]
+    files=[source_file(V,e.text) for e in tree.findall('Files/File')]+[path]
     with zipfile.ZipFile(out/'The Kingdoms (v 1).zip','w',compression=zipfile.ZIP_DEFLATED) as z:
-        for p in files:z.write(p,'The Kingdoms (v 1)/'+p.relative_to(V).as_posix())
+        for p in files:z.write(p,'The Kingdoms (v 1)/'+archive_name(p,V))
     import py7zr
     native=out/'The Kingdoms (v 1).civ5mod'
     with py7zr.SevenZipFile(native,'w',filters=[{'id':py7zr.FILTER_LZMA}]) as z:
-        for p in files:z.write(p,p.relative_to(V).as_posix())
+        for p in files:z.write(p,archive_name(p,V))
     with py7zr.SevenZipFile(native,'r') as z:assert z.testzip() is None
     print(native)
 

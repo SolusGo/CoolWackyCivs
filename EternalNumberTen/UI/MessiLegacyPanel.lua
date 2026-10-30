@@ -1,3 +1,5 @@
+local uiRecovery -- UI state is transient; never part of a gameplay save.
+local uiRenderError
 include('IconSupport')
 
 local open, dirty, selected = false, true, 1
@@ -27,13 +29,16 @@ for index, button in ipairs(chapterButtons) do
 end
 
 local function refresh()
+ local function draw()
+ if uiRecovery then uiRecovery:Sync() end
     if not dirty then return end
     dirty = false
     local playerID, player = active()
     local runtime = MapModData and MapModData.MessiLegacy or nil
     local state = player and runtime and runtime.GetUIState and runtime.GetUIState(playerID) or nil
     local visible = state ~= nil
-    Controls.LauncherFrame:SetHide(not visible)
+ visible=visible and (not uiRecovery or uiRecovery:Available())
+ Controls.LauncherFrame:SetHide(not visible)
     Controls.MainPanel:SetHide(not visible or not open)
     if not visible then return end
     IconHookup(0, 32, 'MESSI_ICON_ATLAS', Controls.LauncherIcon)
@@ -61,6 +66,14 @@ local function refresh()
     Controls.ChapterRequirement:SetText(chapter.threshold .. ' Legacy  •  ' .. eraText(chapter))
     Controls.ChapterEffects:SetText(L(chapter.effects))
     Controls.ChapterStory:SetText(L(chapter.story))
+ end
+ local ok,err=pcall(draw)
+ if not ok then
+  dirty=true
+  Controls.MainPanel:SetHide(true)
+  if uiRenderError~=tostring(err) then print("[Civilization UI] EternalNumberTen render recovered: "..tostring(err)) end
+  uiRenderError=tostring(err)
+ else uiRenderError=nil end
 end
 
 Controls.LauncherButton:RegisterCallback(Mouse.eLClick, function() open, dirty = not open, true end)
@@ -76,6 +89,7 @@ Events.GameplaySetActivePlayer.Add(function() open, selected, dirty = false, 1, 
 Events.ActivePlayerTurnStart.Add(markDirty)
 Events.ActivePlayerTurnEnd.Add(function() open, dirty = false, true end)
 ContextPtr:SetInputHandler(function(uiMsg, key)
+ if uiRecovery and not uiRecovery:Available() then return false end
     if open and uiMsg == KeyEvents.KeyDown and key == Keys.VK_ESCAPE then open, dirty = false, true; return true end
     return false
 end)
@@ -85,3 +99,15 @@ ContextPtr:SetUpdate(function(dt)
     if dirty and elapsed >= 0.15 then elapsed = 0; refresh() end
 end)
 refresh()
+
+-- Shared screen recovery: actual native visibility wins over stale event flags.
+local helperLoaded=pcall(include,'CWC_Screen')
+if CWC_Screen then
+ uiRecovery=CWC_Screen.New{name='EternalNumberTen',civ='CIVILIZATION_ETERNAL_NUMBER_TEN',context=ContextPtr,
+  roots={Controls.LauncherFrame,Controls.MainPanel},panels={Controls.MainPanel},
+  request=function() dirty=true end,
+  refresh=function() dirty=true;refresh() end,
+  recover=function()  end,repair=function() dirty=true end,
+  close=function() open=false end,manageContext=true}
+ uiRecovery:Refresh(true)
+end

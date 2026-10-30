@@ -1,33 +1,55 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <Context ID="LastCityCouncil">
  <Grid ID="Launcher" Anchor="C,T" Offset="0,56" Size="570,36" Style="GridBlackIndent8" Hidden="1">
-  <GridButton ID="Open" Anchor="C,C" Size="558,30" Style="BaseButton" String="TXT_KEY_LC_COUNCIL" />
+  <Image ID="CWC_ThemeBackground_Launcher" Anchor="L,T" Size="570,36" Texture="CWC_TheLastCity_Launcher_570x36.dds" ConsumeMouse="0" />
+  <GridButton ID="Open" Anchor="C,C" Size="558,30" String="TXT_KEY_LC_COUNCIL" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TheLastCity_Buttons.dds" />
+  </GridButton>
  </Grid>
- <Grid ID="Panel" Anchor="C,C" Size="920,680" Style="Grid9DetailFive140" ConsumeMouse="1" Hidden="1">
-  <Label ID="Title" Anchor="L,T" Offset="24,20" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="TXT_KEY_LC_COUNCIL" />
-  <GridButton ID="Close" Anchor="R,T" Offset="20,18" Size="42,32" Style="BaseButton" String="X" />
-  <Label ID="Summary" Anchor="L,T" Offset="24,58" Size="868,65" WrapWidth="868" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+ <Grid ID="Panel" Anchor="C,C" Size="920,680" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
+  <Image ID="CWC_ThemeBackground_Panel" Anchor="L,T" Size="920,680" Texture="CWC_TheLastCity_Panel_920x680.dds" ConsumeMouse="0" />
+  <Label ID="Title" Anchor="L,T" Offset="24,20" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="TXT_KEY_LC_COUNCIL" Color0="228,207,161,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="Close" Anchor="R,T" Offset="20,18" Size="42,32" String="X" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TheLastCity_Buttons.dds" />
+  </GridButton>
+  <Label ID="Summary" Anchor="L,T" Offset="24,58" Size="868,65" WrapWidth="868" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
   <Stack ID="Tabs" Anchor="L,T" Offset="24,132" StackGrowth="Right" Padding="4" />
-  <ScrollPanel ID="Scroll" Anchor="L,T" Offset="24,178" Size="870,342" Vertical="1">
+  <ScrollPanel ID="Scroll" Anchor="L,T" Offset="24,178" Size="870,342" Vertical="1" AutoScrollBar="1">
    <Stack ID="Rows" Anchor="L,T" StackGrowth="Bottom" Padding="6" />
+   <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="334" />
   </ScrollPanel>
-  <Label ID="Preview" Anchor="L,T" Offset="24,534" Size="868,78" WrapWidth="868" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-  <GridButton ID="Confirm" Anchor="C,B" Offset="0,22" Size="868,42" Style="BaseButton" String="TXT_KEY_LC_CONFIRM" />
+  <Label ID="Preview" Anchor="L,T" Offset="24,534" Size="868,78" WrapWidth="868" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="Confirm" Anchor="C,B" Offset="0,22" Size="868,42" String="TXT_KEY_LC_CONFIRM" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TheLastCity_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="CWC_Guide_Panel" Anchor="R,T" Offset="76,18" Size="30,30" Font="TwCenMT18" String="?" ToolTip="THE SANCTUARY COUNCIL[NEWLINE][NEWLINE]Every citizen, provision and promise matters to Last Light." ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TheLastCity_Buttons.dds" />
+  </GridButton>
  </Grid>
  <Instance Name="LastCityTab">
-  <GridButton ID="TabButton" Size="120,34" Style="BaseButton" />
+  <GridButton ID="TabButton" Size="120,34" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TheLastCity_Buttons.dds" />
+  </GridButton>
  </Instance>
  <Instance Name="LastCityRow">
   <Grid ID="RowRoot" Size="848,128" Style="GridBlackIndent8">
+   <Image ID="CWC_RowSurface_LastCityRow" Anchor="L,T" Size="848,128" Texture="CWC_TheLastCity_Row_848x128.dds" ConsumeMouse="0" />
    <Label ID="RowText" Anchor="L,T" Offset="10,8" Size="632,110" WrapWidth="632" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-   <GridButton ID="RowButton" Anchor="R,C" Offset="10,0" Size="188,38" Style="BaseButton" />
+   <GridButton ID="RowButton" Anchor="R,C" Offset="10,0" Size="188,38" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+    <GridData Style="Grid9FrameButtons" Texture="CWC_TheLastCity_Buttons.dds" />
+   </GridButton>
   </Grid>
  </Instance>
  <Instance Name="LastCityExpert">
   <Grid ID="ExpertRoot" Size="848,68" Style="GridBlackIndent8">
+   <Image ID="CWC_RowSurface_LastCityExpert" Anchor="L,T" Size="848,68" Texture="CWC_TheLastCity_Row_848x68.dds" ConsumeMouse="0" />
    <Label ID="ExpertText" Anchor="L,C" Offset="12,0" Size="700,54" WrapWidth="700" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-   <GridButton ID="ExpertMinus" Anchor="R,C" Offset="74,0" Size="50,34" Style="BaseButton" String="-" />
-   <GridButton ID="ExpertPlus" Anchor="R,C" Offset="14,0" Size="50,34" Style="BaseButton" String="+" />
+   <GridButton ID="ExpertMinus" Anchor="R,C" Offset="74,0" Size="50,34" String="-" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+    <GridData Style="Grid9FrameButtons" Texture="CWC_TheLastCity_Buttons.dds" />
+   </GridButton>
+   <GridButton ID="ExpertPlus" Anchor="R,C" Offset="14,0" Size="50,34" String="+" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+    <GridData Style="Grid9FrameButtons" Texture="CWC_TheLastCity_Buttons.dds" />
+   </GridButton>
   </Grid>
  </Instance>
 </Context>

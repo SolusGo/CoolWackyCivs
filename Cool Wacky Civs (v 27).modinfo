@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="26">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="27">
   <Properties>
     <Name>Cool Wacky Civs</Name>
     <Teaser>Eighteen civilizations. Eighteen stranger ways to rule.</Teaser>
@@ -130,8 +130,8 @@
     <File md5="3835228BE4BF6D3A7C5F0FF3F40D376E" import="0">FilthyRealm/SQL/01_Filthy_Inheritance.sql</File>
     <File md5="5E282CC532747AAF858BDF4BDADE7039" import="0">FilthyRealm/SQL/02_Filthy_UniqueEffects.sql</File>
     <File md5="39BD5E5F96F64763BBE755B3D006B6BB" import="0">FilthyRealm/SQL/10_Filthy_Text.sql</File>
-    <File md5="888645391AB8A0744A3535D989492507" import="1">FilthyRealm/UI/FilthyPanel.lua</File>
-    <File md5="9B2C8039C8E1AF2B0CDB779A88FCB799" import="0">FilthyRealm/UI/FilthyPanel.xml</File>
+    <File md5="F1D2BB31E404D962B6761FB907AD6FDC" import="1">FilthyRealm/UI/FilthyPanel.lua</File>
+    <File md5="C73A7C5418F75729343A548C595557CF" import="0">FilthyRealm/UI/FilthyPanel.xml</File>
     <File md5="906400740B765A22F6ED115D60C61D6B" import="1">DualOrder/Art/DualOrderAlpha128.dds</File>
     <File md5="C977E8A1A5B5817B994BAF7E10830F73" import="1">DualOrder/Art/DualOrderAlpha16.dds</File>
     <File md5="50B12FD9413610E0E09135E9485C0DE0" import="1">DualOrder/Art/DualOrderAlpha24.dds</File>
@@ -170,8 +170,8 @@
     <File md5="6836231B27597E7EB595FB5FF053E314" import="0">DualOrder/SQL/01_DualOrder_Inheritance.sql</File>
     <File md5="4C8416BC7C111E18BE7BB3F3AA6713FE" import="0">DualOrder/SQL/02_DualOrder_UniqueEffects.sql</File>
     <File md5="ED89627C0DE8AA124DD257F52487C9C8" import="0">DualOrder/SQL/10_DualOrder_Text.sql</File>
-    <File md5="968CD6DC1896F776FB850B3148AF9F6C" import="1">DualOrder/UI/DualOrderPanel.lua</File>
-    <File md5="DB137AA9768C29E48300080675E33BED" import="0">DualOrder/UI/DualOrderPanel.xml</File>
+    <File md5="B47D595B99BE3D3BBD289D0236E643CC" import="1">DualOrder/UI/DualOrderPanel.lua</File>
+    <File md5="16F6BFD6EFC14065184598FC6E263540" import="0">DualOrder/UI/DualOrderPanel.xml</File>
     <File md5="480BA76100E9D1D4E6A563A17549AEAC" import="1">LunaNetwork/Art/LunaAlpha128.dds</File>
     <File md5="8CEFF6B28CE0730B90A563670DF8C47E" import="1">LunaNetwork/Art/LunaAlpha16.dds</File>
     <File md5="3AEA987EC09EE925756C3C4D5FBCB8D0" import="1">LunaNetwork/Art/LunaAlpha24.dds</File>
@@ -217,8 +217,8 @@
     <File md5="8A8C8F7A34724AF8A2E2642C1882618F" import="0">RoulsAscendancy/SQL/01_Rouls_Inheritance.sql</File>
     <File md5="ADCA2F2565234BF968ABD2D11140568C" import="0">RoulsAscendancy/SQL/02_Rouls_UniqueEffects.sql</File>
     <File md5="5DD8C94901D34326AB7C9AADB89D28A9" import="0">RoulsAscendancy/SQL/10_Rouls_Text.sql</File>
-    <File md5="27237401B859474FA048D9CB497A76AF" import="1">RoulsAscendancy/UI/RoulsPanel.lua</File>
-    <File md5="B08EBEB962446A0DF0ECD5951EBAC3B7" import="0">RoulsAscendancy/UI/RoulsPanel.xml</File>
+    <File md5="5DB0171FFD579541B32EC1D6EDFB90DF" import="1">RoulsAscendancy/UI/RoulsPanel.lua</File>
+    <File md5="DB3D68A694A5EA31360E7AEB813058F7" import="0">RoulsAscendancy/UI/RoulsPanel.xml</File>
     <File md5="D143B5DB3EECCED62FFAFFB78CB5E558" import="1">TerraFramework/Art/TerraAlpha128.dds</File>
     <File md5="38D37C9A3BA2F155210F08453244712C" import="1">TerraFramework/Art/TerraAlpha16.dds</File>
     <File md5="8CA32BA6CEB881404E8D428A92B327EE" import="1">TerraFramework/Art/TerraAlpha24.dds</File>
@@ -289,8 +289,8 @@
     <File md5="6E9F22036193857A35B37F00B8F08CCD" import="0">RomanGladiusNetwork/SQL/01_RomanGladius_Inheritance.sql</File>
     <File md5="6F37FAA2C4BE38A8BA3D038FF8096968" import="0">RomanGladiusNetwork/SQL/02_RomanGladius_UniqueEffects.sql</File>
     <File md5="AC4F17C3A133BDA347156800696BFDF8" import="0">RomanGladiusNetwork/SQL/10_RomanGladius_Text.sql</File>
-    <File md5="0C12E9D91A1BE058A3FAC45477DE330A" import="1">RomanGladiusNetwork/UI/RomanGladiusPanel.lua</File>
-    <File md5="FB3B89F19FF8F70C17BE8B7BEF21EF5D" import="0">RomanGladiusNetwork/UI/RomanGladiusPanel.xml</File>
+    <File md5="EC42DFD303803F5B7A05D5E0F5F1F807" import="1">RomanGladiusNetwork/UI/RomanGladiusPanel.lua</File>
+    <File md5="C3892224EA6768080F66068552252EDE" import="0">RomanGladiusNetwork/UI/RomanGladiusPanel.xml</File>
     <File md5="9371C80403FCBF1B2A0074A1F3807E0C" import="1">EternalNumberTen/Art/MessiAlpha128.dds</File>
     <File md5="4839B99B22C3A0B3BB71DF92961F825B" import="1">EternalNumberTen/Art/MessiAlpha16.dds</File>
     <File md5="FDE965BB743989CB8C53EAE9A09BE3E2" import="1">EternalNumberTen/Art/MessiAlpha24.dds</File>
@@ -329,8 +329,8 @@
     <File md5="F4CB218CE93AAB60D58D87980F5509E3" import="0">EternalNumberTen/SQL/01_Messi_Inheritance.sql</File>
     <File md5="3E7FE54D8F95C6F27C5EFB23E56E4A4D" import="0">EternalNumberTen/SQL/02_Messi_UniqueEffects.sql</File>
     <File md5="DD5678B18557DD8A03F88CA2292D5F21" import="0">EternalNumberTen/SQL/10_Messi_Text.sql</File>
-    <File md5="312B252182631033931FC4BEDB6DE5D9" import="1">EternalNumberTen/UI/MessiLegacyPanel.lua</File>
-    <File md5="5AC62D6F656FF6E6EF88F6DDB99ED150" import="0">EternalNumberTen/UI/MessiLegacyPanel.xml</File>
+    <File md5="46F3F26FE639A5D04A8E4C5D527B9936" import="1">EternalNumberTen/UI/MessiLegacyPanel.lua</File>
+    <File md5="3A15670DD0058CF0F886998A0D4B15D7" import="0">EternalNumberTen/UI/MessiLegacyPanel.xml</File>
     <File md5="F48A7B3E82BC6C7749A83E832A81F2B7" import="1">MasayaBeyondSky/Art/MasayaAlpha128.dds</File>
     <File md5="820CF29F7A23E95C1980A9F2977B07D2" import="1">MasayaBeyondSky/Art/MasayaAlpha16.dds</File>
     <File md5="A10062B5CA70ABD72F8A3BF52B4F6795" import="1">MasayaBeyondSky/Art/MasayaAlpha24.dds</File>
@@ -366,8 +366,8 @@
     <File md5="03CACA9920B78CE367450F1EF0CB954B" import="0">MasayaBeyondSky/SQL/01_Masaya_Inheritance.sql</File>
     <File md5="24AA6D096C26A5C29B4B40DB64E337D3" import="0">MasayaBeyondSky/SQL/02_Masaya_UniqueEffects.sql</File>
     <File md5="ED5C95FC1EFE65AC5EB79E4C83E63927" import="0">MasayaBeyondSky/SQL/10_Masaya_Text.sql</File>
-    <File md5="48177AC2761DACB92E2093DEC1101AE2" import="1">MasayaBeyondSky/UI/MasayaJoyPanel.lua</File>
-    <File md5="0037635CC8E2CFAD4FD90A6B20827437" import="0">MasayaBeyondSky/UI/MasayaJoyPanel.xml</File>
+    <File md5="C541F3BE55BAF7434A142C091871370B" import="1">MasayaBeyondSky/UI/MasayaJoyPanel.lua</File>
+    <File md5="2B613DC315C93F1E2D91A6625ABF6BD3" import="0">MasayaBeyondSky/UI/MasayaJoyPanel.xml</File>
     <File md5="B0723D1D4448D0B505A52A6C25AED2EE" import="1">TokenizedIntelligence/Art/TokenAlpha128.dds</File>
     <File md5="8EE62F5D64E77A59FF43F4EA1CAB8BA0" import="1">TokenizedIntelligence/Art/TokenAlpha16.dds</File>
     <File md5="5E5C5EF0D0D3941058D3E6399F5657F9" import="1">TokenizedIntelligence/Art/TokenAlpha24.dds</File>
@@ -405,8 +405,8 @@
     <File md5="0A28D56D77F89375B8B319BA656F5DA8" import="0">TokenizedIntelligence/SQL/01_Token_Inheritance.sql</File>
     <File md5="D7E3A10ABED77003569B82035934C639" import="0">TokenizedIntelligence/SQL/02_Token_Effects.sql</File>
     <File md5="936CD1B1537BC8039C31D663C5CE9EBF" import="0">TokenizedIntelligence/SQL/10_Token_Text.sql</File>
-    <File md5="2D83BE95D300438DCDD6F5FD2FEC5D7E" import="1">TokenizedIntelligence/UI/TokenPanel.lua</File>
-    <File md5="297B48C43F0B4BF8DF91A6A759DCA559" import="0">TokenizedIntelligence/UI/TokenPanel.xml</File>
+    <File md5="674A010FEC7D54B4B3273E4C5E6B89C3" import="1">TokenizedIntelligence/UI/TokenPanel.lua</File>
+    <File md5="77460CAC7CB40AC762F3546961B6D18B" import="0">TokenizedIntelligence/UI/TokenPanel.xml</File>
     <File md5="B18AE897AF1608F57D34357319525D89" import="1">ViltrumEmpire/Art/ViltrumAlpha128.dds</File>
     <File md5="4000B57E5E400A227D6C01215F7B89CD" import="1">ViltrumEmpire/Art/ViltrumAlpha16.dds</File>
     <File md5="54A88EA91969698BD75BD04E6DE5F0BB" import="1">ViltrumEmpire/Art/ViltrumAlpha24.dds</File>
@@ -444,8 +444,8 @@
     <File md5="9810DD54F106E028ACCC8F6F5F893801" import="0">ViltrumEmpire/SQL/01_Viltrum_Inheritance.sql</File>
     <File md5="E1543DD22D865072549BB8CA4C22DF23" import="0">ViltrumEmpire/SQL/02_Viltrum_Effects.sql</File>
     <File md5="D03709B1D92197C3D32C159F5ABD3A6D" import="0">ViltrumEmpire/SQL/10_Viltrum_Text.sql</File>
-    <File md5="2A6504FC7381F8195813508ADD22CCCA" import="1">ViltrumEmpire/UI/ViltrumPanel.lua</File>
-    <File md5="BE5DBBF3B43436ECCE16757B5546AA85" import="0">ViltrumEmpire/UI/ViltrumPanel.xml</File>
+    <File md5="24FCF8EFA772A88C39EA41BF9B157C72" import="1">ViltrumEmpire/UI/ViltrumPanel.lua</File>
+    <File md5="F9F19B47D9A6495DA9BF7E041521FFA1" import="0">ViltrumEmpire/UI/ViltrumPanel.xml</File>
     <File md5="796BB73751BCD562BC3C6DE453B431E2" import="1">TheKingdoms/Art/KingdomsAlpha128.dds</File>
     <File md5="29A8F072627A1FD0EAA30AD71DD539CB" import="1">TheKingdoms/Art/KingdomsAlpha16.dds</File>
     <File md5="6C6389CCED5916EB1BD8A9AFD827795B" import="1">TheKingdoms/Art/KingdomsAlpha24.dds</File>
@@ -489,8 +489,8 @@
     <File md5="9BE999D05113F0FC1255CE36FF5639F5" import="0">TheKingdoms/SQL/01_Kingdoms_Inheritance.sql</File>
     <File md5="D141DB0C3E990C318A3724ABE8AF066F" import="0">TheKingdoms/SQL/02_Kingdoms_Effects.sql</File>
     <File md5="C7209159E7956DD52590C204A8D3C343" import="0">TheKingdoms/SQL/10_Kingdoms_Text.sql</File>
-    <File md5="9ADED50335B0ACC02A17C522EC7CDD08" import="1">TheKingdoms/UI/KingdomsOverview.lua</File>
-    <File md5="E8D3805C95A63E037B2C3F0BA4938E93" import="0">TheKingdoms/UI/KingdomsOverview.xml</File>
+    <File md5="ABDF00F4721514C4EB9C586D51D75AD1" import="1">TheKingdoms/UI/KingdomsOverview.lua</File>
+    <File md5="C868A232B6325FEA7AFD5B9FDA3072D6" import="0">TheKingdoms/UI/KingdomsOverview.xml</File>
     <File md5="198E85DF0C509FF510EC969CDC65009E" import="1">SolIntellect/Art/SolAlpha128.dds</File>
     <File md5="C72F39047CD2E211C8DC4CA21FF5283A" import="1">SolIntellect/Art/SolAlpha16.dds</File>
     <File md5="585316FE2909C7C94873A22AFC81A589" import="1">SolIntellect/Art/SolAlpha24.dds</File>
@@ -562,8 +562,8 @@
     <File md5="4E828C7DEDF65650B0BFC479958DB098" import="0">TheShatteredEmpire/SQL/01_Imperial_Inheritance.sql</File>
     <File md5="FCB8A09D699D744C45DF2F9B1227C360" import="0">TheShatteredEmpire/SQL/02_Imperial_Effects.sql</File>
     <File md5="2E2E24C8C87BC7CE13FE41FFA6F62DBF" import="0">TheShatteredEmpire/SQL/10_Imperial_Text.sql</File>
-    <File md5="D61D01E95069041CAD18EE3EC0798C8A" import="1">TheShatteredEmpire/UI/ImperialAdministration.lua</File>
-    <File md5="82892DA1D86AD47460DDB652DC283CD3" import="0">TheShatteredEmpire/UI/ImperialAdministration.xml</File>
+    <File md5="83545454C75D5E3D0818B0C5D305959B" import="1">TheShatteredEmpire/UI/ImperialAdministration.lua</File>
+    <File md5="0DF2D566C6F22AACCD4B2404E710C26B" import="0">TheShatteredEmpire/UI/ImperialAdministration.xml</File>
     <File md5="135815D875ABE15893A1879B8DE8E054" import="1">TheLastCity/Lua/LastCityAI.lua</File>
     <File md5="265F09AC4851881E348C19A5115EB7CE" import="1">TheLastCity/Lua/LastCityConfig.lua</File>
     <File md5="10F8AB7C6FB1622C293820B43A7A8CCE" import="1">TheLastCity/Lua/LastCityCore.lua</File>
@@ -577,8 +577,8 @@
     <File md5="98F33A9BADEE3F49D274268172525C88" import="0">TheLastCity/SQL/01_LC_Inheritance.sql</File>
     <File md5="4E7BAFF5DC6ECE45365C516EED60CCA5" import="0">TheLastCity/SQL/02_LC_Effects.sql</File>
     <File md5="ABAD8A58EEE4ABAAC7745ED02F3CF754" import="0">TheLastCity/SQL/10_LC_Text.sql</File>
-    <File md5="59B4E28CE571F03724F99EFAE5793D1A" import="1">TheLastCity/UI/SanctuaryCouncil.lua</File>
-    <File md5="D9DE5E331D0162B443B80EAD97D41E49" import="0">TheLastCity/UI/SanctuaryCouncil.xml</File>
+    <File md5="7C3019B5ED3D4DA76DA884F13CFDA594" import="1">TheLastCity/UI/SanctuaryCouncil.lua</File>
+    <File md5="294E396EE91F28D13451AE91BB04B2A9" import="0">TheLastCity/UI/SanctuaryCouncil.xml</File>
     <File md5="4D6415AB890EA4B9B0102174CA9C5145" import="1">TheLastCity/Art/LastLight.dds</File>
     <File md5="28A0812E05D3BB1ECFB39CE6C421C25F" import="1">TheLastCity/Art/LastCityAlpha128.dds</File>
     <File md5="E59821E35BCA2946E5DCE8336BAD30AF" import="1">TheLastCity/Art/LastCityAlpha16.dds</File>
@@ -665,8 +665,8 @@
     <File md5="832BACFC2B0E6107D92E594ABD8FF289" import="0">CristianoRonaldo/SQL/02_CR7_Effects.sql</File>
     <File md5="FBD9865B22CB39358AA6D998CD9D99FB" import="0">CristianoRonaldo/SQL/03_CR7_Art.sql</File>
     <File md5="D5C84F56BC7E03D886F8999ADCA980D5" import="0">CristianoRonaldo/SQL/10_CR7_Text.sql</File>
-    <File md5="2C14A2A136F9E09CCB5934A33F4C3BD7" import="1">CristianoRonaldo/UI/CR7Career.lua</File>
-    <File md5="EEA24150B0063ACA37E0386001D55012" import="0">CristianoRonaldo/UI/CR7Career.xml</File>
+    <File md5="4293DEFFA23249C746F3AC66DB1FF00D" import="1">CristianoRonaldo/UI/CR7Career.lua</File>
+    <File md5="6AEC80F0B1BCBB0A7F709221A7EA32F6" import="0">CristianoRonaldo/UI/CR7Career.xml</File>
     <File md5="CA26E211EBB6AF9307D18FEC4BAECF9C" import="1">TheBoyWhoTouchedParadise/Art/ParadiseAlpha128.dds</File>
     <File md5="24B1428DCEB27B5F811FA130F44A8F98" import="1">TheBoyWhoTouchedParadise/Art/ParadiseAlpha16.dds</File>
     <File md5="E39CF8EC2EDDD2FE7240C92A0E2A34B9" import="1">TheBoyWhoTouchedParadise/Art/ParadiseAlpha24.dds</File>
@@ -680,31 +680,31 @@
     <File md5="671DB3959EB627006B5FE3DB4B5B5C91" import="1">TheBoyWhoTouchedParadise/Art/ParadiseEpilogue.dds</File>
     <File md5="6DD67CF148DC265772FE1C25BB3FBE11" import="1">TheBoyWhoTouchedParadise/Art/ParadiseFinalPeak.dds</File>
     <File md5="09323223E85010FEFD8BB54C9D0F0FBE" import="1">TheBoyWhoTouchedParadise/Art/ParadiseHeartbreak.dds</File>
-    <File md5="AE1BDBBA1E5376829F5484E5D8EC3E55" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon128.dds</File>
-    <File md5="2F283EED1F35D50BF0B76FC7292EB984" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon16.dds</File>
-    <File md5="544ABC219131EBE27CBBE534C3BD860E" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon24.dds</File>
-    <File md5="D6675B2DE4FD4037967EEDE5CB510BBF" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon256.dds</File>
-    <File md5="67A434A6F66FD6E384E6AAB7A976A95D" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon32.dds</File>
-    <File md5="BB3A8EE3E0EAC5E373DB284B3AE35A3A" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon45.dds</File>
-    <File md5="1128BE658157989032F208717687C6C3" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon48.dds</File>
-    <File md5="B75CEE159BD168A44349527B10C1418A" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon64.dds</File>
-    <File md5="67568030F767A0973735A2B33B590884" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon80.dds</File>
+    <File md5="06636C55F8E542035685E1742E4A457E" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon128.dds</File>
+    <File md5="D9C30C39C35C0FAD2D9785E57402B189" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon16.dds</File>
+    <File md5="7C8360F716F5207AC4D46A967DD9E7EE" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon24.dds</File>
+    <File md5="3A53A3DB3A8E9FD45B39084FF3174C3B" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon256.dds</File>
+    <File md5="316688FCBF856DE06A7275F4FA15B960" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon32.dds</File>
+    <File md5="073375EFB17B76CDCC842F9958ECC488" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon45.dds</File>
+    <File md5="FE85ABC9993285590C2C5F29D6E21272" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon48.dds</File>
+    <File md5="4A3E3D26F493E45C0C5D58A60021AB99" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon64.dds</File>
+    <File md5="9AB36A1E3C3E6E4771E1F2B9698B5B74" import="1">TheBoyWhoTouchedParadise/Art/ParadiseIcon80.dds</File>
     <File md5="40C26110AB12EFAA2627E4767FB49647" import="1">TheBoyWhoTouchedParadise/Art/ParadiseJourney.dds</File>
     <File md5="F1706BC779185F5C28416E1441DFCC93" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeader.dds</File>
-    <File md5="82C4192781E437D3F7E8DF2D61D2CEE3" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeader128.dds</File>
-    <File md5="CBE272000E38F0B0D2863E2F0294EE65" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeader256.dds</File>
-    <File md5="BEB66CAC4341E2E916F909A39E1226EE" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeader64.dds</File>
+    <File md5="B74F9256C8ADA0ECD75C1B0A6FCC68CE" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeader128.dds</File>
+    <File md5="509986AA9D654EDA395A6317D0FF2BA3" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeader256.dds</File>
+    <File md5="7B1207EF9581C3AF98ECDA41210DCEC0" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeader64.dds</File>
     <File md5="D856B350B4CC0774A00C4A46243E9827" import="1">TheBoyWhoTouchedParadise/Art/ParadiseLeaderScene.xml</File>
     <File md5="F50A5B61A3A080AF5BCC2A7E3059743E" import="1">TheBoyWhoTouchedParadise/Art/ParadiseMap.dds</File>
-    <File md5="40F439E6A9B72FC91B6ADEB981B0E530" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects128.dds</File>
-    <File md5="46CA00841239DE753FA47C65B11D8727" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects16.dds</File>
-    <File md5="85B418D01FF4A312A2065A56F9BE1271" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects24.dds</File>
-    <File md5="568B6025EE8414072D2904216ACA69EB" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects256.dds</File>
-    <File md5="AA2DE97AE7F250E082FCF93AC25C31C6" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects32.dds</File>
-    <File md5="53118A36A6FBE6A26C9CFC33FE7DFD8E" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects45.dds</File>
-    <File md5="32CE517DFE22B573F37823DBB223ADF0" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects48.dds</File>
-    <File md5="D97E1EFFDE333108D34E7CF382C32EC3" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects64.dds</File>
-    <File md5="D6492D05AF00E3EE9BDFB591680F205A" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects80.dds</File>
+    <File md5="CFDA47F8EC6CCCBA57A860BD3E62C168" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects128.dds</File>
+    <File md5="A49BC67D78510EB068EBEFB02CF96B17" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects16.dds</File>
+    <File md5="26ECFD99B7275E1D3F0A2EF7781F43B2" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects24.dds</File>
+    <File md5="48F49A5F2C5EA2AEA5B2B0079FC415D0" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects256.dds</File>
+    <File md5="ACA73B8812756A6716CCADB0FB470ACE" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects32.dds</File>
+    <File md5="6CB9CE8C222E736111793836510DA26B" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects45.dds</File>
+    <File md5="ECC1FB7E0717856460CABAE9732AE802" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects48.dds</File>
+    <File md5="29C5BBF8B94778D59BBB7CB8B856F0D4" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects64.dds</File>
+    <File md5="8FC43E79964EA7E30492EBDC86181BAE" import="1">TheBoyWhoTouchedParadise/Art/ParadiseObjects80.dds</File>
     <File md5="5FA6539C27D9212EF19ED4910A72A80C" import="1">TheBoyWhoTouchedParadise/Art/ParadiseUnitFlag32.dds</File>
     <File md5="A56A74BF9B3927D964238CFF4B2005D4" import="1">TheBoyWhoTouchedParadise/Art/ParadiseWeight.dds</File>
     <File md5="BE5FA733A1C509CB34E0A28C42FF5BC4" import="1">TheBoyWhoTouchedParadise/Lua/ParadisePersistence.lua</File>
@@ -713,8 +713,88 @@
     <File md5="88EA5B59D13FB6DF206BE0CA9E261B91" import="0">TheBoyWhoTouchedParadise/SQL/01_Paradise_Inheritance.sql</File>
     <File md5="3C7CF1322D121DA04246BDE620611F8A" import="0">TheBoyWhoTouchedParadise/SQL/02_Paradise_Effects.sql</File>
     <File md5="5481591416A5F75BA88AF3CE3648F8D6" import="0">TheBoyWhoTouchedParadise/SQL/10_Paradise_Text.sql</File>
-    <File md5="BE011DFC347B1BDF9E44C426225736C2" import="1">TheBoyWhoTouchedParadise/UI/ParadiseJourney.lua</File>
-    <File md5="9F0171FAEEB20E8512AC9057D539DC8B" import="0">TheBoyWhoTouchedParadise/UI/ParadiseJourney.xml</File>
+    <File md5="E7885914E434FEB887DEF7931A278A8C" import="1">TheBoyWhoTouchedParadise/UI/ParadiseJourney.lua</File>
+    <File md5="B0ED71BA97AB92CD5A45C2C9710415D6" import="0">TheBoyWhoTouchedParadise/UI/ParadiseJourney.xml</File>
+    <File md5="52882A0573E473CCB645A48694B67251" import="1">CristianoRonaldo/Art/CWC_CristianoRonaldo_Buttons.dds</File>
+    <File md5="C6140F9EF35C6AE772C35C8EC8ABC3D1" import="1">CristianoRonaldo/Art/CWC_CristianoRonaldo_Launcher.dds</File>
+    <File md5="54E942993BEBE0DC0582608658AD2411" import="1">CristianoRonaldo/Art/CWC_CristianoRonaldo_Panel.dds</File>
+    <File md5="3DD004929845C3B014D29ADB97BECC48" import="1">CristianoRonaldo/Art/CWC_CristianoRonaldo_Row.dds</File>
+    <File md5="8D8EEE8F3429292819E464F9D08D5BD5" import="1">DualOrder/Art/CWC_DualOrder_Buttons.dds</File>
+    <File md5="0C7DA9A836FE1906AF30D9AADF9768FA" import="1">DualOrder/Art/CWC_DualOrder_Launcher.dds</File>
+    <File md5="336F317299A498FEC63F941A72FE2F29" import="1">DualOrder/Art/CWC_DualOrder_Panel.dds</File>
+    <File md5="9899A6F8F3541BF990A40CE6CE09321C" import="1">DualOrder/Art/CWC_DualOrder_Row.dds</File>
+    <File md5="364A798A5FCCB73CD64C4B761C0C0F57" import="1">EternalNumberTen/Art/CWC_EternalNumberTen_Buttons.dds</File>
+    <File md5="E51CB9EA73CCA37210287F1C9233A093" import="1">EternalNumberTen/Art/CWC_EternalNumberTen_Launcher.dds</File>
+    <File md5="494F99D0044652DBDE7265B8E39D3EEB" import="1">EternalNumberTen/Art/CWC_EternalNumberTen_Panel.dds</File>
+    <File md5="EC52CE4E1BEEF20088EB28369A02A374" import="1">EternalNumberTen/Art/CWC_EternalNumberTen_Row.dds</File>
+    <File md5="4AEA27199D97F09103095992A80CEA44" import="1">FilthyRealm/Art/CWC_FilthyRealm_Buttons.dds</File>
+    <File md5="BD77AB53A896003253FE243C0A61FE16" import="1">FilthyRealm/Art/CWC_FilthyRealm_Launcher.dds</File>
+    <File md5="4862E51B0698C3F6C42B9801C9FCAE5F" import="1">FilthyRealm/Art/CWC_FilthyRealm_Panel.dds</File>
+    <File md5="2382254443321B213D3D3F4FE2C97470" import="1">FilthyRealm/Art/CWC_FilthyRealm_Row.dds</File>
+    <File md5="D6A4F105F548F55DC287F735A1025C60" import="1">MasayaBeyondSky/Art/CWC_MasayaBeyondSky_Buttons.dds</File>
+    <File md5="B8C9B54924EA9AC2F557070851BC90CA" import="1">MasayaBeyondSky/Art/CWC_MasayaBeyondSky_Launcher.dds</File>
+    <File md5="3E966E8B2464B68F01955ED8AF57F906" import="1">MasayaBeyondSky/Art/CWC_MasayaBeyondSky_Panel.dds</File>
+    <File md5="DF0713DEE0AE310EC5C0271DA933F970" import="1">MasayaBeyondSky/Art/CWC_MasayaBeyondSky_Row.dds</File>
+    <File md5="6A0258B23C9982BBD28D4661387A2B88" import="1">RomanGladiusNetwork/Art/CWC_RomanGladiusNetwork_Buttons.dds</File>
+    <File md5="AB5E689E1493A670B29BBC2F2CB21647" import="1">RomanGladiusNetwork/Art/CWC_RomanGladiusNetwork_Launcher.dds</File>
+    <File md5="8DB8B3B91A2D397A796DEB998BD4816F" import="1">RomanGladiusNetwork/Art/CWC_RomanGladiusNetwork_Panel.dds</File>
+    <File md5="A610604AE2E32B94393FF4456D0AC598" import="1">RomanGladiusNetwork/Art/CWC_RomanGladiusNetwork_Row.dds</File>
+    <File md5="1C8194206F77F780F735AEBA53AE0463" import="1">RoulsAscendancy/Art/CWC_RoulsAscendancy_Buttons.dds</File>
+    <File md5="65487004A3E3E89AD33542ED8F228B15" import="1">RoulsAscendancy/Art/CWC_RoulsAscendancy_Launcher.dds</File>
+    <File md5="8B59608967CD6C4384F386E288C65F3A" import="1">RoulsAscendancy/Art/CWC_RoulsAscendancy_Panel.dds</File>
+    <File md5="6E44066E64978DFAB35D322ABF2DEA09" import="1">RoulsAscendancy/Art/CWC_RoulsAscendancy_Row.dds</File>
+    <File md5="8DC1A741828BB08067C42800F474479A" import="1">Shared/UI/CWC_Screen.lua</File>
+    <File md5="8FA48626E10D6F9DD2DEA9DFB6001CB5" import="1">TheBoyWhoTouchedParadise/Art/CWC_TheBoyWhoTouchedParadise_Buttons.dds</File>
+    <File md5="A52439545F68FD6BC7E4E89D51EB1C3F" import="1">TheBoyWhoTouchedParadise/Art/CWC_TheBoyWhoTouchedParadise_Launcher.dds</File>
+    <File md5="2C3935F00F7395D2BB13F5673B26A920" import="1">TheBoyWhoTouchedParadise/Art/CWC_TheBoyWhoTouchedParadise_Panel.dds</File>
+    <File md5="372CAF2ED0E7ED56D182439FCA419EB8" import="1">TheBoyWhoTouchedParadise/Art/CWC_TheBoyWhoTouchedParadise_Row.dds</File>
+    <File md5="15843A6657B2EE5C5FE9630E47AD1B6E" import="1">TheKingdoms/Art/CWC_TheKingdoms_Buttons.dds</File>
+    <File md5="9DCA8AD380BFAC2D5C22E0A76073EB9C" import="1">TheKingdoms/Art/CWC_TheKingdoms_Launcher.dds</File>
+    <File md5="E1586981325D9136A84245EFFC6E6E59" import="1">TheKingdoms/Art/CWC_TheKingdoms_Panel.dds</File>
+    <File md5="9F311D9AD543CA87F4357C0872411928" import="1">TheKingdoms/Art/CWC_TheKingdoms_Row.dds</File>
+    <File md5="FD816F0038ADC2F4BDC4B5F72AA37AB1" import="1">TheLastCity/Art/CWC_TheLastCity_Buttons.dds</File>
+    <File md5="F7D14458954C63E0EE0547C6584DBBC1" import="1">TheLastCity/Art/CWC_TheLastCity_Launcher.dds</File>
+    <File md5="8C7D75B4D8A4D97AEABE7E721DBCC2B7" import="1">TheLastCity/Art/CWC_TheLastCity_Panel.dds</File>
+    <File md5="10A6DFE6D6135277994A46D7D59372CE" import="1">TheLastCity/Art/CWC_TheLastCity_Row.dds</File>
+    <File md5="7B6CF39DE3E61AED6AE17DDE8BAA931F" import="1">TheShatteredEmpire/Art/CWC_TheShatteredEmpire_Buttons.dds</File>
+    <File md5="7D3C6449699EDC991CCB12F486B0D9ED" import="1">TheShatteredEmpire/Art/CWC_TheShatteredEmpire_Launcher.dds</File>
+    <File md5="FA27FB24446837277B7191FE2327B9AD" import="1">TheShatteredEmpire/Art/CWC_TheShatteredEmpire_Panel.dds</File>
+    <File md5="D8CB57EEDC7C4254379CAEFCE1969798" import="1">TheShatteredEmpire/Art/CWC_TheShatteredEmpire_Row.dds</File>
+    <File md5="98A5D62A5CFAB9EFFA4B5C435B09A4B5" import="1">TokenizedIntelligence/Art/CWC_TokenizedIntelligence_Buttons.dds</File>
+    <File md5="D65BEC087142BE74C35E773960B286F8" import="1">TokenizedIntelligence/Art/CWC_TokenizedIntelligence_Launcher.dds</File>
+    <File md5="8367BA88CFBC4B8372F0B1E7466C550A" import="1">TokenizedIntelligence/Art/CWC_TokenizedIntelligence_Panel.dds</File>
+    <File md5="F99CEA918DBEC6002E66DFC783D245EF" import="1">TokenizedIntelligence/Art/CWC_TokenizedIntelligence_Row.dds</File>
+    <File md5="41F16E1F714958DDF0F31F2AAEFA6FA4" import="1">ViltrumEmpire/Art/CWC_ViltrumEmpire_Buttons.dds</File>
+    <File md5="1AEBF7A74E0E56ADEE93374609689B70" import="1">ViltrumEmpire/Art/CWC_ViltrumEmpire_Launcher.dds</File>
+    <File md5="789CAEA2D50760E2110693E9D61C7584" import="1">ViltrumEmpire/Art/CWC_ViltrumEmpire_Panel.dds</File>
+    <File md5="B954D41BB35ED62D75E64E96F9353742" import="1">ViltrumEmpire/Art/CWC_ViltrumEmpire_Row.dds</File>
+    <File md5="FBB61517B0E9C0E001544C04BCF6D2DF" import="1">CristianoRonaldo/Art/CWC_CristianoRonaldo_Launcher_365x32.dds</File>
+    <File md5="9A3B9C70E53EEAC8510335F92DDFD56D" import="1">CristianoRonaldo/Art/CWC_CristianoRonaldo_Panel_740x500.dds</File>
+    <File md5="6EACA4B74F76B0C8CF3113D0B15AE1FD" import="1">CristianoRonaldo/Art/CWC_CristianoRonaldo_Panel_940x664.dds</File>
+    <File md5="EC658619ADAAB8A98CE7607319F1C3C9" import="1">DualOrder/Art/CWC_DualOrder_Launcher_480x126.dds</File>
+    <File md5="F3B4282198FBF204DC475BF81C5B18B5" import="1">EternalNumberTen/Art/CWC_EternalNumberTen_Launcher_226x42.dds</File>
+    <File md5="5BBE0620A29AB96FE1D478DE2FD0418F" import="1">EternalNumberTen/Art/CWC_EternalNumberTen_Panel_950x680.dds</File>
+    <File md5="9E4CF1AE1E3D14537262DF90744321E7" import="1">FilthyRealm/Art/CWC_FilthyRealm_Launcher_350x42.dds</File>
+    <File md5="912F66E8BCE49C2FAD7982E16FD81790" import="1">FilthyRealm/Art/CWC_FilthyRealm_Panel_640x680.dds</File>
+    <File md5="58F2E7DD902815C2BE4340E9C6D728A1" import="1">MasayaBeyondSky/Art/CWC_MasayaBeyondSky_Launcher_480x132.dds</File>
+    <File md5="ED2E1FCAAFE8C5928302FD19CDCB71CE" import="1">RomanGladiusNetwork/Art/CWC_RomanGladiusNetwork_Launcher_430x42.dds</File>
+    <File md5="2662BCADA9DE419212FBA42EADAC016D" import="1">RomanGladiusNetwork/Art/CWC_RomanGladiusNetwork_Panel_920x680.dds</File>
+    <File md5="5363E0E16A68E40146BCE153B7C9C4E2" import="1">RoulsAscendancy/Art/CWC_RoulsAscendancy_Launcher_216x30.dds</File>
+    <File md5="D153D85900761EA122EBB9BEE1B779B5" import="1">RoulsAscendancy/Art/CWC_RoulsAscendancy_Panel_500x570.dds</File>
+    <File md5="0C2EB36724D8B2A6FB7B908E3C843627" import="1">TheBoyWhoTouchedParadise/Art/CWC_TheBoyWhoTouchedParadise_Launcher_400x32.dds</File>
+    <File md5="72FD87F56405FD5F179576830AABE5CA" import="1">TheBoyWhoTouchedParadise/Art/CWC_TheBoyWhoTouchedParadise_Panel_944x624.dds</File>
+    <File md5="62096F5292155097B85CA426DBB687F2" import="1">TheKingdoms/Art/CWC_TheKingdoms_Launcher_540x36.dds</File>
+    <File md5="ED1B85F9C4A9F156A958CB9A2E26F59E" import="1">TheKingdoms/Art/CWC_TheKingdoms_Panel_1000x680.dds</File>
+    <File md5="28CF6BDAF8AF1097282DBA4F67F2ABC8" import="1">TheLastCity/Art/CWC_TheLastCity_Launcher_570x36.dds</File>
+    <File md5="67F51213F575A530BBC2F2C82EB8F7FE" import="1">TheLastCity/Art/CWC_TheLastCity_Panel_920x680.dds</File>
+    <File md5="ECFB67EB30B6023690B9C584107B199D" import="1">TheLastCity/Art/CWC_TheLastCity_Row_848x128.dds</File>
+    <File md5="31AA4BCB1F9CC2D9B753200C46D9828A" import="1">TheLastCity/Art/CWC_TheLastCity_Row_848x68.dds</File>
+    <File md5="3A08B9380C7BE74A02B79A931AB98579" import="1">TheShatteredEmpire/Art/CWC_TheShatteredEmpire_Launcher_500x36.dds</File>
+    <File md5="436B4DA1D54DA9BD4AD93456EA7C6B42" import="1">TheShatteredEmpire/Art/CWC_TheShatteredEmpire_Panel_1000x680.dds</File>
+    <File md5="F01354E3B5760D26E8EA129CF47E6379" import="1">TokenizedIntelligence/Art/CWC_TokenizedIntelligence_Launcher_500x36.dds</File>
+    <File md5="36AB1671F4E96A931EC7881A4B401FBA" import="1">TokenizedIntelligence/Art/CWC_TokenizedIntelligence_Panel_920x660.dds</File>
+    <File md5="0077CA10DF7622BFD51144B63A13A642" import="1">ViltrumEmpire/Art/CWC_ViltrumEmpire_Launcher_480x38.dds</File>
+    <File md5="E3B945DF1D49F16A588596FF71F84E81" import="1">ViltrumEmpire/Art/CWC_ViltrumEmpire_Panel_800x650.dds</File>
   </Files>
   <Actions>
     <OnModActivated>

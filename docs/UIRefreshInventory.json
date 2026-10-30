@@ -1,0 +1,487 @@
+[
+  {
+    "repo": "CoolWackyCivs",
+    "civilization": "RoulsAscendancy",
+    "title": "THE SECOND-SKIN CHOIR",
+    "accent": "#7ae2d0",
+    "motif": "orbits",
+    "prefix": "CWC_RoulsAscendancy",
+    "xml": [
+      "RoulsAscendancy/UI/RoulsPanel.xml"
+    ],
+    "textures": {
+      "CWC_RoulsAscendancy_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC_RoulsAscendancy_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC_RoulsAscendancy_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC_RoulsAscendancy_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC_RoulsAscendancy_Launcher_216x30.dds": [
+        216,
+        30
+      ],
+      "CWC_RoulsAscendancy_Panel_500x570.dds": [
+        500,
+        570
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs",
+    "civilization": "FilthyRealm",
+    "title": "THE FILTHY REALM",
+    "accent": "#df719e",
+    "motif": "glitch",
+    "prefix": "CWC_FilthyRealm",
+    "xml": [
+      "FilthyRealm/UI/FilthyPanel.xml"
+    ],
+    "textures": {
+      "CWC_FilthyRealm_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC_FilthyRealm_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC_FilthyRealm_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC_FilthyRealm_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC_FilthyRealm_Launcher_350x42.dds": [
+        350,
+        42
+      ],
+      "CWC_FilthyRealm_Panel_640x680.dds": [
+        640,
+        680
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs",
+    "civilization": "DualOrder",
+    "title": "THE DUAL ORDER",
+    "accent": "#d7b77a",
+    "motif": "cross",
+    "prefix": "CWC_DualOrder",
+    "xml": [
+      "DualOrder/UI/DualOrderPanel.xml"
+    ],
+    "textures": {
+      "CWC_DualOrder_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC_DualOrder_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC_DualOrder_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC_DualOrder_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC_DualOrder_Launcher_480x126.dds": [
+        480,
+        126
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs",
+    "civilization": "RomanGladiusNetwork",
+    "title": "SERVER ADMINISTRATION",
+    "accent": "#dbad62",
+    "motif": "grid",
+    "prefix": "CWC_RomanGladiusNetwork",
+    "xml": [
+      "RomanGladiusNetwork/UI/RomanGladiusPanel.xml"
+    ],
+    "textures": {
+      "CWC_RomanGladiusNetwork_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC_RomanGladiusNetwork_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC_RomanGladiusNetwork_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC_RomanGladiusNetwork_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC_RomanGladiusNetwork_Launcher_430x42.dds": [
+        430,
+        42
+      ],
+      "CWC_RomanGladiusNetwork_Panel_920x680.dds": [
+        920,
+        680
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs",
+    "civilization": "EternalNumberTen",
+    "title": "THE ETERNAL NUMBER TEN",
+    "accent": "#76cde6",
+    "motif": "stadium",
+    "prefix": "CWC_EternalNumberTen",
+    "xml": [
+      "EternalNumberTen/UI/MessiLegacyPanel.xml"
+    ],
+    "textures": {
+      "CWC_EternalNumberTen_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC_EternalNumberTen_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC_EternalNumberTen_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC_EternalNumberTen_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC_EternalNumberTen_Launcher_226x42.dds": [
+        226,
+        42
+      ],
+      "CWC_EternalNumberTen_Panel_950x680.dds": [
+        950,
+        680
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs",
+    "civilization": "MasayaBeyondSky",
+    "title": "JOY OF FLIGHT",
+    "accent": "#81d7ff",
+    "motif": "flight",
+    "prefix": "CWC_MasayaBeyondSky",
+    "xml": [
+      "MasayaBeyondSky/UI/MasayaJoyPanel.xml"
+    ],
+    "textures": {
+      "CWC_MasayaBeyondSky_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC_MasayaBeyondSky_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC_MasayaBeyondSky_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC_MasayaBeyondSky_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC_MasayaBeyondSky_Launcher_480x132.dds": [
+        480,
+        132
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs",
+    "civilization": "ViltrumEmpire",
+    "title": "IMPERIAL COMMAND",
+    "accent": "#e36660",
+    "motif": "chevron",
+    "prefix": "CWC_ViltrumEmpire",
+    "xml": [
+      "ViltrumEmpire/UI/ViltrumPanel.xml"
+    ],
+    "textures": {
+      "CWC_ViltrumEmpire_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC_ViltrumEmpire_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC_ViltrumEmpire_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC_ViltrumEmpire_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC_ViltrumEmpire_Launcher_480x38.dds": [
+        480,
+        38
+      ],
+      "CWC_ViltrumEmpire_Panel_800x650.dds": [
+        800,
+        650
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs",
+    "civilization": "TokenizedIntelligence",
+    "title": "CONTEXT / PROMPT CONSOLE",
+    "accent": "#6de7bc",
+    "motif": "grid",
+    "prefix": "CWC_TokenizedIntelligence",
+    "xml": [
+      "TokenizedIntelligence/UI/TokenPanel.xml"
+    ],
+    "textures": {
+      "CWC_TokenizedIntelligence_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC_TokenizedIntelligence_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC_TokenizedIntelligence_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC_TokenizedIntelligence_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC_TokenizedIntelligence_Launcher_500x36.dds": [
+        500,
+        36
+      ],
+      "CWC_TokenizedIntelligence_Panel_920x660.dds": [
+        920,
+        660
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs",
+    "civilization": "TheKingdoms",
+    "title": "THE ROYAL COUNCIL",
+    "accent": "#d9bb78",
+    "motif": "heraldry",
+    "prefix": "CWC_TheKingdoms",
+    "xml": [
+      "TheKingdoms/UI/KingdomsOverview.xml"
+    ],
+    "textures": {
+      "CWC_TheKingdoms_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC_TheKingdoms_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC_TheKingdoms_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC_TheKingdoms_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC_TheKingdoms_Launcher_540x36.dds": [
+        540,
+        36
+      ],
+      "CWC_TheKingdoms_Panel_1000x680.dds": [
+        1000,
+        680
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs",
+    "civilization": "TheShatteredEmpire",
+    "title": "IMPERIAL ADMINISTRATION",
+    "accent": "#d7aa66",
+    "motif": "heraldry",
+    "prefix": "CWC_TheShatteredEmpire",
+    "xml": [
+      "TheShatteredEmpire/UI/ImperialAdministration.xml"
+    ],
+    "textures": {
+      "CWC_TheShatteredEmpire_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC_TheShatteredEmpire_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC_TheShatteredEmpire_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC_TheShatteredEmpire_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC_TheShatteredEmpire_Launcher_500x36.dds": [
+        500,
+        36
+      ],
+      "CWC_TheShatteredEmpire_Panel_1000x680.dds": [
+        1000,
+        680
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs",
+    "civilization": "TheLastCity",
+    "title": "THE SANCTUARY COUNCIL",
+    "accent": "#c9ab68",
+    "motif": "industrial",
+    "prefix": "CWC_TheLastCity",
+    "xml": [
+      "TheLastCity/UI/SanctuaryCouncil.xml"
+    ],
+    "textures": {
+      "CWC_TheLastCity_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC_TheLastCity_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC_TheLastCity_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC_TheLastCity_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC_TheLastCity_Launcher_570x36.dds": [
+        570,
+        36
+      ],
+      "CWC_TheLastCity_Panel_920x680.dds": [
+        920,
+        680
+      ],
+      "CWC_TheLastCity_Row_848x128.dds": [
+        848,
+        128
+      ],
+      "CWC_TheLastCity_Row_848x68.dds": [
+        848,
+        68
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs",
+    "civilization": "CristianoRonaldo",
+    "title": "THE RELENTLESS SEVEN",
+    "accent": "#e1ba67",
+    "motif": "stadium",
+    "prefix": "CWC_CristianoRonaldo",
+    "xml": [
+      "CristianoRonaldo/UI/CR7Career.xml"
+    ],
+    "textures": {
+      "CWC_CristianoRonaldo_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC_CristianoRonaldo_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC_CristianoRonaldo_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC_CristianoRonaldo_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC_CristianoRonaldo_Launcher_365x32.dds": [
+        365,
+        32
+      ],
+      "CWC_CristianoRonaldo_Panel_940x664.dds": [
+        940,
+        664
+      ],
+      "CWC_CristianoRonaldo_Panel_740x500.dds": [
+        740,
+        500
+      ]
+    }
+  },
+  {
+    "repo": "CoolWackyCivs",
+    "civilization": "TheBoyWhoTouchedParadise",
+    "title": "THE JOURNEY TO PARADISE",
+    "accent": "#86d8ed",
+    "motif": "stadium",
+    "prefix": "CWC_TheBoyWhoTouchedParadise",
+    "xml": [
+      "TheBoyWhoTouchedParadise/UI/ParadiseJourney.xml"
+    ],
+    "textures": {
+      "CWC_TheBoyWhoTouchedParadise_Panel.dds": [
+        1024,
+        768
+      ],
+      "CWC_TheBoyWhoTouchedParadise_Launcher.dds": [
+        576,
+        128
+      ],
+      "CWC_TheBoyWhoTouchedParadise_Row.dds": [
+        1024,
+        96
+      ],
+      "CWC_TheBoyWhoTouchedParadise_Buttons.dds": [
+        44,
+        180
+      ],
+      "CWC_TheBoyWhoTouchedParadise_Launcher_400x32.dds": [
+        400,
+        32
+      ],
+      "CWC_TheBoyWhoTouchedParadise_Panel_944x624.dds": [
+        944,
+        624
+      ]
+    }
+  }
+]

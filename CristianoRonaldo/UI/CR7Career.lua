@@ -1,3 +1,5 @@
+local uiRecovery -- UI state is transient; never part of a gameplay save.
+local uiRenderError
 -- UI-only: no polling, gameplay handlers, save writes, or gameplay mutations.
 include('IconSupport')
 local selected,open=1,false
@@ -17,8 +19,10 @@ local function eraName(n)
 end
 local function invisible() for _,value in pairs(blocked) do if value then return true end end return false end
 local function refresh()
+ local function draw()
+ if uiRecovery then uiRecovery:Sync() end
     local s=state()
-    local hidden=not s or invisible()
+    local hidden=not s or invisible() or (uiRecovery and not uiRecovery:Available())
     Controls.Launcher:SetHide(hidden)
     Controls.Career:SetHide(hidden or not open)
     Controls.UnlockPopup:SetHide(hidden or #queue==0)
@@ -57,6 +61,14 @@ local function refresh()
         Controls.UnlockDetails:CalculateSize();Controls.UnlockDetails:ReprocessAnchoring()
         Controls.UnlockScroll:CalculateInternalSize()
     end
+ end
+ local ok,err=pcall(draw)
+ if not ok then
+
+  Controls.Career:SetHide(true);Controls.UnlockPopup:SetHide(true)
+  if uiRenderError~=tostring(err) then print("[Civilization UI] CristianoRonaldo render recovered: "..tostring(err)) end
+  uiRenderError=tostring(err)
+ else uiRenderError=nil end
 end
 for n=1,7 do
     local chapterIndex=n
@@ -91,6 +103,7 @@ subscribe('InterfaceModeChanged',function(previous,current)
     refresh()
 end)
 ContextPtr:SetInputHandler(function(message,key)
+ if uiRecovery and not uiRecovery:Available() then return false end
     if message==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then
         if #queue>0 then table.remove(queue,1);refresh();return true end
         if open then open=false;refresh();return true end
@@ -98,3 +111,14 @@ ContextPtr:SetInputHandler(function(message,key)
     return false
 end)
 refresh()
+
+-- Shared screen recovery: actual native visibility wins over stale event flags.
+local helperLoaded=pcall(include,'CWC_Screen')
+if CWC_Screen then
+ uiRecovery=CWC_Screen.New{name='CristianoRonaldo',civ='CIVILIZATION_PORTUGAL',context=ContextPtr,
+  roots={Controls.Launcher,Controls.Career,Controls.UnlockPopup},panels={Controls.Career,Controls.UnlockPopup},
+  refresh=function() refresh() end,
+  recover=function() blocked={} end,repair=function()  end,
+  close=function() open=false end,manageContext=true}
+ uiRecovery:Refresh(true)
+end

@@ -1,3 +1,5 @@
+local uiRecovery -- UI state is transient; never part of a gameplay save.
+local uiRenderError
 include('IconSupport')
 include('ViltrumRuntime')
 local V=MapModData.ViltrumEmpire
@@ -7,27 +9,31 @@ local cityView=false
 local leaderView=false
 local popups={}
 local function worldView()
+ if uiRecovery then return uiRecovery:Available(),uiRecovery:Reason() end;
  if cityView or leaderView or (UI and UI.IsCityScreenUp and UI.IsCityScreenUp()) then return false end
  return next(popups)==nil
 end
 local function refresh()
+ local function draw()
+ if uiRecovery then uiRecovery:Sync() end
  local pid=Game.GetActivePlayer();local p=Players[pid]
  local visible=p and p:IsAlive() and V.IsViltrum(pid) and not (Game.IsNetworkMultiPlayer and Game.IsNetworkMultiPlayer())
  local world=worldView()
+ visible=visible and (not uiRecovery or uiRecovery:Available())
  Controls.Launcher:SetHide(not visible or not world or queued)
  if not visible then
   if queued then queued=false;UIManager:DequeuePopup(ContextPtr);ContextPtr:SetHide(false) end
   opened=false;Controls.Panel:SetHide(true);return
  end
  local pending=V.Get(pid,'pending')
- if pending~=0 and not queued then
+ if pending~=0 and world and not queued then
   queued=true;UIManager:QueuePopup(ContextPtr,PopupPriority.InGameUtmost)
- elseif pending==0 and queued then
+ elseif (pending==0 or not world) and queued then
   queued=false;UIManager:DequeuePopup(ContextPtr);ContextPtr:SetHide(false)
  end
  -- Decisions reopen from persisted pending state after a load. Never use UI
  -- closures as gameplay state. The runtime validates event and choice again.
- Controls.Panel:SetHide(pending==0 and (not opened or not world))
+ Controls.Panel:SetHide(not world or (pending==0 and not opened))
  Controls.Launcher:SetHide(not world or pending~=0)
  Controls.Close:SetHide(pending~=0)
  IconHookup(0,64,'VILTRUM_ICON_ATLAS',Controls.Emblem)
@@ -64,8 +70,17 @@ local function refresh()
  Controls.ChoiceA:SetText(a);Controls.ChoiceB:SetText(b)
  Controls.ChoiceA:SetToolTipString(ah);Controls.ChoiceB:SetToolTipString(bh)
  Controls.ChoiceA:SetDisabled(pending==3 and p:GetGold()<V.GoldCost(p))
+ end
+ local ok,err=pcall(draw)
+ if not ok then
+
+  Controls.Panel:SetHide(true)
+  if uiRenderError~=tostring(err) then print("[Civilization UI] ViltrumEmpire render recovered: "..tostring(err)) end
+  uiRenderError=tostring(err)
+ else uiRenderError=nil end
 end
 local function choose(n)
+ if not worldView() then return end
  local pid=Game.GetActivePlayer()
  if V.Choose(pid,V.Get(pid,'pending'),n) then opened=false end
  refresh()
@@ -89,3 +104,14 @@ Events.SerialEventGameMessagePopupProcessed.Add(function(typ)
  popups[typ]=nil;refresh()
 end)
 refresh()
+
+-- Shared screen recovery: actual native visibility wins over stale event flags.
+local helperLoaded=pcall(include,'CWC_Screen')
+if CWC_Screen then
+ uiRecovery=CWC_Screen.New{name='ViltrumEmpire',civ='CIVILIZATION_VILTRUM',context=ContextPtr,
+  roots={Controls.Launcher,Controls.Panel},panels={Controls.Panel},
+  refresh=function() refresh() end,
+  recover=function() cityView=false;leaderView=false;popups={} end,repair=function()  end,
+  close=function() opened=false end,manageContext=false}
+ uiRecovery:Refresh(true)
+end

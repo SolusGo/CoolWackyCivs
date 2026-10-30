@@ -2,6 +2,7 @@
 from pathlib import Path
 from xml.etree import ElementTree as ET
 import hashlib,sys,zipfile
+from standalone_ui import add_shared_ui, source_file, archive_name
 R=Path(__file__).resolve().parents[1];V=R/'TheShatteredEmpire'
 sys.path.insert(0,str(R/'.tools/python'))
 
@@ -19,26 +20,26 @@ def manifest():
     for p in sorted(V.rglob('*')):
         if not p.is_file() or p.suffix not in ['.sql','.lua','.xml','.dds']: continue
         imported=p.suffix!='.sql' and p.name!='ImperialAdministration.xml'
-        ET.SubElement(files,'File',md5=hashlib.md5(p.read_bytes()).hexdigest().upper(),**{'import':str(int(imported))}).text=p.relative_to(V).as_posix()
+        ET.SubElement(files,'File',md5=hashlib.md5(p.read_bytes()).hexdigest().upper(),**{'import':str(int(imported))}).text=archive_name(p,V)
     actions=ET.SubElement(ET.SubElement(root,'Actions'),'OnModActivated')
-    for p in sorted((V/'SQL').glob('*.sql')): ET.SubElement(actions,'UpdateDatabase').text=p.relative_to(V).as_posix()
+    for p in sorted((V/'SQL').glob('*.sql')): ET.SubElement(actions,'UpdateDatabase').text=archive_name(p,V)
     entry=ET.SubElement(ET.SubElement(root,'EntryPoints'),'EntryPoint',type='InGameUIAddin',file='UI/ImperialAdministration.xml')
     ET.SubElement(entry,'Name').text='Imperial Administration';ET.SubElement(entry,'Description').text='Gameplay owner, AI politics and event-driven administration screen.'
-    ET.indent(root,'  ');return ET.ElementTree(root)
+    add_shared_ui(root);ET.indent(root,'  ');return ET.ElementTree(root)
 
 
 def main():
     path=V/'The Shattered Empire (v 1).modinfo';tree=manifest();tree.write(path,encoding='utf-8',xml_declaration=True)
     if '--manifest-only' in sys.argv: print(path);return
-    out=R/'dist';out.mkdir(exist_ok=True);files=[V/e.text for e in tree.findall('Files/File')]+[path]
+    out=R/'dist';out.mkdir(exist_ok=True);files=[source_file(V,e.text) for e in tree.findall('Files/File')]+[path]
     for p in [V/'README.md',V/'CHANGELOG.md',V/'docs/Validation.md',V/'docs/Implementation.md']: files.append(p)
     archive=out/'The Shattered Empire (v 1).zip'
     with zipfile.ZipFile(archive,'w',compression=zipfile.ZIP_DEFLATED) as z:
-        for p in files: z.write(p,'The Shattered Empire (v 1)/'+p.relative_to(V).as_posix())
+        for p in files: z.write(p,'The Shattered Empire (v 1)/'+archive_name(p,V))
     import py7zr
     native=out/'The Shattered Empire (v 1).civ5mod'
     with py7zr.SevenZipFile(native,'w',filters=[{'id':py7zr.FILTER_LZMA}]) as z:
-        for p in files: z.write(p,p.relative_to(V).as_posix())
+        for p in files: z.write(p,archive_name(p,V))
     with py7zr.SevenZipFile(native,'r') as z: assert z.testzip() is None
     print(archive);print(native)
 

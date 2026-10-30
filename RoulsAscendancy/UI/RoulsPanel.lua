@@ -1,3 +1,5 @@
+local uiRecovery -- UI state is transient; never part of a gameplay save.
+local uiRenderError
 include("InstanceManager")
 -- One entry point loads all gameplay even when the active human is another civ.
 include("RoulsCore")
@@ -14,11 +16,14 @@ local function name(u)
 end
 local function selection(p,id) return id and p:GetUnitByID(id) or nil end
 local function refresh()
+ local function draw()
+ if uiRecovery then uiRecovery:Sync() end
     if refreshing then return end
     refreshing=true; dirty=false
     local id,p=player()
     local visible=p and p:IsAlive() and R.IsRouls(p) and not (Game.IsNetworkMultiPlayer and Game.IsNetworkMultiPlayer())
-    Controls.AnimaButton:SetHide(not visible)
+ visible=visible and (not uiRecovery or uiRecovery:Available())
+ Controls.AnimaButton:SetHide(not visible)
     Controls.MainPanel:SetHide(not visible or not open)
     if not visible then refreshing=false; return end
     local s=R.GetState(id)
@@ -75,6 +80,14 @@ local function refresh()
     Controls.ConfirmButton:SetToolTipString(why or "Both movement and attacks are exhausted until your next turn.")
     Controls.MessageLabel:SetText(message~="" and message or (#units==0 and "No eligible units. Check the reserve, cooldown and target requirements." or (why or "Ready. Confirm to activate.")))
     refreshing=false
+ end
+ local ok,err=pcall(draw)
+ if not ok then
+  refreshing=false;dirty=true
+  Controls.MainPanel:SetHide(true)
+  if uiRenderError~=tostring(err) then print("[Civilization UI] RoulsAscendancy render recovered: "..tostring(err)) end
+  uiRenderError=tostring(err)
+ else uiRenderError=nil end
 end
 Controls.AnimaButton:RegisterCallback(Mouse.eLClick,function() open=not open; dirty=true end)
 Controls.CloseButton:RegisterCallback(Mouse.eLClick,function() open=false; dirty=true end)
@@ -96,6 +109,7 @@ Events.GameplaySetActivePlayer.Add(function() open=false; clear() end)
 Events.ActivePlayerTurnStart.Add(markDirty)
 Events.ActivePlayerTurnEnd.Add(function() open=false; clear() end)
 ContextPtr:SetInputHandler(function(uiMsg,key)
+ if uiRecovery and not uiRecovery:Available() then return false end
     if open and uiMsg==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then open=false; dirty=true; return true end
     return false
 end)
@@ -105,3 +119,15 @@ ContextPtr:SetUpdate(function(dt)
     if dirty and elapsed>=0.15 then elapsed=0; refresh() end
 end)
 refresh()
+
+-- Shared screen recovery: actual native visibility wins over stale event flags.
+local helperLoaded=pcall(include,'CWC_Screen')
+if CWC_Screen then
+ uiRecovery=CWC_Screen.New{name='RoulsAscendancy',civ='CIVILIZATION_ROULS_ASCENDANCY',context=ContextPtr,
+  roots={Controls.AnimaButton,Controls.MainPanel},panels={Controls.MainPanel},
+  request=function() dirty=true end,
+  refresh=function() dirty=true;refresh() end,
+  recover=function()  end,repair=function() refreshing=false;dirty=true end,
+  close=function() open=false end,manageContext=true}
+ uiRecovery:Refresh(true)
+end

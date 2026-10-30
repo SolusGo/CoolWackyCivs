@@ -27,7 +27,7 @@
     <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <HideSetupGame>false</HideSetupGame>
-    <ModVersion>26</ModVersion>
+    <ModVersion>27</ModVersion>
     <Stability>Alpha</Stability>
     <ModActions>
       <Action>
@@ -2400,5 +2400,89 @@
     <Folder Include="TheBoyWhoTouchedParadise/Lua/" />
     <Folder Include="TheBoyWhoTouchedParadise/SQL/" />
     <Folder Include="TheBoyWhoTouchedParadise/UI/" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CristianoRonaldo/Art/CWC_CristianoRonaldo_Buttons.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CWC_CristianoRonaldo_Launcher.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CWC_CristianoRonaldo_Panel.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CWC_CristianoRonaldo_Row.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="DualOrder/Art/CWC_DualOrder_Buttons.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="DualOrder/Art/CWC_DualOrder_Launcher.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="DualOrder/Art/CWC_DualOrder_Panel.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="DualOrder/Art/CWC_DualOrder_Row.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/CWC_EternalNumberTen_Buttons.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/CWC_EternalNumberTen_Launcher.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/CWC_EternalNumberTen_Panel.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/CWC_EternalNumberTen_Row.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/CWC_FilthyRealm_Buttons.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/CWC_FilthyRealm_Launcher.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/CWC_FilthyRealm_Panel.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/CWC_FilthyRealm_Row.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/CWC_MasayaBeyondSky_Buttons.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/CWC_MasayaBeyondSky_Launcher.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/CWC_MasayaBeyondSky_Panel.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/CWC_MasayaBeyondSky_Row.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RomanGladiusNetwork/Art/CWC_RomanGladiusNetwork_Buttons.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RomanGladiusNetwork/Art/CWC_RomanGladiusNetwork_Launcher.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RomanGladiusNetwork/Art/CWC_RomanGladiusNetwork_Panel.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RomanGladiusNetwork/Art/CWC_RomanGladiusNetwork_Row.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/CWC_RoulsAscendancy_Buttons.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/CWC_RoulsAscendancy_Launcher.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/CWC_RoulsAscendancy_Panel.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/CWC_RoulsAscendancy_Row.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="Shared/UI/CWC_Screen.lua"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/CWC_TheBoyWhoTouchedParadise_Buttons.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/CWC_TheBoyWhoTouchedParadise_Launcher.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/CWC_TheBoyWhoTouchedParadise_Panel.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/CWC_TheBoyWhoTouchedParadise_Row.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheKingdoms/Art/CWC_TheKingdoms_Buttons.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheKingdoms/Art/CWC_TheKingdoms_Launcher.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheKingdoms/Art/CWC_TheKingdoms_Panel.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheKingdoms/Art/CWC_TheKingdoms_Row.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/Art/CWC_TheLastCity_Buttons.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/Art/CWC_TheLastCity_Launcher.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/Art/CWC_TheLastCity_Panel.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/Art/CWC_TheLastCity_Row.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheShatteredEmpire/Art/CWC_TheShatteredEmpire_Buttons.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheShatteredEmpire/Art/CWC_TheShatteredEmpire_Launcher.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheShatteredEmpire/Art/CWC_TheShatteredEmpire_Panel.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheShatteredEmpire/Art/CWC_TheShatteredEmpire_Row.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TokenizedIntelligence/Art/CWC_TokenizedIntelligence_Buttons.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TokenizedIntelligence/Art/CWC_TokenizedIntelligence_Launcher.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TokenizedIntelligence/Art/CWC_TokenizedIntelligence_Panel.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TokenizedIntelligence/Art/CWC_TokenizedIntelligence_Row.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="ViltrumEmpire/Art/CWC_ViltrumEmpire_Buttons.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="ViltrumEmpire/Art/CWC_ViltrumEmpire_Launcher.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="ViltrumEmpire/Art/CWC_ViltrumEmpire_Panel.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="ViltrumEmpire/Art/CWC_ViltrumEmpire_Row.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CristianoRonaldo/Art/CWC_CristianoRonaldo_Launcher_365x32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CWC_CristianoRonaldo_Panel_740x500.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/Art/CWC_CristianoRonaldo_Panel_940x664.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="DualOrder/Art/CWC_DualOrder_Launcher_480x126.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/CWC_EternalNumberTen_Launcher_226x42.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/Art/CWC_EternalNumberTen_Panel_950x680.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/CWC_FilthyRealm_Launcher_350x42.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/Art/CWC_FilthyRealm_Panel_640x680.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/Art/CWC_MasayaBeyondSky_Launcher_480x132.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RomanGladiusNetwork/Art/CWC_RomanGladiusNetwork_Launcher_430x42.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RomanGladiusNetwork/Art/CWC_RomanGladiusNetwork_Panel_920x680.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/CWC_RoulsAscendancy_Launcher_216x30.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/Art/CWC_RoulsAscendancy_Panel_500x570.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/CWC_TheBoyWhoTouchedParadise_Launcher_400x32.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/Art/CWC_TheBoyWhoTouchedParadise_Panel_944x624.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheKingdoms/Art/CWC_TheKingdoms_Launcher_540x36.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheKingdoms/Art/CWC_TheKingdoms_Panel_1000x680.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/Art/CWC_TheLastCity_Launcher_570x36.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/Art/CWC_TheLastCity_Panel_920x680.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/Art/CWC_TheLastCity_Row_848x128.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/Art/CWC_TheLastCity_Row_848x68.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheShatteredEmpire/Art/CWC_TheShatteredEmpire_Launcher_500x36.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TheShatteredEmpire/Art/CWC_TheShatteredEmpire_Panel_1000x680.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TokenizedIntelligence/Art/CWC_TokenizedIntelligence_Launcher_500x36.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="TokenizedIntelligence/Art/CWC_TokenizedIntelligence_Panel_920x660.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="ViltrumEmpire/Art/CWC_ViltrumEmpire_Launcher_480x38.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+    <Content Include="ViltrumEmpire/Art/CWC_ViltrumEmpire_Panel_800x650.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
   </ItemGroup>
 </Project>

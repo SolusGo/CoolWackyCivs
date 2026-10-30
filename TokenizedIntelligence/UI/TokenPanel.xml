@@ -1,41 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <Context ID="TokenPanel">
  <Grid ID="Launcher" Anchor="C,T" Offset="0,56" Size="500,36" Style="GridBlackIndent8" Hidden="1">
+  <Image ID="CWC_ThemeBackground_Launcher" Anchor="L,T" Size="500,36" Texture="CWC_TokenizedIntelligence_Launcher_500x36.dds" ConsumeMouse="0" />
   <Image ID="TokenIcon" Anchor="L,C" Offset="8,0" Size="24,24" />
-  <GridButton ID="Status" Anchor="R,C" Offset="6,0" Size="454,30" Style="BaseButton" String="TOKENS | PROMPT CONSOLE" />
+  <GridButton ID="Status" Anchor="R,C" Offset="6,0" Size="454,30" String="TOKENS | PROMPT CONSOLE" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TokenizedIntelligence_Buttons.dds" />
+  </GridButton>
  </Grid>
- <Grid ID="Panel" Anchor="C,C" Size="920,660" Style="Grid9DetailFive140" ConsumeMouse="1" Hidden="1">
+ <Grid ID="Panel" Anchor="C,C" Size="920,660" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
+  <Image ID="CWC_ThemeBackground_Panel" Anchor="L,T" Size="920,660" Texture="CWC_TokenizedIntelligence_Panel_920x660.dds" ConsumeMouse="0" />
   <Image ID="Emblem" Anchor="L,T" Offset="24,18" Size="64,64" />
-  <Label ID="Title" Anchor="L,T" Offset="104,24" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="PROMPT CONSOLE" />
-  <Label ID="Summary" Anchor="L,T" Offset="104,58" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-  <GridButton ID="Close" Anchor="R,T" Offset="18,18" Size="42,32" Style="BaseButton" String="X" />
+  <Label ID="Title" Anchor="L,T" Offset="104,24" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="PROMPT CONSOLE" Color0="182,237,203,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <Label ID="Summary" Anchor="L,T" Offset="104,58" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="Close" Anchor="R,T" Offset="18,18" Size="42,32" String="X" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TokenizedIntelligence_Buttons.dds" />
+  </GridButton>
   <Stack ID="CategoryStack" Anchor="L,T" Offset="22,92" StackGrowth="Right" Padding="4" />
-  <ScrollPanel ID="PromptScroll" Anchor="L,T" Offset="22,136" Size="450,374" Vertical="1">
+  <ScrollPanel ID="PromptScroll" Anchor="L,T" Offset="22,136" Size="450,374" Vertical="1" AutoScrollBar="1">
    <Stack ID="PromptStack" Anchor="L,T" StackGrowth="Bottom" Padding="5" />
+   <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="366" />
   </ScrollPanel>
   <Grid ID="Detail" Anchor="R,T" Offset="22,136" Size="408,374" Style="GridBlackIndent8">
    <Image ID="PromptIcon" Anchor="L,T" Offset="12,12" Size="45,45" />
-   <Label ID="PromptTitle" Anchor="L,T" Offset="68,12" Size="324,54" WrapWidth="324" Font="TwCenMT20" ColorSet="Beige_Black_Alpha" />
-   <Label ID="Description" Anchor="L,T" Offset="12,74" Size="384,135" WrapWidth="384" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-   <ScrollPanel ID="TargetScroll" Anchor="L,T" Offset="12,214" Size="384,150" Vertical="1">
+   <Label ID="PromptTitle" Anchor="L,T" Offset="68,12" Size="324,54" WrapWidth="324" Font="TwCenMT20" ColorSet="Beige_Black_Alpha" Color0="182,237,203,255" Color1="0,0,0,230" FontStyle="Shadow" />
+   <Label ID="Description" Anchor="L,T" Offset="12,74" Size="384,135" WrapWidth="384" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+   <ScrollPanel ID="TargetScroll" Anchor="L,T" Offset="12,214" Size="384,150" Vertical="1" AutoScrollBar="1">
     <Stack ID="TargetStack" Anchor="L,T" StackGrowth="Bottom" Padding="3" />
+    <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="142" />
    </ScrollPanel>
   </Grid>
-  <Label ID="Active" Anchor="L,T" Offset="24,520" Size="872,42" WrapWidth="872" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-  <Label ID="Message" Anchor="L,B" Offset="24,59" Size="872,34" WrapWidth="872" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-  <GridButton ID="Execute" Anchor="C,B" Offset="0,16" Size="872,40" Style="BaseButton" String="EXECUTE PROMPT" />
+  <Label ID="Active" Anchor="L,T" Offset="24,520" Size="872,42" WrapWidth="872" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <Label ID="Message" Anchor="L,B" Offset="24,59" Size="872,34" WrapWidth="872" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="Execute" Anchor="C,B" Offset="0,16" Size="872,40" String="EXECUTE PROMPT" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TokenizedIntelligence_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="CWC_Guide_Panel" Anchor="R,T" Offset="76,18" Size="30,30" Font="TwCenMT18" String="?" ToolTip="CONTEXT / PROMPT CONSOLE[NEWLINE][NEWLINE]Inspect token cost, choose a target and confirm execution." ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TokenizedIntelligence_Buttons.dds" />
+  </GridButton>
  </Grid>
  <Instance Name="TokenCategory">
-  <GridButton ID="CategoryButton" Size="121,34" Style="BaseButton" />
+  <GridButton ID="CategoryButton" Size="121,34" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TokenizedIntelligence_Buttons.dds" />
+  </GridButton>
  </Instance>
  <Instance Name="TokenPrompt">
-  <GridButton ID="PromptButton" Size="434,58" Style="BaseButton">
+  <GridButton ID="PromptButton" Size="434,58" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TokenizedIntelligence_Buttons.dds" />
    <Image ID="Icon" Anchor="L,C" Offset="8,0" Size="32,32" />
    <Label ID="Name" Anchor="L,T" Offset="48,5" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
    <Label ID="Cost" Anchor="L,B" Offset="48,7" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" />
   </GridButton>
  </Instance>
  <Instance Name="TokenTarget">
-  <GridButton ID="TargetButton" Size="366,32" Style="BaseButton" />
+  <GridButton ID="TargetButton" Size="366,32" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TokenizedIntelligence_Buttons.dds" />
+  </GridButton>
  </Instance>
 </Context>

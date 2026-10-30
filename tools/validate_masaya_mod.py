@@ -477,7 +477,7 @@ for i=1,10 do Controls['Fill'..i]=control() end
 ''')
     panel.execute((ROOT / "UI/MasayaJoyPanel.lua").read_text(encoding="utf-8-sig"))
     panel.execute(r'''
-assert(#Includes==1 and Includes[1]=='IconSupport','panel loaded gameplay runtime')
+assert(#Includes==2 and Includes[1]=='IconSupport' and Includes[2]=='CWC_Screen','panel loaded gameplay runtime')
 assert(Controls.JoyFrame.hidden==true,'panel was not safe while runtime unavailable')
 MapModData.MasayaKid={IsMasaya=function()return true end,
  GetUIState=function()return {joy=50,beyond=false,cantStop=true,turns=0} end}

@@ -1,3 +1,5 @@
+local uiRecovery -- UI state is transient; never part of a gameplay save.
+local uiRenderError
 include('IconSupport')
 include('InstanceManager')
 include('KingdomsCore')
@@ -11,6 +13,7 @@ local blocked={}
 local seenAppointments={}
 local refresh
 local function worldView()
+ if uiRecovery then return uiRecovery:Available(),uiRecovery:Reason() end;
  return not cityView and not leaderView and next(blocked)==nil and not (UI and UI.IsCityScreenUp and UI.IsCityScreenUp())
 end
 local function number(n) return tostring(math.floor(n+.5)) end
@@ -146,10 +149,13 @@ local function chronicle(s,parts)
  for i=#s.history,1,-1 do local e=s.history[i];if filter=='ALL' or e.category==filter then line(parts,K.Date(e.turn)..': '..K.HistoryText(e)) end end
 end
 refresh=function()
+ local function draw()
+ if uiRecovery then uiRecovery:Sync() end
  if refreshing or K.ApplyingEffects then return end
  refreshing=true
  local pid=Game.GetActivePlayer();local p=Players[pid]
  local visible=K.IsKingdoms(pid) and p:IsAlive() and p:IsHuman() and worldView()
+ visible=visible and (not uiRecovery or uiRecovery:Available())
  Controls.RealmLauncher:SetHide(not visible);Controls.RealmPanel:SetHide(not visible or not opened)
  if not visible then refreshing=false;return end
  local s=K.State(pid)
@@ -188,10 +194,20 @@ refresh=function()
  Controls.RealmListScroll:CalculateInternalSize();Controls.RealmDetailScroll:CalculateInternalSize()
  Controls.RealmMessage:SetText(message~='' and message or K.Text('UI_HINT'))
  refreshing=false
+ end
+ local ok,err=pcall(draw)
+ if not ok then
+  refreshing=false
+  Controls.RealmPanel:SetHide(true)
+  if uiRenderError~=tostring(err) then print("[Civilization UI] TheKingdoms render recovered: "..tostring(err)) end
+  uiRenderError=tostring(err)
+ else uiRenderError=nil end
 end
 Controls.RealmStatus:RegisterCallback(Mouse.eLClick,function() opened=not opened;refresh() end)
 Controls.RealmClose:RegisterCallback(Mouse.eLClick,function() opened=false;refresh() end)
-ContextPtr:SetInputHandler(function(msg,key) if opened and msg==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then opened=false;refresh();return true end;return false end)
+ContextPtr:SetInputHandler(function(msg,key)
+ if uiRecovery and not uiRecovery:Available() then return false end
+ if opened and msg==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then opened=false;refresh();return true end;return false end)
 LuaEvents.KingdomsChanged.Add(function(pid) if pid==Game.GetActivePlayer() then refresh() end end)
 Events.LoadScreenClose.Add(refresh)
 Events.GameplaySetActivePlayer.Add(function() opened=false;chosen=nil;refresh() end)
@@ -204,3 +220,14 @@ Events.LeavingLeaderViewMode.Add(function() leaderView=false;refresh() end)
 Events.SerialEventGameMessagePopupShown.Add(function(info) if info and info.Type then blocked[info.Type]=true;opened=false;refresh() end end)
 Events.SerialEventGameMessagePopupProcessed.Add(function(typ) blocked[typ]=nil;refresh() end)
 refresh()
+
+-- Shared screen recovery: actual native visibility wins over stale event flags.
+local helperLoaded=pcall(include,'CWC_Screen')
+if CWC_Screen then
+ uiRecovery=CWC_Screen.New{name='TheKingdoms',civ='CIVILIZATION_ENGLAND',context=ContextPtr,
+  roots={Controls.RealmLauncher,Controls.RealmPanel},panels={Controls.RealmPanel},
+  refresh=function() refresh() end,
+  recover=function() cityView=false;leaderView=false;blocked={} end,repair=function() refreshing=false end,
+  close=function() opened=false end,manageContext=true}
+ uiRecovery:Refresh(true)
+end

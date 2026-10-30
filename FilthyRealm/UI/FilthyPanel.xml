@@ -1,80 +1,94 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <Context ID="FilthyPanel">
-  <Instance Name="FilthyTargetEntry">
-    <GridButton ID="TargetButton" Size="566,40" Style="BaseButton" String="Target" />
-  </Instance>
-
-  <!-- Compact top-screen launcher with the custom Filth resource mark. -->
-  <Grid ID="LauncherFrame" Anchor="C,T" Offset="0,24" Size="350,42" Style="GridBlackIndent8" Hidden="1">
-    <GridButton ID="PointsButton" Anchor="C,C" Offset="0,0" Size="338,34" Style="BaseButton"
-      String="ENTER THE FILTHY REALM - 0 FP" ToolTip="Enter the Filthy Realm." />
-    <Box Anchor="L,C" Offset="2,0" Size="4,34" Color="232,55,117,255" />
-    <Image ID="PointsIcon" Anchor="L,C" Offset="10,0" Size="32,32" ConsumeMouse="0" />
+ <Instance Name="FilthyTargetEntry">
+  <GridButton ID="TargetButton" Size="566,40" String="Target" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_FilthyRealm_Buttons.dds" />
+  </GridButton>
+ </Instance>
+ <Grid ID="LauncherFrame" Anchor="C,T" Offset="0,24" Size="350,42" Style="GridBlackIndent8" Hidden="1">
+  <Image ID="CWC_ThemeBackground_LauncherFrame" Anchor="L,T" Size="350,42" Texture="CWC_FilthyRealm_Launcher_350x42.dds" ConsumeMouse="0" />
+  <GridButton ID="PointsButton" Anchor="C,C" Offset="0,0" Size="338,34" String="ENTER THE FILTHY REALM - 0 FP" ToolTip="Enter the Filthy Realm." Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_FilthyRealm_Buttons.dds" />
+  </GridButton>
+  <Box Anchor="L,C" Offset="2,0" Size="4,34" Color="232,55,117,255" />
+  <Image ID="PointsIcon" Anchor="L,C" Offset="10,0" Size="32,32" ConsumeMouse="0" />
+ </Grid>
+ <Grid ID="MainPanel" Anchor="R,T" Offset="20,74" Size="640,680" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
+  <Image ID="CWC_ThemeBackground_MainPanel" Anchor="L,T" Size="640,680" Texture="CWC_FilthyRealm_Panel_640x680.dds" ConsumeMouse="0" />
+  <Box Anchor="L,T" Offset="7,7" Size="5,666" Color="232,55,117,230" />
+  <Box Anchor="R,T" Offset="7,7" Size="2,666" Color="232,55,117,110" />
+  <Box Anchor="C,T" Offset="0,77" Size="604,2" Color="232,55,117,210" />
+  <Box Anchor="C,B" Offset="0,58" Size="604,2" Color="232,55,117,150" />
+  <Image ID="CivIcon" Anchor="L,T" Offset="24,10" Size="64,64" />
+  <Label Anchor="L,T" Offset="100,12" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="THE FILTHY REALM" Color0="239,178,188,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <Label Anchor="L,T" Offset="102,43" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="A HIGHER FORM OF CIVILIZATION" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <Grid ID="PointsCard" Anchor="R,T" Offset="68,14" Size="174,48" Style="GridBlackIndent8">
+   <Image ID="PanelPointsIcon" Anchor="L,C" Offset="10,0" Size="32,32" />
+   <Label ID="PointsLabel" Anchor="L,T" Offset="52,3" Size="106,24" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" String="0 FP" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+   <Label Anchor="L,T" Offset="54,27" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="FILTHY POINTS" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
   </Grid>
-
-  <Grid ID="MainPanel" Anchor="R,T" Offset="20,74" Size="640,680" Style="Grid9DetailFive140" ConsumeMouse="1" Hidden="1">
-    <!-- Magenta rails and dark inset cards turn the stock frame into the Realm's console. -->
-    <Box Anchor="L,T" Offset="7,7" Size="5,666" Color="232,55,117,230" />
-    <Box Anchor="R,T" Offset="7,7" Size="2,666" Color="232,55,117,110" />
-    <Box Anchor="C,T" Offset="0,77" Size="604,2" Color="232,55,117,210" />
-    <Box Anchor="C,B" Offset="0,58" Size="604,2" Color="232,55,117,150" />
-
-    <Image ID="CivIcon" Anchor="L,T" Offset="24,10" Size="64,64" />
-    <Label Anchor="L,T" Offset="100,12" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" String="THE FILTHY REALM" />
-    <Label Anchor="L,T" Offset="102,43" Font="TwCenMT14" ColorSet="Beige_Black_Alpha"
-      String="A HIGHER FORM OF CIVILIZATION" />
-    <Grid ID="PointsCard" Anchor="R,T" Offset="68,14" Size="174,48" Style="GridBlackIndent8">
-      <Image ID="PanelPointsIcon" Anchor="L,C" Offset="10,0" Size="32,32" />
-      <Label ID="PointsLabel" Anchor="L,T" Offset="52,3" Size="106,24" Font="TwCenMT18"
-        ColorSet="Beige_Black_Alpha" String="0 FP" />
-      <Label Anchor="L,T" Offset="54,27" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="FILTHY POINTS" />
-    </Grid>
-    <GridButton ID="CloseButton" Anchor="R,T" Offset="18,18" Size="38,30" Style="BaseButton" String="X" ToolTip="Close the Filthy Realm." />
-
-    <Label Anchor="L,T" Offset="24,88" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" String="REALM STATUS" />
-    <Grid Anchor="C,T" Offset="0,110" Size="592,62" Style="GridBlackIndent8">
-      <Box Anchor="L,C" Offset="3,0" Size="3,48" Color="232,55,117,170" />
-      <Label ID="StatusLabel" Anchor="L,T" Offset="14,7" Size="562,48" WrapWidth="562"
-        Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="" />
-    </Grid>
-
-    <Label Anchor="L,T" Offset="24,184" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" String="REALM COMMANDS" />
-    <GridButton ID="SalamanderButton" Anchor="L,T" Offset="24,208" Size="286,50" Style="BaseButton"
-      String="SALAMANDER MAN - 25 FP" />
-    <Image ID="SalamanderIcon" Anchor="L,T" Offset="30,210" Size="45,45" ConsumeMouse="0" />
-    <GridButton ID="DistortionButton" Anchor="R,T" Offset="24,208" Size="286,50" Style="BaseButton"
-      String="REALM DISTORTION - 40 FP" />
-    <Image ID="DistortionIcon" Anchor="R,T" Offset="259,210" Size="45,45" ConsumeMouse="0" />
-    <GridButton ID="RavioliButton" Anchor="L,T" Offset="24,266" Size="286,50" Style="BaseButton"
-      String="RAVIOLI - 60 FP" />
-    <Image ID="RavioliIcon" Anchor="L,T" Offset="30,268" Size="45,45" ConsumeMouse="0" />
-    <GridButton ID="StopButton" Anchor="R,T" Offset="24,266" Size="286,50" Style="BaseButton"
-      String="IT'S TIME TO STOP - 80 FP" />
-    <Image ID="StopIcon" Anchor="R,T" Offset="259,268" Size="45,45" ConsumeMouse="0" />
-    <GridButton ID="InterventionButton" Anchor="C,T" Offset="0,324" Size="592,44" Style="BaseButton"
-      String="PEACE LORD: FILTHY INTERVENTION" />
-    <Image ID="InterventionIcon" Anchor="L,T" Offset="30,324" Size="45,45" ConsumeMouse="0" />
-
-    <Label ID="TargetHeader" Anchor="L,T" Offset="24,378" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" String="TARGETING CONSOLE" />
-    <Grid Anchor="C,T" Offset="0,400" Size="592,48" Style="GridBlackIndent8">
-      <Label ID="InstructionLabel" Anchor="L,T" Offset="12,5" Size="568,38" WrapWidth="568"
-        Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="Choose an ability." />
-    </Grid>
-    <Grid Anchor="C,T" Offset="0,456" Size="592,126" Style="GridBlackIndent8">
-      <ScrollPanel ID="TargetScroll" Anchor="C,T" Offset="0,5" Size="582,116" Vertical="1">
-        <Stack ID="TargetStack" Anchor="L,T" StackGrowth="Bottom" Padding="4" Size="566,0" />
-      </ScrollPanel>
-    </Grid>
-
-    <Grid ID="CategoryGrid" Anchor="C,T" Offset="0,584" Size="592,40" Hidden="1">
-      <GridButton ID="GoldButton" Anchor="L,T" Offset="0,0" Size="112,36" Style="BaseButton" String="Gold" />
-      <GridButton ID="ScienceButton" Anchor="L,T" Offset="120,0" Size="112,36" Style="BaseButton" String="Science" />
-      <GridButton ID="CultureButton" Anchor="L,T" Offset="240,0" Size="112,36" Style="BaseButton" String="Culture" />
-      <GridButton ID="FoodButton" Anchor="L,T" Offset="360,0" Size="104,36" Style="BaseButton" String="Food" />
-      <GridButton ID="ProductionButton" Anchor="R,T" Offset="0,0" Size="120,36" Style="BaseButton" String="Production" />
-    </Grid>
-    <Label ID="MessageLabel" Anchor="L,B" Offset="24,14" Size="340,38" WrapWidth="340"
-      Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="" />
-    <GridButton ID="ConfirmButton" Anchor="R,B" Offset="24,14" Size="246,38" Style="BaseButton" String="Confirm" />
+  <GridButton ID="CloseButton" Anchor="R,T" Offset="18,18" Size="38,30" String="X" ToolTip="Close the Filthy Realm." Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_FilthyRealm_Buttons.dds" />
+  </GridButton>
+  <Label Anchor="L,T" Offset="24,88" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" String="REALM STATUS" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <Grid Anchor="C,T" Offset="0,110" Size="592,62" Style="GridBlackIndent8">
+   <Box Anchor="L,C" Offset="3,0" Size="3,48" Color="232,55,117,170" />
+   <Label ID="StatusLabel" Anchor="L,T" Offset="14,7" Size="562,48" WrapWidth="562" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
   </Grid>
+  <Label Anchor="L,T" Offset="24,184" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" String="REALM COMMANDS" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="SalamanderButton" Anchor="L,T" Offset="24,208" Size="286,50" String="SALAMANDER MAN - 25 FP" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_FilthyRealm_Buttons.dds" />
+  </GridButton>
+  <Image ID="SalamanderIcon" Anchor="L,T" Offset="30,210" Size="45,45" ConsumeMouse="0" />
+  <GridButton ID="DistortionButton" Anchor="R,T" Offset="24,208" Size="286,50" String="REALM DISTORTION - 40 FP" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_FilthyRealm_Buttons.dds" />
+  </GridButton>
+  <Image ID="DistortionIcon" Anchor="R,T" Offset="259,210" Size="45,45" ConsumeMouse="0" />
+  <GridButton ID="RavioliButton" Anchor="L,T" Offset="24,266" Size="286,50" String="RAVIOLI - 60 FP" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_FilthyRealm_Buttons.dds" />
+  </GridButton>
+  <Image ID="RavioliIcon" Anchor="L,T" Offset="30,268" Size="45,45" ConsumeMouse="0" />
+  <GridButton ID="StopButton" Anchor="R,T" Offset="24,266" Size="286,50" String="IT'S TIME TO STOP - 80 FP" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_FilthyRealm_Buttons.dds" />
+  </GridButton>
+  <Image ID="StopIcon" Anchor="R,T" Offset="259,268" Size="45,45" ConsumeMouse="0" />
+  <GridButton ID="InterventionButton" Anchor="C,T" Offset="0,324" Size="592,44" String="PEACE LORD: FILTHY INTERVENTION" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_FilthyRealm_Buttons.dds" />
+  </GridButton>
+  <Image ID="InterventionIcon" Anchor="L,T" Offset="30,324" Size="45,45" ConsumeMouse="0" />
+  <Label ID="TargetHeader" Anchor="L,T" Offset="24,378" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" String="TARGETING CONSOLE" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <Grid Anchor="C,T" Offset="0,400" Size="592,48" Style="GridBlackIndent8">
+   <Label ID="InstructionLabel" Anchor="L,T" Offset="12,5" Size="568,38" WrapWidth="568" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="Choose an ability." Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  </Grid>
+  <Grid Anchor="C,T" Offset="0,456" Size="592,126" Style="GridBlackIndent8">
+   <ScrollPanel ID="TargetScroll" Anchor="C,T" Offset="0,5" Size="582,116" Vertical="1" AutoScrollBar="1">
+    <Stack ID="TargetStack" Anchor="L,T" StackGrowth="Bottom" Padding="4" Size="566,0" />
+    <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="108" />
+   </ScrollPanel>
+  </Grid>
+  <Grid ID="CategoryGrid" Anchor="C,T" Offset="0,584" Size="592,40" Hidden="1">
+   <GridButton ID="GoldButton" Anchor="L,T" Offset="0,0" Size="112,36" String="Gold" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+    <GridData Style="Grid9FrameButtons" Texture="CWC_FilthyRealm_Buttons.dds" />
+   </GridButton>
+   <GridButton ID="ScienceButton" Anchor="L,T" Offset="120,0" Size="112,36" String="Science" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+    <GridData Style="Grid9FrameButtons" Texture="CWC_FilthyRealm_Buttons.dds" />
+   </GridButton>
+   <GridButton ID="CultureButton" Anchor="L,T" Offset="240,0" Size="112,36" String="Culture" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+    <GridData Style="Grid9FrameButtons" Texture="CWC_FilthyRealm_Buttons.dds" />
+   </GridButton>
+   <GridButton ID="FoodButton" Anchor="L,T" Offset="360,0" Size="104,36" String="Food" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+    <GridData Style="Grid9FrameButtons" Texture="CWC_FilthyRealm_Buttons.dds" />
+   </GridButton>
+   <GridButton ID="ProductionButton" Anchor="R,T" Offset="0,0" Size="120,36" String="Production" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+    <GridData Style="Grid9FrameButtons" Texture="CWC_FilthyRealm_Buttons.dds" />
+   </GridButton>
+  </Grid>
+  <Label ID="MessageLabel" Anchor="L,B" Offset="24,14" Size="340,38" WrapWidth="340" Font="TwCenMT14" ColorSet="Beige_Black_Alpha" String="" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="ConfirmButton" Anchor="R,B" Offset="24,14" Size="246,38" String="Confirm" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_FilthyRealm_Buttons.dds" />
+  </GridButton>
+  <GridButton ID="CWC_Guide_MainPanel" Anchor="R,T" Offset="76,18" Size="30,30" Font="TwCenMT18" String="?" ToolTip="THE FILTHY REALM[NEWLINE][NEWLINE]Choose an ability, inspect its cost, then select a target." ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_FilthyRealm_Buttons.dds" />
+  </GridButton>
+ </Grid>
 </Context>

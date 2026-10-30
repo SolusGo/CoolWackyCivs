@@ -13,7 +13,11 @@ from build_ronaldo_mod import NAME
 
 def database():
     game=Path.home()/"Documents/My Games/Sid Meier's Civilization 5"
-    original=sqlite3.connect((game/'cache/Civ5DebugDatabase.db').as_uri()+'?mode=ro',uri=True)
+    # The live cache may have been rebuilt by the unmodded front end. Use the
+    # retained CP fixture consistently with the collection's SQL validator.
+    cache=game/'cache_backup/Civ5DebugDatabase.db'
+    if not cache.is_file():cache=game/'cache/Civ5DebugDatabase.db'
+    original=sqlite3.connect(cache.as_uri()+'?mode=ro',uri=True)
     db=sqlite3.connect(':memory:');original.backup(db);original.close()
     apply_current_cp_schema(db,game/'MODS/(1) Community Patch')
     db.row_factory=sqlite3.Row
@@ -86,7 +90,8 @@ def packaging():
         assert len({f.text for f in files})==len(files),'duplicate manifest file'
         for f in files:
             if root is collection and not f.text.startswith('CristianoRonaldo/'):continue
-            path=base/f.text
+            from standalone_ui import source_file
+            path=source_file(base,f.text)
             assert hashlib.md5(path.read_bytes()).hexdigest().upper()==f.attrib['md5'],path
             assert f.attrib['import']==str(int(path.suffix!='.sql' and path.name!='CR7Career.xml')),path
         assert [p.text for p in root.findall('Actions/OnModActivated/UpdateDatabase') if 'CR7_' in p.text]==[

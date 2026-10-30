@@ -33,38 +33,46 @@
     <File md5="13D1BB142C187FDDDBB777D774C0DFE7" import="1">Art/CR7Alpha80.dds</File>
     <File md5="9CC4475EA93A5051227495E629DEA7A9" import="1">Art/CR7Dawn.dds</File>
     <File md5="AAC0F39E4B7B4F4BF575D904CD1176F2" import="1">Art/CR7Flag32.dds</File>
-    <File md5="7D8E0A4EB264A65205D154D10BA4F29E" import="1">Art/CR7Icon128.dds</File>
-    <File md5="EC6A0B62A7C91D7E5077062D0736E10A" import="1">Art/CR7Icon16.dds</File>
-    <File md5="B544EF9910B0DA137EE22468EF3549FE" import="1">Art/CR7Icon24.dds</File>
-    <File md5="8DB499A0CE637643707BE3045D5D3BF0" import="1">Art/CR7Icon256.dds</File>
-    <File md5="0B4CB7CCDA33DC14E1A78D6F858925F0" import="1">Art/CR7Icon32.dds</File>
-    <File md5="D572D8C67B539E64F45DDBC5CE615C07" import="1">Art/CR7Icon45.dds</File>
-    <File md5="8C6EB2C0A823376FB8BD9E1C4FD03D90" import="1">Art/CR7Icon48.dds</File>
-    <File md5="B2D7928E7CB5028B8DEC4CEC4D1A0316" import="1">Art/CR7Icon64.dds</File>
-    <File md5="561A341DB4EFE2C0E8A077FDEEF28A8B" import="1">Art/CR7Icon80.dds</File>
+    <File md5="E165BC4D96B6733CAE2D16CA738F682F" import="1">Art/CR7Icon128.dds</File>
+    <File md5="87499DC82FA8F68C5E8020D4046470F0" import="1">Art/CR7Icon16.dds</File>
+    <File md5="EF1A813F4DA5BE1A0DBD47C29DE24F31" import="1">Art/CR7Icon24.dds</File>
+    <File md5="0BFAFD1E126240074CA0FC3716229FC1" import="1">Art/CR7Icon256.dds</File>
+    <File md5="425862E1475B873C5F67FEBDB36ED68E" import="1">Art/CR7Icon32.dds</File>
+    <File md5="853923646D281CB5B011930068C03DCE" import="1">Art/CR7Icon45.dds</File>
+    <File md5="7AA73BD19FBAA08B92BA09C656746213" import="1">Art/CR7Icon48.dds</File>
+    <File md5="FF7A5E2AF753F11957558202F6B69D28" import="1">Art/CR7Icon64.dds</File>
+    <File md5="200D2B5AB521A92D3D02047220C598DA" import="1">Art/CR7Icon80.dds</File>
     <File md5="9DD3B3452E83DEDB0DD8F01A13F5A00E" import="1">Art/CR7Leader.dds</File>
-    <File md5="AA5519BAF2DE06F23F4EE3D6A19145D6" import="1">Art/CR7Leader128.dds</File>
-    <File md5="C72EB6911E3E0D22981A542A4DF78FB5" import="1">Art/CR7Leader256.dds</File>
-    <File md5="E2AB4FF5BB8D69C7E7E823D0DE741AC8" import="1">Art/CR7Leader64.dds</File>
+    <File md5="8DE598105833DB5D72588EC701EBCB30" import="1">Art/CR7Leader128.dds</File>
+    <File md5="FD7025255D9CDDA41DB3C73382193609" import="1">Art/CR7Leader256.dds</File>
+    <File md5="2FFCF75BC0A14A2CB23361122DD7662C" import="1">Art/CR7Leader64.dds</File>
     <File md5="2CA883A9520116F0DC8FF3D06EC8874D" import="1">Art/CR7LeaderScene.xml</File>
     <File md5="FCDABE6D601BB885269DF6309DB95AA8" import="1">Art/CR7Map.dds</File>
-    <File md5="1D1D4F56EFC924592F6788E96B05BCF3" import="1">Art/CR7Objects128.dds</File>
-    <File md5="2F6269C558E767454E8A312863222694" import="1">Art/CR7Objects16.dds</File>
-    <File md5="A3E24EE85DB34275DE3E5EA86A03A947" import="1">Art/CR7Objects24.dds</File>
-    <File md5="261A58514B96592C51031C0C9A7B475F" import="1">Art/CR7Objects256.dds</File>
-    <File md5="C8813D5A795356939DA314B282470E5D" import="1">Art/CR7Objects32.dds</File>
-    <File md5="4B0A5B7590279F2BFD260A9FD8968D11" import="1">Art/CR7Objects45.dds</File>
-    <File md5="CFD0E15D57BC361E4552048C1F3242A8" import="1">Art/CR7Objects48.dds</File>
-    <File md5="321AEA9C3C9BBB6049D4C52CCC640ECD" import="1">Art/CR7Objects64.dds</File>
-    <File md5="A1C65CA26A8C11B10F4A0D58A9616222" import="1">Art/CR7Objects80.dds</File>
+    <File md5="5C74D20DBD31B8029F6D6BDC1ECFAA3F" import="1">Art/CR7Objects128.dds</File>
+    <File md5="709CAD8BB428B7DF3133F9F3DC1E101E" import="1">Art/CR7Objects16.dds</File>
+    <File md5="826F63202ECEF468385F75C12608A9EC" import="1">Art/CR7Objects24.dds</File>
+    <File md5="A4366CDB090EC6C98662A006A35E5E84" import="1">Art/CR7Objects256.dds</File>
+    <File md5="E1A06EBD228B44B8F71B7C42951EA821" import="1">Art/CR7Objects32.dds</File>
+    <File md5="748CBA54D7B72283FF73BFC6467D252F" import="1">Art/CR7Objects45.dds</File>
+    <File md5="5EF1DA1B23F3FE3BC6B305594002F31D" import="1">Art/CR7Objects48.dds</File>
+    <File md5="D288292118E6CF48F9279EC116D8C791" import="1">Art/CR7Objects64.dds</File>
+    <File md5="D46B8F1A9FAC71F67CE22E109B5B280C" import="1">Art/CR7Objects80.dds</File>
+    <File md5="52882A0573E473CCB645A48694B67251" import="1">Art/CWC_CristianoRonaldo_Buttons.dds</File>
+    <File md5="C6140F9EF35C6AE772C35C8EC8ABC3D1" import="1">Art/CWC_CristianoRonaldo_Launcher.dds</File>
+    <File md5="FBB61517B0E9C0E001544C04BCF6D2DF" import="1">Art/CWC_CristianoRonaldo_Launcher_365x32.dds</File>
+    <File md5="54E942993BEBE0DC0582608658AD2411" import="1">Art/CWC_CristianoRonaldo_Panel.dds</File>
+    <File md5="9A3B9C70E53EEAC8510335F92DDFD56D" import="1">Art/CWC_CristianoRonaldo_Panel_740x500.dds</File>
+    <File md5="6EACA4B74F76B0C8CF3113D0B15AE1FD" import="1">Art/CWC_CristianoRonaldo_Panel_940x664.dds</File>
+    <File md5="3DD004929845C3B014D29ADB97BECC48" import="1">Art/CWC_CristianoRonaldo_Row.dds</File>
     <File md5="DAE0AC7B57FAE2E384D8BAF01D77FA25" import="1">Lua/CR7Runtime.lua</File>
     <File md5="8C80340BA91784E9C50FB09234CE081E" import="0">SQL/00_CR7_Core.sql</File>
     <File md5="8E52969F9FAA6330C255C843A54BF4DE" import="0">SQL/01_CR7_Inheritance.sql</File>
     <File md5="832BACFC2B0E6107D92E594ABD8FF289" import="0">SQL/02_CR7_Effects.sql</File>
     <File md5="FBD9865B22CB39358AA6D998CD9D99FB" import="0">SQL/03_CR7_Art.sql</File>
     <File md5="D5C84F56BC7E03D886F8999ADCA980D5" import="0">SQL/10_CR7_Text.sql</File>
-    <File md5="2C14A2A136F9E09CCB5934A33F4C3BD7" import="1">UI/CR7Career.lua</File>
-    <File md5="EEA24150B0063ACA37E0386001D55012" import="0">UI/CR7Career.xml</File>
+    <File md5="4293DEFFA23249C746F3AC66DB1FF00D" import="1">UI/CR7Career.lua</File>
+    <File md5="6AEC80F0B1BCBB0A7F709221A7EA32F6" import="0">UI/CR7Career.xml</File>
+    <File md5="8DC1A741828BB08067C42800F474479A" import="1">Shared/UI/CWC_Screen.lua</File>
   </Files>
   <Actions>
     <OnModActivated>

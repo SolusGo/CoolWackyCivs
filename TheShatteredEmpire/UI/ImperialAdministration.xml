@@ -1,29 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <Context ID="ImperialAdministration">
  <Grid ID="ImperialLauncher" Anchor="C,T" Offset="0,56" Size="500,36" Style="GridBlackIndent8" Hidden="1">
+  <Image ID="CWC_ThemeBackground_ImperialLauncher" Anchor="L,T" Size="500,36" Texture="CWC_TheShatteredEmpire_Launcher_500x36.dds" ConsumeMouse="0" />
   <Image ID="ImperialIcon" Anchor="L,C" Offset="8,0" Size="24,24" />
-  <GridButton ID="ImperialStatus" Anchor="R,C" Offset="6,0" Size="450,30" Style="BaseButton" />
+  <GridButton ID="ImperialStatus" Anchor="R,C" Offset="6,0" Size="450,30" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TheShatteredEmpire_Buttons.dds" />
+  </GridButton>
  </Grid>
- <Grid ID="ImperialPanel" Anchor="C,C" Size="1000,680" Style="Grid9DetailFive140" ConsumeMouse="1" Hidden="1">
+ <Grid ID="ImperialPanel" Anchor="C,C" Size="1000,680" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
+  <Image ID="CWC_ThemeBackground_ImperialPanel" Anchor="L,T" Size="1000,680" Texture="CWC_TheShatteredEmpire_Panel_1000x680.dds" ConsumeMouse="0" />
   <Image ID="ImperialEmblem" Anchor="L,T" Offset="22,18" Size="64,64" />
-  <Label ID="ImperialTitle" Anchor="L,T" Offset="102,20" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" />
-  <Label ID="ImperialSummary" Anchor="L,T" Offset="102,52" Size="824,70" WrapWidth="824" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-  <GridButton ID="ImperialClose" Anchor="R,T" Offset="16,16" Size="42,32" Style="BaseButton" String="X" />
+  <Label ID="ImperialTitle" Anchor="L,T" Offset="102,20" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" Color0="235,206,160,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <Label ID="ImperialSummary" Anchor="L,T" Offset="102,52" Size="824,70" WrapWidth="824" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="ImperialClose" Anchor="R,T" Offset="16,16" Size="42,32" String="X" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TheShatteredEmpire_Buttons.dds" />
+  </GridButton>
   <Stack ID="ImperialTabs" Anchor="L,T" Offset="22,126" StackGrowth="Right" Padding="5" />
-  <ScrollPanel ID="ImperialListScroll" Anchor="L,T" Offset="22,170" Size="322,440" Vertical="1">
+  <ScrollPanel ID="ImperialListScroll" Anchor="L,T" Offset="22,170" Size="322,440" Vertical="1" AutoScrollBar="1">
    <Stack ID="ImperialList" Anchor="L,T" StackGrowth="Bottom" Padding="5" />
+   <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="432" />
   </ScrollPanel>
   <Grid Anchor="R,T" Offset="22,170" Size="616,440" Style="GridBlackIndent8">
-   <ScrollPanel ID="ImperialDetailScroll" Anchor="L,T" Offset="12,10" Size="590,420" Vertical="1">
+   <ScrollPanel ID="ImperialDetailScroll" Anchor="L,T" Offset="12,10" Size="590,420" Vertical="1" AutoScrollBar="1">
     <Stack ID="ImperialDetailStack" Anchor="L,T" StackGrowth="Bottom" Padding="8">
-     <Label ID="ImperialDetailText" WrapWidth="566" Size="566,0" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+     <Label ID="ImperialDetailText" WrapWidth="566" Size="566,0" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
      <Stack ID="ImperialActions" StackGrowth="Bottom" Padding="5" />
     </Stack>
+    <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="412" />
    </ScrollPanel>
   </Grid>
-  <Label ID="ImperialMessage" Anchor="L,B" Offset="24,24" Size="952,44" WrapWidth="952" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+  <Label ID="ImperialMessage" Anchor="L,B" Offset="24,24" Size="952,44" WrapWidth="952" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="CWC_Guide_ImperialPanel" Anchor="R,T" Offset="76,18" Size="30,30" Font="TwCenMT18" String="?" ToolTip="IMPERIAL ADMINISTRATION[NEWLINE][NEWLINE]Govern the provinces. Honour oaths. Restore the empire." ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TheShatteredEmpire_Buttons.dds" />
+  </GridButton>
  </Grid>
- <Instance Name="ImperialTabInstance"><GridButton ID="TabChoice" Size="130,34" Style="BaseButton" /></Instance>
- <Instance Name="ImperialRowInstance"><GridButton ID="RowChoice" Size="302,48" Style="BaseButton" /></Instance>
- <Instance Name="ImperialActionInstance"><GridButton ID="ActionChoice" Size="560,34" Style="BaseButton" /></Instance>
+ <Instance Name="ImperialTabInstance">
+  <GridButton ID="TabChoice" Size="130,34" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TheShatteredEmpire_Buttons.dds" />
+  </GridButton>
+ </Instance>
+ <Instance Name="ImperialRowInstance">
+  <GridButton ID="RowChoice" Size="302,48" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TheShatteredEmpire_Buttons.dds" />
+  </GridButton>
+ </Instance>
+ <Instance Name="ImperialActionInstance">
+  <GridButton ID="ActionChoice" Size="560,34" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TheShatteredEmpire_Buttons.dds" />
+  </GridButton>
+ </Instance>
 </Context>

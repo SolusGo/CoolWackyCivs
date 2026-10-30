@@ -341,7 +341,7 @@ def packaging():
     root=ET.parse(V/'The Shattered Empire (v 1).modinfo').getroot();assert ET.tostring(root)==ET.tostring(manifest().getroot())
     combined=ET.parse(R/(package_name()+'.modinfo')).getroot();assert ET.tostring(combined)==ET.tostring(create_manifest().getroot())
     files={e.text for e in root.findall('Files/File')};combined_files={e.text for e in combined.findall('Files/File')}
-    assert {'TheShatteredEmpire/'+n for n in files}<=combined_files
+    assert {n if n.startswith('Shared/') else 'TheShatteredEmpire/'+n for n in files}<=combined_files
     for p in (V/'Lua').glob('*.lua'):
         for name in re.findall(r"include\('([^']+)'\)",p.read_text()):assert 'Lua/'+name+'.lua' in files
     for root,file in [(root,'UI/ImperialAdministration.xml'),(combined,'TheShatteredEmpire/UI/ImperialAdministration.xml')]:assert len([e for e in root.findall('EntryPoints/EntryPoint') if e.get('file')==file])==1

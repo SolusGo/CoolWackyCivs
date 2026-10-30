@@ -1,4 +1,5 @@
 """Build an independent Ronaldo package; collection registration is separate."""
+from standalone_ui import add_shared_ui, source_file
 import hashlib
 from pathlib import Path
 import shutil
@@ -26,6 +27,7 @@ def manifest():
     entries=ET.SubElement(root,'EntryPoints')
     for file,title in [('Lua/CR7Runtime.lua','CR7 Gameplay'),('UI/CR7Career.xml','CR7 Career')]:
         e=ET.SubElement(entries,'EntryPoint',type='InGameUIAddin',file=file);ET.SubElement(e,'Name').text=title;ET.SubElement(e,'Description').text=title
+    add_shared_ui(root)
     ET.indent(root,'  ')
     path=R/'CristianoRonaldo'/f'{NAME}.modinfo'
     path.write_bytes(ET.tostring(root,encoding='utf-8',xml_declaration=True).replace(b'\r\n',b'\n'))
@@ -37,7 +39,7 @@ def build():
     if out.exists():shutil.rmtree(out)
     out.mkdir(parents=True,exist_ok=True)
     for node in ET.parse(m).findall('Files/File'):
-        dest=out/node.text;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(m.parent/node.text,dest)
+        dest=out/node.text;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source_file(m.parent,node.text),dest)
     shutil.copy2(m,out/m.name);shutil.copy2(m.parent/'README.md',out/'README.md')
     for doc in (m.parent/'docs').glob('*.md'):
         dest=out/'docs'/doc.name;dest.parent.mkdir(exist_ok=True);shutil.copy2(doc,dest)

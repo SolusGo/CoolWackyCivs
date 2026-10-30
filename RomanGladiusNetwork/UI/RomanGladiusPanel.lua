@@ -1,3 +1,5 @@
+local uiRecovery -- UI state is transient; never part of a gameplay save.
+local uiRenderError
 include("InstanceManager")
 include("IconSupport")
 include("RomanGladiusRuntime")
@@ -51,12 +53,15 @@ local function resolve(choice)
 end
 
 local function refresh()
+ local function draw()
+ if uiRecovery then uiRecovery:Sync() end
     if refreshing then return end
     refreshing, dirty = true, false
     local playerID, player = active()
     local visible = player and player:IsAlive() and R.IsRoman(player)
         and not (Game.IsNetworkMultiPlayer and Game.IsNetworkMultiPlayer())
-    Controls.LauncherFrame:SetHide(not visible)
+ visible=visible and (not uiRecovery or uiRecovery:Available())
+ Controls.LauncherFrame:SetHide(not visible)
     Controls.MainPanel:SetHide(not visible or not open)
     if not visible then refreshing = false; return end
     hookupIcons()
@@ -118,6 +123,14 @@ local function refresh()
     end
     Controls.MessageLabel:SetText(message)
     refreshing = false
+ end
+ local ok,err=pcall(draw)
+ if not ok then
+  refreshing=false;dirty=true
+  Controls.MainPanel:SetHide(true)
+  if uiRenderError~=tostring(err) then print("[Civilization UI] RomanGladiusNetwork render recovered: "..tostring(err)) end
+  uiRenderError=tostring(err)
+ else uiRenderError=nil end
 end
 
 Controls.DashboardButton:RegisterCallback(Mouse.eLClick, function() open = not open; dirty = true end)
@@ -138,6 +151,7 @@ Events.GameplaySetActivePlayer.Add(function() open, selectedID, message = false,
 Events.ActivePlayerTurnStart.Add(markDirty)
 Events.ActivePlayerTurnEnd.Add(function() open = false; dirty = true end)
 ContextPtr:SetInputHandler(function(uiMsg, key)
+ if uiRecovery and not uiRecovery:Available() then return false end
     if open and uiMsg == KeyEvents.KeyDown and key == Keys.VK_ESCAPE then open = false; dirty = true; return true end
     return false
 end)
@@ -147,3 +161,15 @@ ContextPtr:SetUpdate(function(dt)
     if dirty and elapsed >= 0.15 then elapsed = 0; refresh() end
 end)
 refresh()
+
+-- Shared screen recovery: actual native visibility wins over stale event flags.
+local helperLoaded=pcall(include,'CWC_Screen')
+if CWC_Screen then
+ uiRecovery=CWC_Screen.New{name='RomanGladiusNetwork',civ='CIVILIZATION_ROMAN_GLADIUS_NETWORK',context=ContextPtr,
+  roots={Controls.LauncherFrame,Controls.MainPanel},panels={Controls.MainPanel},
+  request=function() dirty=true end,
+  refresh=function() dirty=true;refresh() end,
+  recover=function()  end,repair=function() refreshing=false;dirty=true end,
+  close=function() open=false end,manageContext=true}
+ uiRecovery:Refresh(true)
+end

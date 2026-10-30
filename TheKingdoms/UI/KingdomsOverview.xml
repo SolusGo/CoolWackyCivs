@@ -1,35 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <Context ID="KingdomsOverview">
  <Grid ID="RealmLauncher" Anchor="C,T" Offset="0,56" Size="540,36" Style="GridBlackIndent8" Hidden="1">
+  <Image ID="CWC_ThemeBackground_RealmLauncher" Anchor="L,T" Size="540,36" Texture="CWC_TheKingdoms_Launcher_540x36.dds" ConsumeMouse="0" />
   <Image ID="RealmIcon" Anchor="L,C" Offset="8,0" Size="24,24" />
-  <GridButton ID="RealmStatus" Anchor="R,C" Offset="6,0" Size="494,30" Style="BaseButton" />
+  <GridButton ID="RealmStatus" Anchor="R,C" Offset="6,0" Size="494,30" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TheKingdoms_Buttons.dds" />
+  </GridButton>
  </Grid>
- <Grid ID="RealmPanel" Anchor="C,C" Size="1000,680" Style="Grid9DetailFive140" ConsumeMouse="1" Hidden="1">
+ <Grid ID="RealmPanel" Anchor="C,C" Size="1000,680" Style="GridBlackIndent8" ConsumeMouse="1" Hidden="1">
+  <Image ID="CWC_ThemeBackground_RealmPanel" Anchor="L,T" Size="1000,680" Texture="CWC_TheKingdoms_Panel_1000x680.dds" ConsumeMouse="0" />
   <Image ID="RealmEmblem" Anchor="L,T" Offset="22,18" Size="64,64" />
-  <Label ID="RealmTitle" Anchor="L,T" Offset="102,20" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" />
-  <Label ID="RealmSummary" Anchor="L,T" Offset="102,52" Size="824,70" WrapWidth="824" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
-  <GridButton ID="RealmClose" Anchor="R,T" Offset="16,16" Size="42,32" Style="BaseButton" String="X" />
+  <Label ID="RealmTitle" Anchor="L,T" Offset="102,20" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" Color0="236,215,169,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <Label ID="RealmSummary" Anchor="L,T" Offset="102,52" Size="824,70" WrapWidth="824" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="RealmClose" Anchor="R,T" Offset="16,16" Size="42,32" String="X" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TheKingdoms_Buttons.dds" />
+  </GridButton>
   <Stack ID="RealmTabs" Anchor="L,T" Offset="22,126" StackGrowth="Right" Padding="5" />
-  <ScrollPanel ID="RealmListScroll" Anchor="L,T" Offset="22,170" Size="322,440" Vertical="1">
+  <ScrollPanel ID="RealmListScroll" Anchor="L,T" Offset="22,170" Size="322,440" Vertical="1" AutoScrollBar="1">
    <Stack ID="RealmList" Anchor="L,T" StackGrowth="Bottom" Padding="5" />
+   <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="432" />
   </ScrollPanel>
   <Grid Anchor="R,T" Offset="22,170" Size="616,440" Style="GridBlackIndent8">
-   <ScrollPanel ID="RealmDetailScroll" Anchor="L,T" Offset="12,10" Size="590,420" Vertical="1">
+   <ScrollPanel ID="RealmDetailScroll" Anchor="L,T" Offset="12,10" Size="590,420" Vertical="1" AutoScrollBar="1">
     <Stack ID="RealmDetailStack" Anchor="L,T" StackGrowth="Bottom" Padding="8">
-     <Label ID="RealmDetailText" WrapWidth="566" Size="566,0" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+     <Label ID="RealmDetailText" WrapWidth="566" Size="566,0" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
      <Stack ID="RealmActions" StackGrowth="Bottom" Padding="5" />
     </Stack>
+    <ScrollBar Style="VertSlider" Anchor="R,T" AnchorSide="I,I" Offset="0,4" Length="412" />
    </ScrollPanel>
   </Grid>
-  <Label ID="RealmMessage" Anchor="L,B" Offset="24,24" Size="952,44" WrapWidth="952" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" />
+  <Label ID="RealmMessage" Anchor="L,B" Offset="24,24" Size="952,44" WrapWidth="952" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <GridButton ID="CWC_Guide_RealmPanel" Anchor="R,T" Offset="76,18" Size="30,30" Font="TwCenMT18" String="?" ToolTip="THE ROYAL COUNCIL[NEWLINE][NEWLINE]Houses, heirs and sworn guards hold the realm together." ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TheKingdoms_Buttons.dds" />
+  </GridButton>
  </Grid>
  <Instance Name="KingdomsTabInstance">
-  <GridButton ID="TabChoice" Size="183,34" Style="BaseButton" />
+  <GridButton ID="TabChoice" Size="183,34" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TheKingdoms_Buttons.dds" />
+  </GridButton>
  </Instance>
  <Instance Name="KingdomsRowInstance">
-  <GridButton ID="RowChoice" Size="302,48" Style="BaseButton" />
+  <GridButton ID="RowChoice" Size="302,48" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TheKingdoms_Buttons.dds" />
+  </GridButton>
  </Instance>
  <Instance Name="KingdomsActionInstance">
-  <GridButton ID="ActionChoice" Size="560,34" Style="BaseButton" />
+  <GridButton ID="ActionChoice" Size="560,34" Font="TwCenMT16" ColorSet="Beige_Black_Alpha">
+   <GridData Style="Grid9FrameButtons" Texture="CWC_TheKingdoms_Buttons.dds" />
+  </GridButton>
  </Instance>
 </Context>

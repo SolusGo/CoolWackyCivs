@@ -1,5 +1,11 @@
 # Patch Notes
 
+## Version 27 — Themed interfaces and visibility recovery — 2026-10-31
+
+- Refreshed all 13 custom interfaces with civilization-specific artwork, colours, buttons, framed rows, native scrollbars and help.
+- Added native-screen reconciliation and recovery for missed popup/diplomacy events, early turn flags, loading and context restoration; protected render-error recovery and pending decisions.
+- Added Lua 5.1 lifecycle regressions, asset/control checks and layout previews. See [UI refresh and native acceptance](docs/UIRefresh.md).
+
 ## Version 26 — Consistent civilization icons — 2026-10-16
 
 - Standardized all eighteen leaders, civilization emblems and custom unit/building portraits with centred circular artwork and matching beveled gold rims.

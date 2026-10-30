@@ -1,21 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <Context ID="MasayaJoyPanel">
-  <Grid ID="JoyFrame" Anchor="C,T" Offset="0,72" Size="420,66" Style="GridBlackIndent8" Hidden="1">
-    <Box Anchor="L,C" Offset="2,0" Size="4,58" Color="42,150,245,255" />
-    <Image ID="JoyIcon" Anchor="L,T" Offset="12,8" Size="32,32" ConsumeMouse="0" />
-    <Label ID="JoyLabel" Anchor="L,T" Offset="54,7" Size="350,22" Font="TwCenMT18"
-      ColorSet="Beige_Black_Alpha" String="JOY OF FLIGHT  |  0 / 100" />
-    <Box Anchor="L,T" Offset="55,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill1" Anchor="L,T" Offset="56,33" Size="25,8" Color="53,164,250,255" />
-    <Box Anchor="L,T" Offset="85,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill2" Anchor="L,T" Offset="86,33" Size="25,8" Color="53,164,250,255" />
-    <Box Anchor="L,T" Offset="115,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill3" Anchor="L,T" Offset="116,33" Size="25,8" Color="53,164,250,255" />
-    <Box Anchor="L,T" Offset="145,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill4" Anchor="L,T" Offset="146,33" Size="25,8" Color="53,164,250,255" />
-    <Box Anchor="L,T" Offset="175,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill5" Anchor="L,T" Offset="176,33" Size="25,8" Color="235,202,92,255" />
-    <Box Anchor="L,T" Offset="205,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill6" Anchor="L,T" Offset="206,33" Size="25,8" Color="235,202,92,255" />
-    <Box Anchor="L,T" Offset="235,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill7" Anchor="L,T" Offset="236,33" Size="25,8" Color="235,202,92,255" />
-    <Box Anchor="L,T" Offset="265,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill8" Anchor="L,T" Offset="266,33" Size="25,8" Color="235,202,92,255" />
-    <Box Anchor="L,T" Offset="295,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill9" Anchor="L,T" Offset="296,33" Size="25,8" Color="235,202,92,255" />
-    <Box Anchor="L,T" Offset="325,32" Size="27,10" Color="20,42,62,255" /><Box ID="Fill10" Anchor="L,T" Offset="326,33" Size="25,8" Color="255,239,166,255" />
-    <Label ID="StateLabel" Anchor="L,B" Offset="55,3" Size="350,18" Font="TwCenMT14"
-      ColorSet="Beige_Black_Alpha" String="BUILD JOY THROUGH FLIGHT" />
-  </Grid>
+ <Grid ID="JoyFrame" Anchor="C,T" Offset="0,72" Size="480,132" Style="GridBlackIndent8" Hidden="1">
+  <Image ID="CWC_ThemeBackground_JoyFrame" Anchor="L,T" Size="480,132" Texture="CWC_MasayaBeyondSky_Launcher_480x132.dds" ConsumeMouse="0" />
+  <Box Anchor="L,C" Offset="2,0" Size="4,58" Color="42,150,245,255" />
+  <Image ID="JoyIcon" Anchor="L,T" Offset="18,18" Size="32,32" ConsumeMouse="0" />
+  <Label ID="JoyLabel" Anchor="L,T" Offset="64,16" Size="396,28" Font="TwCenMT18" ColorSet="Beige_Black_Alpha" String="JOY OF FLIGHT  |  0 / 100" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <Box Anchor="L,T" Offset="64,76" Size="27,10" Color="20,42,62,255" />
+  <Box ID="Fill1" Anchor="L,T" Offset="65,77" Size="25,8" Color="53,164,250,255" />
+  <Box Anchor="L,T" Offset="94,76" Size="27,10" Color="20,42,62,255" />
+  <Box ID="Fill2" Anchor="L,T" Offset="95,77" Size="25,8" Color="53,164,250,255" />
+  <Box Anchor="L,T" Offset="124,76" Size="27,10" Color="20,42,62,255" />
+  <Box ID="Fill3" Anchor="L,T" Offset="125,77" Size="25,8" Color="53,164,250,255" />
+  <Box Anchor="L,T" Offset="154,76" Size="27,10" Color="20,42,62,255" />
+  <Box ID="Fill4" Anchor="L,T" Offset="155,77" Size="25,8" Color="53,164,250,255" />
+  <Box Anchor="L,T" Offset="184,76" Size="27,10" Color="20,42,62,255" />
+  <Box ID="Fill5" Anchor="L,T" Offset="185,77" Size="25,8" Color="235,202,92,255" />
+  <Box Anchor="L,T" Offset="214,76" Size="27,10" Color="20,42,62,255" />
+  <Box ID="Fill6" Anchor="L,T" Offset="215,77" Size="25,8" Color="235,202,92,255" />
+  <Box Anchor="L,T" Offset="244,76" Size="27,10" Color="20,42,62,255" />
+  <Box ID="Fill7" Anchor="L,T" Offset="245,77" Size="25,8" Color="235,202,92,255" />
+  <Box Anchor="L,T" Offset="274,76" Size="27,10" Color="20,42,62,255" />
+  <Box ID="Fill8" Anchor="L,T" Offset="275,77" Size="25,8" Color="235,202,92,255" />
+  <Box Anchor="L,T" Offset="304,76" Size="27,10" Color="20,42,62,255" />
+  <Box ID="Fill9" Anchor="L,T" Offset="305,77" Size="25,8" Color="235,202,92,255" />
+  <Box Anchor="L,T" Offset="334,76" Size="27,10" Color="20,42,62,255" />
+  <Box ID="Fill10" Anchor="L,T" Offset="335,77" Size="25,8" Color="255,239,166,255" />
+  <Label ID="StateLabel" Anchor="L,T" Offset="64,46" Size="396,22" Font="TwCenMT16" ColorSet="Beige_Black_Alpha" String="BUILD JOY THROUGH FLIGHT" Color0="239,232,214,255" Color1="0,0,0,230" FontStyle="Shadow" />
+  <Label ID="FlightMilestones" Anchor="L,T" Offset="64,101" Font="TwCenMT14" Color0="160,210,237,255" String="50: CAN'T STOP FLYING     100: BEYOND THE SKY" />
+ </Grid>
 </Context>

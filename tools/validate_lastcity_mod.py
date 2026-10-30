@@ -278,7 +278,8 @@ def packaging():
     assert ET.tostring(current)==ET.tostring(expected),'Stale standalone manifest'
     entries=current.findall('EntryPoints/EntryPoint');assert len(entries)==1 and entries[0].get('file')=='UI/SanctuaryCouncil.xml'
     for e in current.findall('Files/File'):
-        p=V/e.text;assert e.get('md5').lower()==hashlib.md5(p.read_bytes()).hexdigest()
+        from standalone_ui import source_file
+        p=source_file(V,e.text);assert e.get('md5').lower()==hashlib.md5(p.read_bytes()).hexdigest()
         assert e.get('import')==str(int(p.suffix!='.sql' and p.name!='SanctuaryCouncil.xml'))
     names=[e.text for e in current.findall('Actions/OnModActivated/UpdateDatabase')]
     assert names==['SQL/'+p.name for p in sorted((V/'SQL').glob('*.sql'))]

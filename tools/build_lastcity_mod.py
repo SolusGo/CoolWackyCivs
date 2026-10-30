@@ -2,6 +2,7 @@
 from pathlib import Path
 from xml.etree import ElementTree as ET
 import hashlib,sys,zipfile
+from standalone_ui import add_shared_ui, source_file, archive_name
 R=Path(__file__).resolve().parents[1];V=R/'TheLastCity'
 sys.path.insert(0,str(R/'.tools/python'))
 
@@ -28,20 +29,20 @@ def manifest():
     for path in sorted((V/'SQL').glob('*.sql')):ET.SubElement(actions,'UpdateDatabase').text=path.relative_to(V).as_posix()
     entry=ET.SubElement(ET.SubElement(root,'EntryPoints'),'EntryPoint',type='InGameUIAddin',file='UI/SanctuaryCouncil.xml')
     ET.SubElement(entry,'Name').text='Sanctuary Council';ET.SubElement(entry,'Description').text='Single gameplay owner, AI survival and event-driven management interface.'
-    ET.indent(root,'  ');return ET.ElementTree(root)
+    add_shared_ui(root);ET.indent(root,'  ');return ET.ElementTree(root)
 
 def main():
     path=V/'The Last City (v 1).modinfo';tree=manifest();tree.write(path,encoding='utf-8',xml_declaration=True)
     if '--manifest-only' in sys.argv:print(path);return
     out=R/'dist';out.mkdir(exist_ok=True)
-    files=[V/e.text for e in tree.findall('Files/File')]+[path,V/'README.md']+sorted((V/'docs').glob('*.md'))
+    files=[source_file(V,e.text) for e in tree.findall('Files/File')]+[path,V/'README.md']+sorted((V/'docs').glob('*.md'))
     archive=out/'The Last City (v 1).zip'
     with zipfile.ZipFile(archive,'w',compression=zipfile.ZIP_DEFLATED) as z:
-        for p in files:z.write(p,'The Last City (v 1)/'+p.relative_to(V).as_posix())
+        for p in files:z.write(p,'The Last City (v 1)/'+archive_name(p,V))
     import py7zr
     native=out/'The Last City (v 1).civ5mod'
     with py7zr.SevenZipFile(native,'w',filters=[{'id':py7zr.FILTER_LZMA}]) as z:
-        for p in files:z.write(p,p.relative_to(V).as_posix())
+        for p in files:z.write(p,archive_name(p,V))
     with py7zr.SevenZipFile(native,'r') as z:assert z.testzip() is None
     print(archive);print(native)
 

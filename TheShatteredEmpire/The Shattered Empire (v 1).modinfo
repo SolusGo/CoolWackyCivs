@@ -25,6 +25,12 @@
     <Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" minversion="20" maxversion="999" title="Cool Wacky Civs includes The Shattered Empire" />
   </Blocks>
   <Files>
+    <File md5="7B6CF39DE3E61AED6AE17DDE8BAA931F" import="1">Art/CWC_TheShatteredEmpire_Buttons.dds</File>
+    <File md5="7D3C6449699EDC991CCB12F486B0D9ED" import="1">Art/CWC_TheShatteredEmpire_Launcher.dds</File>
+    <File md5="3A08B9380C7BE74A02B79A931AB98579" import="1">Art/CWC_TheShatteredEmpire_Launcher_500x36.dds</File>
+    <File md5="FA27FB24446837277B7191FE2327B9AD" import="1">Art/CWC_TheShatteredEmpire_Panel.dds</File>
+    <File md5="436B4DA1D54DA9BD4AD93456EA7C6B42" import="1">Art/CWC_TheShatteredEmpire_Panel_1000x680.dds</File>
+    <File md5="D8CB57EEDC7C4254379CAEFCE1969798" import="1">Art/CWC_TheShatteredEmpire_Row.dds</File>
     <File md5="2EE50CF95BD56A9288E61498EC6D3508" import="1">Art/ImperialAlpha128.dds</File>
     <File md5="07C63A01FAC17B72A6D4F5FA0F9280B1" import="1">Art/ImperialAlpha16.dds</File>
     <File md5="24AFB3463CAFB3C9D0CBFB2860AB7EAC" import="1">Art/ImperialAlpha24.dds</File>
@@ -38,15 +44,15 @@
     <File md5="EFC4B28F861A811CFCBDDE706F4245F3" import="1">Art/ImperialLeader.dds</File>
     <File md5="4F1CA25FBAC518AD1EA10D06534983BF" import="1">Art/ImperialLeaderScene.xml</File>
     <File md5="2B731349AB6113331B485A698DD416BC" import="1">Art/ImperialMap.dds</File>
-    <File md5="6CDD11C8B38A6939DD0FF860CD24601E" import="1">Art/ImperialObjects128.dds</File>
-    <File md5="898400272671B12D99C37EFEAD5DAB33" import="1">Art/ImperialObjects16.dds</File>
-    <File md5="AFF5D58C96188B39410F5DA59F219F83" import="1">Art/ImperialObjects24.dds</File>
-    <File md5="99656FF148FCD6089B7A3045B5B2E37F" import="1">Art/ImperialObjects256.dds</File>
-    <File md5="A93A0980C4063F14C7EA9594F3FE5E33" import="1">Art/ImperialObjects32.dds</File>
-    <File md5="89CE992A8E4362D2616B7A0861A2CF50" import="1">Art/ImperialObjects45.dds</File>
-    <File md5="5CD3796934329D76A4888AE94CC26824" import="1">Art/ImperialObjects48.dds</File>
-    <File md5="BD75137BCB55BB0C4D08C017D813EA82" import="1">Art/ImperialObjects64.dds</File>
-    <File md5="CF0AA05DAD60FBF1C5CF463E236DB208" import="1">Art/ImperialObjects80.dds</File>
+    <File md5="B2494DC2F95DD9AFF8AB19669DCBD3A8" import="1">Art/ImperialObjects128.dds</File>
+    <File md5="87AC56E77C28E53E027874DA244C38D7" import="1">Art/ImperialObjects16.dds</File>
+    <File md5="F417E702D6C2084DCDBB75D0806D1BCB" import="1">Art/ImperialObjects24.dds</File>
+    <File md5="775D8BB5169B1D8EF408F3D514CA9E0F" import="1">Art/ImperialObjects256.dds</File>
+    <File md5="663CEDD4FA5FFA3070FF69922FB01F5D" import="1">Art/ImperialObjects32.dds</File>
+    <File md5="F5B236D26D18681014E6CE732FFF5EB7" import="1">Art/ImperialObjects45.dds</File>
+    <File md5="D34FB514B53DAEBFF9822CB59D7AA205" import="1">Art/ImperialObjects48.dds</File>
+    <File md5="4F669A773C93D4A3F4C2B8A3F610A34E" import="1">Art/ImperialObjects64.dds</File>
+    <File md5="4B4900E8520C60C8F64369978197169A" import="1">Art/ImperialObjects80.dds</File>
     <File md5="5DAB679B29C3EEF4237FA180384D540F" import="1">Art/ImperialUnitFlag32.dds</File>
     <File md5="7F300833A8BE03E73124F0C95A8643EC" import="1">Lua/ImperialAI.lua</File>
     <File md5="C1FA98CBA1B35B1995C40813FFAE0BF6" import="1">Lua/ImperialChronicle.lua</File>
@@ -64,8 +70,9 @@
     <File md5="4E828C7DEDF65650B0BFC479958DB098" import="0">SQL/01_Imperial_Inheritance.sql</File>
     <File md5="FCB8A09D699D744C45DF2F9B1227C360" import="0">SQL/02_Imperial_Effects.sql</File>
     <File md5="2E2E24C8C87BC7CE13FE41FFA6F62DBF" import="0">SQL/10_Imperial_Text.sql</File>
-    <File md5="D61D01E95069041CAD18EE3EC0798C8A" import="1">UI/ImperialAdministration.lua</File>
-    <File md5="82892DA1D86AD47460DDB652DC283CD3" import="0">UI/ImperialAdministration.xml</File>
+    <File md5="83545454C75D5E3D0818B0C5D305959B" import="1">UI/ImperialAdministration.lua</File>
+    <File md5="0DF2D566C6F22AACCD4B2404E710C26B" import="0">UI/ImperialAdministration.xml</File>
+    <File md5="8DC1A741828BB08067C42800F474479A" import="1">Shared/UI/CWC_Screen.lua</File>
   </Files>
   <Actions>
     <OnModActivated>

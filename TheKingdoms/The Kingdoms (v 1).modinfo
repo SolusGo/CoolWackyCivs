@@ -25,6 +25,12 @@
     <Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" minversion="18" maxversion="999" title="Cool Wacky Civs includes The Kingdoms" />
   </Blocks>
   <Files>
+    <File md5="15843A6657B2EE5C5FE9630E47AD1B6E" import="1">Art/CWC_TheKingdoms_Buttons.dds</File>
+    <File md5="9DCA8AD380BFAC2D5C22E0A76073EB9C" import="1">Art/CWC_TheKingdoms_Launcher.dds</File>
+    <File md5="62096F5292155097B85CA426DBB687F2" import="1">Art/CWC_TheKingdoms_Launcher_540x36.dds</File>
+    <File md5="E1586981325D9136A84245EFFC6E6E59" import="1">Art/CWC_TheKingdoms_Panel.dds</File>
+    <File md5="ED1B85F9C4A9F156A958CB9A2E26F59E" import="1">Art/CWC_TheKingdoms_Panel_1000x680.dds</File>
+    <File md5="9F311D9AD543CA87F4357C0872411928" import="1">Art/CWC_TheKingdoms_Row.dds</File>
     <File md5="796BB73751BCD562BC3C6DE453B431E2" import="1">Art/KingdomsAlpha128.dds</File>
     <File md5="29A8F072627A1FD0EAA30AD71DD539CB" import="1">Art/KingdomsAlpha16.dds</File>
     <File md5="6C6389CCED5916EB1BD8A9AFD827795B" import="1">Art/KingdomsAlpha24.dds</File>
@@ -38,15 +44,15 @@
     <File md5="C46F57975DFEC351E2FDCB53591E2B2E" import="1">Art/KingdomsLeader.dds</File>
     <File md5="9F3C146B57C3037D348CEC49F2B4587C" import="1">Art/KingdomsLeaderScene.xml</File>
     <File md5="78AB222A5817E5D9AB89539E1542F858" import="1">Art/KingdomsMap.dds</File>
-    <File md5="CA8741FF9342907C194D8A322BAB7C61" import="1">Art/KingdomsObjects128.dds</File>
-    <File md5="F2560ED4571F081B64E7132BC170606B" import="1">Art/KingdomsObjects16.dds</File>
-    <File md5="BE80100704604A025E97985D9F5F3791" import="1">Art/KingdomsObjects24.dds</File>
-    <File md5="537D43481FD73C00EE163BBF1AC7CB39" import="1">Art/KingdomsObjects256.dds</File>
-    <File md5="6E616F16DFAF9D483F4257B670CAF56B" import="1">Art/KingdomsObjects32.dds</File>
-    <File md5="C45B3D74EF3282FB6508EB02DF6BE063" import="1">Art/KingdomsObjects45.dds</File>
-    <File md5="F371D21FEE6CBA5381CE01E59FB7C699" import="1">Art/KingdomsObjects48.dds</File>
-    <File md5="412B63D152BC975A5A1360A332486CDE" import="1">Art/KingdomsObjects64.dds</File>
-    <File md5="EAC9A8DB9BDC94430E17A0302369AE09" import="1">Art/KingdomsObjects80.dds</File>
+    <File md5="8B4306F593799CA79CE6F806124F128B" import="1">Art/KingdomsObjects128.dds</File>
+    <File md5="90049BE51EEFD52D8C8E79581F316EF6" import="1">Art/KingdomsObjects16.dds</File>
+    <File md5="F47769CC02ECF66BB27CFA67C4F981A4" import="1">Art/KingdomsObjects24.dds</File>
+    <File md5="26C60FDFCF5446CA28A027041CAF02B4" import="1">Art/KingdomsObjects256.dds</File>
+    <File md5="B62C2312A56A373818AAC75407C15BAE" import="1">Art/KingdomsObjects32.dds</File>
+    <File md5="A348615F7F55F8BED762206228BF6F87" import="1">Art/KingdomsObjects45.dds</File>
+    <File md5="183B8DA0838F94A6D2B2F8A26501455C" import="1">Art/KingdomsObjects48.dds</File>
+    <File md5="3AF6C04D52C1421DE878CB78DE885FBF" import="1">Art/KingdomsObjects64.dds</File>
+    <File md5="C9F8C260E89C2D0C4B693C932AC078F5" import="1">Art/KingdomsObjects80.dds</File>
     <File md5="6EE6719BCC7CCF712647005970BE71EC" import="1">Art/KingdomsUnitFlag32.dds</File>
     <File md5="7CBA1F539F176DCEF459124DE772AACA" import="1">Lua/CharacterManager.lua</File>
     <File md5="D1B4441D2F93F21FF8C65FB8E27F8F3D" import="1">Lua/CivilWarManager.lua</File>
@@ -68,8 +74,9 @@
     <File md5="9BE999D05113F0FC1255CE36FF5639F5" import="0">SQL/01_Kingdoms_Inheritance.sql</File>
     <File md5="D141DB0C3E990C318A3724ABE8AF066F" import="0">SQL/02_Kingdoms_Effects.sql</File>
     <File md5="C7209159E7956DD52590C204A8D3C343" import="0">SQL/10_Kingdoms_Text.sql</File>
-    <File md5="9ADED50335B0ACC02A17C522EC7CDD08" import="1">UI/KingdomsOverview.lua</File>
-    <File md5="E8D3805C95A63E037B2C3F0BA4938E93" import="0">UI/KingdomsOverview.xml</File>
+    <File md5="ABDF00F4721514C4EB9C586D51D75AD1" import="1">UI/KingdomsOverview.lua</File>
+    <File md5="C868A232B6325FEA7AFD5B9FDA3072D6" import="0">UI/KingdomsOverview.xml</File>
+    <File md5="8DC1A741828BB08067C42800F474479A" import="1">Shared/UI/CWC_Screen.lua</File>
   </Files>
   <Actions>
     <OnModActivated>

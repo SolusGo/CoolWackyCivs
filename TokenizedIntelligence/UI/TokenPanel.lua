@@ -1,3 +1,5 @@
+local uiRecovery -- UI state is transient; never part of a gameplay save.
+local uiRenderError
 include('IconSupport')
 include('InstanceManager')
 include('TokenRuntime')
@@ -10,6 +12,7 @@ local opened,cityView,leaderView,refreshing=false,false,false,false
 local popups={}
 local category,chosen,target,message='ECONOMIC',nil,nil,''
 local function worldView()
+ if uiRecovery then return uiRecovery:Available(),uiRecovery:Reason() end;
     return not cityView and not leaderView and next(popups)==nil
         and not (UI and UI.IsCityScreenUp and UI.IsCityScreenUp())
 end
@@ -22,11 +25,14 @@ local function promptTooltip(pid,spec)
         ..(spec.capacity and '[NEWLINE]Requires: '..T.Scale(spec.capacity)..' Context capacity.' or '')
 end
 refresh=function()
+ local function draw()
+ if uiRecovery then uiRecovery:Sync() end
     if refreshing then return end
     refreshing=true
     local pid=Game.GetActivePlayer()
     local visible=T.IsToken(pid) and not (Game.IsNetworkMultiPlayer and Game.IsNetworkMultiPlayer()) and worldView()
-    Controls.Launcher:SetHide(not visible)
+ visible=visible and (not uiRecovery or uiRecovery:Available())
+ Controls.Launcher:SetHide(not visible)
     Controls.Panel:SetHide(not visible or not opened)
     if not visible then refreshing=false;return end
     local stats=T.Stats(pid)
@@ -98,6 +104,14 @@ refresh=function()
     Controls.Execute:SetToolTipString(reason)
     Controls.Message:SetText(message~='' and message or reason)
     refreshing=false
+ end
+ local ok,err=pcall(draw)
+ if not ok then
+  refreshing=false
+  Controls.Panel:SetHide(true)
+  if uiRenderError~=tostring(err) then print("[Civilization UI] TokenizedIntelligence render recovered: "..tostring(err)) end
+  uiRenderError=tostring(err)
+ else uiRenderError=nil end
 end
 Controls.Status:RegisterCallback(Mouse.eLClick,function() opened=not opened;refresh() end)
 Controls.Close:RegisterCallback(Mouse.eLClick,function() opened=false;refresh() end)
@@ -108,6 +122,7 @@ Controls.Execute:RegisterCallback(Mouse.eLClick,function()
     message=result;refresh()
 end)
 ContextPtr:SetInputHandler(function(msg,key)
+ if uiRecovery and not uiRecovery:Available() then return false end
     if opened and msg==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then opened=false;refresh();return true end
     return false
 end)
@@ -128,3 +143,14 @@ Events.SerialEventGameMessagePopupShown.Add(function(info)
 end)
 Events.SerialEventGameMessagePopupProcessed.Add(function(typ) popups[typ]=nil;refresh() end)
 refresh()
+
+-- Shared screen recovery: actual native visibility wins over stale event flags.
+local helperLoaded=pcall(include,'CWC_Screen')
+if CWC_Screen then
+ uiRecovery=CWC_Screen.New{name='TokenizedIntelligence',civ='CIVILIZATION_TOKEN_INTELLIGENCE',context=ContextPtr,
+  roots={Controls.Launcher,Controls.Panel},panels={Controls.Panel},
+  refresh=function() refresh() end,
+  recover=function() cityView=false;leaderView=false;popups={} end,repair=function() refreshing=false end,
+  close=function() opened=false end,manageContext=true}
+ uiRecovery:Refresh(true)
+end

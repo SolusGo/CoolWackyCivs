@@ -1,3 +1,5 @@
+local uiRecovery -- UI state is transient; never part of a gameplay save.
+local uiRenderError
 include('IconSupport')
 include('InstanceManager')
 include('ImperialCore')
@@ -8,7 +10,8 @@ local actions=InstanceManager:new('ImperialActionInstance','ActionChoice',Contro
 local opened,cityView,leaderView,refreshing=false,false,false,false
 local tab,selected,message='OVERVIEW',nil,''
 local blocked={};local refresh
-local function world() return not cityView and not leaderView and next(blocked)==nil and not (UI and UI.IsCityScreenUp and UI.IsCityScreenUp()) end
+local function world()
+ if uiRecovery then return uiRecovery:Available(),uiRecovery:Reason() end; return not cityView and not leaderView and next(blocked)==nil and not (UI and UI.IsCityScreenUp and UI.IsCityScreenUp()) end
 local function rounded(n) return tostring(math.floor(n+.5)) end
 local function line(parts,text) parts[#parts+1]=text end
 local function row(text,key)
@@ -87,9 +90,12 @@ local function dynasty(s,parts)
  end
 end
 refresh=function()
+ local function draw()
+ if uiRecovery then uiRecovery:Sync() end
  if refreshing or I.Applying then return end;refreshing=true
  local pid=Game.GetActivePlayer();local p=Players[pid]
  local visible=I.IsEmpire(pid) and p:IsHuman() and p:IsAlive() and world()
+ visible=visible and (not uiRecovery or uiRecovery:Available())
  Controls.ImperialLauncher:SetHide(not visible);Controls.ImperialPanel:SetHide(not visible or not opened)
  if not visible then refreshing=false;return end
  local s=I.State(pid)
@@ -117,10 +123,20 @@ refresh=function()
  for _,stack in ipairs({Controls.ImperialTabs,Controls.ImperialList,Controls.ImperialActions,Controls.ImperialDetailStack}) do stack:CalculateSize();stack:ReprocessAnchoring() end
  Controls.ImperialListScroll:CalculateInternalSize();Controls.ImperialDetailScroll:CalculateInternalSize();Controls.ImperialMessage:SetText(message~='' and message or I.Text('UI_HINT'))
  refreshing=false
+ end
+ local ok,err=pcall(draw)
+ if not ok then
+  refreshing=false
+  Controls.ImperialPanel:SetHide(true)
+  if uiRenderError~=tostring(err) then print("[Civilization UI] TheShatteredEmpire render recovered: "..tostring(err)) end
+  uiRenderError=tostring(err)
+ else uiRenderError=nil end
 end
 Controls.ImperialStatus:RegisterCallback(Mouse.eLClick,function() opened=not opened;refresh() end)
 Controls.ImperialClose:RegisterCallback(Mouse.eLClick,function() opened=false;refresh() end)
-ContextPtr:SetInputHandler(function(msg,key) if opened and msg==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then opened=false;refresh();return true end;return false end)
+ContextPtr:SetInputHandler(function(msg,key)
+ if uiRecovery and not uiRecovery:Available() then return false end
+ if opened and msg==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then opened=false;refresh();return true end;return false end)
 local lastStatus
 LuaEvents.ImperialChanged.Add(function(pid)
  if pid==Game.GetActivePlayer() then local value=rounded(I.State(pid).authority)
@@ -139,3 +155,14 @@ Events.LeavingLeaderViewMode.Add(function() leaderView=false;refresh() end)
 Events.SerialEventGameMessagePopupShown.Add(function(info) if info and info.Type then blocked[info.Type]=true;opened=false;refresh() end end)
 Events.SerialEventGameMessagePopupProcessed.Add(function(kind) blocked[kind]=nil;refresh() end)
 refresh()
+
+-- Shared screen recovery: actual native visibility wins over stale event flags.
+local helperLoaded=pcall(include,'CWC_Screen')
+if CWC_Screen then
+ uiRecovery=CWC_Screen.New{name='TheShatteredEmpire',civ='CIVILIZATION_ROME',context=ContextPtr,
+  roots={Controls.ImperialLauncher,Controls.ImperialPanel},panels={Controls.ImperialPanel},
+  refresh=function() refresh() end,
+  recover=function() cityView=false;leaderView=false;blocked={} end,repair=function() refreshing=false end,
+  close=function() opened=false end,manageContext=true}
+ uiRecovery:Refresh(true)
+end

@@ -1,3 +1,5 @@
+local uiRecovery -- UI state is transient; never part of a gameplay save.
+local uiRenderError
 -- Optional UI: event-driven, no gameplay includes, timers, polling or save writes.
 include('IconSupport')
 include('InstanceManager')
@@ -90,9 +92,11 @@ local function memoriesText(s)
     return table.concat(lines,'[NEWLINE][NEWLINE]')
 end
 local function refresh(obstructed,mapReturn)
+ local function draw()
+ if uiRecovery then uiRecovery:Sync() end
     if rendering then return end
     rendering=true
-    local s=uiState();local invisible=not s or obstructed or hidden(mapReturn)
+    local s=uiState();local invisible=not s or obstructed or hidden(mapReturn) or (uiRecovery and not uiRecovery:Available(mapReturn))
     Controls.JourneyLauncher:SetHide(invisible or open or story~='')
     if invisible then
         Controls.JourneyPanel:SetHide(true);Controls.JourneyCinematic:SetHide(true);setModal(false)
@@ -191,6 +195,14 @@ local function refresh(obstructed,mapReturn)
     Controls.JourneyDetails:CalculateSize();Controls.JourneyDetails:ReprocessAnchoring()
     Controls.JourneyScroll:CalculateInternalSize()
     rendering=false
+ end
+ local ok,err=pcall(draw)
+ if not ok then
+  rendering=false
+  Controls.JourneyPanel:SetHide(true);Controls.JourneyCinematic:SetHide(true)
+  if uiRenderError~=tostring(err) then print("[Civilization UI] TheBoyWhoTouchedParadise render recovered: "..tostring(err)) end
+  uiRenderError=tostring(err)
+ else uiRenderError=nil end
 end
 Controls.JourneyLauncher:RegisterCallback(Mouse.eLClick,function()open=true;refresh()end)
 Controls.JourneyClose:RegisterCallback(Mouse.eLClick,function()open=false;refresh()end)
@@ -260,6 +272,7 @@ ContextPtr:SetShowHideHandler(function(isHidden,initial)
 end)
 ContextPtr:SetShutdown(function()setModal(false)end)
 ContextPtr:SetInputHandler(function(event,key)
+ if uiRecovery and not uiRecovery:Available() then return false end
     if event==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then
         if story~='' then return true end -- finale needs an explicit Continue acknowledgement
         if open then open=false;refresh();return true end
@@ -267,3 +280,14 @@ ContextPtr:SetInputHandler(function(event,key)
     return false
 end)
 refresh()
+
+-- Shared screen recovery: actual native visibility wins over stale event flags.
+local helperLoaded=pcall(include,'CWC_Screen')
+if CWC_Screen then
+ uiRecovery=CWC_Screen.New{name='TheBoyWhoTouchedParadise',civ='CIVILIZATION_BOY_TOUCHED_PARADISE',context=ContextPtr,
+  roots={Controls.JourneyLauncher,Controls.JourneyPanel,Controls.JourneyCinematic},panels={Controls.JourneyPanel,Controls.JourneyCinematic},
+  refresh=function() refresh(false,true) end,
+  recover=function() blocked={};shownPopups={};contextHidden=false end,repair=function() rendering=false end,
+  close=function() open=false end,manageContext=false}
+ uiRecovery:Refresh(true)
+end

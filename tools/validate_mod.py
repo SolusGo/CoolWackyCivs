@@ -63,7 +63,7 @@ def check_packaging():
     civ_roots = (
         "RoulsAscendancy", "LunaNetwork", "TerraFramework", "CapanoCircuit",
         "FilthyRealm", "DualOrder", "RomanGladiusNetwork", "EternalNumberTen",
-        "MasayaBeyondSky", "PaulsoaresJr", "ViltrumEmpire", "TokenizedIntelligence", "TheKingdoms", "SolIntellect", "TheShatteredEmpire", "TheLastCity", "CristianoRonaldo", "TheBoyWhoTouchedParadise",
+        "MasayaBeyondSky", "PaulsoaresJr", "ViltrumEmpire", "TokenizedIntelligence", "TheKingdoms", "SolIntellect", "TheShatteredEmpire", "TheLastCity", "CristianoRonaldo", "TheBoyWhoTouchedParadise", "Shared",
     )
     actual = {
         p.relative_to(ROOT).as_posix()
@@ -260,6 +260,8 @@ def check_ui_and_lua():
     directxtex_checks(dds_paths)
     from standardize_icons import validate as validate_icons
     validate_icons(ROOT)
+    from validate_ui_refresh import run as validate_ui_refresh
+    validate_ui_refresh(ROOT)
     print(f"PASS XML/control wiring, runtime hooks, DDS decode and Lua 5.1 syntax ({len(lua_files)} scripts)")
 
 

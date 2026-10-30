@@ -1,3 +1,5 @@
+local uiRecovery -- UI state is transient; never part of a gameplay save.
+local uiRenderError
 include('InstanceManager')
 include('LastCityCore')
 local L=MapModData.TheLastCity
@@ -18,6 +20,7 @@ local function visibilityLog(reason)
  end
 end
 local function worldView()
+ if uiRecovery then return uiRecovery:Available(),uiRecovery:Reason() end;
  if cityView or (UI.IsCityScreenUp and UI.IsCityScreenUp()) then return false,'hidden: city screen' end
  if leaderView then return false,'hidden: leader view' end
  if next(blocked) then
@@ -38,11 +41,14 @@ local function choose(kind,id,value,preview,ok)
  selected={kind=kind,id=id,value=value,preview=preview,ok=ok};message='';refresh()
 end
 refresh=function()
+ local function draw()
+ if uiRecovery then uiRecovery:Sync() end
  if refreshing then return end;refreshing=true
  local pid=Game.GetActivePlayer();local p=Players[pid]
  local world,reason=worldView()
  local sanctuary=L.IsCity(pid) and p:IsHuman()
  local visible=sanctuary and p:IsAlive() and world
+ visible=visible and (not uiRecovery or uiRecovery:Available())
  Controls.Launcher:SetHide(not visible);Controls.Panel:SetHide(not visible or not opened)
  if not visible then if sanctuary then visibilityLog(p:IsAlive() and reason or 'hidden: player defeated') end;refreshing=false;return end
  local s=L.State(pid)
@@ -129,6 +135,14 @@ refresh=function()
  Controls.Preview:SetText(message~='' and message or selected and selected.preview or L.Text('SELECT_HELP'))
  Controls.Confirm:SetDisabled(not selected or not selected.ok or not p:IsTurnActive());Controls.Confirm:SetText(L.Text('CONFIRM'))
  refreshing=false
+ end
+ local ok,err=pcall(draw)
+ if not ok then
+  refreshing=false
+  Controls.Panel:SetHide(true)
+  if uiRenderError~=tostring(err) then print("[Civilization UI] TheLastCity render recovered: "..tostring(err)) end
+  uiRenderError=tostring(err)
+ else uiRenderError=nil end
 end
 Controls.Open:RegisterCallback(Mouse.eLClick,function() opened=not opened;selected=nil;refresh() end)
 Controls.Close:RegisterCallback(Mouse.eLClick,function() opened=false;selected=nil;refresh() end)
@@ -138,6 +152,7 @@ Controls.Confirm:RegisterCallback(Mouse.eLClick,function()
  local _,msg=L.Action(Game.GetActivePlayer(),command.kind,command.id,command.value);message=msg;refresh()
 end)
 ContextPtr:SetInputHandler(function(msg,key)
+ if uiRecovery and not uiRecovery:Available() then return false end
  if opened and msg==KeyEvents.KeyDown and key==Keys.VK_ESCAPE then opened=false;selected=nil;refresh();return true end
  return false
 end)
@@ -176,3 +191,14 @@ Events.SerialEventGameMessagePopupProcessed.Add(function(typ) blocked[typ]=nil;r
 Events.InterfaceModeChanged.Add(function(_,mode) interfaceMode=mode;if mode~=InterfaceModeTypes.INTERFACEMODE_SELECTION then opened=false;selected=nil end;refresh() end)
 Events.SerialEventCityInfoDirty.Add(function() if opened then refresh() end end)
 refresh()
+
+-- Shared screen recovery: actual native visibility wins over stale event flags.
+local helperLoaded=pcall(include,'CWC_Screen')
+if CWC_Screen then
+ uiRecovery=CWC_Screen.New{name='TheLastCity',civ='CIVILIZATION_LAST_CITY',context=ContextPtr,
+  roots={Controls.Launcher,Controls.Panel},panels={Controls.Panel},
+  refresh=function() refresh() end,
+  recover=function() cityView=false;leaderView=false;blocked={};interfaceMode=UI.GetInterfaceMode and UI.GetInterfaceMode() or InterfaceModeTypes.INTERFACEMODE_SELECTION end,repair=function() refreshing=false end,
+  close=function() opened=false end,manageContext=true}
+ uiRecovery:Refresh(true)
+end
