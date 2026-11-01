@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="27">
+<Mod id="4c02158d-ad52-4b73-bf2a-555ce58a1e60" version="28">
   <Properties>
     <Name>Cool Wacky Civs</Name>
     <Teaser>Eighteen civilizations. Eighteen stranger ways to rule.</Teaser>
@@ -795,6 +795,24 @@
     <File md5="36AB1671F4E96A931EC7881A4B401FBA" import="1">TokenizedIntelligence/Art/CWC_TokenizedIntelligence_Panel_920x660.dds</File>
     <File md5="0077CA10DF7622BFD51144B63A13A642" import="1">ViltrumEmpire/Art/CWC_ViltrumEmpire_Launcher_480x38.dds</File>
     <File md5="E3B945DF1D49F16A588596FF71F84E81" import="1">ViltrumEmpire/Art/CWC_ViltrumEmpire_Panel_800x650.dds</File>
+    <File md5="542EB530F1CF1687850FCF3F99EEBF47" import="0">CapanoCircuit/SQL/90_PlayerGuide.sql</File>
+    <File md5="F6B023FD694DD6BFD11EA110E1822554" import="0">CristianoRonaldo/SQL/90_PlayerGuide.sql</File>
+    <File md5="DE5CAE3D7E07C9D17F615FE3C68ABC70" import="0">DualOrder/SQL/90_PlayerGuide.sql</File>
+    <File md5="19FAE526AB630FA1FA22DACF7E1D5C7C" import="0">EternalNumberTen/SQL/90_PlayerGuide.sql</File>
+    <File md5="F967E9AD2397E01ADC6FEDF9B916A7CE" import="0">FilthyRealm/SQL/90_PlayerGuide.sql</File>
+    <File md5="D713AE0027F4E0219F8AC400C6909AD0" import="0">LunaNetwork/SQL/90_PlayerGuide.sql</File>
+    <File md5="CD6AE1DF8233737BFDF8441E0E37226A" import="0">MasayaBeyondSky/SQL/90_PlayerGuide.sql</File>
+    <File md5="9AFCBF890ECF15E81CF878D32D8F7F6B" import="0">PaulsoaresJr/SQL/90_PlayerGuide.sql</File>
+    <File md5="76ED9F300B4AA0C726BCA82A76CD4AB0" import="0">RomanGladiusNetwork/SQL/90_PlayerGuide.sql</File>
+    <File md5="C6917C4F93154AD362E0278025138B37" import="0">RoulsAscendancy/SQL/90_PlayerGuide.sql</File>
+    <File md5="44FE674C926C0D2B126A11595A6FF078" import="0">SolIntellect/SQL/90_PlayerGuide.sql</File>
+    <File md5="12819E2A53AAB8CECCC5E94BF0B2A0BF" import="0">TerraFramework/SQL/90_PlayerGuide.sql</File>
+    <File md5="E72834CF5F2912C1736F13A0DF03EDD5" import="0">TheBoyWhoTouchedParadise/SQL/90_PlayerGuide.sql</File>
+    <File md5="0A43F8D223D6D42CA6A34DFAC0EF466A" import="0">TheKingdoms/SQL/90_PlayerGuide.sql</File>
+    <File md5="1E7CEEE5AC19B901A6E8A4EA0307EC44" import="0">TheLastCity/SQL/90_PlayerGuide.sql</File>
+    <File md5="8DB53A17F51E986D595198E82D2E8B6D" import="0">TheShatteredEmpire/SQL/90_PlayerGuide.sql</File>
+    <File md5="436DF2D05511885A962659FE5E53B65E" import="0">TokenizedIntelligence/SQL/90_PlayerGuide.sql</File>
+    <File md5="0AAC5AD7C03E52B9263A29DC7E44757D" import="0">ViltrumEmpire/SQL/90_PlayerGuide.sql</File>
   </Files>
   <Actions>
     <OnModActivated>
@@ -802,76 +820,94 @@
       <UpdateDatabase>RoulsAscendancy/SQL/01_Rouls_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>RoulsAscendancy/SQL/02_Rouls_UniqueEffects.sql</UpdateDatabase>
       <UpdateDatabase>RoulsAscendancy/SQL/10_Rouls_Text.sql</UpdateDatabase>
+      <UpdateDatabase>RoulsAscendancy/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>LunaNetwork/SQL/00_Luna_Core.sql</UpdateDatabase>
       <UpdateDatabase>LunaNetwork/SQL/01_Luna_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>LunaNetwork/SQL/02_Luna_UniqueEffects.sql</UpdateDatabase>
       <UpdateDatabase>LunaNetwork/SQL/10_Luna_Text.sql</UpdateDatabase>
+      <UpdateDatabase>LunaNetwork/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TerraFramework/SQL/00_Terra_Core.sql</UpdateDatabase>
       <UpdateDatabase>TerraFramework/SQL/01_Terra_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TerraFramework/SQL/02_Terra_UniqueEffects.sql</UpdateDatabase>
       <UpdateDatabase>TerraFramework/SQL/10_Terra_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TerraFramework/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>CapanoCircuit/SQL/00_Capano_Core.sql</UpdateDatabase>
       <UpdateDatabase>CapanoCircuit/SQL/01_Capano_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>CapanoCircuit/SQL/02_Capano_UniqueEffects.sql</UpdateDatabase>
       <UpdateDatabase>CapanoCircuit/SQL/10_Capano_Text.sql</UpdateDatabase>
+      <UpdateDatabase>CapanoCircuit/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>FilthyRealm/SQL/00_Filthy_Core.sql</UpdateDatabase>
       <UpdateDatabase>FilthyRealm/SQL/01_Filthy_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>FilthyRealm/SQL/02_Filthy_UniqueEffects.sql</UpdateDatabase>
       <UpdateDatabase>FilthyRealm/SQL/10_Filthy_Text.sql</UpdateDatabase>
+      <UpdateDatabase>FilthyRealm/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>DualOrder/SQL/00_DualOrder_Core.sql</UpdateDatabase>
       <UpdateDatabase>DualOrder/SQL/01_DualOrder_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>DualOrder/SQL/02_DualOrder_UniqueEffects.sql</UpdateDatabase>
       <UpdateDatabase>DualOrder/SQL/10_DualOrder_Text.sql</UpdateDatabase>
+      <UpdateDatabase>DualOrder/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>RomanGladiusNetwork/SQL/00_RomanGladius_Core.sql</UpdateDatabase>
       <UpdateDatabase>RomanGladiusNetwork/SQL/01_RomanGladius_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>RomanGladiusNetwork/SQL/02_RomanGladius_UniqueEffects.sql</UpdateDatabase>
       <UpdateDatabase>RomanGladiusNetwork/SQL/10_RomanGladius_Text.sql</UpdateDatabase>
+      <UpdateDatabase>RomanGladiusNetwork/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>EternalNumberTen/SQL/00_Messi_Core.sql</UpdateDatabase>
       <UpdateDatabase>EternalNumberTen/SQL/01_Messi_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>EternalNumberTen/SQL/02_Messi_UniqueEffects.sql</UpdateDatabase>
       <UpdateDatabase>EternalNumberTen/SQL/10_Messi_Text.sql</UpdateDatabase>
+      <UpdateDatabase>EternalNumberTen/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>MasayaBeyondSky/SQL/00_Masaya_Core.sql</UpdateDatabase>
       <UpdateDatabase>MasayaBeyondSky/SQL/01_Masaya_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>MasayaBeyondSky/SQL/02_Masaya_UniqueEffects.sql</UpdateDatabase>
       <UpdateDatabase>MasayaBeyondSky/SQL/10_Masaya_Text.sql</UpdateDatabase>
+      <UpdateDatabase>MasayaBeyondSky/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>PaulsoaresJr/SQL/00_PSJ_Core.sql</UpdateDatabase>
       <UpdateDatabase>PaulsoaresJr/SQL/01_PSJ_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>PaulsoaresJr/SQL/02_PSJ_UniqueEffects.sql</UpdateDatabase>
       <UpdateDatabase>PaulsoaresJr/SQL/10_PSJ_Text.sql</UpdateDatabase>
+      <UpdateDatabase>PaulsoaresJr/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>ViltrumEmpire/SQL/00_Viltrum_Core.sql</UpdateDatabase>
       <UpdateDatabase>ViltrumEmpire/SQL/01_Viltrum_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>ViltrumEmpire/SQL/02_Viltrum_Effects.sql</UpdateDatabase>
       <UpdateDatabase>ViltrumEmpire/SQL/10_Viltrum_Text.sql</UpdateDatabase>
+      <UpdateDatabase>ViltrumEmpire/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TokenizedIntelligence/SQL/00_Token_Core.sql</UpdateDatabase>
       <UpdateDatabase>TokenizedIntelligence/SQL/01_Token_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TokenizedIntelligence/SQL/02_Token_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TokenizedIntelligence/SQL/10_Token_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TokenizedIntelligence/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TheKingdoms/SQL/00_Kingdoms_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheKingdoms/SQL/01_Kingdoms_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheKingdoms/SQL/02_Kingdoms_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheKingdoms/SQL/10_Kingdoms_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheKingdoms/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>SolIntellect/SQL/00_Sol_Core.sql</UpdateDatabase>
       <UpdateDatabase>SolIntellect/SQL/01_Sol_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>SolIntellect/SQL/02_Sol_Effects.sql</UpdateDatabase>
       <UpdateDatabase>SolIntellect/SQL/10_Sol_Text.sql</UpdateDatabase>
+      <UpdateDatabase>SolIntellect/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TheShatteredEmpire/SQL/00_Imperial_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheShatteredEmpire/SQL/01_Imperial_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheShatteredEmpire/SQL/02_Imperial_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheShatteredEmpire/SQL/10_Imperial_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheShatteredEmpire/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TheLastCity/SQL/00_LC_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheLastCity/SQL/01_LC_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheLastCity/SQL/02_LC_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheLastCity/SQL/03_LC_Art.sql</UpdateDatabase>
       <UpdateDatabase>TheLastCity/SQL/10_LC_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheLastCity/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>CristianoRonaldo/SQL/00_CR7_Core.sql</UpdateDatabase>
       <UpdateDatabase>CristianoRonaldo/SQL/01_CR7_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>CristianoRonaldo/SQL/02_CR7_Effects.sql</UpdateDatabase>
       <UpdateDatabase>CristianoRonaldo/SQL/03_CR7_Art.sql</UpdateDatabase>
       <UpdateDatabase>CristianoRonaldo/SQL/10_CR7_Text.sql</UpdateDatabase>
+      <UpdateDatabase>CristianoRonaldo/SQL/90_PlayerGuide.sql</UpdateDatabase>
       <UpdateDatabase>TheBoyWhoTouchedParadise/SQL/00_Paradise_Core.sql</UpdateDatabase>
       <UpdateDatabase>TheBoyWhoTouchedParadise/SQL/01_Paradise_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>TheBoyWhoTouchedParadise/SQL/02_Paradise_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheBoyWhoTouchedParadise/SQL/10_Paradise_Text.sql</UpdateDatabase>
+      <UpdateDatabase>TheBoyWhoTouchedParadise/SQL/90_PlayerGuide.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>

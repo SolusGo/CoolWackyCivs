@@ -1,5 +1,7 @@
 # The Capano Circuit
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/CapanoCircuit.md).
+
 **CIVILIZATION FIELD GUIDE** · [Cool Wacky Civs](../README.md) · Brave New World + Community Patch
 
 > *Read the sequence. Keep the Project. Earn the SEND.*
@@ -180,7 +182,7 @@ The validator applies all SQL to an in-memory copy of the installed game databas
 An installed copy can be audited for manifest hashes, VFS flags, and byte-for-byte source parity with:
 
 ```powershell
-python tools/validate_capano_mod.py --installed-mod "$HOME/Documents/My Games/Sid Meier's Civilization 5/MODS/Cool Wacky Civs (v 17)"
+python tools/validate_capano_mod.py --installed-mod "$HOME/Documents/My Games/Sid Meier's Civilization 5/MODS/Cool Wacky Civs (v 28)"
 ```
 
 The builder creates the one combined Cool Wacky Civs folder, ZIP, and Civ V-compatible `.civ5mod` under `dist/`. Enable it before starting a new game. A final in-game smoke test is still required for setup/Civilopedia icons, combat-preview timing, city capture, save/reload, AI behavior, and world-model visuals.

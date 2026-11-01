@@ -1,5 +1,11 @@
 # Patch Notes
 
+## v28 - Civilopedia and strategy handbook - 2026-11-01
+
+- Add practical opening, development, victory conversion, pros/cons, counterplay and matchup guidance for all eighteen civilizations, with linked repository guides.
+- Put strategy first on civilization and leader Civilopedia pages while retaining the existing lore and biographies. Use unique article/display text keys so the new information stays independent of the second collection.
+- Matchups are conditional mechanical analysis, not tested rankings; all civilizations remain human-only and multiplayer remains unsupported. No balance, runtime, save schema or artwork changes.
+
 ## Version 27 — Themed interfaces and visibility recovery — 2026-10-31
 
 - Refreshed all 13 custom interfaces with civilization-specific artwork, colours, buttons, framed rows, native scrollbars and help.

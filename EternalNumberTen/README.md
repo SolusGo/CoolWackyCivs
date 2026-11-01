@@ -1,5 +1,7 @@
 # The Eternal Number Ten
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/EternalNumberTen.md).
+
 **CIVILIZATION FIELD GUIDE** · [Cool Wacky Civs](../README.md) · Brave New World + Community Patch
 
 > *From a first touch in Rosario to a career the world remembers.*

@@ -154,7 +154,9 @@ def check_packaging():
             )
         else:
             print("SKIP stale optional ModBuddy build; current project/manifest checks remain required")
-    basenames = [Path(name).name.lower() for name in names]
+    # SQL actions resolve their complete mod-relative paths. Only imported
+    # assets share the flat VFS namespace.
+    basenames = [Path(name).name.lower() for name, imported in files if imported]
     assert len(basenames) == len(set(basenames)), "VFS filename collision between civilizations"
     solution = (REPO / "CoolWackyCivs.civ5sln").read_text(encoding="utf-8-sig")
     assert '{F5FC21B5-7CC2-458A-ABBA-992F515BBA20}' in solution, "Wrong ModBuddy project factory"
@@ -317,8 +319,8 @@ def apply_current_cp_schema(database, cp_root: Path):
                 continue
         for table in root.findall("Table"):
             name = table.get("name")
-            if not name or not (name.startswith("Building_") or name.startswith("Unit_")
-                                or name.startswith("Policy_") or name in {"DiploModifiers"}):
+            if not name or not (name.startswith("Building_") or name.startswith("Unit_") or name.startswith("UnitPromotions_")
+                                or name.startswith("Policy_") or name in {"DiploModifiers", "CityEventChoices"}):
                 continue
             columns = []
             for column in table.findall("Column"):
@@ -719,6 +721,8 @@ def main():
     check_ui_and_lua()
     if not args.no_database:
         check_database(args.database, args.cp_root)
+        from validate_strategy_guides import run as validate_player_guides
+        validate_player_guides()
     print("Validation passed. Engine gameplay still requires the documented in-game smoke tests.")
 
 

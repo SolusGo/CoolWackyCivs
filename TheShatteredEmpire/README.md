@@ -1,5 +1,7 @@
 # The Shattered Empire
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheShatteredEmpire.md).
+
 **Leader:** The Last Emperor · **Capital:** Aeternum · **UA:** The Weight of an Empire
 
 **UU:** Imperial Legion (Warrior) · **UB:** Provincial Governor's Palace (Monument)
@@ -15,7 +17,7 @@ python tools/build_mod.py
 python tools/build_shattered_mod.py
 ```
 
-For the collection, extract `dist/Cool Wacky Civs (v 20).zip` into `%USERPROFILE%/Documents/My Games/Sid Meier's Civilization 5/MODS/`. For the standalone civilization, extract `dist/The Shattered Empire (v 1).zip` there instead. The resulting folder must directly contain its `.modinfo`. Alternatively, place the corresponding `.civ5mod` in MODS and let Civ V extract it.
+For the collection, extract `dist/Cool Wacky Civs (v 28).zip` into `%USERPROFILE%/Documents/My Games/Sid Meier's Civilization 5/MODS/`. For the standalone civilization, extract `dist/The Shattered Empire (v 1).zip` there instead. The resulting folder must directly contain its `.modinfo`. Alternatively, place the corresponding `.civ5mod` in MODS and let Civ V extract it.
 
 Enable Community Patch and **one** package in the game's Mods menu, continue through the modded setup, and choose The Shattered Empire / The Last Emperor. Remove or disable older collection versions. Do not enable standalone and collection together: their manifests block duplicate registration. No ModBuddy or additional DLL is needed. Nothing in the build scripts writes into the installed game.
 

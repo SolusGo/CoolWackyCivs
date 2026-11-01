@@ -1,5 +1,7 @@
 # The Dual Order
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/DualOrder.md).
+
 **CIVILIZATION FIELD GUIDE** · [Cool Wacky Civs](../README.md) · Brave New World + Community Patch
 
 > *Raise the altar. Arm the chapter. Keep both mandates in balance.*

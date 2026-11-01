@@ -15,3 +15,6 @@ CristianoRonaldo/**/*.md text eol=lf
 CristianoRonaldo/*.modinfo text eol=lf
 tools/*ronaldo*.py text eol=lf
 tools/tests/ronaldo*.lua text eol=lf
+
+# Keep generated Civilopedia overlay hashes stable on every checkout.
+*/SQL/90_PlayerGuide.sql text eol=lf

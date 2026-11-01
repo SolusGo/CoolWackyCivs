@@ -70,6 +70,7 @@
     <File md5="832BACFC2B0E6107D92E594ABD8FF289" import="0">SQL/02_CR7_Effects.sql</File>
     <File md5="FBD9865B22CB39358AA6D998CD9D99FB" import="0">SQL/03_CR7_Art.sql</File>
     <File md5="D5C84F56BC7E03D886F8999ADCA980D5" import="0">SQL/10_CR7_Text.sql</File>
+    <File md5="F6B023FD694DD6BFD11EA110E1822554" import="0">SQL/90_PlayerGuide.sql</File>
     <File md5="4293DEFFA23249C746F3AC66DB1FF00D" import="1">UI/CR7Career.lua</File>
     <File md5="6AEC80F0B1BCBB0A7F709221A7EA32F6" import="0">UI/CR7Career.xml</File>
     <File md5="8DC1A741828BB08067C42800F474479A" import="1">Shared/UI/CWC_Screen.lua</File>
@@ -81,6 +82,7 @@
       <UpdateDatabase>SQL/02_CR7_Effects.sql</UpdateDatabase>
       <UpdateDatabase>SQL/03_CR7_Art.sql</UpdateDatabase>
       <UpdateDatabase>SQL/10_CR7_Text.sql</UpdateDatabase>
+      <UpdateDatabase>SQL/90_PlayerGuide.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>

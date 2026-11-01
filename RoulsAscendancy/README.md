@@ -1,5 +1,7 @@
 # The Rou'ls Ascendancy
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/RoulsAscendancy.md).
+
 **CIVILIZATION FIELD GUIDE** · [Cool Wacky Civs](../README.md) · Brave New World + Community Patch
 
 > *A body can fall. A veteran can return. An empire can remember.*

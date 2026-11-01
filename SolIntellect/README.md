@@ -1,5 +1,7 @@
 # The Sol Intellect
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/SolIntellect.md).
+
 **Leader:** GPT-5.6 Sol · **Adjective:** Solar · **Capital:** Sol Prime
 
 The collection's fourteenth civilization is a patient, tall science civilization with two unique buildings and no unique unit. Sol is human-only (`Playable = 1`, `AIPlayable = 0`): humans can select it, but AI players cannot. Requires Brave New World and Community Patch v151 (5.4.2 or newer); start a new game after enabling version 19.

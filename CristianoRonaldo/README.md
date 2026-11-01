@@ -1,5 +1,7 @@
 # Cristiano Ronaldo — The Relentless Seven
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/CristianoRonaldo.md).
+
 **Leader:** Cristiano Ronaldo, The Boy from Madeira Who Refused to Be Ordinary. **Capital:** Funchal. **Adjective:** Relentless. Deep Portuguese red and gold, with green and white. Intended victories: Domination and Culture; Diplomacy is secondary. Freedom fits the civilization's intended identity. **Player playable only:** `Playable=1`, `AIPlayable=0`; random AI selection excludes Ronaldo. The gameplay itself is automatic and does not require UI actions.
 
 Inspired by Madeira, leaving home for Sporting, development in Manchester, prolific finishing in Madrid, Portugal's captaincy, adaptation at Juventus and Al-Nassr, and exceptional longevity. No retirement or future achievement is presumed. Strength comes from surviving veterans rather than newly produced advanced armies.
@@ -10,7 +12,7 @@ Civilization V: Brave New World on Windows with **Community Patch v151 / 5.4.6**
 
 Choose one package:
 
-- Collection: build `python tools/build_mod.py`, then extract `dist/Cool Wacky Civs (v 23).zip` under `Documents/My Games/Sid Meier's Civilization 5/MODS` and enable Cool Wacky Civs with CP.
+- Collection: build `python tools/build_mod.py`, then extract `dist/Cool Wacky Civs (v 28).zip` under `Documents/My Games/Sid Meier's Civilization 5/MODS` and enable Cool Wacky Civs with CP.
 - Standalone: build `python tools/build_ronaldo_mod.py`, then extract `dist/Cristiano Ronaldo - The Relentless Seven (v 2).zip` into the same MODS directory and enable it with CP. Its manifest blocks collection v22+, which already includes these definitions. Both manifests explicitly require BNW and CP v151.
 
 The scripts also produce Firaxis-compatible LZMA `.civ5mod` files. Disable older collection copies. Start a **new modded game**, manually select The Relentless Seven / Cristiano Ronaldo, and verify Funchal. Do not enable standalone and collection together. Generated DDS files and source definitions are checked in; asset generation is not required to play.

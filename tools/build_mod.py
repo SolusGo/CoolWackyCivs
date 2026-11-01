@@ -98,16 +98,19 @@ def package_name() -> str:
     return f"{values['SafeName']} (v {values['ModVersion']})"
 
 
-def sync_manifest() -> Path:
-    from standardize_icons import standardize
-    standardize(ROOT)
+def sync_manifest(preserve_art=False) -> Path:
+    from standardize_icons import standardize, validate
+    if preserve_art:
+        validate(ROOT)
+    else:
+        standardize(ROOT)
     manifest = ROOT / f"{package_name()}.modinfo"
     create_manifest().write(manifest, encoding="utf-8", xml_declaration=True)
     return manifest
 
 
-def build() -> tuple[Path, Path, Path]:
-    manifest = sync_manifest()
+def build(preserve_art=False) -> tuple[Path, Path, Path]:
+    manifest = sync_manifest(preserve_art)
     dist = (REPO / "dist").resolve()
     output = (dist / package_name()).resolve()
     # Recursive replacement is allowed only for this exact generated child.
@@ -123,6 +126,16 @@ def build() -> tuple[Path, Path, Path]:
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT / relative, destination)
     shutil.copy2(manifest, output / manifest.name)
+    # Include the offline handbook and full rules without registering docs as
+    # game assets or changing the database activation order.
+    documents = {ROOT / 'README.md', ROOT / 'PATCHNOTES.md'}
+    documents.update((ROOT / 'docs').rglob('*.md'))
+    documents.update(p for folder in ROOT.iterdir() if (folder / 'SQL').is_dir()
+                     for p in folder.rglob('*.md'))
+    for path in sorted(documents):
+        destination = output / path.relative_to(ROOT)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(path, destination)
     packaged_files = sorted(p for p in output.rglob("*") if p.is_file())
     archive = dist / f"{package_name()}.zip"
     with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as package:
@@ -146,11 +159,12 @@ def build() -> tuple[Path, Path, Path]:
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest-only", action="store_true", help="Refresh the checked-in .modinfo only")
+    parser.add_argument("--preserve-art", action="store_true", help="Validate existing icons without rewriting artwork")
     args = parser.parse_args()
     if args.manifest_only:
-        print(sync_manifest())
+        print(sync_manifest(args.preserve_art))
     else:
-        for path in build():
+        for path in build(args.preserve_art):
             print(path)
 
 

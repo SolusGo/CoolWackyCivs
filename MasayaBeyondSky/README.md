@@ -1,5 +1,7 @@
 # The Boy Beyond the Sky
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/MasayaBeyondSky.md).
+
 **CIVILIZATION FIELD GUIDE** · [Cool Wacky Civs](../README.md) · Brave New World + Community Patch
 
 > *A new horizon, one more flight, and six turns beyond the sky.*

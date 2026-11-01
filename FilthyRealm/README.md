@@ -1,5 +1,7 @@
 # The Filthy Realm
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/FilthyRealm.md).
+
 **CIVILIZATION FIELD GUIDE** · [Cool Wacky Civs](../README.md) · Brave New World + Community Patch
 
 > *Spread the Filth. Bank the points. Choose the moment everything goes wrong.*

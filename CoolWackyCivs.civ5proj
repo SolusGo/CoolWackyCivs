@@ -27,7 +27,7 @@
     <ReloadStrategicViewSystem>false</ReloadStrategicViewSystem>
     <ReloadUnitSystem>false</ReloadUnitSystem>
     <HideSetupGame>false</HideSetupGame>
-    <ModVersion>27</ModVersion>
+    <ModVersion>28</ModVersion>
     <Stability>Alpha</Stability>
     <ModActions>
       <Action>
@@ -53,6 +53,11 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
+        <FileName>RoulsAscendancy/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
         <FileName>LunaNetwork/SQL/00_Luna_Core.sql</FileName>
       </Action>
       <Action>
@@ -69,6 +74,11 @@
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
         <FileName>LunaNetwork/SQL/10_Luna_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>LunaNetwork/SQL/90_PlayerGuide.sql</FileName>
       </Action>
       <Action>
         <Set>OnModActivated</Set>
@@ -93,6 +103,11 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
+        <FileName>TerraFramework/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
         <FileName>CapanoCircuit/SQL/00_Capano_Core.sql</FileName>
       </Action>
       <Action>
@@ -109,6 +124,11 @@
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
         <FileName>CapanoCircuit/SQL/10_Capano_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>CapanoCircuit/SQL/90_PlayerGuide.sql</FileName>
       </Action>
       <Action>
         <Set>OnModActivated</Set>
@@ -133,6 +153,11 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
+        <FileName>FilthyRealm/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
         <FileName>DualOrder/SQL/00_DualOrder_Core.sql</FileName>
       </Action>
       <Action>
@@ -149,6 +174,11 @@
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
         <FileName>DualOrder/SQL/10_DualOrder_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>DualOrder/SQL/90_PlayerGuide.sql</FileName>
       </Action>
       <Action>
         <Set>OnModActivated</Set>
@@ -173,6 +203,11 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
+        <FileName>RomanGladiusNetwork/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
         <FileName>EternalNumberTen/SQL/00_Messi_Core.sql</FileName>
       </Action>
       <Action>
@@ -189,6 +224,11 @@
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
         <FileName>EternalNumberTen/SQL/10_Messi_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>EternalNumberTen/SQL/90_PlayerGuide.sql</FileName>
       </Action>
       <Action>
         <Set>OnModActivated</Set>
@@ -213,6 +253,11 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
+        <FileName>MasayaBeyondSky/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
         <FileName>PaulsoaresJr/SQL/00_PSJ_Core.sql</FileName>
       </Action>
       <Action>
@@ -229,6 +274,11 @@
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
         <FileName>PaulsoaresJr/SQL/10_PSJ_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>PaulsoaresJr/SQL/90_PlayerGuide.sql</FileName>
       </Action>
       <Action>
         <Set>OnModActivated</Set>
@@ -253,6 +303,11 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
+        <FileName>ViltrumEmpire/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
         <FileName>TokenizedIntelligence/SQL/00_Token_Core.sql</FileName>
       </Action>
       <Action>
@@ -269,6 +324,11 @@
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
         <FileName>TokenizedIntelligence/SQL/10_Token_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TokenizedIntelligence/SQL/90_PlayerGuide.sql</FileName>
       </Action>
       <Action>
         <Set>OnModActivated</Set>
@@ -293,6 +353,11 @@
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
+        <FileName>TheKingdoms/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
         <FileName>SolIntellect/SQL/00_Sol_Core.sql</FileName>
       </Action>
       <Action>
@@ -309,6 +374,11 @@
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
         <FileName>SolIntellect/SQL/10_Sol_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>SolIntellect/SQL/90_PlayerGuide.sql</FileName>
       </Action>
       <Action>
         <Set>OnModActivated</Set>
@@ -330,16 +400,31 @@
         <Type>UpdateDatabase</Type>
         <FileName>TheShatteredEmpire/SQL/10_Imperial_Text.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheShatteredEmpire/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TheLastCity/SQL/00_LC_Core.sql</FileName></Action>
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TheLastCity/SQL/01_LC_Inheritance.sql</FileName></Action>
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TheLastCity/SQL/02_LC_Effects.sql</FileName></Action>
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TheLastCity/SQL/03_LC_Art.sql</FileName></Action>
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>TheLastCity/SQL/10_LC_Text.sql</FileName></Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheLastCity/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>CristianoRonaldo/SQL/00_CR7_Core.sql</FileName></Action>
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>CristianoRonaldo/SQL/01_CR7_Inheritance.sql</FileName></Action>
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>CristianoRonaldo/SQL/02_CR7_Effects.sql</FileName></Action>
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>CristianoRonaldo/SQL/03_CR7_Art.sql</FileName></Action>
       <Action><Set>OnModActivated</Set><Type>UpdateDatabase</Type><FileName>CristianoRonaldo/SQL/10_CR7_Text.sql</FileName></Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>CristianoRonaldo/SQL/90_PlayerGuide.sql</FileName>
+      </Action>
       <Action>
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
@@ -359,6 +444,11 @@
         <Set>OnModActivated</Set>
         <Type>UpdateDatabase</Type>
         <FileName>TheBoyWhoTouchedParadise/SQL/10_Paradise_Text.sql</FileName>
+      </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>TheBoyWhoTouchedParadise/SQL/90_PlayerGuide.sql</FileName>
       </Action>
     </ModActions>
     <ModContent>
@@ -2484,5 +2574,25 @@
     <Content Include="TokenizedIntelligence/Art/CWC_TokenizedIntelligence_Panel_920x660.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
     <Content Include="ViltrumEmpire/Art/CWC_ViltrumEmpire_Launcher_480x38.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
     <Content Include="ViltrumEmpire/Art/CWC_ViltrumEmpire_Panel_800x650.dds"><ImportIntoVFS>True</ImportIntoVFS></Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CapanoCircuit/SQL/90_PlayerGuide.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="CristianoRonaldo/SQL/90_PlayerGuide.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="DualOrder/SQL/90_PlayerGuide.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="EternalNumberTen/SQL/90_PlayerGuide.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="FilthyRealm/SQL/90_PlayerGuide.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="LunaNetwork/SQL/90_PlayerGuide.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="MasayaBeyondSky/SQL/90_PlayerGuide.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="PaulsoaresJr/SQL/90_PlayerGuide.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="RomanGladiusNetwork/SQL/90_PlayerGuide.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="RoulsAscendancy/SQL/90_PlayerGuide.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="SolIntellect/SQL/90_PlayerGuide.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="TerraFramework/SQL/90_PlayerGuide.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="TheBoyWhoTouchedParadise/SQL/90_PlayerGuide.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="TheKingdoms/SQL/90_PlayerGuide.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="TheLastCity/SQL/90_PlayerGuide.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="TheShatteredEmpire/SQL/90_PlayerGuide.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="TokenizedIntelligence/SQL/90_PlayerGuide.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
+    <Content Include="ViltrumEmpire/SQL/90_PlayerGuide.sql"><ImportIntoVFS>False</ImportIntoVFS></Content>
   </ItemGroup>
 </Project>

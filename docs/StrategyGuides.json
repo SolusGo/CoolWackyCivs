@@ -1,0 +1,1479 @@
+{
+  "schema": 1,
+  "collection": "CoolWackyCivs",
+  "civilizations": [
+    {
+      "folder": "RoulsAscendancy",
+      "repo": "CoolWackyCivs",
+      "civ": "CIVILIZATION_ROULS_ASCENDANCY",
+      "name": "Rou'ls Ascendancy",
+      "leader": "LEADER_TRENT_ROULS",
+      "leader_name": "Trent Rou'ls, the Unbodied",
+      "civ_prefix": "TXT_KEY_CIV5_ROULS",
+      "civ_pedia": "TXT_KEY_CIV_ROULS_PEDIA",
+      "leader_prefix": "TXT_KEY_CIVILOPEDIA_LEADERS_TRENT_ROULS",
+      "leader_pedia": "TXT_KEY_LEADER_TRENT_ROULS_PEDIA",
+      "sources": [
+        "RoulsAscendancy/README.md",
+        "RoulsAscendancy/SQL/00_Rouls_Core.sql",
+        "RoulsAscendancy/SQL/01_Rouls_Inheritance.sql",
+        "RoulsAscendancy/SQL/02_Rouls_UniqueEffects.sql",
+        "RoulsAscendancy/SQL/10_Rouls_Text.sql",
+        "RoulsAscendancy/Lua/RoulsCore.lua"
+      ],
+      "role": "Veteran attrition and positional warfare",
+      "victory": "Domination; Science as a protected fallback",
+      "plan": "Build a conventional economy, then turn favourable military kills into Anima. Your advantage is preserving experienced units across a long campaign, provided the shared reserve can cover the casualties you actually take.",
+      "opening": "Improve food and research normally and scout defensible fronts. The capital's small Science bonus does not fund reckless expansion. Fight safe military engagements to establish an Anima reserve before treating reconstruction as insurance.",
+      "development": "Bring the Choir Eternal and Somatic Lattices into the plan when available. Keep veteran replacements near valid friendly cities and reserve enough Anima for losses before paying for Transmigration. Use a Matriarch to reduce an exchange's cost.",
+      "finish": "Protect the veterans doing the real work. Choose whether a Modern-era Great Migration is worth exhausting the reserve, and use Buddy to support a coastal campaign rather than expecting a naval aura to solve inland logistics.",
+      "strengths": [
+        "Experienced land units can return instead of being replaced by fresh recruits.",
+        "Transmigration can bring a valuable military body to a useful front.",
+        "Later infrastructure improves reserve capacity and reliability."
+      ],
+      "weaknesses": [
+        "The peaceful opening supplies little Anima or broad economic acceleration.",
+        "Reconstruction, movement and special abilities compete for one limited pool.",
+        "Restores are capped per turn; returning units are damaged and cannot immediately act."
+      ],
+      "counterplay": [
+        "Focus enough targets in one turn to overwhelm the restore cap, then threaten the recovery cities.",
+        "Avoid feeding isolated units into a veteran formation; use range, terrain and a technology lead.",
+        "Exploit an empty reserve after an expensive exchange or special ability."
+      ],
+      "mistakes": [
+        "Spending every Anima point on movement before an enemy attack.",
+        "Treating restoration as unlimited protection for civilians or all unit domains.",
+        "Returning a damaged veteran to combat before it can safely recover."
+      ],
+      "favourable": [
+        [
+          "CapanoCircuit",
+          "A controlled attrition battle lets you preserve experience while Capano must keep individual Project attackers alive; do not offer easy four-Beta finishes."
+        ],
+        [
+          "TrainerRed",
+          "Trading ordinary bodies can be acceptable while losing a trained partner is permanent for Red; the advantage depends on retaining Anima and winning some kills."
+        ]
+      ],
+      "unfavourable": [
+        [
+          "TheUrgal",
+          "A coordinated Strength II attack can cause more same-turn deaths than reconstruction can cover."
+        ],
+        [
+          "FilthyRealm",
+          "It's Time to Stop can strand a concentrated army, while city disruption makes safe recovery and replacement harder."
+        ]
+      ],
+      "description_key": "TXT_KEY_CIV_ROULS_DESC",
+      "short_key": "TXT_KEY_CIV_ROULS_SHORT_DESC",
+      "leader_name_key": "TXT_KEY_LEADER_TRENT_ROULS"
+    },
+    {
+      "folder": "LunaNetwork",
+      "repo": "CoolWackyCivs",
+      "civ": "CIVILIZATION_GPT_LUNA",
+      "name": "Luna Network",
+      "leader": "LEADER_GPT_LUNA",
+      "leader_name": "GPT-5.6 Luna",
+      "civ_prefix": "TXT_KEY_CIV5_LUNA",
+      "civ_pedia": "TXT_KEY_CIV_LUNA_PEDIA",
+      "leader_prefix": "TXT_KEY_CIVILOPEDIA_LEADERS_GPT_LUNA",
+      "leader_pedia": "TXT_KEY_LEADER_GPT_LUNA_PEDIA",
+      "sources": [
+        "LunaNetwork/README.md",
+        "LunaNetwork/SQL/00_Luna_Core.sql",
+        "LunaNetwork/SQL/01_Luna_Inheritance.sql",
+        "LunaNetwork/SQL/02_Luna_UniqueEffects.sql",
+        "LunaNetwork/SQL/10_Luna_Text.sql"
+      ],
+      "role": "Wide expansion and construction tempo",
+      "victory": "Science or Domination; flexible conventional victories",
+      "plan": "Turn a network of useful cities into a stream of completed orders. Discounts and completion refunds reward sustained development; Rapid Response helps newly trained forces reach the point of need.",
+      "opening": "Escort Packet Settlers toward defensible food and resource sites. Cheap Cache Nodes help new cities become productive research centres, but ordinary Happiness and maintenance still determine how many cities you can support.",
+      "development": "Keep normal production queues moving through needed buildings and combat units. Time military completions before a deployment; purchases and free units do not create the same refund engine. Use roads and a reserve army to cover a wide border.",
+      "finish": "Convert the developed network into research capacity or several coordinated production centres. Reinforce campaigns continuously instead of assuming the temporary movement promotion is a permanent combat bonus.",
+      "strengths": [
+        "Discounted settlement and early research infrastructure help establish more viable cities.",
+        "Many qualifying completions repeatedly feed the next order.",
+        "Fresh land and naval combat units have a short deployment advantage."
+      ],
+      "weaknesses": [
+        "There is no built-in Happiness or growth solution for overexpansion.",
+        "Refunds require qualifying production completions rather than purchases or Wonders.",
+        "Rapid Response adds tempo, not a general strength advantage."
+      ],
+      "counterplay": [
+        "Contest strong settlement sites and attack exposed new cities before their infrastructure pays back.",
+        "Force military spending and road defense across several approaches.",
+        "Survive the fresh-unit deployment window and fight with terrain or stronger units."
+      ],
+      "mistakes": [
+        "Expanding faster than food, Gold and Happiness can support.",
+        "Expecting Packet Settlers, Wonders or purchases to generate military completion refunds.",
+        "Counting on Rapid Response after its short duration has expired."
+      ],
+      "favourable": [
+        [
+          "SolIntellect",
+          "Early territorial tempo can deny a protected, uninterrupted builder the space and safety needed for a tall engine."
+        ],
+        [
+          "TheBoundlessCity",
+          "Early settlement can contest valuable land before the Architect's contiguous territory reaches it; a capital assault still requires real military preparation."
+        ]
+      ],
+      "unfavourable": [
+        [
+          "TheUrgal",
+          "A sharp early melee timing can punish a network whose newest cities have only economic investment."
+        ],
+        [
+          "ViltrumEmpire",
+          "Scattered mature cities offer Momentum opportunities if Luna's reinforcement network cannot hold the front."
+        ]
+      ],
+      "description_key": "TXT_KEY_CIV_LUNA_DESC",
+      "short_key": "TXT_KEY_CIV_LUNA_SHORT_DESC",
+      "leader_name_key": "TXT_KEY_LEADER_GPT_LUNA"
+    },
+    {
+      "folder": "TerraFramework",
+      "repo": "CoolWackyCivs",
+      "civ": "CIVILIZATION_GPT_TERRA",
+      "name": "Terra",
+      "leader": "LEADER_GPT_TERRA",
+      "leader_name": "GPT-5.6 Terra",
+      "civ_prefix": "TXT_KEY_CIV5_TERRA",
+      "civ_pedia": "TXT_KEY_CIV_TERRA_PEDIA",
+      "leader_prefix": "TXT_KEY_CIVILOPEDIA_LEADERS_GPT_TERRA",
+      "leader_pedia": "TXT_KEY_LEADER_GPT_TERRA_PEDIA",
+      "sources": [
+        "TerraFramework/README.md",
+        "TerraFramework/SQL/00_Terra_Core.sql",
+        "TerraFramework/SQL/01_Terra_Inheritance.sql",
+        "TerraFramework/SQL/02_Terra_UniqueEffects.sql",
+        "TerraFramework/SQL/10_Terra_Text.sql",
+        "TerraFramework/Lua/TerraRuntime.lua"
+      ],
+      "role": "Planned city specialization and terrain-aware infantry",
+      "victory": "Science or Diplomacy; adaptable production-led warfare",
+      "plan": "Choose useful buildings whose completion supports the next phase of each city. Modes are local and temporary, so the decision is when to activate a specialization, not how to accumulate every modifier at once.",
+      "opening": "Build the food and basic infrastructure the city actually needs. A Library or cultural building can establish a first useful Mode; a neutral building may still be the right investment even without a Mode reward.",
+      "development": "Place Multimodal Hubs in real trade-route origins. Arrange Execution before expensive construction and Research before a research push, without replacing a useful Mode accidentally. Modes follow eligible building classes, including replacements.",
+      "finish": "Coordinate several specialized cities with the chosen victory. Before an Operative turn starts, consider where it should receive its configuration; moving onto different terrain afterward does not immediately change that turn's bonus.",
+      "strengths": [
+        "Different cities can serve different economic roles at the same time.",
+        "Hubs combine ordinary trade infrastructure with additional origin-city Production.",
+        "Operatives can support recovery or an appropriate terrain fight."
+      ],
+      "weaknesses": [
+        "Only one Mode applies in a city, and a new category replaces the previous one.",
+        "Modes require eligible production completions and eventually expire.",
+        "Operative configuration is checked at turn start and ends with the unit's unique system on upgrade."
+      ],
+      "counterplay": [
+        "Pressure a city while its useful Mode is expiring or force an awkward production choice.",
+        "Disrupt outgoing routes and threaten the actual Hub origins.",
+        "Draw an Operative away from the terrain configuration it received."
+      ],
+      "mistakes": [
+        "Buying a building and expecting a production-triggered Mode.",
+        "Counting routes that merely arrive or pass through a Hub city.",
+        "Moving an Operative and assuming its configuration changed immediately."
+      ],
+      "favourable": [
+        [
+          "TokenizedIntelligence",
+          "Several independent city Modes can force Axiom to divide a limited Token and persistent-slot budget among competing priorities."
+        ],
+        [
+          "TheSubstituteClassroom",
+          "Predictable economic specialization can exploit the gaps between Garvey's fixed Roll Call windows; active combat buffs still demand caution."
+        ]
+      ],
+      "unfavourable": [
+        [
+          "FilthyRealm",
+          "Production and yield disruption can delay the completion that would refresh a key specialization."
+        ],
+        [
+          "TheUrgal",
+          "A prepared burst can arrive before a builder-focused city has converted temporary economic gains into defense."
+        ]
+      ],
+      "description_key": "TXT_KEY_CIV_TERRA_DESC",
+      "short_key": "TXT_KEY_CIV_TERRA_SHORT_DESC",
+      "leader_name_key": "TXT_KEY_LEADER_GPT_TERRA"
+    },
+    {
+      "folder": "CapanoCircuit",
+      "repo": "CoolWackyCivs",
+      "civ": "CIVILIZATION_CAPANO_CIRCUIT",
+      "name": "The Capano Circuit",
+      "leader": "LEADER_ENRICO_CAPANO",
+      "leader_name": "Enrico Capano",
+      "civ_prefix": "TXT_KEY_CIV5_CAPANO",
+      "civ_pedia": "TXT_KEY_CIV_CAPANO_PEDIA",
+      "leader_prefix": "TXT_KEY_CIVILOPEDIA_LEADERS_ENRICO_CAPANO",
+      "leader_pedia": "TXT_KEY_LEADER_ENRICO_CAPANO_PEDIA",
+      "sources": [
+        "CapanoCircuit/README.md",
+        "CapanoCircuit/SQL/00_Capano_Core.sql",
+        "CapanoCircuit/SQL/01_Capano_Inheritance.sql",
+        "CapanoCircuit/SQL/02_Capano_UniqueEffects.sql",
+        "CapanoCircuit/SQL/10_Capano_Text.sql",
+        "CapanoCircuit/Lua/CapanoRuntime.lua"
+      ],
+      "role": "Patient combat projects and terrain-trained veterans",
+      "victory": "Domination or Science/Culture from successful development",
+      "plan": "Use strong terrain and support to survive repeated attacks on a worthy target, then convert a genuine four-Beta finish into a SEND. Your economy also needs developed Boulder Sectors; combat rewards are conditional.",
+      "opening": "Scout Hills and Mountain-adjacent land for legal, nonadjacent Boulder Sectors. Protect Route Setters and build a normal mixed army rather than sacrificing early units in an attempt to manufacture a SEND.",
+      "development": "Choose a durable Project that the same attacker can safely revisit. Maintain ranged support, healing and an escape route while building Beta. A weaker initial target or a different target will not deliver the intended qualifying finish.",
+      "finish": "Preserve successful climbers and their permanent techniques. Combine upgraded Sectors and training with carefully chosen assaults; a defended city can be a valuable Project only if the attacker survives long enough to finish it.",
+      "strengths": [
+        "Qualifying SENDs connect combat success to healing, experience and economic rewards.",
+        "Permanent techniques make surviving specialists increasingly useful.",
+        "Boulder Sectors add an independent development and training plan."
+      ],
+      "weaknesses": [
+        "Four-Beta rewards require repeated survival and an initially worthy target.",
+        "Changing the target abandons the existing Project.",
+        "Terrain requirements constrain Sector placement and training access."
+      ],
+      "counterplay": [
+        "Rotate or withdraw a marked defender rather than allowing the same safe attack repeatedly.",
+        "Focus the Project attacker before it can heal through a finish.",
+        "Use fast decisive attacks to deny the patient combat sequence."
+      ],
+      "mistakes": [
+        "Farming weak targets and expecting a qualifying SEND.",
+        "Changing targets just before the fourth-Beta finish.",
+        "Trading away a developed climber for a city that ordinary support could secure."
+      ],
+      "favourable": [
+        [
+          "TrainerRed",
+          "Strong developed partners can be valuable qualifying Projects if Capano can survive the exchanges; isolate them rather than fighting Red's entire support team."
+        ],
+        [
+          "TheLastCity",
+          "A durable city can offer a worthy Project, but this is a conditional siege opportunity rather than permission to attack unsupported."
+        ]
+      ],
+      "unfavourable": [
+        [
+          "MasayaBeyondSky",
+          "Mobile units can leave the Project attacker's reach and exploit a slow, wounded climber."
+        ],
+        [
+          "TheUrgal",
+          "A concentrated attack window can eliminate Project units before their long sequence pays off."
+        ]
+      ],
+      "description_key": "TXT_KEY_CIV_CAPANO_DESC",
+      "short_key": "TXT_KEY_CIV_CAPANO_SHORT_DESC",
+      "leader_name_key": "TXT_KEY_LEADER_ENRICO_CAPANO"
+    },
+    {
+      "folder": "FilthyRealm",
+      "repo": "CoolWackyCivs",
+      "civ": "CIVILIZATION_FILTHY_REALM",
+      "name": "The Filthy Realm",
+      "leader": "LEADER_FILTHY_FRANK",
+      "leader_name": "Filthy Frank",
+      "civ_prefix": "TXT_KEY_CIV5_FILTHY",
+      "civ_pedia": "TXT_KEY_CIV_FILTHY_PEDIA",
+      "leader_prefix": "TXT_KEY_CIVILOPEDIA_LEADERS_FILTHY_FRANK",
+      "leader_pedia": "TXT_KEY_LEADER_FILTHY_FRANK_PEDIA",
+      "sources": [
+        "FilthyRealm/README.md",
+        "FilthyRealm/SQL/00_Filthy_Core.sql",
+        "FilthyRealm/SQL/01_Filthy_Inheritance.sql",
+        "FilthyRealm/SQL/02_Filthy_UniqueEffects.sql",
+        "FilthyRealm/SQL/10_Filthy_Text.sql",
+        "FilthyRealm/Lua/FilthyRuntime.lua"
+      ],
+      "role": "Foreign-city disruption and timed active control",
+      "victory": "Culture with military pressure; Domination as an alternative",
+      "plan": "Maintain foreign contact to build Filth, earn Filthy Points, and spend them where a temporary disruption changes the next battle or construction race. Contact and a usable treasury of points matter more than the size of a single debuff.",
+      "opening": "Develop a normal cultural economy and identify reachable foreign cities. Maintain safe trade and useful contacts without treating contamination as an immediate army replacement. Build points before planning an expensive active ability.",
+      "development": "Keep selected targets connected to your pressure so Filth does not simply decay. Use the panel to check valid targets and cooldowns. Match theft, Distortion or Salamander support to a real local objective.",
+      "finish": "Coordinate It's Time to Stop with your army's position and a decisive turn. Peace Lords and Kitchens strengthen the later loop, but overcommitting to one target can leave your own economy and other fronts exposed.",
+      "strengths": [
+        "Several forms of contact can sustain pressure on important foreign cities.",
+        "A shared ability currency allows economic interference or tactical support.",
+        "Late cultural infrastructure supports both Tourism and point generation."
+      ],
+      "weaknesses": [
+        "Contamination takes time and can decay without continued contact.",
+        "Abilities have real costs, range/eligibility rules and cooldowns.",
+        "Economic penalties and a one-turn shutdown do not replace an army capable of exploiting them."
+      ],
+      "counterplay": [
+        "Reduce avoidable foreign trade exposure and remove hostile units maintaining pressure.",
+        "Force Frank to spend points defensively or divide attention among targets.",
+        "Avoid leaving an entire attack force in range of a single decisive shutdown."
+      ],
+      "mistakes": [
+        "Assuming Filth remains indefinitely after all contact ends.",
+        "Using a costly control ability before friendly units can capitalize.",
+        "Spending points without checking the selected target and cooldown."
+      ],
+      "favourable": [
+        [
+          "SolIntellect",
+          "Yield and Production disruption pressures a civilization that depends on protected construction and research cities."
+        ],
+        [
+          "RomanGladiusNetwork",
+          "Pressure on a major population centre can undermine the growth and Gold needed to maintain a healthy Server network."
+        ]
+      ],
+      "unfavourable": [
+        [
+          "TheUrgal",
+          "An early coordinated attack can arrive before a useful contamination network and point reserve are established."
+        ],
+        [
+          "TheRepublicOfPigeons",
+          "Safe domestic caravans can supply Coo's ability without providing the easy foreign trade connection Frank would prefer; tourism or military contact can still spread Filth."
+        ]
+      ],
+      "description_key": "TXT_KEY_CIV_FILTHY_DESC",
+      "short_key": "TXT_KEY_CIV_FILTHY_SHORT_DESC",
+      "leader_name_key": "TXT_KEY_LEADER_FILTHY_FRANK"
+    },
+    {
+      "folder": "DualOrder",
+      "repo": "CoolWackyCivs",
+      "civ": "CIVILIZATION_DUAL_ORDER",
+      "name": "The Dual Order",
+      "leader": "LEADER_GRANDMASTER_SEVERIN",
+      "leader_name": "Grandmaster Severin",
+      "civ_prefix": "TXT_KEY_CIV5_DUAL_ORDER",
+      "civ_pedia": "TXT_KEY_CIV_DUAL_ORDER_PEDIA",
+      "leader_prefix": "TXT_KEY_CIVILOPEDIA_LEADERS_GRANDMASTER_SEVERIN",
+      "leader_pedia": "TXT_KEY_LEADER_GRANDMASTER_SEVERIN_PEDIA",
+      "sources": [
+        "DualOrder/README.md",
+        "DualOrder/SQL/00_DualOrder_Core.sql",
+        "DualOrder/SQL/01_DualOrder_Inheritance.sql",
+        "DualOrder/SQL/02_DualOrder_UniqueEffects.sql",
+        "DualOrder/SQL/10_DualOrder_Text.sql",
+        "DualOrder/Lua/DualOrderRuntime.lua"
+      ],
+      "role": "Faith-supported military infrastructure and defensive campaigning",
+      "victory": "Domination; Culture/Diplomacy through a strong religious economy",
+      "plan": "Build the religious and military infrastructure that makes trained units durable, retain positive Faith income, and choose conflicts your army can actually manage. Extra wars increase a capped modifier but also create real military liabilities.",
+      "opening": "Establish food, defense and Faith before pursuing multiple commitments. Plan at least one city with both military-training and religious infrastructure so normally trained units receive Zeal.",
+      "development": "Use Halls of Concordance to strengthen training cities. Pair ranged damage with Templar finishing attacks and protect any religious unit providing adjacency support. During Golden Ages, complete useful military production.",
+      "finish": "Hold supply lines and friendly-territory positions while converting production into a coherent army. Keep a realistic peace plan; nominal Balance Pressure is not worth losing cities or your Faith-producing economy.",
+      "strengths": [
+        "Paired infrastructure supports Faith and Production while enabling Zeal.",
+        "Trained veterans retain a useful territorial strength and kill-healing package.",
+        "Golden Ages and Halls create effective military preparation windows."
+      ],
+      "weaknesses": [
+        "The strongest setup requires investment in two infrastructure groups.",
+        "Balance Pressure needs positive Faith income and has a war-count cap.",
+        "Religious support units are vulnerable, and territorial conditions limit some bonuses."
+      ],
+      "counterplay": [
+        "Threaten the Faith and training centres rather than trading endlessly into prepared positions.",
+        "Draw forces away from favourable territory and protect wounded units from Templar finishes.",
+        "Avoid creating extra fronts that benefit Severin without applying meaningful pressure."
+      ],
+      "mistakes": [
+        "Declaring token wars only to raise the pressure indicator.",
+        "Training in a city missing one half of the Zeal requirement.",
+        "Treating a General as a substitute for the Templar's specified religious adjacency."
+      ],
+      "favourable": [
+        [
+          "TheUrgal",
+          "A prepared territorial defense with trained units and kill healing can help absorb the potion window; the attack bonus remains dangerous."
+        ],
+        [
+          "McPvP",
+          "Defended border cities and a functioning production base make flag runs and sustained infiltration more difficult."
+        ]
+      ],
+      "unfavourable": [
+        [
+          "FilthyRealm",
+          "Disruption of Faith-supporting cities, training and movement can break the intended combined-arms timing."
+        ],
+        [
+          "MasayaBeyondSky",
+          "Fast land forces can avoid the main fortified formation and threaten the support and approaches it cannot cover."
+        ]
+      ],
+      "description_key": "TXT_KEY_CIV_DUAL_ORDER_DESC",
+      "short_key": "TXT_KEY_CIV_DUAL_ORDER_SHORT_DESC",
+      "leader_name_key": "TXT_KEY_LEADER_GRANDMASTER_SEVERIN"
+    },
+    {
+      "folder": "RomanGladiusNetwork",
+      "repo": "CoolWackyCivs",
+      "civ": "CIVILIZATION_ROMAN_GLADIUS_NETWORK",
+      "name": "RomanGladius Network",
+      "leader": "LEADER_ROMAN_GLADIUS",
+      "leader_name": "Lachlan \"RomanGladius\"",
+      "civ_prefix": "TXT_KEY_CIV5_ROMAN_GLADIUS",
+      "civ_pedia": "TXT_KEY_CIV_ROMAN_GLADIUS_PEDIA",
+      "leader_prefix": "TXT_KEY_CIVILOPEDIA_LEADERS_ROMAN_GLADIUS",
+      "leader_pedia": "TXT_KEY_LEADER_ROMAN_GLADIUS_PEDIA",
+      "sources": [
+        "RomanGladiusNetwork/README.md",
+        "RomanGladiusNetwork/SQL/00_RomanGladius_Core.sql",
+        "RomanGladiusNetwork/SQL/01_RomanGladius_Inheritance.sql",
+        "RomanGladiusNetwork/SQL/02_RomanGladius_UniqueEffects.sql",
+        "RomanGladiusNetwork/SQL/10_RomanGladius_Text.sql",
+        "RomanGladiusNetwork/Lua/RomanGladiusRuntime.lua"
+      ],
+      "role": "Population management and a stable wide economy",
+      "victory": "Science or Diplomacy; Culture from a mature network",
+      "plan": "Grow Players, keep staffing proportional to population, and maintain Reputation so the economy can reach higher thresholds. Expansion is valuable only when the new Server can pay its launch and management costs.",
+      "opening": "Grow the capital and establish a treasury before ordering another Server Owner. Read its population and Gold costs before committing. Use the free Console and early milestones to support growth rather than assuming normal Settler economics.",
+      "development": "Check staff coverage whenever a city crosses a population threshold. Appoint enough Moderators without overmoderating, use an Administrator where its support justifies upkeep, and resolve incidents before weak Reputation becomes a growth spiral.",
+      "finish": "Protect the largest Servers and keep new cities manageable. Population milestones and accumulated yields can finance conventional research, diplomacy or military production; the dashboard still needs attention during a war.",
+      "strengths": [
+        "Population adds Gold, Science and Culture through several thresholds.",
+        "Healthy Reputation can reinforce growth and income.",
+        "Persistent milestones reward developing the network as a whole."
+      ],
+      "weaknesses": [
+        "Server Owners impose unusual population, Production and launch-Gold costs.",
+        "Understaffing and overstaffing can both damage Reputation.",
+        "Low Reputation can slow growth and lead to departures, weakening the yield engine."
+      ],
+      "counterplay": [
+        "Pressure food tiles and major population centres instead of chasing only peripheral units.",
+        "Force expensive emergency spending when a launch or staffing expansion is planned.",
+        "Take advantage of a troubled Server before its staffing and growth recover."
+      ],
+      "mistakes": [
+        "Applying an ordinary cheap-Settler expansion plan to Server Owners.",
+        "Ignoring the coverage increase after population growth.",
+        "Hiring as many Moderators as possible without checking overmoderation."
+      ],
+      "favourable": [
+        [
+          "KingdomOfSaba",
+          "A safe mature Server network can leverage population scaling beyond Saba's modest site-based additions; the opening must still survive."
+        ],
+        [
+          "TheRepublicOfPigeons",
+          "Population yields continue without a caravan connection, making a low-trade or disrupted-trade environment a relative opportunity."
+        ]
+      ],
+      "unfavourable": [
+        [
+          "FilthyRealm",
+          "Pressure on large economic cities can amplify the practical cost of keeping growth, staffing and income stable."
+        ],
+        [
+          "ViltrumEmpire",
+          "A first conquest of a large, expensive Server is a serious loss and can also feed Viltrum's campaign momentum."
+        ]
+      ],
+      "description_key": "TXT_KEY_CIV_ROMAN_GLADIUS_DESC",
+      "short_key": "TXT_KEY_CIV_ROMAN_GLADIUS_SHORT_DESC",
+      "leader_name_key": "TXT_KEY_LEADER_ROMAN_GLADIUS"
+    },
+    {
+      "folder": "EternalNumberTen",
+      "repo": "CoolWackyCivs",
+      "civ": "CIVILIZATION_ETERNAL_NUMBER_TEN",
+      "name": "Eternal Number Ten",
+      "leader": "LEADER_LIONEL_MESSI",
+      "leader_name": "Lionel Messi",
+      "civ_prefix": "TXT_KEY_CIV5_MESSI",
+      "civ_pedia": "TXT_KEY_CIV_MESSI_PEDIA",
+      "leader_prefix": "TXT_KEY_CIVILOPEDIA_LEADERS_LIONEL_MESSI",
+      "leader_pedia": "TXT_KEY_LEADER_LIONEL_MESSI_PEDIA",
+      "sources": [
+        "EternalNumberTen/README.md",
+        "EternalNumberTen/SQL/00_Messi_Core.sql",
+        "EternalNumberTen/SQL/01_Messi_Inheritance.sql",
+        "EternalNumberTen/SQL/02_Messi_UniqueEffects.sql",
+        "EternalNumberTen/SQL/10_Messi_Text.sql",
+        "EternalNumberTen/Lua/MessiRuntime.lua"
+      ],
+      "role": "Great People, diplomacy and a permanent career progression",
+      "victory": "Culture or Diplomacy; Science through specialists",
+      "plan": "Build a reliable stream of defining achievements and keep the career moving through both Legacy and Era gates. Use formation play to support the economy, rather than making every chapter depend on risky fighting.",
+      "opening": "Establish food and early Culture, explore for contacts, and prepare cities that can support specialists. Choose achievable Great Person and diplomatic milestones; a chapter requiring a later Era cannot be rushed by Legacy alone.",
+      "development": "Use La Masia in genuine specialist cities and keep the Number Ten protected near coordinated land forces. Position the formation before turn start to receive One-Two Football, and take eligible Assists without exposing the support unit.",
+      "finish": "Convert permanent career benefits into Tourism, Great Works and alliances. Bank a coherent route to late chapters instead of pursuing every Wonder. After the final chapter, further Legacy has its own bounded repeat rewards.",
+      "strengths": [
+        "Several peaceful and military achievements contribute to one permanent progression.",
+        "La Masia supports specialists, Great People and local growth.",
+        "Formation bonuses and the Number Ten improve tactical positioning."
+      ],
+      "weaknesses": [
+        "Later chapters need specific Eras as well as sufficient Legacy.",
+        "Great People, Wonders and alliances compete with ordinary economic needs.",
+        "Formation and Assist rewards require real positioning and eligibility."
+      ],
+      "counterplay": [
+        "Contest accessible Wonder and City-State opportunities without feeding easy Assists.",
+        "Use pressure that forces the specialist cities to divert resources into defense.",
+        "Separate the support General from the formation and finish exposed units decisively."
+      ],
+      "mistakes": [
+        "Expecting banked Legacy to bypass an Era gate.",
+        "Leaving the Number Ten exposed because its movement is excellent.",
+        "Treating every nominal kill as an eligible Assist or unlimited reward source."
+      ],
+      "favourable": [
+        [
+          "TheSubstituteClassroom",
+          "Permanent career benefits can support a steady long game through the gaps between Garvey's temporary choices."
+        ],
+        [
+          "TheConicalUnion",
+          "Specialists, alliances and career progression offer a route beyond a contest over flat connection yields, if the empire remains safe."
+        ]
+      ],
+      "unfavourable": [
+        [
+          "ViltrumEmpire",
+          "A decisive city-conquest campaign can dismantle the protected specialist and diplomatic base before the later chapters matter."
+        ],
+        [
+          "FilthyRealm",
+          "Persistent foreign-city disruption makes a concentrated cultural economy and its timing more difficult to protect."
+        ]
+      ],
+      "description_key": "TXT_KEY_CIV_MESSI_DESC",
+      "short_key": "TXT_KEY_CIV_MESSI_SHORT_DESC",
+      "leader_name_key": "TXT_KEY_LEADER_LIONEL_MESSI"
+    },
+    {
+      "folder": "MasayaBeyondSky",
+      "repo": "CoolWackyCivs",
+      "civ": "CIVILIZATION_MASAYA_KID",
+      "name": "Beyond the Sky",
+      "leader": "LEADER_MASAYA_KID",
+      "leader_name": "Masaya Hinata",
+      "civ_prefix": "TXT_KEY_CIV5_MASAYA_KID",
+      "civ_pedia": "TXT_KEY_CIV_MASAYA_KID_PEDIA",
+      "leader_prefix": "TXT_KEY_CIVILOPEDIA_LEADERS_MASAYA_KID",
+      "leader_pedia": "TXT_KEY_LEADER_MASAYA_KID_PEDIA",
+      "sources": [
+        "MasayaBeyondSky/README.md",
+        "MasayaBeyondSky/SQL/00_Masaya_Core.sql",
+        "MasayaBeyondSky/SQL/01_Masaya_Inheritance.sql",
+        "MasayaBeyondSky/SQL/02_Masaya_UniqueEffects.sql",
+        "MasayaBeyondSky/SQL/10_Masaya_Text.sql",
+        "MasayaBeyondSky/Lua/MasayaRuntime.lua"
+      ],
+      "role": "Exploration-driven mobile land warfare",
+      "victory": "Domination; Science or Culture supported by development",
+      "plan": "Earn Joy through productive exploration and survivable combat, then use Beyond the Sky as a planned operational window. The meter rewards activity; it does not make a poorly supported mounted army good at every task.",
+      "opening": "Scout safely and keep a defensive core. Use exploration to build Joy without abandoning improvements and research. Prepare the Horseman timing only if the map and strategic resources support it.",
+      "development": "Use Prodigies to choose fights, reveal approaches and retreat after attacking. Training Rooms contribute infrastructure and Joy, while the first movement window helps new units deploy. Keep siege and ranged support for defended cities.",
+      "finish": "Stage forces and an objective before the meter reaches its burst. Spend the six-turn window on decisive movement and attacks, then plan for the reset to 25 Joy rather than leaving an exhausted offensive unsupported.",
+      "strengths": [
+        "Exploration and combat progression both feed the signature meter.",
+        "Fast Prodigies can select engagements and threaten exposed logistics.",
+        "Beyond the Sky gives a broad land-army mobility and attack window."
+      ],
+      "weaknesses": [
+        "The burst is temporary and is followed by a substantial meter rebuild.",
+        "Prodigies have an explicit city-attack penalty.",
+        "The early mounted plan is still constrained by normal resources, counters and support needs."
+      ],
+      "counterplay": [
+        "Protect caravans and vulnerable support with layered zones and anti-mounted forces.",
+        "Avoid isolated high-experience targets that a Prodigy can exploit.",
+        "Preserve the main defense through the burst, then punish an overextended army after it ends."
+      ],
+      "mistakes": [
+        "Using Prodigies alone to assault strong cities.",
+        "Reaching 100 Joy with the army still travelling or healing.",
+        "Assuming the 50-Joy movement effect applies to every land class."
+      ],
+      "favourable": [
+        [
+          "CapanoCircuit",
+          "Mobility can deny repeated attacks against the same Project and expose wounded climbers."
+        ],
+        [
+          "TheRepublicOfPigeons",
+          "Caravan routes and lightly defended origins are natural targets for a mobile land force."
+        ]
+      ],
+      "unfavourable": [
+        [
+          "KingdomOfTheUnrungBell",
+          "Prepared friendly-land defenders and inherited Pikeman counters make a direct mounted breakthrough expensive."
+        ],
+        [
+          "TheThresholdCourt",
+          "A defended destination can receive an additional melee defender without using the long route Masaya hoped to exploit."
+        ]
+      ],
+      "description_key": "TXT_KEY_CIV_MASAYA_KID_DESC",
+      "short_key": "TXT_KEY_CIV_MASAYA_KID_SHORT_DESC",
+      "leader_name_key": "TXT_KEY_LEADER_MASAYA_KID"
+    },
+    {
+      "folder": "PaulsoaresJr",
+      "repo": "CoolWackyCivs",
+      "civ": "CIVILIZATION_PSJ_FIRST_NIGHT",
+      "name": "The First Night",
+      "leader": "LEADER_PSJ_PAUL",
+      "leader_name": "PaulsoaresJr",
+      "civ_prefix": "TXT_KEY_CIV5_PSJ",
+      "civ_pedia": "TXT_KEY_CIV_PSJ_PEDIA",
+      "leader_prefix": "TXT_KEY_CIVILOPEDIA_LEADERS_PSJ_PAUL",
+      "leader_pedia": "TXT_KEY_LEADER_PSJ_PAUL_PEDIA",
+      "sources": [
+        "PaulsoaresJr/README.md",
+        "PaulsoaresJr/SQL/00_PSJ_Core.sql",
+        "PaulsoaresJr/SQL/01_PSJ_Inheritance.sql",
+        "PaulsoaresJr/SQL/02_PSJ_UniqueEffects.sql",
+        "PaulsoaresJr/SQL/10_PSJ_Text.sql",
+        "PaulsoaresJr/Lua/PSJRuntime.lua"
+      ],
+      "role": "Exploration and early memories with later recall",
+      "victory": "Science or Culture; flexible peaceful development",
+      "plan": "Acquire different Memories early and preserve the exploration units that can safely earn them. The lasting payoff comes from the acquisition Era and later recall, not from repeating the same event.",
+      "opening": "Scout for contact, a safe Barbarian opportunity and distant discoveries while building the first shelter. Improve genuine resource sites and expand when the economy can support it. An early Memory can pay again in several later Eras.",
+      "development": "Check which Memories remain unearned rather than continuing to chase one already recorded. Keep a Survivor's return-home route open and protect its experience; ordinary city infrastructure must carry the economy between recall events.",
+      "finish": "Use accumulated Culture, Science and a developed capital to pursue the chosen victory. Later-era recall is support for a real research or cultural programme, not an endlessly repeatable substitute for it.",
+      "strengths": [
+        "Several ordinary exploration and development actions have early rewards.",
+        "Older Memories become more valuable at later Era transitions.",
+        "Survivors provide an exploration and preservation theme without a required war."
+      ],
+      "weaknesses": [
+        "Each Memory can be earned only once.",
+        "Map access and safe discovery routes affect the opening opportunities.",
+        "There is no general combat-strength engine to protect a careless scout or weak border."
+      ],
+      "counterplay": [
+        "Control important approaches and contested settlement sites without donating easy camp or unit rewards.",
+        "Punish isolated Survivors and cut their safe return paths.",
+        "Pressure the economy between Era transitions rather than allowing uninterrupted peaceful development."
+      ],
+      "mistakes": [
+        "Waiting until later Eras to complete easy early Memories.",
+        "Repeating a trigger and expecting another permanent Memory.",
+        "Sending a veteran far away without a legal, defensible way home."
+      ],
+      "favourable": [
+        [
+          "KingdomOfSaba",
+          "A discovery-rich map gives early opportunities that Saba's location-based city yields do not directly contest."
+        ],
+        [
+          "SolIntellect",
+          "Early exploration rewards can support development while Sol is still investing in uninterrupted construction; this does not guarantee a late research lead."
+        ]
+      ],
+      "unfavourable": [
+        [
+          "LunaNetwork",
+          "Rapid settlement can close routes and claim useful sites before a cautious explorer converts discoveries into expansion."
+        ],
+        [
+          "McPvP",
+          "Mobile recon and objective patrols can threaten isolated exploration units and their routes home."
+        ]
+      ],
+      "description_key": "TXT_KEY_CIV_PSJ_DESC",
+      "short_key": "TXT_KEY_CIV_PSJ_SHORT_DESC",
+      "leader_name_key": "TXT_KEY_LEADER_PSJ_PAUL"
+    },
+    {
+      "folder": "ViltrumEmpire",
+      "repo": "CoolWackyCivs",
+      "civ": "CIVILIZATION_VILTRUM",
+      "name": "Viltrum",
+      "leader": "LEADER_VILTRUM_THRAGG",
+      "leader_name": "Grand Regent Thragg",
+      "civ_prefix": "TXT_KEY_CIV5_VILTRUM",
+      "civ_pedia": "TXT_KEY_VILTRUM_CIV_PEDIA",
+      "leader_prefix": "TXT_KEY_CIVILOPEDIA_LEADERS_VILTRUM",
+      "leader_pedia": "TXT_KEY_VILTRUM_LEADER_PEDIA",
+      "sources": [
+        "ViltrumEmpire/README.md",
+        "ViltrumEmpire/SQL/00_Viltrum_Core.sql",
+        "ViltrumEmpire/SQL/01_Viltrum_Inheritance.sql",
+        "ViltrumEmpire/SQL/02_Viltrum_Effects.sql",
+        "ViltrumEmpire/SQL/10_Viltrum_Text.sql",
+        "ViltrumEmpire/Lua/ViltrumRuntime.lua"
+      ],
+      "role": "Conquest momentum with an unavoidable biological crisis",
+      "victory": "Domination; rebuild before pursuing a conventional fallback",
+      "plan": "Turn first foreign conquests into momentum while preparing a state that can survive the Scourge. The elite Warrior is a timing opportunity and a crisis trigger; reaching its technology is not the end of the campaign's planning.",
+      "opening": "Develop a productive economy, garrisons and a conventional army. Choose early conquests for lasting value, not recapture farming. Growth and Happiness matter because the later biological crisis will damage both population and military capacity.",
+      "development": "Use first-conquest Momentum to support a coherent campaign. Before the Warrior and outbreak timing, build recovery infrastructure, retain conventional Auxiliaries and avoid making every front depend on Bloodline survivors.",
+      "finish": "Choose Quarantine or Crusade with the current army, food, treasury and enemy pressure in mind. Defend the weak survivors, respect the restrictions of the selected phase, and rebuild production before attempting another long offensive.",
+      "strengths": [
+        "First conquests can reinforce military Production and experience.",
+        "Elite Warriors provide powerful late operational tools.",
+        "Garrisons and support infrastructure contribute to occupation and recovery."
+      ],
+      "weaknesses": [
+        "The Scourge is guaranteed and cannot be solved by avoiding one optional panel.",
+        "Both crisis routes impose severe population and economic losses.",
+        "Kills, conquests and returns have attribution and once-per-city limits; they are not free farms."
+      ],
+      "counterplay": [
+        "Avoid feeding a chain of undefended first conquests.",
+        "Prepare pressure for the actual crisis and recovery phase rather than meeting the elite army at its strongest moment.",
+        "Force several defensive commitments when production, population and survivors are weakest."
+      ],
+      "mistakes": [
+        "Assuming the Scourge can be skipped by delaying the first Warrior indefinitely.",
+        "Leaving every defensive duty to Bloodline units.",
+        "Choosing Crusade without enough targets, reserves and safe healing for its survivors."
+      ],
+      "favourable": [
+        [
+          "SolIntellect",
+          "A well-timed conquest can punish expensive, lightly defended research and Wonder cities."
+        ],
+        [
+          "RomanGladiusNetwork",
+          "Large Servers are valuable targets when their owner has invested in population and staffing rather than a unified defense."
+        ]
+      ],
+      "unfavourable": [
+        [
+          "TheUrgal",
+          "A stocked, positioned melee army can exploit the severe Scourge vulnerability window."
+        ],
+        [
+          "TheThresholdCourt",
+          "A maintained House network can reinforce remote cities and make a clean first-conquest chain harder to achieve."
+        ]
+      ],
+      "description_key": "TXT_KEY_VILTRUM_CIV",
+      "short_key": "TXT_KEY_VILTRUM_SHORT",
+      "leader_name_key": "TXT_KEY_VILTRUM_LEADER"
+    },
+    {
+      "folder": "TokenizedIntelligence",
+      "repo": "CoolWackyCivs",
+      "civ": "CIVILIZATION_TOKEN_INTELLIGENCE",
+      "name": "Token Network",
+      "leader": "LEADER_TOKEN_AXIOM",
+      "leader_name": "Axiom, Keeper of Context",
+      "civ_prefix": "TXT_KEY_CIV5_TOKEN",
+      "civ_pedia": "TXT_KEY_TOKEN_CIV_PEDIA",
+      "leader_prefix": "TXT_KEY_CIVILOPEDIA_LEADERS_TOKEN",
+      "leader_pedia": "TXT_KEY_TOKEN_LEADER_PEDIA",
+      "sources": [
+        "TokenizedIntelligence/README.md",
+        "TokenizedIntelligence/SQL/00_Token_Core.sql",
+        "TokenizedIntelligence/SQL/01_Token_Inheritance.sql",
+        "TokenizedIntelligence/SQL/02_Token_Effects.sql",
+        "TokenizedIntelligence/SQL/10_Token_Text.sql",
+        "TokenizedIntelligence/Lua/TokenRuntime.lua"
+      ],
+      "role": "A shared resource economy with selectable tactical and economic tools",
+      "victory": "Science; flexible Culture, Diplomacy or supported Domination",
+      "plan": "Grow Token income and capacity, then buy the effect that matters to the current plan. A large balance is useful only if the selected Prompt, target, persistent slot and saturation cost all fit the next few turns.",
+      "opening": "Support population and productive cities while accumulating a reserve. Use an early instant grant where it advances an important real order, and retain enough resources for an unexpected defense. Instant grants stop short of completing the item or technology.",
+      "development": "Develop specialist cities and Inference infrastructure. Coordinate repeated Prompt types with Cached Responses, but do not refresh an unhelpful effect merely to keep a discount. Persistent target-specific effects still consume the appropriate limited slots.",
+      "finish": "Use higher models and capacity to support a deliberate research, economic or military timing. Check the spending tier before stacking purchases. Clear Context is an emergency reset of balance and effects, not a way to remove saturation.",
+      "strengths": [
+        "One income system can fund several different strategic responses.",
+        "Infrastructure and specialists expand both generation and late capacity.",
+        "Caching and later models can make a coherent repeated plan more efficient."
+      ],
+      "weaknesses": [
+        "Persistent slots and a shared balance limit simultaneous answers.",
+        "Heavy spending reduces subsequent generation through saturation.",
+        "Capacity loss can discard overflow, and Clear Context removes active persistent benefits and cache."
+      ],
+      "counterplay": [
+        "Create threats on several fronts so one budget and a few slots cannot answer everything.",
+        "Bait an expensive response, disengage, and attack while resources or generation are strained.",
+        "Threaten specialist and inference cities that support capacity and income."
+      ],
+      "mistakes": [
+        "Expecting instant Production or research grants to finish the current item themselves.",
+        "Assuming Clear Context removes saturation or per-turn action limits.",
+        "Buying a strong buff too early for its short duration to affect the real battle."
+      ],
+      "favourable": [
+        [
+          "CapanoCircuit",
+          "Paid movement and selectable unit support can help a threatened Project target withdraw or change the terms of an engagement."
+        ],
+        [
+          "TerraFramework",
+          "Prompt choice can respond directly to a current emergency while Terra's strongest local Mode is tied to its construction plan."
+        ]
+      ],
+      "unfavourable": [
+        [
+          "LunaNetwork",
+          "Several expanding production fronts can force competing demands on a single Token reserve."
+        ],
+        [
+          "FilthyRealm",
+          "Economic disruption and a well-timed shutdown can force defensive spending just when saturation makes recovery harder."
+        ]
+      ],
+      "description_key": "TXT_KEY_TOKEN_CIV",
+      "short_key": "TXT_KEY_TOKEN_SHORT",
+      "leader_name_key": "TXT_KEY_TOKEN_LEADER"
+    },
+    {
+      "folder": "TheKingdoms",
+      "repo": "CoolWackyCivs",
+      "civ": "CIVILIZATION_KINGDOMS",
+      "name": "The Kingdoms",
+      "leader": "LEADER_THE_THRONE",
+      "leader_name": "The Throne",
+      "civ_prefix": "TXT_KEY_CIV5_KINGDOMS",
+      "civ_pedia": "TXT_KEY_KINGDOMS_CIV_PEDIA",
+      "leader_prefix": "TXT_KEY_CIVILOPEDIA_LEADERS_KINGDOMS",
+      "leader_pedia": "TXT_KEY_KINGDOMS_LEADER_PEDIA",
+      "sources": [
+        "TheKingdoms/README.md",
+        "TheKingdoms/SQL/00_Kingdoms_Core.sql",
+        "TheKingdoms/SQL/01_Kingdoms_Inheritance.sql",
+        "TheKingdoms/SQL/02_Kingdoms_Effects.sql",
+        "TheKingdoms/SQL/10_Kingdoms_Text.sql",
+        "TheKingdoms/Lua/KingdomsCore.lua"
+      ],
+      "role": "Political stability, controlled expansion and named guards",
+      "victory": "Flexible; Science/Culture from stability or supported Domination",
+      "plan": "Keep local Houses and the succession manageable while building a conventional empire. The Crown's military and economic plans work best when it can meet reasonable demands without empowering every claimant indiscriminately.",
+      "opening": "Develop food, Gold and defensible cities before adding more political obligations. Read House personalities and loyalty. Walls provide useful stability support; retain money for demands rather than committing the whole treasury to expansion.",
+      "development": "Resolve demands using their actual current requirements. Evaluate Estates, Charters and authority choices for their costs and political consequences. Appoint King's Guards deliberately and preserve the useful identities already serving the realm.",
+      "finish": "Enter succession with stable institutions and a viable treasury. If civil war occurs, choose backing consciously and protect the economy through its penalties. Resume a normal victory programme after reunification rather than accepting permanent crisis management.",
+      "strengths": [
+        "Stable institutions and local Walls support a durable realm.",
+        "Named Guards reward careful appointments and veteran preservation.",
+        "House management gives several levers for solving political problems."
+      ],
+      "weaknesses": [
+        "Low Stability can turn succession into a costly civil war.",
+        "Demands and appeasement compete with construction, Gold and military priorities.",
+        "Supporting powerful personalities can create later political liabilities."
+      ],
+      "counterplay": [
+        "Apply economic and military pressure when demands or succession are already stretching the realm.",
+        "Threaten several important cities so Guards and garrisons cannot solve every problem.",
+        "Avoid assuming a civil war creates a new ordinary rival civilization; exploit its actual internal penalties."
+      ],
+      "mistakes": [
+        "Ignoring a feasible demand until its expiry penalty arrives.",
+        "Treating a claimant score as a guaranteed succession probability.",
+        "Expanding or campaigning without money and stability for the next political cycle."
+      ],
+      "favourable": [
+        [
+          "TheUrgal",
+          "A stable realm with Walls and prepared defenders can make the limited potion window harder to convert into city losses."
+        ],
+        [
+          "McPvP",
+          "Maintained border defenses and named military support can contest objective units near city approaches."
+        ]
+      ],
+      "unfavourable": [
+        [
+          "FilthyRealm",
+          "Reduced economic output makes funding demands and maintaining a stable home front harder."
+        ],
+        [
+          "ViltrumEmpire",
+          "Sustained first-conquest pressure can overwhelm a realm already paying for political cohesion."
+        ]
+      ],
+      "description_key": "TXT_KEY_KINGDOMS_CIV",
+      "short_key": "TXT_KEY_KINGDOMS_SHORT",
+      "leader_name_key": "TXT_KEY_KINGDOMS_LEADER"
+    },
+    {
+      "folder": "SolIntellect",
+      "repo": "CoolWackyCivs",
+      "civ": "CIVILIZATION_GPT_SOL",
+      "name": "Sol Intellect",
+      "leader": "LEADER_GPT_SOL",
+      "leader_name": "GPT-5.6 Sol",
+      "civ_prefix": "TXT_KEY_CIV5_SOL",
+      "civ_pedia": "TXT_KEY_SOL_CIV_PEDIA",
+      "leader_prefix": "TXT_KEY_CIVILOPEDIA_LEADERS_GPT_SOL",
+      "leader_pedia": "TXT_KEY_SOL_LEADER_PEDIA",
+      "sources": [
+        "SolIntellect/README.md",
+        "SolIntellect/SQL/00_Sol_Core.sql",
+        "SolIntellect/SQL/01_Sol_Inheritance.sql",
+        "SolIntellect/SQL/02_Sol_Effects.sql",
+        "SolIntellect/SQL/10_Sol_Text.sql",
+        "SolIntellect/Lua/SolRuntime.lua"
+      ],
+      "role": "Tall specialist science and patient construction",
+      "victory": "Science; Culture through a protected Great Person and Wonder economy",
+      "plan": "Commit to useful buildings long enough for Deep Deliberation, develop local Wonder Insight, and work specialists in strong research cities. The civilization rewards safe sustained investment rather than frequent emergency queue changes.",
+      "opening": "Secure food, workable land and an adequate defense before committing to a long build. Choose attainable infrastructure and Wonders. Finishing too quickly for the required streak can still be correct when the building is urgently needed.",
+      "development": "Work specialists after Context Archives are established and place Wonder investment where Insight can remain protected. Keep the active queue head stable when pursuing a Deliberation reward; changing items resets that city's streak.",
+      "finish": "Use mature research cities and Reasoning Institutes to reach the technologies needed for the chosen victory. Keep military technology current and defend Insight cities: capture destroys their accumulated Insight even if they are later recaptured.",
+      "strengths": [
+        "Long qualifying building completions generate additional Science.",
+        "World and National Wonders build a persistent local Insight engine.",
+        "Archives reward several worked specialist types, not only Scientists."
+      ],
+      "weaknesses": [
+        "There is no direct military, expansion, Gold or Happiness protection.",
+        "Queue switches and emergency unit production interrupt the construction streak.",
+        "Insight is local and permanently lost on capture."
+      ],
+      "counterplay": [
+        "Apply credible pressure that forces a queue change before an expensive completion.",
+        "Contest selected Wonders or threaten the city holding the most Insight.",
+        "Use early territorial pressure or a decisive conquest instead of a passive technology race on Sol's preferred terms."
+      ],
+      "mistakes": [
+        "Building an unnecessary item only to preserve a streak.",
+        "Assuming purchases, units or a return to an old queue head retain Deliberation progress.",
+        "Treating a recaptured city as if its previous Insight survived."
+      ],
+      "favourable": [
+        [
+          "KingdomOfTheUnrungBell",
+          "A safe uninterrupted building and specialist programme can exploit a long peaceful research contest; war still removes Sable's economic stacks."
+        ],
+        [
+          "TheLastCity",
+          "A conventional research victory can put pressure on a defender whose signature plan is local survival rather than outward expansion."
+        ]
+      ],
+      "unfavourable": [
+        [
+          "LunaNetwork",
+          "Early expansion and sustained production pressure can deny the safety and space Sol wants."
+        ],
+        [
+          "ViltrumEmpire",
+          "A successful conquest destroys local Insight and removes a heavily invested research centre."
+        ]
+      ],
+      "description_key": "TXT_KEY_SOL_CIV",
+      "short_key": "TXT_KEY_SOL_SHORT",
+      "leader_name_key": "TXT_KEY_SOL_LEADER"
+    },
+    {
+      "folder": "TheShatteredEmpire",
+      "repo": "CoolWackyCivs",
+      "civ": "CIVILIZATION_SHATTERED_EMPIRE",
+      "name": "Shattered Empire",
+      "leader": "LEADER_LAST_EMPEROR",
+      "leader_name": "The Last Emperor",
+      "civ_prefix": "TXT_KEY_CIV5_IMPERIAL",
+      "civ_pedia": "TXT_KEY_IMPERIAL_CIV_PEDIA",
+      "leader_prefix": "TXT_KEY_CIVILOPEDIA_LEADERS_IMPERIAL",
+      "leader_pedia": "TXT_KEY_IMPERIAL_LEADER_PEDIA",
+      "sources": [
+        "TheShatteredEmpire/README.md",
+        "TheShatteredEmpire/SQL/00_Imperial_Core.sql",
+        "TheShatteredEmpire/SQL/01_Imperial_Inheritance.sql",
+        "TheShatteredEmpire/SQL/02_Imperial_Effects.sql",
+        "TheShatteredEmpire/SQL/10_Imperial_Text.sql",
+        "TheShatteredEmpire/Lua/ImperialCore.lua"
+      ],
+      "role": "A strong initial footprint constrained by provincial politics",
+      "victory": "Domination or Science after administrative consolidation",
+      "plan": "Use the starting imperial footprint to establish a lead while preventing Authority and provincial Loyalty from collapsing. Three early settlements are an opportunity to build a connected state, not an exemption from maintenance and garrison costs.",
+      "opening": "Inspect whether the provincial entitlements produced cities or fallback Settlers. Connect and defend the provinces, improve food, and manage the treasury. Keep the starting Authority advantage rather than spending it on avoidable losses.",
+      "development": "Read each Governor's actual factors and demands. Build Palaces and viable connections, match garrisons to vulnerable provinces, and expand within the administration you can sustain. High Ambition is not automatically bad when Loyalty is healthy.",
+      "finish": "Use loyal provinces to support research or a concentrated campaign. During civil war, choose suppression or negotiation according to military and political resources; diplomatic reunification can restore the empire but does not promise the same Authority reward as military success.",
+      "strengths": [
+        "Starting provincial entitlements create early geographic and economic options.",
+        "Governor personalities can specialize local output.",
+        "Imperial management offers both military and negotiated recovery routes."
+      ],
+      "weaknesses": [
+        "Provinces impose maintenance and loyalty-management costs.",
+        "City and capital losses damage Authority.",
+        "Overextension, long wars and neglected demands can turn an early lead into fragmentation."
+      ],
+      "counterplay": [
+        "Target exposed provinces and connections instead of only the main imperial stack.",
+        "Force extended commitments when Loyalty and administration are under strain.",
+        "Exploit a real succession or civil-war weakness rather than assuming three starting cities imply endless early strength."
+      ],
+      "mistakes": [
+        "Leaving a newly created province without improvements, a connection or protection.",
+        "Treating a gifted fallback Settler as an obligation to found an indefensible city immediately.",
+        "Expecting negotiated-only reunification to award the full military Authority bonus."
+      ],
+      "favourable": [
+        [
+          "LunaNetwork",
+          "The initial imperial footprint can contest sites before Luna finishes converting cheap settlement into a defended network."
+        ],
+        [
+          "TheRepublicOfFirstDrafts",
+          "An early organized frontier can pressure Marginalia before a broad institutional economy has matured."
+        ]
+      ],
+      "unfavourable": [
+        [
+          "TheUrgal",
+          "A coordinated attack against exposed provinces can produce Authority losses before reinforcements arrive."
+        ],
+        [
+          "FilthyRealm",
+          "Sustained economic pressure makes the treasury, demands and provincial stability harder to support."
+        ]
+      ],
+      "description_key": "TXT_KEY_IMPERIAL_CIV",
+      "short_key": "TXT_KEY_IMPERIAL_SHORT",
+      "leader_name_key": "TXT_KEY_IMPERIAL_LEADER"
+    },
+    {
+      "folder": "TheLastCity",
+      "repo": "CoolWackyCivs",
+      "civ": "CIVILIZATION_LAST_CITY",
+      "name": "The Last City",
+      "leader": "LEADER_LC_WARDEN",
+      "leader_name": "The Warden",
+      "civ_prefix": "TXT_KEY_CIV5_LC",
+      "civ_pedia": "TXT_KEY_LC_CIV_PEDIA",
+      "leader_prefix": "TXT_KEY_CIVILOPEDIA_LEADERS_LC_WARDEN",
+      "leader_pedia": "TXT_KEY_LC_LEADER_PEDIA",
+      "sources": [
+        "TheLastCity/README.md",
+        "TheLastCity/SQL/00_LC_Core.sql",
+        "TheLastCity/SQL/01_LC_Inheritance.sql",
+        "TheLastCity/SQL/02_LC_Effects.sql",
+        "TheLastCity/SQL/03_LC_Art.sql",
+        "TheLastCity/SQL/10_LC_Text.sql",
+        "TheLastCity/Lua/LastCityCore.lua"
+      ],
+      "role": "One-city survival and siege preparation",
+      "victory": "Humanity Endures survival objective; conventional victory remains separate",
+      "plan": "Keep Last Light fed, housed and defensible through recurring invasions. Refugees, Provisions and Morale are real capacity decisions; the Dawn Initiative is a survival progression rather than an automatic standard Civilization victory.",
+      "opening": "Found a defensible Last Light with useful food and production. Establish the Sanctuary District and a mixed defensive army. Check Housing and Provisions before accepting additional pressure on the population.",
+      "development": "Use the Council to balance refugees, rationing and infrastructure with the invasion schedule. Preserve participating Last Watch veterans, maintain ranged damage and repair capacity, and keep a reserve for a difficult Major Siege.",
+      "finish": "Prepare the documented Dawn Initiative requirements and a viable Final Night defense before spending the resources. After Humanity Endures, use the expanded survival phase deliberately; an ordinary Science or Culture objective still needs its normal requirements.",
+      "strengths": [
+        "Local defensive bonuses reward a compact, well-positioned army.",
+        "Surviving Major Sieges develops the city and eligible veterans.",
+        "A single concentrated economic and defensive plan reduces ordinary expansion logistics."
+      ],
+      "weaknesses": [
+        "Permanent expansion and ordinary conquest are deliberately restricted.",
+        "One city's food, Housing, Provisions and Morale are strategic bottlenecks.",
+        "Success at the custom survival objective does not itself fulfill a normal victory condition."
+      ],
+      "counterplay": [
+        "Pressure the capital's productive tiles and force resource spending before a siege.",
+        "Use ranged support and sustained economic denial rather than feeding units into strong local defenses.",
+        "A conventional research or cultural race can demand a response that pure city defense does not supply."
+      ],
+      "mistakes": [
+        "Accepting refugees without considering capacity and supplies.",
+        "Assuming every newly trained Watch inherits old siege ranks.",
+        "Launching the final challenge as soon as a button is available without a prepared defense."
+      ],
+      "favourable": [
+        [
+          "TheUrgal",
+          "Prepared local defense can make a short attacking potion difficult to convert into a decisive breach."
+        ],
+        [
+          "McPvP",
+          "A compact, closely watched city approach offers fewer poorly monitored objective locations, although one successful objective still matters."
+        ]
+      ],
+      "unfavourable": [
+        [
+          "FilthyRealm",
+          "A city-targeted economic debuff strikes a very large share of the Sanctuary's total economy."
+        ],
+        [
+          "SolIntellect",
+          "A protected research leader can threaten a conventional victory without having to defeat the Sanctuary's strongest defenses."
+        ]
+      ],
+      "description_key": "TXT_KEY_LC_CIV",
+      "short_key": "TXT_KEY_LC_SHORT",
+      "leader_name_key": "TXT_KEY_LC_LEADER"
+    },
+    {
+      "folder": "CristianoRonaldo",
+      "repo": "CoolWackyCivs",
+      "civ": "CIVILIZATION_RELENTLESS_SEVEN",
+      "name": "The Relentless Seven",
+      "leader": "LEADER_CRISTIANO_RONALDO",
+      "leader_name": "Cristiano Ronaldo",
+      "civ_prefix": "TXT_KEY_CIV5_CR7",
+      "civ_pedia": "TXT_KEY_CR7_CIV_PEDIA",
+      "leader_prefix": "TXT_KEY_CIVILOPEDIA_LEADERS_CR7",
+      "leader_pedia": "TXT_KEY_CR7_LEADER_PEDIA",
+      "sources": [
+        "CristianoRonaldo/README.md",
+        "CristianoRonaldo/SQL/00_CR7_Core.sql",
+        "CristianoRonaldo/SQL/01_CR7_Inheritance.sql",
+        "CristianoRonaldo/SQL/02_CR7_Effects.sql",
+        "CristianoRonaldo/SQL/03_CR7_Art.sql",
+        "CristianoRonaldo/SQL/10_CR7_Text.sql",
+        "CristianoRonaldo/Lua/CR7Runtime.lua"
+      ],
+      "role": "Preserved military veterans and a seven-chapter career",
+      "victory": "Domination or Culture; Diplomacy as a secondary route",
+      "plan": "Develop military experience, survive genuine upgrades and earn Ambition through several achievement types. Reinvention rewards a unit's own career; buying an advanced replacement does not recreate the veteran that was lost.",
+      "opening": "Build a real defensive army and Sporting Academies in worthwhile training cities. Fight controlled battles, keep promotion candidates alive, and support ordinary Culture and economic development.",
+      "development": "Save Gold for genuine upgrades and pursue achievable Ambition sources alongside combat. Let ranged units soften targets before valuable finishers attack. Read both chapter progress and the current Reinvention cap before planning around a later unlock.",
+      "finish": "Use upgraded veterans and permanent career benefits for a focused campaign or a stronger cultural economy. Keep the capital and support cities functioning; experience and kill healing are valuable only on units that survive the enemy's full turn.",
+      "strengths": [
+        "Combat XP and genuine upgrades reward long-lived armies.",
+        "Several military and peaceful achievements contribute Ambition.",
+        "Reinvention combines bounded permanent strength with healing on kills."
+      ],
+      "weaknesses": [
+        "Lost veterans cannot be replaced with their accumulated career history.",
+        "Reinvention has a chapter-dependent cap.",
+        "Several rewards require genuine combat, production or birth events rather than arbitrary creation or repeated manipulation."
+      ],
+      "counterplay": [
+        "Focus a valuable veteran to completion instead of spreading damage across heal-on-kill targets.",
+        "Deny easy wounded-unit finishes and force expensive upgrade choices.",
+        "Apply pressure before the later chapters and avoid feeding a long sequence of successful engagements."
+      ],
+      "mistakes": [
+        "Expecting a newly built advanced unit to receive earlier Reinvention tiers.",
+        "Treating every conversion or promotion change as a genuine upgrade.",
+        "Taking a risky extra kill when retreat would preserve an irreplaceable veteran."
+      ],
+      "favourable": [
+        [
+          "CapanoCircuit",
+          "Developed finishers can end an exchange before a climber safely completes its repeated Project attacks."
+        ],
+        [
+          "TheUrgal",
+          "A preserved army can exploit Aftertaste after surviving the potion window; it should not trade unsupported into the full attack bonus."
+        ]
+      ],
+      "unfavourable": [
+        [
+          "T1ZOFGK",
+          "A very long-lived, repeatedly upgraded T1 roster can keep developing beyond Ronaldo's bounded Reinvention strength tiers."
+        ],
+        [
+          "FilthyRealm",
+          "A timed movement/attack shutdown can expose the concentrated veterans that the career depends on preserving."
+        ]
+      ],
+      "description_key": "TXT_KEY_CR7_CIV",
+      "short_key": "TXT_KEY_CR7_CIV",
+      "leader_name_key": "TXT_KEY_CR7_LEADER"
+    },
+    {
+      "folder": "TheBoyWhoTouchedParadise",
+      "repo": "CoolWackyCivs",
+      "civ": "CIVILIZATION_BOY_TOUCHED_PARADISE",
+      "name": "Argentina - The Boy Who Touched Paradise",
+      "leader": "LEADER_PARADISE_MESSI",
+      "leader_name": "Lionel Messi",
+      "civ_prefix": "TXT_KEY_CIV5_PARADISE",
+      "civ_pedia": "TXT_KEY_PARADISE_PEDIA",
+      "leader_prefix": "TXT_KEY_CIVILOPEDIA_LEADERS_PARADISE",
+      "leader_pedia": "TXT_KEY_PARADISE_LEADER_PEDIA",
+      "sources": [
+        "TheBoyWhoTouchedParadise/README.md",
+        "TheBoyWhoTouchedParadise/SQL/00_Paradise_Core.sql",
+        "TheBoyWhoTouchedParadise/SQL/01_Paradise_Inheritance.sql",
+        "TheBoyWhoTouchedParadise/SQL/02_Paradise_Effects.sql",
+        "TheBoyWhoTouchedParadise/SQL/10_Paradise_Text.sql",
+        "TheBoyWhoTouchedParadise/Lua/ParadiseRuntime.lua"
+      ],
+      "role": "Great Person culture, national expectations and recovery",
+      "victory": "Culture; Science or Diplomacy supported by the Journey",
+      "plan": "Build a functioning cultural and Great Person economy while managing Dreams and national expectations. El Diez is support for that economy; the Journey's final fulfillment needs genuine achievements and its own eligibility.",
+      "opening": "Develop food and Culture, protect El Diez, and place his hosting-city benefits where Great Person generation is most useful. Establish normal defenses rather than assuming a returning civilian hero can protect a city.",
+      "development": "Use El Potreros, actual Great Person births, feasible Wonders and diplomatic milestones to earn Dreams. Balance spending with the next Journey requirements. Read the current act and pressure state before delaying a meaningful achievement.",
+      "finish": "Complete the required national recovery and qualifying achievements, then prepare The Last Dance when its technology, Era and Journey gates are met. Fulfillment improves the cultural plan but does not replace normal victory requirements.",
+      "strengths": [
+        "The starting ability supports Great Person generation before the final act.",
+        "El Diez can concentrate inspiration in a selected owned city.",
+        "Several peaceful achievements support Dreams and pressure relief."
+      ],
+      "weaknesses": [
+        "A civilian hero needs safe access and can be unavailable during recovery.",
+        "Journey progress has eligibility and pressure conditions, not just a currency total.",
+        "Purchased or administrative Great Person creation does not count as a genuine generated birth for Dreams."
+      ],
+      "counterplay": [
+        "Pressure the productive cultural cities and force investment away from Great Person plans.",
+        "Contest realistic Wonder and alliance opportunities rather than gifting easy milestones.",
+        "Threaten the hero's route while recognizing that his loss schedules recovery rather than permanent elimination."
+      ],
+      "mistakes": [
+        "Confusing this Journey with the separate Eternal Number Ten's Legacy career.",
+        "Assuming a purchased Great Person earns Dreams as a generated birth.",
+        "Treating El Diez's voluntary deletion as a way to farm recovery rewards."
+      ],
+      "favourable": [
+        [
+          "KingdomOfTheUnrungBell",
+          "A peaceful Great Person and cultural programme can make good use of the time Sable also wants for Quietude."
+        ],
+        [
+          "TheSubstituteClassroom",
+          "Persistent cultural development can exploit gaps between temporary classroom bonuses, provided the defensive windows are respected."
+        ]
+      ],
+      "unfavourable": [
+        [
+          "ViltrumEmpire",
+          "City-loss pressure and a collapsing protected economy make the Journey's achievement plan much harder."
+        ],
+        [
+          "FilthyRealm",
+          "Persistent city disruption can damage the cultural base and delay the milestones needed to manage expectations."
+        ]
+      ],
+      "description_key": "TXT_KEY_PARADISE_CIV",
+      "short_key": "TXT_KEY_PARADISE_SHORT",
+      "leader_name_key": "TXT_KEY_PARADISE_LEADER"
+    }
+  ],
+  "opponents": {
+    "RoulsAscendancy": {
+      "name": "Rou'ls Ascendancy",
+      "repo": "CoolWackyCivs",
+      "folder": "RoulsAscendancy",
+      "civ": "CIVILIZATION_ROULS_ASCENDANCY"
+    },
+    "LunaNetwork": {
+      "name": "Luna Network",
+      "repo": "CoolWackyCivs",
+      "folder": "LunaNetwork",
+      "civ": "CIVILIZATION_GPT_LUNA"
+    },
+    "TerraFramework": {
+      "name": "Terra",
+      "repo": "CoolWackyCivs",
+      "folder": "TerraFramework",
+      "civ": "CIVILIZATION_GPT_TERRA"
+    },
+    "CapanoCircuit": {
+      "name": "The Capano Circuit",
+      "repo": "CoolWackyCivs",
+      "folder": "CapanoCircuit",
+      "civ": "CIVILIZATION_CAPANO_CIRCUIT"
+    },
+    "FilthyRealm": {
+      "name": "The Filthy Realm",
+      "repo": "CoolWackyCivs",
+      "folder": "FilthyRealm",
+      "civ": "CIVILIZATION_FILTHY_REALM"
+    },
+    "DualOrder": {
+      "name": "The Dual Order",
+      "repo": "CoolWackyCivs",
+      "folder": "DualOrder",
+      "civ": "CIVILIZATION_DUAL_ORDER"
+    },
+    "RomanGladiusNetwork": {
+      "name": "RomanGladius Network",
+      "repo": "CoolWackyCivs",
+      "folder": "RomanGladiusNetwork",
+      "civ": "CIVILIZATION_ROMAN_GLADIUS_NETWORK"
+    },
+    "EternalNumberTen": {
+      "name": "Eternal Number Ten",
+      "repo": "CoolWackyCivs",
+      "folder": "EternalNumberTen",
+      "civ": "CIVILIZATION_ETERNAL_NUMBER_TEN"
+    },
+    "MasayaBeyondSky": {
+      "name": "Beyond the Sky",
+      "repo": "CoolWackyCivs",
+      "folder": "MasayaBeyondSky",
+      "civ": "CIVILIZATION_MASAYA_KID"
+    },
+    "PaulsoaresJr": {
+      "name": "The First Night",
+      "repo": "CoolWackyCivs",
+      "folder": "PaulsoaresJr",
+      "civ": "CIVILIZATION_PSJ_FIRST_NIGHT"
+    },
+    "ViltrumEmpire": {
+      "name": "Viltrum",
+      "repo": "CoolWackyCivs",
+      "folder": "ViltrumEmpire",
+      "civ": "CIVILIZATION_VILTRUM"
+    },
+    "TokenizedIntelligence": {
+      "name": "Token Network",
+      "repo": "CoolWackyCivs",
+      "folder": "TokenizedIntelligence",
+      "civ": "CIVILIZATION_TOKEN_INTELLIGENCE"
+    },
+    "TheKingdoms": {
+      "name": "The Kingdoms",
+      "repo": "CoolWackyCivs",
+      "folder": "TheKingdoms",
+      "civ": "CIVILIZATION_KINGDOMS"
+    },
+    "SolIntellect": {
+      "name": "Sol Intellect",
+      "repo": "CoolWackyCivs",
+      "folder": "SolIntellect",
+      "civ": "CIVILIZATION_GPT_SOL"
+    },
+    "TheShatteredEmpire": {
+      "name": "Shattered Empire",
+      "repo": "CoolWackyCivs",
+      "folder": "TheShatteredEmpire",
+      "civ": "CIVILIZATION_SHATTERED_EMPIRE"
+    },
+    "TheLastCity": {
+      "name": "The Last City",
+      "repo": "CoolWackyCivs",
+      "folder": "TheLastCity",
+      "civ": "CIVILIZATION_LAST_CITY"
+    },
+    "CristianoRonaldo": {
+      "name": "The Relentless Seven",
+      "repo": "CoolWackyCivs",
+      "folder": "CristianoRonaldo",
+      "civ": "CIVILIZATION_RELENTLESS_SEVEN"
+    },
+    "TheBoyWhoTouchedParadise": {
+      "name": "Argentina - The Boy Who Touched Paradise",
+      "repo": "CoolWackyCivs",
+      "folder": "TheBoyWhoTouchedParadise",
+      "civ": "CIVILIZATION_BOY_TOUCHED_PARADISE"
+    },
+    "TheBoundlessCity": {
+      "name": "The Boundless City",
+      "repo": "CoolWackyCivs2",
+      "folder": "TheBoundlessCity",
+      "civ": "CIVILIZATION_BOUNDLESS_CITY"
+    },
+    "TheRepublicOfPigeons": {
+      "name": "Pigeon Republic",
+      "repo": "CoolWackyCivs2",
+      "folder": "TheRepublicOfPigeons",
+      "civ": "CIVILIZATION_PIGEON_REPUBLIC"
+    },
+    "TrainerRed": {
+      "name": "Indigo Champion",
+      "repo": "CoolWackyCivs2",
+      "folder": "TrainerRed",
+      "civ": "CIVILIZATION_RED_INDIGO_CHAMPION"
+    },
+    "McPvP": {
+      "name": "McPvP",
+      "repo": "CoolWackyCivs2",
+      "folder": "McPvP",
+      "civ": "CIVILIZATION_MCPVP"
+    },
+    "TheChildrenOfTheKingdom": {
+      "name": "Children of the Kingdom",
+      "repo": "CoolWackyCivs2",
+      "folder": "TheChildrenOfTheKingdom",
+      "civ": "CIVILIZATION_CK_KINGDOM"
+    },
+    "TheTwelfthHour": {
+      "name": "The Twelfth Hour",
+      "repo": "CoolWackyCivs2",
+      "folder": "TheTwelfthHour",
+      "civ": "CIVILIZATION_TWELFTH_HOUR"
+    },
+    "TheWanderingCircus": {
+      "name": "The Wandering Circus",
+      "repo": "CoolWackyCivs2",
+      "folder": "TheWanderingCircus",
+      "civ": "CIVILIZATION_WCIRCUS"
+    },
+    "The11Cats": {
+      "name": "The 11 Cats",
+      "repo": "CoolWackyCivs2",
+      "folder": "The11Cats",
+      "civ": "CIVILIZATION_THE11CATS"
+    },
+    "KingdomOfSaba": {
+      "name": "Saba",
+      "repo": "CoolWackyCivs2",
+      "folder": "KingdomOfSaba",
+      "civ": "CIVILIZATION_SABA"
+    },
+    "TheSubstituteClassroom": {
+      "name": "Substitute Classroom",
+      "repo": "CoolWackyCivs2",
+      "folder": "TheSubstituteClassroom",
+      "civ": "CIVILIZATION_GARVEY_CLASSROOM"
+    },
+    "TheConicalUnion": {
+      "name": "The Conical Union",
+      "repo": "CoolWackyCivs2",
+      "folder": "TheConicalUnion",
+      "civ": "CIVILIZATION_CONICAL_UNION"
+    },
+    "KingdomOfTheUnrungBell": {
+      "name": "Unrung Bell",
+      "repo": "CoolWackyCivs2",
+      "folder": "KingdomOfTheUnrungBell",
+      "civ": "CIVILIZATION_UNRUNG_BELL"
+    },
+    "TheUrgal": {
+      "name": "The Urgal",
+      "repo": "CoolWackyCivs2",
+      "folder": "TheUrgal",
+      "civ": "CIVILIZATION_URGAL"
+    },
+    "JinDynasty": {
+      "name": "Jin",
+      "repo": "CoolWackyCivs2",
+      "folder": "JinDynasty",
+      "civ": "CIVILIZATION_JIN_DYNASTY"
+    },
+    "TheThresholdCourt": {
+      "name": "The Threshold Court",
+      "repo": "CoolWackyCivs2",
+      "folder": "TheThresholdCourt",
+      "civ": "CIVILIZATION_THRESHOLD_COURT"
+    },
+    "TheHoneycombCommonwealth": {
+      "name": "Honeycomb Commonwealth",
+      "repo": "CoolWackyCivs2",
+      "folder": "TheHoneycombCommonwealth",
+      "civ": "CIVILIZATION_HCC_COMMONWEALTH"
+    },
+    "TheLaureateCommonwealth": {
+      "name": "Laureate Commonwealth",
+      "repo": "CoolWackyCivs2",
+      "folder": "TheLaureateCommonwealth",
+      "civ": "CIVILIZATION_LAUREATE_COMMONWEALTH"
+    },
+    "T1ZOFGK": {
+      "name": "T1",
+      "repo": "CoolWackyCivs2",
+      "folder": "T1ZOFGK",
+      "civ": "CIVILIZATION_T1Z_ZOFGK"
+    },
+    "TheRepublicOfFirstDrafts": {
+      "name": "The Republic of First Drafts",
+      "repo": "CoolWackyCivs2",
+      "folder": "TheRepublicOfFirstDrafts",
+      "civ": "CIVILIZATION_RFD_REPUBLIC"
+    },
+    "TheLanternFleet": {
+      "name": "The Lantern Fleet",
+      "repo": "CoolWackyCivs2",
+      "folder": "TheLanternFleet",
+      "civ": "CIVILIZATION_LANTERN_FLEET"
+    }
+  }
+}

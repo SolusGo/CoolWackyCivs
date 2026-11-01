@@ -1,5 +1,7 @@
 # The RomanGladius Network
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/RomanGladiusNetwork.md).
+
 **CIVILIZATION FIELD GUIDE** · [Cool Wacky Civs](../README.md) · Brave New World + Community Patch
 
 > *One more Player. One healthier Server. One Network worth returning to.*

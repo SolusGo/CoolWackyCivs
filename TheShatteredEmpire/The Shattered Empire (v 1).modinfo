@@ -70,6 +70,7 @@
     <File md5="4E828C7DEDF65650B0BFC479958DB098" import="0">SQL/01_Imperial_Inheritance.sql</File>
     <File md5="FCB8A09D699D744C45DF2F9B1227C360" import="0">SQL/02_Imperial_Effects.sql</File>
     <File md5="2E2E24C8C87BC7CE13FE41FFA6F62DBF" import="0">SQL/10_Imperial_Text.sql</File>
+    <File md5="8DB53A17F51E986D595198E82D2E8B6D" import="0">SQL/90_PlayerGuide.sql</File>
     <File md5="83545454C75D5E3D0818B0C5D305959B" import="1">UI/ImperialAdministration.lua</File>
     <File md5="0DF2D566C6F22AACCD4B2404E710C26B" import="0">UI/ImperialAdministration.xml</File>
     <File md5="8DC1A741828BB08067C42800F474479A" import="1">Shared/UI/CWC_Screen.lua</File>
@@ -80,6 +81,7 @@
       <UpdateDatabase>SQL/01_Imperial_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>SQL/02_Imperial_Effects.sql</UpdateDatabase>
       <UpdateDatabase>SQL/10_Imperial_Text.sql</UpdateDatabase>
+      <UpdateDatabase>SQL/90_PlayerGuide.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>

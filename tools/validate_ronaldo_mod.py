@@ -94,7 +94,8 @@ def packaging():
             path=source_file(base,f.text)
             assert hashlib.md5(path.read_bytes()).hexdigest().upper()==f.attrib['md5'],path
             assert f.attrib['import']==str(int(path.suffix!='.sql' and path.name!='CR7Career.xml')),path
-        assert [p.text for p in root.findall('Actions/OnModActivated/UpdateDatabase') if 'CR7_' in p.text]==[
+        sql_prefix='CristianoRonaldo/SQL/' if root is collection else 'SQL/'
+        assert [p.text for p in root.findall('Actions/OnModActivated/UpdateDatabase') if p.text.startswith(sql_prefix)]==[
             ('CristianoRonaldo/' if root is collection else '')+'SQL/'+p.name for p in sorted((R/'CristianoRonaldo/SQL').glob('*.sql'))]
         entries=[e.attrib['file'] for e in root.findall('EntryPoints/EntryPoint')]
         prefix='CristianoRonaldo/' if root is collection else ''

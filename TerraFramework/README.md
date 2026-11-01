@@ -1,5 +1,7 @@
 # The Terra Framework
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TerraFramework.md).
+
 **CIVILIZATION FIELD GUIDE** · [Cool Wacky Civs](../README.md) · Brave New World + Community Patch
 
 > *Let each city become what the next ten turns need.*

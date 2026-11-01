@@ -91,6 +91,7 @@
     <File md5="4E7BAFF5DC6ECE45365C516EED60CCA5" import="0">SQL/02_LC_Effects.sql</File>
     <File md5="7A831776F35615A1483CB2A3F632A2EA" import="0">SQL/03_LC_Art.sql</File>
     <File md5="ABAD8A58EEE4ABAAC7745ED02F3CF754" import="0">SQL/10_LC_Text.sql</File>
+    <File md5="1E7CEEE5AC19B901A6E8A4EA0307EC44" import="0">SQL/90_PlayerGuide.sql</File>
     <File md5="7C3019B5ED3D4DA76DA884F13CFDA594" import="1">UI/SanctuaryCouncil.lua</File>
     <File md5="294E396EE91F28D13451AE91BB04B2A9" import="0">UI/SanctuaryCouncil.xml</File>
     <File md5="8DC1A741828BB08067C42800F474479A" import="1">Shared/UI/CWC_Screen.lua</File>
@@ -102,6 +103,7 @@
       <UpdateDatabase>SQL/02_LC_Effects.sql</UpdateDatabase>
       <UpdateDatabase>SQL/03_LC_Art.sql</UpdateDatabase>
       <UpdateDatabase>SQL/10_LC_Text.sql</UpdateDatabase>
+      <UpdateDatabase>SQL/90_PlayerGuide.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>

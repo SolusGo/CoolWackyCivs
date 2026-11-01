@@ -1,5 +1,7 @@
 # The Luna Network
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/LunaNetwork.md).
+
 **CIVILIZATION FIELD GUIDE** · [Cool Wacky Civs](../README.md) · Brave New World + Community Patch
 
 > *Build the next city. Finish the next order. Arrive before the moment passes.*

@@ -1,5 +1,7 @@
 # The Last City — Humanity's Final Refuge
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheLastCity.md).
+
 **Leader:** The Warden · **Capital:** Last Light · **UA:** The Final Sanctuary
 
 “When the world fell, one city refused to die.”
@@ -14,7 +16,7 @@ Requires Civilization V: Brave New World and `(1) Community Patch` mod version 1
 
 Choose **one** installation:
 
-- Collection: build `python tools/build_mod.py`, then install `dist/Cool Wacky Civs (v 23).civ5mod`, or extract the ZIP into your Civ V `MODS` directory.
+- Collection: build `python tools/build_mod.py`, then install `dist/Cool Wacky Civs (v 28).civ5mod`, or extract the ZIP into your Civ V `MODS` directory.
 - Standalone: build `python tools/build_lastcity_mod.py`, then install `dist/The Last City (v 1).civ5mod`, or extract its ZIP into `MODS`.
 - Pure files: copy this directory, including `The Last City (v 1).modinfo`, into `MODS`. No ModBuddy is required.
 

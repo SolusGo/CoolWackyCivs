@@ -1,42 +1,39 @@
 # Cool Wacky Civs
 
-Cool Wacky Civs is one Civilization V: Brave New World mod containing eighteen civilizations built for the Community Patch. The collection has one ModBuddy solution, one project and one combined deployable package; each civilization keeps its own gameplay and implementation README. The Kingdoms, The Shattered Empire, The Last City and The Relentless Seven also include pure-file standalone builds.
+18 human-only civilizations for Civilization V: Brave New World and Windows **Community Patch v151**. One collection package, with separate pure-file options for The Kingdoms, The Shattered Empire, The Last City and The Relentless Seven.
 
-Collection v27 refreshes all thirteen custom interfaces and repairs screen-disappearance recovery. [UI refresh and previews](docs/UIRefresh.md).
+**Current source:** mod version 28 - **Civilopedia and strategy handbook**. [Patch notes](PATCHNOTES.md)
 
-Collection v26 gives every custom leader, civilization and unit/building icon consistent gold framing and centred padding. See the [icon build notes](docs/IconConsistency.md) for dimensions, reproducible atlas masters and verification.
+**Start here:** [Choose a playstyle](docs/StrategyGuide.md) · [Who pressures whom](docs/Matchups.md) · [Installation and builds](#build-and-validation)
 
-## Civilizations
+Every guide includes opening priorities, development, late-game conversion, pros, cons, mistakes, counterplay and four named matchup examples. The in-game civilization and leader Civilopedia pages show practical guidance before their preserved lore.
 
-- [The Boy Who Touched Paradise](TheBoyWhoTouchedParadise/README.md) — a separate Lionel Messi civilization whose Dreams, Moments of Magic, national expectation and recovery lead through three acts to an illustrated Final Peak. El Diez inspires cities throughout the journey. Human playable only; Eternal Number Ten remains independent.
+Named custom-civ matchups are conditional theorycraft or scenario comparisons, not tested win rates. All custom civs are human-only, and multiplayer/hotseat are unsupported. General counterplay advice still applies against normal single-player opponents.
 
-Collection v24 adds Paradise with 39 finished DDS textures, an event-driven Journey, a real National Wonder and focused lifecycle tests. Start a new game to select the new civilization.
+## Civilization roster
 
-Collection v25 applies the [Paradise stability audit](TheBoyWhoTouchedParadise/docs/Audit.md): popup/modal recovery, an explicit City-State interaction hook and early duplicate GP-birth protection. Balance, narrative and artwork are preserved. Existing `PARADISE_v1` state is retained without migration; live engine save loading remains on the audit checklist.
+| Civilization | Leader | Playstyle | Guide |
+| --- | --- | --- | --- |
+| Rou'ls Ascendancy | Trent Rou'ls, the Unbodied | Veteran attrition and positional warfare | [Strategy](docs/strategy/RoulsAscendancy.md) · [Full rules](RoulsAscendancy/README.md) |
+| Luna Network | GPT-5.6 Luna | Wide expansion and construction tempo | [Strategy](docs/strategy/LunaNetwork.md) · [Full rules](LunaNetwork/README.md) |
+| Terra | GPT-5.6 Terra | Planned city specialization and terrain-aware infantry | [Strategy](docs/strategy/TerraFramework.md) · [Full rules](TerraFramework/README.md) |
+| The Capano Circuit | Enrico Capano | Patient combat projects and terrain-trained veterans | [Strategy](docs/strategy/CapanoCircuit.md) · [Full rules](CapanoCircuit/README.md) |
+| The Filthy Realm | Filthy Frank | Foreign-city disruption and timed active control | [Strategy](docs/strategy/FilthyRealm.md) · [Full rules](FilthyRealm/README.md) |
+| The Dual Order | Grandmaster Severin | Faith-supported military infrastructure and defensive campaigning | [Strategy](docs/strategy/DualOrder.md) · [Full rules](DualOrder/README.md) |
+| RomanGladius Network | Lachlan "RomanGladius" | Population management and a stable wide economy | [Strategy](docs/strategy/RomanGladiusNetwork.md) · [Full rules](RomanGladiusNetwork/README.md) |
+| Eternal Number Ten | Lionel Messi | Great People, diplomacy and a permanent career progression | [Strategy](docs/strategy/EternalNumberTen.md) · [Full rules](EternalNumberTen/README.md) |
+| Beyond the Sky | Masaya Hinata | Exploration-driven mobile land warfare | [Strategy](docs/strategy/MasayaBeyondSky.md) · [Full rules](MasayaBeyondSky/README.md) |
+| The First Night | PaulsoaresJr | Exploration and early memories with later recall | [Strategy](docs/strategy/PaulsoaresJr.md) · [Full rules](PaulsoaresJr/README.md) |
+| Viltrum | Grand Regent Thragg | Conquest momentum with an unavoidable biological crisis | [Strategy](docs/strategy/ViltrumEmpire.md) · [Full rules](ViltrumEmpire/README.md) |
+| Token Network | Axiom, Keeper of Context | A shared resource economy with selectable tactical and economic tools | [Strategy](docs/strategy/TokenizedIntelligence.md) · [Full rules](TokenizedIntelligence/README.md) |
+| The Kingdoms | The Throne | Political stability, controlled expansion and named guards | [Strategy](docs/strategy/TheKingdoms.md) · [Full rules](TheKingdoms/README.md) |
+| Sol Intellect | GPT-5.6 Sol | Tall specialist science and patient construction | [Strategy](docs/strategy/SolIntellect.md) · [Full rules](SolIntellect/README.md) |
+| Shattered Empire | The Last Emperor | A strong initial footprint constrained by provincial politics | [Strategy](docs/strategy/TheShatteredEmpire.md) · [Full rules](TheShatteredEmpire/README.md) |
+| The Last City | The Warden | One-city survival and siege preparation | [Strategy](docs/strategy/TheLastCity.md) · [Full rules](TheLastCity/README.md) |
+| The Relentless Seven | Cristiano Ronaldo | Preserved military veterans and a seven-chapter career | [Strategy](docs/strategy/CristianoRonaldo.md) · [Full rules](CristianoRonaldo/README.md) |
+| The Boy Who Touched Paradise | Lionel Messi | Great Person culture, national expectations and recovery | [Strategy](docs/strategy/TheBoyWhoTouchedParadise.md) · [Full rules](TheBoyWhoTouchedParadise/README.md) |
 
-- [The Relentless Seven](CristianoRonaldo/README.md) — Cristiano Ronaldo earns Ambition through training and worthy victories, unlocking seven Career Chapters while surviving veterans reinvent themselves through upgrades. Player playable only.
-
-Collection v23 includes the [Ronaldo technical audit](CristianoRonaldo/docs/Audit.md): combat/upgrade/GP fixes, separate Dawn artwork, preserved saves and balance, and expanded regression tests. Ronaldo remains player-only.
-- [The Rou'ls Ascendancy](RoulsAscendancy/README.md) — Trent Rou'ls preserves experienced forces through Anima, reconstruction, and strategic body exchange.
-- [The Luna Network](LunaNetwork/README.md) — GPT-5.6 Luna chains construction refunds, expands with Packet Settlers, and rapidly deploys newly trained forces.
-- [The Terra Framework](TerraFramework/README.md) — GPT-5.6 Terra temporarily specializes cities, supports outgoing trade, and reconfigures Operatives for their terrain.
-- [The Capano Circuit](CapanoCircuit/README.md) — Enrico Capano sets Boulder Sectors, projects difficult targets, and turns four failed attempts into a rewarding SEND.
-- [The Filthy Realm](FilthyRealm/README.md) — Filthy Frank contaminates foreign cities, converts disruption into Filthy Points, and spends them on four active abilities.
-- [The Dual Order](DualOrder/README.md) — Grandmaster Severin balances Faith and military infrastructure, converts active wars into capped Balance Pressure, and fields Divided Templars.
-- [The RomanGladius Network](RomanGladiusNetwork/README.md) — Lachlan grows Cities as multiplayer Servers, appoints staff, protects Reputation, resolves community incidents, and turns Players into Gold, Science, and Culture.
-- [The Eternal Number Ten](EternalNumberTen/README.md) — Lionel Messi builds a persistent Legacy through Great People, Wonders, diplomacy, and coordinated Assists, unlocking six permanent Career Chapters from Rosario to immortality.
-- [The Boy Beyond the Sky](MasayaBeyondSky/README.md) — child Masaya Hinata builds Joy of Flight through exploration, combat participation, promotions, and joyful practice before launching six-turn Beyond the Sky bursts.
-- [The First Night](PaulsoaresJr/README.md) — PaulsoaresJr guides curious Survivors through first experiences whose permanent Memories become more precious as eras pass.
-- [The Viltrum Empire](ViltrumEmpire/README.md) — Grand Regent Thragg conquers through Imperial Momentum and elite Viltrumites before a guaranteed Scourge forces quarantine or a desperate crusade.
-- [The Tokenized Intelligence](TokenizedIntelligence/README.md) — Axiom, Keeper of Context, spends finite Tokens on cached Prompts, manages congestion, and grows its Context Window through eras and inference infrastructure.
-- [The Sol Intellect](SolIntellect/README.md) — GPT-5.6 Sol turns uninterrupted construction into Science, develops permanent Wonder Insight, and rewards specialists through Context Archives and Reasoning Institutes.
-- [The Kingdoms](TheKingdoms/README.md) — generated kings and queens rule persistent noble Houses, face demands and civil wars, and appoint seven named King's Guards.
-- [The Shattered Empire](TheShatteredEmpire/README.md) — The Last Emperor governs three starting cities, procedural Governors, provincial Loyalty, military Oaths, geographic civil wars, succession and Imperial Restoration. Starting provinces handle normal fog safely; civil wars distinguish military victories from negotiated reunification.
-- [The Last City](TheLastCity/README.md) — The Warden protects Last Light through refugees, Provisions, rationing, Housing, Morale, escalating sieges and the Dawn Initiative, managed through the Sanctuary Council.
-
-Token hardening in version 17 preserves version 16 Token save keys. Clear Context restores Tokens and clears persistent Prompts/cache while Compute Saturation expires naturally; weaker saturation cannot prolong a stronger tier.
-
-All eighteen civilizations are installed and enabled together. All eighteen are human-only (`Playable = 1`, `AIPlayable = 0`): humans can select them, but AI players cannot. This includes The Kingdoms, The Sol Intellect, The Shattered Empire, The Last City, The Relentless Seven and The Boy Who Touched Paradise. The collection supports single-player games; multiplayer and hotseat remain disabled pending synchronization testing.
+All 18 have `Playable=1`, `AIPlayable=0`. Native gameplay, rendering and save acceptance remain incomplete; the full rules and testing records distinguish implemented mechanics from outstanding engine checks.
 
 ## UA, UU and UB roster
 

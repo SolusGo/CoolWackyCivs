@@ -74,6 +74,7 @@
     <File md5="9BE999D05113F0FC1255CE36FF5639F5" import="0">SQL/01_Kingdoms_Inheritance.sql</File>
     <File md5="D141DB0C3E990C318A3724ABE8AF066F" import="0">SQL/02_Kingdoms_Effects.sql</File>
     <File md5="C7209159E7956DD52590C204A8D3C343" import="0">SQL/10_Kingdoms_Text.sql</File>
+    <File md5="0A43F8D223D6D42CA6A34DFAC0EF466A" import="0">SQL/90_PlayerGuide.sql</File>
     <File md5="ABDF00F4721514C4EB9C586D51D75AD1" import="1">UI/KingdomsOverview.lua</File>
     <File md5="C868A232B6325FEA7AFD5B9FDA3072D6" import="0">UI/KingdomsOverview.xml</File>
     <File md5="8DC1A741828BB08067C42800F474479A" import="1">Shared/UI/CWC_Screen.lua</File>
@@ -84,6 +85,7 @@
       <UpdateDatabase>SQL/01_Kingdoms_Inheritance.sql</UpdateDatabase>
       <UpdateDatabase>SQL/02_Kingdoms_Effects.sql</UpdateDatabase>
       <UpdateDatabase>SQL/10_Kingdoms_Text.sql</UpdateDatabase>
+      <UpdateDatabase>SQL/90_PlayerGuide.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>

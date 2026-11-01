@@ -1,5 +1,7 @@
 # The Tokenized Intelligence
 
+**Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TokenizedIntelligence.md).
+
 **CIVILIZATION FIELD GUIDE** · [Cool Wacky Civs](../README.md) · Brave New World + Community Patch
 
 > *Attention is finite. A well-timed answer can change an empire.*
