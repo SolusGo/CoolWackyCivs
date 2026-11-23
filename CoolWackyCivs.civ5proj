@@ -450,6 +450,11 @@
         <Type>UpdateDatabase</Type>
         <FileName>TheBoyWhoTouchedParadise/SQL/90_PlayerGuide.sql</FileName>
       </Action>
+      <Action>
+        <Set>OnModActivated</Set>
+        <Type>UpdateDatabase</Type>
+        <FileName>Shared/SQL/90_OriginalPresentation.sql</FileName>
+      </Action>
     </ModActions>
     <ModContent>
       <Content>
@@ -599,6 +604,69 @@
     <OutputPath>.</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Shared/SQL/90_OriginalPresentation.sql">
+      <ImportIntoVFS>False</ImportIntoVFS>
+    </Content>
+    <Content Include="RoulsAscendancy/Art/RoulsUniqueObjects256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RoulsAscendancy/Art/RoulsUniqueObjects128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RoulsAscendancy/Art/RoulsUniqueObjects80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RoulsAscendancy/Art/RoulsUniqueObjects64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RoulsAscendancy/Art/RoulsUniqueObjects48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RoulsAscendancy/Art/RoulsUniqueObjects45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RoulsAscendancy/Art/RoulsUniqueObjects32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RoulsAscendancy/Art/RoulsUniqueObjects24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RoulsAscendancy/Art/RoulsUniqueObjects16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="RoulsAscendancy/Art/RoulsMap.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="LunaNetwork/Art/LunaUniqueObjects256.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="LunaNetwork/Art/LunaUniqueObjects128.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="LunaNetwork/Art/LunaUniqueObjects80.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="LunaNetwork/Art/LunaUniqueObjects64.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="LunaNetwork/Art/LunaUniqueObjects48.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="LunaNetwork/Art/LunaUniqueObjects45.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="LunaNetwork/Art/LunaUniqueObjects32.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="LunaNetwork/Art/LunaUniqueObjects24.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="LunaNetwork/Art/LunaUniqueObjects16.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
+    <Content Include="LunaNetwork/Art/LunaMap.dds">
+      <ImportIntoVFS>True</ImportIntoVFS>
+    </Content>
     <Content Include="PaulsoaresJr/Art/PSJAlpha128.dds">
       <ImportIntoVFS>True</ImportIntoVFS>
     </Content>

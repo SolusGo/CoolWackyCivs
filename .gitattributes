@@ -29,3 +29,4 @@ TokenizedIntelligence/UI/TokenPanel.lua text eol=lf
 # Keep the cinematic XML and Lua package hashes stable across checkouts.
 TheBoyWhoTouchedParadise/UI/ParadiseJourney.lua text eol=lf
 TheBoyWhoTouchedParadise/UI/ParadiseJourney.xml text eol=lf
+Shared/SQL/90_OriginalPresentation.sql text eol=lf

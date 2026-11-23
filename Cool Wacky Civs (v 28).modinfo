@@ -26,6 +26,27 @@
   <References />
   <Blocks />
   <Files>
+    <File md5="A11A229F620E83BE11610B2F242E6B26" import="0">Shared/SQL/90_OriginalPresentation.sql</File>
+    <File md5="E2EB80B2DD9CF166A3B975B17DA669E8" import="1">RoulsAscendancy/Art/RoulsUniqueObjects256.dds</File>
+    <File md5="CBB4A7F4FBED956A2854ABD0BA738E66" import="1">RoulsAscendancy/Art/RoulsUniqueObjects128.dds</File>
+    <File md5="E8D61217E1D41751DE5E3076940256D9" import="1">RoulsAscendancy/Art/RoulsUniqueObjects80.dds</File>
+    <File md5="9207B18CBCD83B7FE803DB3DB56EFFD7" import="1">RoulsAscendancy/Art/RoulsUniqueObjects64.dds</File>
+    <File md5="754ED4C12491DB6B6BFED1087DFDCF05" import="1">RoulsAscendancy/Art/RoulsUniqueObjects48.dds</File>
+    <File md5="06F02BCC8C2898A1EF3F0D6BE6920859" import="1">RoulsAscendancy/Art/RoulsUniqueObjects45.dds</File>
+    <File md5="EE52DFCD0CEBF7C8154E0A1EF9C1BEF1" import="1">RoulsAscendancy/Art/RoulsUniqueObjects32.dds</File>
+    <File md5="C3D78EBD2166A7AEFC702A1CD3C83C3B" import="1">RoulsAscendancy/Art/RoulsUniqueObjects24.dds</File>
+    <File md5="977EDFB03A0E44C1C02F2C828C70AE1C" import="1">RoulsAscendancy/Art/RoulsUniqueObjects16.dds</File>
+    <File md5="E58264B6918155F0E20C81B1717ABEDA" import="1">RoulsAscendancy/Art/RoulsMap.dds</File>
+    <File md5="8887A40289D2FF7C9D18C25529DAA500" import="1">LunaNetwork/Art/LunaUniqueObjects256.dds</File>
+    <File md5="1B3D7AE8A63B6F92557EA5752DE169C0" import="1">LunaNetwork/Art/LunaUniqueObjects128.dds</File>
+    <File md5="9DE4DE1F091740B0DFA25C882493CFCB" import="1">LunaNetwork/Art/LunaUniqueObjects80.dds</File>
+    <File md5="93DE18FD77B8C591C1D60FE78853ED4D" import="1">LunaNetwork/Art/LunaUniqueObjects64.dds</File>
+    <File md5="57C8739C76A8824FA1710CF64266B72F" import="1">LunaNetwork/Art/LunaUniqueObjects48.dds</File>
+    <File md5="6CD13C1097A3736E800375F8D956815A" import="1">LunaNetwork/Art/LunaUniqueObjects45.dds</File>
+    <File md5="95F1123FE629ED10CD6A150172E9E42F" import="1">LunaNetwork/Art/LunaUniqueObjects32.dds</File>
+    <File md5="F01AEEFDB9E065684D71CEC3186D5121" import="1">LunaNetwork/Art/LunaUniqueObjects24.dds</File>
+    <File md5="22348AA2D02CED6AD2F4E3273233ACD7" import="1">LunaNetwork/Art/LunaUniqueObjects16.dds</File>
+    <File md5="CF182BE9F4F827FFC0372CCAD0AFF11A" import="1">LunaNetwork/Art/LunaMap.dds</File>
     <File md5="6784F5D4D24F20FA530A33FE8766660B" import="1">PaulsoaresJr/Art/PSJAlpha128.dds</File>
     <File md5="70FF7C168471408CE7B538B125F476DA" import="1">PaulsoaresJr/Art/PSJAlpha16.dds</File>
     <File md5="E3F4815D63A046D312625F48DCF4C11F" import="1">PaulsoaresJr/Art/PSJAlpha24.dds</File>
@@ -908,6 +929,7 @@
       <UpdateDatabase>TheBoyWhoTouchedParadise/SQL/02_Paradise_Effects.sql</UpdateDatabase>
       <UpdateDatabase>TheBoyWhoTouchedParadise/SQL/10_Paradise_Text.sql</UpdateDatabase>
       <UpdateDatabase>TheBoyWhoTouchedParadise/SQL/90_PlayerGuide.sql</UpdateDatabase>
+      <UpdateDatabase>Shared/SQL/90_OriginalPresentation.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
