@@ -65,7 +65,8 @@
   </GridButton>
  </Grid>
  <Grid ID="JourneyCinematic" Anchor="C,C" Size="1024,768" ConsumeMouse="1" Hidden="1">
-  <Image ID="CinematicArt" Anchor="C,C" Size="1024,768" Texture="ParadiseFinalPeak.dds" />
+  <Box Anchor="C,C" Size="Full,Full" Color="Black.255" />
+  <Image ID="CinematicArt" Anchor="C,C" Size="1600,900" Texture="ParadiseFinalPeak.dds" />
   <Box ID="CinematicShade" Anchor="C,B" Size="1024,380" Color="7,20,38,235" />
   <Label ID="CinematicTitle" Anchor="C,T" Offset="0,32" Size="920,0" WrapWidth="920" Font="TwCenMT24" ColorSet="Beige_Black_Alpha" />
   <Box ID="CinematicAccent" Anchor="C,B" Offset="0,366" Size="920,3" Color="247,209,80,255" />

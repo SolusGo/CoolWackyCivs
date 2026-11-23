@@ -10,6 +10,20 @@ def dds(im,path):
     if im.width%4==0 and im.height%4==0:im.save(path,pixel_format='DXT5')
     else:im.save(path)
 
+def build_map(icon, destination):
+    canvas = Image.new('RGBA', (360, 412))
+    # The source sheet's neighboring medallion leaves a fragment below the crown.
+    mask = icon.getchannel('A').point(lambda value: 255 if value > 32 else 0)
+    top = bottom = icon.height // 2
+    while top > 0 and mask.crop((0, top - 1, icon.width, top)).getbbox():
+        top -= 1
+    while bottom < icon.height and mask.crop((0, bottom, icon.width, bottom + 1)).getbbox():
+        bottom += 1
+    icon = icon.crop((0, top, icon.width, bottom))
+    cell = ImageOps.contain(icon, (352, 352), Image.Resampling.LANCZOS)
+    canvas.alpha_composite(cell, ((360 - cell.width) // 2, (410 - cell.height) // 2))
+    dds(canvas, destination)
+
 def main():
     source=R/'art-source/TheKingdoms';out=R/'TheKingdoms/Art';out.mkdir(parents=True,exist_ok=True)
     sheet=Image.open(source/'IconSheet.png').convert('RGBA');w,h=sheet.size
@@ -38,8 +52,7 @@ def main():
     dds(Image.open(out/'KingdomsAlpha32.dds'),out/'KingdomsUnitFlag32.dds')
     dawn=ImageOps.fit(Image.open(source/'Dawn.png').convert('RGBA'),(1600,900),Image.Resampling.LANCZOS)
     dds(dawn,out/'KingdomsDawn.dds');dds(dawn,out/'KingdomsLeader.dds')
-    mapimage=Image.new('RGBA',(360,360));cell=ImageOps.contain(icons[0],(352,352),Image.Resampling.LANCZOS)
-    mapimage.alpha_composite(cell,((360-cell.width)//2,(360-cell.height)//2));dds(mapimage,out/'KingdomsMap.dds')
+    build_map(icons[0], out/'KingdomsMap.dds')
     (out/'KingdomsLeaderScene.xml').write_text('<?xml version="1.0" encoding="utf-8"?>\n<LeaderScene FallbackImage="KingdomsLeader.dds" />\n',encoding='utf-8')
     print('Packed 22 DDS textures and static leader scene')
 

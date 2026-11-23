@@ -56,6 +56,8 @@ def directxtex_checks(paths: list[Path]) -> None:
 
 
 def check_packaging():
+    from validate_art_dimensions import audit
+    audit()
     tree, props, values, files = read_project()
     names = {name for name, _ in files}
     assert len(names) == len(files), "Duplicate project content"

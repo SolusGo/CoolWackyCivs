@@ -458,7 +458,7 @@
     <File md5="C46F57975DFEC351E2FDCB53591E2B2E" import="1">TheKingdoms/Art/KingdomsDawn.dds</File>
     <File md5="C46F57975DFEC351E2FDCB53591E2B2E" import="1">TheKingdoms/Art/KingdomsLeader.dds</File>
     <File md5="9F3C146B57C3037D348CEC49F2B4587C" import="1">TheKingdoms/Art/KingdomsLeaderScene.xml</File>
-    <File md5="78AB222A5817E5D9AB89539E1542F858" import="1">TheKingdoms/Art/KingdomsMap.dds</File>
+    <File md5="C98E1AA1F29BF5E14962E3541D5F33F1" import="1">TheKingdoms/Art/KingdomsMap.dds</File>
     <File md5="8B4306F593799CA79CE6F806124F128B" import="1">TheKingdoms/Art/KingdomsObjects128.dds</File>
     <File md5="90049BE51EEFD52D8C8E79581F316EF6" import="1">TheKingdoms/Art/KingdomsObjects16.dds</File>
     <File md5="F47769CC02ECF66BB27CFA67C4F981A4" import="1">TheKingdoms/Art/KingdomsObjects24.dds</File>
@@ -713,8 +713,8 @@
     <File md5="88EA5B59D13FB6DF206BE0CA9E261B91" import="0">TheBoyWhoTouchedParadise/SQL/01_Paradise_Inheritance.sql</File>
     <File md5="3C7CF1322D121DA04246BDE620611F8A" import="0">TheBoyWhoTouchedParadise/SQL/02_Paradise_Effects.sql</File>
     <File md5="5481591416A5F75BA88AF3CE3648F8D6" import="0">TheBoyWhoTouchedParadise/SQL/10_Paradise_Text.sql</File>
-    <File md5="E7885914E434FEB887DEF7931A278A8C" import="1">TheBoyWhoTouchedParadise/UI/ParadiseJourney.lua</File>
-    <File md5="B0ED71BA97AB92CD5A45C2C9710415D6" import="0">TheBoyWhoTouchedParadise/UI/ParadiseJourney.xml</File>
+    <File md5="C1AD7F2C0EC987B9CCED4F5515134548" import="1">TheBoyWhoTouchedParadise/UI/ParadiseJourney.lua</File>
+    <File md5="477AEC5D30A8E38D46563F3D01617E7B" import="0">TheBoyWhoTouchedParadise/UI/ParadiseJourney.xml</File>
     <File md5="52882A0573E473CCB645A48694B67251" import="1">CristianoRonaldo/Art/CWC_CristianoRonaldo_Buttons.dds</File>
     <File md5="C6140F9EF35C6AE772C35C8EC8ABC3D1" import="1">CristianoRonaldo/Art/CWC_CristianoRonaldo_Launcher.dds</File>
     <File md5="54E942993BEBE0DC0582608658AD2411" import="1">CristianoRonaldo/Art/CWC_CristianoRonaldo_Panel.dds</File>
