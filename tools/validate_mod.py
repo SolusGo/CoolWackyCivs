@@ -174,7 +174,9 @@ def check_ui_and_lua():
     project_files = [ROOT / name for name, _ in read_project()[3]]
     lua_files = [path for path in project_files if path.suffix.lower() == ".lua"]
     for path in lua_files:
-        passed, message = compile_lua(path.read_text(encoding="utf-8-sig"), str(path))
+        source = path.read_text(encoding="utf-8-sig")
+        assert not re.search(r"\b(?:rawget|rawset)\s*\(", source), f"Unavailable in Civ V's Lua sandbox: {path}"
+        passed, message = compile_lua(source, str(path))
         assert passed, message
     runtime_hooks = {
         "RoulsAscendancy/Lua/RoulsCore.lua": (

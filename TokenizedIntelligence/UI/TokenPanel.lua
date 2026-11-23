@@ -4,6 +4,12 @@ include('IconSupport')
 include('InstanceManager')
 include('TokenRuntime')
 local T=MapModData.TokenizedIntelligence
+if not T then
+    Controls.Launcher:SetHide(true)
+    Controls.Panel:SetHide(true)
+    print('[Tokenized Intelligence] TokenRuntime could not initialize')
+    return
+end
 local categories=InstanceManager:new('TokenCategory','CategoryButton',Controls.CategoryStack)
 local prompts=InstanceManager:new('TokenPrompt','PromptButton',Controls.PromptStack)
 local targets=InstanceManager:new('TokenTarget','TargetButton',Controls.TargetStack)

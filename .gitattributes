@@ -18,3 +18,10 @@ tools/tests/ronaldo*.lua text eol=lf
 
 # Keep generated Civilopedia overlay hashes stable on every checkout.
 */SQL/90_PlayerGuide.sql text eol=lf
+
+# Keep the audited runtime and panel hashes stable on Windows.
+MasayaBeyondSky/Lua/MasayaRuntime.lua text eol=lf
+PaulsoaresJr/Lua/PSJRuntime.lua text eol=lf
+SolIntellect/Lua/SolRuntime.lua text eol=lf
+TokenizedIntelligence/Lua/TokenRuntime.lua text eol=lf
+TokenizedIntelligence/UI/TokenPanel.lua text eol=lf

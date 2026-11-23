@@ -1,8 +1,8 @@
 -- Tokenized Intelligence. No UI polling; persistent state is authoritative.
 -- _G is local to this InGameUIAddin. MapModData can outlive the game/context,
 -- so a shared Loaded flag must never suppress registration after a reload.
-if rawget(_G,'__TOKEN_RUNTIME_CONTEXT_LOADED') then return end
-rawset(_G,'__TOKEN_RUNTIME_CONTEXT_LOADED',true)
+if __TOKEN_RUNTIME_CONTEXT_LOADED then return end
+__TOKEN_RUNTIME_CONTEXT_LOADED = true
 MapModData.TokenizedIntelligence = {}
 local T = MapModData.TokenizedIntelligence
 T.TOKEN_DEBUG = false

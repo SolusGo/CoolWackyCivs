@@ -1,6 +1,6 @@
 -- The First Night, BNW + Community Patch v151. No timers or UI polling.
-if rawget(_G, "__PSJ_RUNTIME_LOADED") then return end
-rawset(_G, "__PSJ_RUNTIME_LOADED", true)
+if __PSJ_RUNTIME_LOADED then return end
+__PSJ_RUNTIME_LOADED = true
 local save = Modding.OpenSaveData()
 local I = GameInfoTypes
 local CIV, SURVIVOR, HOUSE = I.CIVILIZATION_PSJ_FIRST_NIGHT, I.UNIT_PSJ_SURVIVOR, I.BUILDING_PSJ_STARTER_HOUSE

@@ -56,7 +56,7 @@
     <File md5="C05F8DF6B8A09D11DA61ADC255F820F5" import="1">PaulsoaresJr/Art/PSJObjects64.dds</File>
     <File md5="A6A06B694E34C398C567394BF698EF0F" import="1">PaulsoaresJr/Art/PSJObjects80.dds</File>
     <File md5="229D3300D84F8F8B06AD95B5CBC957B5" import="1">PaulsoaresJr/Art/PSJUnitFlag32.dds</File>
-    <File md5="EAF0D1DCFDE948DBBED2246866E5DF76" import="1">PaulsoaresJr/Lua/PSJRuntime.lua</File>
+    <File md5="C215DF83FC0585F1315FDB2706A3A352" import="1">PaulsoaresJr/Lua/PSJRuntime.lua</File>
     <File md5="D678CAC485751773CE2C1A01AD7353A9" import="0">PaulsoaresJr/SQL/00_PSJ_Core.sql</File>
     <File md5="530857B26A429DE8EDFD6D71D3068A17" import="0">PaulsoaresJr/SQL/01_PSJ_Inheritance.sql</File>
     <File md5="C5775FA7A0ECF77C26710D93E68F3DAC" import="0">PaulsoaresJr/SQL/02_PSJ_UniqueEffects.sql</File>
@@ -361,7 +361,7 @@
     <File md5="FC72E42AC23CD8D02E954DDD9FDC1B2C" import="1">MasayaBeyondSky/Art/MasayaObjects64.dds</File>
     <File md5="0CC025AF42CB77D1E3AF053A0EE5AF7C" import="1">MasayaBeyondSky/Art/MasayaObjects80.dds</File>
     <File md5="44F99879C7AFD35BB2561D5DEE487A62" import="1">MasayaBeyondSky/Art/MasayaUnitFlag32.dds</File>
-    <File md5="C83766928DF193D9F05B07017080D6FA" import="1">MasayaBeyondSky/Lua/MasayaRuntime.lua</File>
+    <File md5="1DD07AA29411A3073D677B19D3F1FD0F" import="1">MasayaBeyondSky/Lua/MasayaRuntime.lua</File>
     <File md5="BBFAC9F7F7AC3EBE97408F69355D6BA3" import="0">MasayaBeyondSky/SQL/00_Masaya_Core.sql</File>
     <File md5="03CACA9920B78CE367450F1EF0CB954B" import="0">MasayaBeyondSky/SQL/01_Masaya_Inheritance.sql</File>
     <File md5="24AA6D096C26A5C29B4B40DB64E337D3" import="0">MasayaBeyondSky/SQL/02_Masaya_UniqueEffects.sql</File>
@@ -400,12 +400,12 @@
     <File md5="E5228BC0044C731017B1AF85C00E16BE" import="1">TokenizedIntelligence/Art/TokenObjects64.dds</File>
     <File md5="738885E6719E6B933EBD07C922B224F6" import="1">TokenizedIntelligence/Art/TokenObjects80.dds</File>
     <File md5="8EC804D77262D0D67F3B2CE9100FC5C8" import="1">TokenizedIntelligence/Art/TokenUnitFlag32.dds</File>
-    <File md5="9A689CF56037DA7085193C44E42F2314" import="1">TokenizedIntelligence/Lua/TokenRuntime.lua</File>
+    <File md5="13D50AC41CA578ECF62DA059C9131C2B" import="1">TokenizedIntelligence/Lua/TokenRuntime.lua</File>
     <File md5="E5D6BFB29603BB04D4A2BF45683501C3" import="0">TokenizedIntelligence/SQL/00_Token_Core.sql</File>
     <File md5="0A28D56D77F89375B8B319BA656F5DA8" import="0">TokenizedIntelligence/SQL/01_Token_Inheritance.sql</File>
     <File md5="D7E3A10ABED77003569B82035934C639" import="0">TokenizedIntelligence/SQL/02_Token_Effects.sql</File>
     <File md5="936CD1B1537BC8039C31D663C5CE9EBF" import="0">TokenizedIntelligence/SQL/10_Token_Text.sql</File>
-    <File md5="674A010FEC7D54B4B3273E4C5E6B89C3" import="1">TokenizedIntelligence/UI/TokenPanel.lua</File>
+    <File md5="28F75A12AFD9D9E6AC2084BEA7E8E1BD" import="1">TokenizedIntelligence/UI/TokenPanel.lua</File>
     <File md5="77460CAC7CB40AC762F3546961B6D18B" import="0">TokenizedIntelligence/UI/TokenPanel.xml</File>
     <File md5="B18AE897AF1608F57D34357319525D89" import="1">ViltrumEmpire/Art/ViltrumAlpha128.dds</File>
     <File md5="4000B57E5E400A227D6C01215F7B89CD" import="1">ViltrumEmpire/Art/ViltrumAlpha16.dds</File>
@@ -518,7 +518,7 @@
     <File md5="E2E669FB60B1B4A46019EE51DDBB15EE" import="1">SolIntellect/Art/SolLeader64.dds</File>
     <File md5="8DAE514D3BD752D5D0D617CD90B00F7A" import="1">SolIntellect/Art/SolLeaderScene.xml</File>
     <File md5="33036F6411A9149B08E50A44C8ABC9B6" import="1">SolIntellect/Art/SolMap.dds</File>
-    <File md5="0C4C0C89F9B2FD567FF9F41BAF156848" import="1">SolIntellect/Lua/SolRuntime.lua</File>
+    <File md5="1116C3E83F7051912025FCC7A57A68BF" import="1">SolIntellect/Lua/SolRuntime.lua</File>
     <File md5="540C49091EFECAEFB55587CD4A733C6F" import="0">SolIntellect/SQL/00_Sol_Core.sql</File>
     <File md5="71F129EDB20B30849C45ACC790A040F1" import="0">SolIntellect/SQL/01_Sol_Inheritance.sql</File>
     <File md5="F21160BC422638F7999E10C59E596A41" import="0">SolIntellect/SQL/02_Sol_Effects.sql</File>

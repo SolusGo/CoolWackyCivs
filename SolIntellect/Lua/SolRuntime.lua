@@ -4,8 +4,8 @@
 -- Dirty events observe order changes but never increment construction turns.
 -- MapModData may survive an engine reload; only this add-in's _G can guard
 -- duplicate registration. A fresh context must reopen authoritative save data.
-if rawget(_G, "__SOL_RUNTIME_CONTEXT_LOADED") then return end
-rawset(_G, "__SOL_RUNTIME_CONTEXT_LOADED", true)
+if __SOL_RUNTIME_CONTEXT_LOADED then return end
+__SOL_RUNTIME_CONTEXT_LOADED = true
 MapModData.SolIntellect = {}
 local S = MapModData.SolIntellect
 S.RuntimeLoaded = true

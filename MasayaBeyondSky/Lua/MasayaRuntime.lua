@@ -4,8 +4,8 @@
 
 -- _G is private to a Lua context.  A shared MapModData guard can become stale
 -- when Civ V recreates the gameplay context, so it must not own registration.
-if rawget(_G, "__MASAYA_KID_RUNTIME_CONTEXT_LOADED") then return end
-rawset(_G, "__MASAYA_KID_RUNTIME_CONTEXT_LOADED", true)
+if __MASAYA_KID_RUNTIME_CONTEXT_LOADED then return end
+__MASAYA_KID_RUNTIME_CONTEXT_LOADED = true
 
 MapModData = MapModData or {}
 -- MapModData can outlive the game that populated it. This namespace contains
