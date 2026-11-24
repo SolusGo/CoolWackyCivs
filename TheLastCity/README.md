@@ -1,5 +1,9 @@
 # The Last City — Humanity's Final Refuge
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![The Warden in the diplomacy scene](../docs/artwork/leaders/TheLastCity.jpg)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheLastCity.md).
 
 **Leader:** The Warden · **Capital:** Last Light · **UA:** The Final Sanctuary

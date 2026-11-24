@@ -1,5 +1,9 @@
 # The Sol Intellect
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![GPT-5.6 Sol in the diplomacy scene](../docs/artwork/leaders/SolIntellect.jpg)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/SolIntellect.md).
 
 **Leader:** GPT-5.6 Sol · **Adjective:** Solar · **Capital:** Sol Prime

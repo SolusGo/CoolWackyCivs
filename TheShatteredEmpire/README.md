@@ -1,5 +1,9 @@
 # The Shattered Empire
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![The Last Emperor in the diplomacy scene](../docs/artwork/leaders/TheShatteredEmpire.jpg)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheShatteredEmpire.md).
 
 **Leader:** The Last Emperor · **Capital:** Aeternum · **UA:** The Weight of an Empire

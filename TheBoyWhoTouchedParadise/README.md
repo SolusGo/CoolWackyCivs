@@ -1,5 +1,9 @@
 # Argentina — The Boy Who Touched Paradise
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![Lionel Messi in the diplomacy scene](../docs/artwork/leaders/TheBoyWhoTouchedParadise.jpg)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheBoyWhoTouchedParadise.md).
 
 Lionel Messi leads a separate, human-only civilization for Civilization V: Brave New World and Community Patch v151 (audited against installed 5.4.6). Its story has three acts: brilliance, heartbreak and redemption. Messi is extraordinary from the beginning; The Final Peak completes a dream without creating his talent.

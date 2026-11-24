@@ -1,5 +1,7 @@
 # PaulsoaresJr — The First Night
 
+[Civilization gallery](../docs/Civilizations.md)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/PaulsoaresJr.md).
 
 **CIVILIZATION FIELD GUIDE** · [Cool Wacky Civs](../README.md) · Brave New World + Community Patch

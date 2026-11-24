@@ -1,10 +1,14 @@
 # Cool Wacky Civs
 
+![A walled city and a hilltop observatory at sunrise](docs/artwork/cover.jpg)
+
 18 human-only civilizations for Civilization V: Brave New World and Windows **Community Patch v151**. One collection package, with separate pure-file options for The Kingdoms, The Shattered Empire, The Last City and The Relentless Seven.
 
 **Current source:** mod version 28 - **Civilopedia and strategy handbook**. [Patch notes](PATCHNOTES.md)
 
-**Start here:** [Choose a playstyle](docs/StrategyGuide.md) · [Who pressures whom](docs/Matchups.md) · [Installation and builds](#build-and-validation)
+**Start here** · [Civilization gallery](docs/Civilizations.md) · [Choose a playstyle](docs/StrategyGuide.md) · [Matchups](docs/Matchups.md) · [Installation](#installation) · [Build and validation](#build-and-validation)
+
+**More packs** · [Cool Wacky Civs 2](https://github.com/SolusGo/CoolWackyCivs2) · [Cool Wacky Civs 3](https://github.com/SolusGo/CoolWackyCivs3)
 
 Every guide includes opening priorities, development, late-game conversion, pros, cons, mistakes, counterplay and four named matchup examples. The in-game civilization and leader Civilopedia pages show practical guidance before their preserved lore.
 
@@ -211,6 +215,12 @@ Expand a civilization for its UU and UB effects, plus additional units and impro
 - Community Patch version 151, release 5.4.2, or newer.
 - A new game after enabling or changing the mod.
 
+## Installation
+
+1. Build the collection using the [commands below](#build-and-validation).
+2. Extract the ZIP into `Documents/My Games/Sid Meier's Civilization 5/MODS`. The `Cool Wacky Civs (v 28).modinfo` file should sit directly inside the extracted mod folder.
+3. From Civ V's **Mods** menu, enable **Community Patch** and **Cool Wacky Civs**, then start a new modded single-player game.
+
 ## Build and validation
 
 Install the repository-local development dependencies:
@@ -230,4 +240,4 @@ Outputs are written under `dist/` as one unpacked directory, one ZIP archive, an
 
 Open [CoolWackyCivs.civ5sln](CoolWackyCivs.civ5sln) in ModBuddy. It is the only solution and builds [CoolWackyCivs.civ5proj](CoolWackyCivs.civ5proj).
 
-The standalone Kingdoms package needs no ModBuddy project: `python tools/build_kingdoms_mod.py` builds its checked-in `.modinfo` and pure mod files into ZIP/`.civ5mod` outputs under `dist/`. The Shattered Empire has the same workflow through `python tools/build_shattered_mod.py`. Enable either a standalone package or the v20 collection containing that civilization.
+Build a standalone ZIP and `.civ5mod` with `python tools/build_kingdoms_mod.py`, `python tools/build_shattered_mod.py`, `python tools/build_lastcity_mod.py`, or `python tools/build_ronaldo_mod.py`. Enable only one copy of each civilization by choosing the standalone package or the collection.

@@ -1,5 +1,9 @@
 # Cristiano Ronaldo — The Relentless Seven
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![Cristiano Ronaldo in the diplomacy scene](../docs/artwork/leaders/CristianoRonaldo.jpg)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/CristianoRonaldo.md).
 
 **Leader:** Cristiano Ronaldo, The Boy from Madeira Who Refused to Be Ordinary. **Capital:** Funchal. **Adjective:** Relentless. Deep Portuguese red and gold, with green and white. Intended victories: Domination and Culture; Diplomacy is secondary. Freedom fits the civilization's intended identity. **Player playable only:** `Playable=1`, `AIPlayable=0`; random AI selection excludes Ronaldo. The gameplay itself is automatic and does not require UI actions.

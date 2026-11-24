@@ -1,5 +1,7 @@
 # The Viltrum Empire
 
+[Civilization gallery](../docs/Civilizations.md)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/ViltrumEmpire.md).
 
 **CIVILIZATION FIELD GUIDE** · [Cool Wacky Civs](../README.md) · Brave New World + Community Patch

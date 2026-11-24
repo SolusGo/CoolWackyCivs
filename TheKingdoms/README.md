@@ -1,5 +1,9 @@
 # The Kingdoms
 
+[Civilization gallery](../docs/Civilizations.md)
+
+![A fortified mountain city beneath the crest of The Kingdoms](../docs/artwork/leaders/TheKingdoms.jpg)
+
 **Player guide:** [Opening, playstyle, pros/cons and matchups](../docs/strategy/TheKingdoms.md).
 
 A Civilization V: Brave New World civilization for Community Patch v151 or newer. Every city is a Kingdom. Noble Houses govern its wealth, press demands, compete for the Throne and carry their history into later eras.
