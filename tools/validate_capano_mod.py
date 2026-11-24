@@ -108,6 +108,8 @@ def database_checks(path: Path, cp_root: Path) -> None:
     localized = {row[0] for row in database.execute("SELECT Tag FROM Language_en_US")}
     unresolved = set()
     for sql_path in (ROOT / "SQL").glob("*.sql"):
+        if sql_path.name == '90_PlayerGuide.sql':  # Validated by validate_strategy_guides.
+            continue
         for tag in re.findall(r"'((?:TXT_KEY_)[^']*CAPANO[^']*)'", sql_path.read_text(encoding="utf-8-sig")):
             if tag.endswith("%"):
                 if not any(candidate.startswith(tag[:-1]) for candidate in localized):

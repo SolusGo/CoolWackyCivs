@@ -8,6 +8,12 @@ local queued=false
 local cityView=false
 local leaderView=false
 local popups={}
+local function releasePopup()
+ if not queued then return end
+ queued=false
+ UIManager:DequeuePopup(ContextPtr)
+ ContextPtr:SetHide(false)
+end
 local function worldView()
  if uiRecovery then return uiRecovery:Available(),uiRecovery:Reason() end;
  if cityView or leaderView or (UI and UI.IsCityScreenUp and UI.IsCityScreenUp()) then return false end
@@ -22,15 +28,11 @@ local function refresh()
  visible=visible and (not uiRecovery or uiRecovery:Available())
  Controls.Launcher:SetHide(not visible or not world or queued)
  if not visible then
-  if queued then queued=false;UIManager:DequeuePopup(ContextPtr);ContextPtr:SetHide(false) end
+  releasePopup()
   opened=false;Controls.Panel:SetHide(true);return
  end
  local pending=V.Get(pid,'pending')
- if pending~=0 and world and not queued then
-  queued=true;UIManager:QueuePopup(ContextPtr,PopupPriority.InGameUtmost)
- elseif (pending==0 or not world) and queued then
-  queued=false;UIManager:DequeuePopup(ContextPtr);ContextPtr:SetHide(false)
- end
+ if pending==0 or not world then releasePopup() end
  -- Decisions reopen from persisted pending state after a load. Never use UI
  -- closures as gameplay state. The runtime validates event and choice again.
  Controls.Panel:SetHide(not world or (pending==0 and not opened))
@@ -70,10 +72,14 @@ local function refresh()
  Controls.ChoiceA:SetText(a);Controls.ChoiceB:SetText(b)
  Controls.ChoiceA:SetToolTipString(ah);Controls.ChoiceB:SetToolTipString(bh)
  Controls.ChoiceA:SetDisabled(pending==3 and p:GetGold()<V.GoldCost(p))
+ if pending~=0 and world and not queued then
+  queued=true
+  UIManager:QueuePopup(ContextPtr,PopupPriority.InGameUtmost)
+ end
  end
  local ok,err=pcall(draw)
  if not ok then
-
+  releasePopup()
   Controls.Panel:SetHide(true)
   if uiRenderError~=tostring(err) then print("[Civilization UI] ViltrumEmpire render recovered: "..tostring(err)) end
   uiRenderError=tostring(err)

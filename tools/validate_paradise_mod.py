@@ -58,6 +58,8 @@ def database_checks():
         assert not db.execute(f"SELECT Type FROM {table} WHERE Type LIKE '%PARADISE%' GROUP BY Type HAVING COUNT(*)<>1").fetchall()
     texts={r[0] for r in db.execute('SELECT Tag FROM Language_en_US')}
     for path in (C/'SQL').glob('*.sql'):
+        if path.name == '90_PlayerGuide.sql':  # Validated by validate_strategy_guides.
+            continue
         assert set(re.findall(r"'(TXT_KEY_[^']+)'",path.read_text(encoding='utf-8')))<=texts,path
     from PIL import Image
     art={p.name:p for p in (C/'Art').glob('*.dds')}

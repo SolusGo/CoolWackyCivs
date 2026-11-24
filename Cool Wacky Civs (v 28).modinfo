@@ -465,7 +465,7 @@
     <File md5="9810DD54F106E028ACCC8F6F5F893801" import="0">ViltrumEmpire/SQL/01_Viltrum_Inheritance.sql</File>
     <File md5="E1543DD22D865072549BB8CA4C22DF23" import="0">ViltrumEmpire/SQL/02_Viltrum_Effects.sql</File>
     <File md5="D03709B1D92197C3D32C159F5ABD3A6D" import="0">ViltrumEmpire/SQL/10_Viltrum_Text.sql</File>
-    <File md5="24FCF8EFA772A88C39EA41BF9B157C72" import="1">ViltrumEmpire/UI/ViltrumPanel.lua</File>
+    <File md5="94E0F596F0AC840046A626C029C8347E" import="1">ViltrumEmpire/UI/ViltrumPanel.lua</File>
     <File md5="F9F19B47D9A6495DA9BF7E041521FFA1" import="0">ViltrumEmpire/UI/ViltrumPanel.xml</File>
     <File md5="796BB73751BCD562BC3C6DE453B431E2" import="1">TheKingdoms/Art/KingdomsAlpha128.dds</File>
     <File md5="29A8F072627A1FD0EAA30AD71DD539CB" import="1">TheKingdoms/Art/KingdomsAlpha16.dds</File>

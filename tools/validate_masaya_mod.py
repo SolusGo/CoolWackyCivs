@@ -203,6 +203,7 @@ def package_and_art_checks() -> None:
         "MasayaBeyondSky/SQL/01_Masaya_Inheritance.sql",
         "MasayaBeyondSky/SQL/02_Masaya_UniqueEffects.sql",
         "MasayaBeyondSky/SQL/10_Masaya_Text.sql",
+        "MasayaBeyondSky/SQL/90_PlayerGuide.sql",
     ]
     entries = [node.text.replace("\\", "/") for node in
                props.findall("m:ModContent/m:Content/m:FileName", NS)]

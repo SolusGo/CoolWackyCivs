@@ -59,6 +59,8 @@ def database_checks(path,cp):
     for row in db.execute("SELECT Tag,Text FROM Language_en_US WHERE Tag LIKE '%TERRA%'"): assert row[1],f'Empty localization: {row[0]}'
     tags={r[0] for r in db.execute('SELECT Tag FROM Language_en_US')}
     for sql in (ROOT/'SQL').glob('*.sql'):
+        if sql.name == '90_PlayerGuide.sql':  # Validated by validate_strategy_guides.
+            continue
         for tag in re.findall(r"'((?:TXT_KEY_)[^']*TERRA[^']*)'",sql.read_text()): assert tag in tags,tag
     print('PASS SQL: BNW + installed CP schema, scalar inheritance, resources/upgrades, mode map, exact bonuses, localization')
 

@@ -66,6 +66,8 @@ def static(db):
         assert row['CombatPercent']==n*2 and row['LostWithUpgrade']==0
     texts={r[0] for r in db.execute('select Tag from Language_en_US')}
     for path in (R/'CristianoRonaldo/SQL').glob('*.sql'):
+        if path.name == '90_PlayerGuide.sql':  # Validated by validate_strategy_guides.
+            continue
         refs=set(re.findall(r"'(TXT_KEY_[^']+)'",path.read_text(encoding='utf-8')))
         assert refs<=texts,f'missing text: {refs-texts}'
     art={p.name:p for p in (R/'CristianoRonaldo/Art').glob('*.dds')}

@@ -242,6 +242,20 @@ Events.SerialEventGameMessagePopupProcessed.Fire(12,0);assert(not Controls.Panel
 Controls.ChoiceB.click();assert(not Controls.Launcher.hidden,'resolved decision did not restore launcher')
 state('pending',1);Events.ActivePlayerTurnStart.Fire();assert(Queues==3)
 P.alive=false;Events.ActivePlayerTurnStart.Fire();assert(Dequeues==3 and Controls.Panel.hidden,'elimination left modal popup queued')
+P.alive=true
+local setText=Controls.EventText.SetText
+Controls.EventText.SetText=function()error('injected decision render failure')end
+Events.ActivePlayerTurnStart.Fire()
+assert(Queues==3 and Dequeues==3 and Controls.Panel.hidden,'broken decision queued before rendering')
+assert(MapModData.ViltrumEmpire.Get(0,'pending')==1,'render failure discarded the decision')
+Controls.EventText.SetText=setText;Events.ActivePlayerTurnStart.Fire()
+assert(Queues==4 and not Controls.Panel.hidden,'decision did not retry')
+Controls.EventText.SetText=function()error('injected queued decision render failure')end
+Events.ActivePlayerTurnStart.Fire()
+assert(Dequeues==4 and Controls.Panel.hidden,'render failure left the invisible decision queued')
+Controls.EventText.SetText=setText;Events.ActivePlayerTurnStart.Fire()
+assert(Queues==5 and not Controls.Panel.hidden)
+Controls.ChoiceB.click();assert(Dequeues==5 and MapModData.ViltrumEmpire.Get(0,'pending')==0)
 for n,e in pairs(GameEvents)do local expected=(n=='DeclareWar' or n=='MakePeace')and 0 or 1;assert(#e.handlers==expected,'UI listener count '..n)end
 print('PASS Viltrum popup saved choice, affordability, runtime dispatch, queue/dequeue and duplicate-listener guard')
 """)

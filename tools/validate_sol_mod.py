@@ -72,6 +72,8 @@ def database_checks(database, cp):
         assert one("SELECT Value FROM CustomModOptions WHERE Name=?",(option,))==1
     tags={r[0] for r in db.execute("SELECT Tag FROM Language_en_US")}
     for sql in (ROOT/"SQL").glob("*.sql"):
+        if sql.name == '90_PlayerGuide.sql':  # Validated by validate_strategy_guides.
+            continue
         for tag in re.findall(r"'(TXT_KEY_[^']*(?:SOL)[^']*)'",sql.read_text()): assert tag in tags,tag
     assert one("SELECT COUNT(*) FROM Civilization_CityNames WHERE CivilizationType='CIVILIZATION_GPT_SOL'")==31
     assert one("SELECT COUNT(*) FROM Civilization_SpyNames WHERE CivilizationType='CIVILIZATION_GPT_SOL'")==10
